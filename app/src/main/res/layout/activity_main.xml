@@ -11,7 +11,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="13">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -24,7 +25,8 @@
                 android:id="@+id/profile_image"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/ic_logo" />
+                android:src="@drawable/ic_logo"
+                android:layout_gravity="center"/>
             <TextView
                 android:id="@+id/username"
                 android:layout_width="wrap_content"
@@ -32,14 +34,15 @@
                 android:layout_marginStart="25dp"
                 android:text="Username"
                 android:textColor="#fff"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_gravity="center"/>
 
 
         </androidx.appcompat.widget.Toolbar>
 
 
         <androidx.viewpager.widget.ViewPager
-            android:layout_weight="8"
+            android:layout_weight="11"
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
