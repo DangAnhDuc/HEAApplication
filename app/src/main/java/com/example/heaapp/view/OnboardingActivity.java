@@ -60,9 +60,9 @@ public class OnboardingActivity extends AppCompatActivity {
 
         btnAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.buttonanimation);
         final List<OnboardingItem> onboardingItemList = new ArrayList<>();
-        onboardingItemList.add(new OnboardingItem("Fresh Food", "Có đôi khi,người phù hợp nhất với bạn lại chính là người mà bạn không ngờ đến nhất.", R.drawable.img1));
-        onboardingItemList.add(new OnboardingItem("Fast delivery", "Có đôi khi,người phù hợp nhất với bạn lại chính là người mà bạn không ngờ đến nhất.", R.drawable.img2));
-        onboardingItemList.add(new OnboardingItem("Easy payment", "Có đôi khi,người phù hợp nhất với bạn lại chính là người mà bạn không ngờ đến nhất.", R.drawable.img3));
+        onboardingItemList.add(new OnboardingItem("Workout", "Take care your health with  most useful and effective workout plans", R.drawable.img1));
+        onboardingItemList.add(new OnboardingItem("Health summary", "Keep your eyes on health tracking by log and reminder your activities", R.drawable.img2));
+        onboardingItemList.add(new OnboardingItem("Easy payment", "Provide information about environment and food for your healthy life", R.drawable.img3));
 
         onboardingPagerAdapter = new OnboardingPagerAdapter(this, onboardingItemList);
         screenViewpager.setAdapter(onboardingPagerAdapter);
@@ -144,6 +144,5 @@ public class OnboardingActivity extends AppCompatActivity {
         tabIndicator.setVisibility(View.INVISIBLE);
         btnGetStarted.setAnimation(btnAnimation);
         tvSkip.setVisibility(View.INVISIBLE);
-
     }
 }
