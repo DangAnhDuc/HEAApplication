@@ -30,7 +30,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         Animation splashanimation= AnimationUtils.loadAnimation(this,R.anim.splashtransition);
         imgSplash.setAnimation(splashanimation);
         txtSplash.setAnimation(splashanimation);
-        final Intent intent=new Intent(this,MainActivity.class);
+        final Intent intent=new Intent(this,OnboardingActivity.class);
         Thread timer=new Thread(){
             public void run(){
                 try {
