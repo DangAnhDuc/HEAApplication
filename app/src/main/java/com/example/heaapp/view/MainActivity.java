@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.activity_main_drawer)
     DrawerLayout sideBarLayout;
-//    @BindView(R.id.toolbar)
-//    Toolbar toolbar;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     @BindView(R.id.view_pager)
     ViewPager viewPager;
     @BindView(R.id.tab_layout)
@@ -45,9 +45,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-//        setSupportActionBar(toolbar);
-//        getSupportActionBar().setTitle("");
-//        getSupportActionBar().setHomeButtonEnabled(true);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         initView();
     }
