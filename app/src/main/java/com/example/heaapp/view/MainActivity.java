@@ -64,6 +64,10 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         tabTitle.setText("Health sum");
 
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_workout_icon);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_doctor_icon);
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_news_icon);
+
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -135,14 +139,6 @@ public class MainActivity extends AppCompatActivity {
         public void addFragments(Fragment fragment, String title) {
             fragments.add(fragment);
             titles.add(title);
-
-        }
-
-
-        @Nullable
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return titles.get(position);
 
         }
     }
