@@ -62,7 +62,7 @@ public class OnboardingActivity extends AppCompatActivity {
         final List<OnboardingItem> onboardingItemList = new ArrayList<>();
         onboardingItemList.add(new OnboardingItem("Workout", "Take care your health with  most useful and effective workout plans", R.drawable.img1));
         onboardingItemList.add(new OnboardingItem("Health summary", "Keep your eyes on health tracking by log and reminder your activities", R.drawable.img2));
-        onboardingItemList.add(new OnboardingItem("Easy payment", "Provide information about environment and food for your healthy life", R.drawable.img3));
+        onboardingItemList.add(new OnboardingItem("Health information", "Provide information about environment and food for your healthy life", R.drawable.img3));
 
         onboardingPagerAdapter = new OnboardingPagerAdapter(this, onboardingItemList);
         screenViewpager.setAdapter(onboardingPagerAdapter);
@@ -126,16 +126,14 @@ public class OnboardingActivity extends AppCompatActivity {
 
     private boolean restorePrefsData() {
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("myPrefs", MODE_PRIVATE);
-        Boolean isOnboardingOpened = sharedPreferences.getBoolean("isOnboardingOpended", false);
-        return isOnboardingOpened;
-
+        return sharedPreferences.getBoolean("isOpened", false);
     }
 
     private void savePrefsData() {
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("myPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("isOnboardingOpened", true);
-        editor.clear();
+        editor.putBoolean("isOpened", true);
+        editor.apply();
     }
 
     private void loadLastPager() {

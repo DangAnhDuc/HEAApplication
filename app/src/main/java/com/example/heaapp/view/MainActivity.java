@@ -2,9 +2,7 @@ package com.example.heaapp.view;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
-import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -37,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     ViewPager viewPager;
     @BindView(R.id.tab_layout)
     TabLayout tabLayout;
+    @BindView(R.id.tab_title)
+    TextView tabTitle;
     private ActionBarDrawerToggle mDrawerToggle;
 
     @Override
@@ -53,17 +53,49 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        ViewPagerAdapter viewPagerAdapter=new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFragments(new WorkoutFragment(),"Workout");
-        viewPagerAdapter.addFragments(new DashBoardFragment(),"Dashboard");
-        viewPagerAdapter.addFragments(new HealthInforFragment(),"Health Infor");
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        viewPagerAdapter.addFragments(new WorkoutFragment(), "Workout");
+        viewPagerAdapter.addFragments(new DashBoardFragment(), "Dashboard");
+        viewPagerAdapter.addFragments(new HealthInforFragment(), "Health Infor");
 
 
         viewPager.setAdapter(viewPagerAdapter);
         viewPager.setCurrentItem(1);
         tabLayout.setupWithViewPager(viewPager);
+        tabTitle.setText("Health sum");
 
-        mDrawerToggle = new ActionBarDrawerToggle(this,sideBarLayout,R.string.toggle_open,R.string.toggle_close);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                int position = tab.getPosition();
+                switch (position) {
+                    case 0:
+                        tabTitle.setText("Workout");
+                        break;
+                    case 1:
+                        tabTitle.setText("Health sum");
+                        break;
+                    case 2:
+                        tabTitle.setText("Health Infor");
+                        break;
+                    default:
+                        tabTitle.setText("Health sum");
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        mDrawerToggle = new ActionBarDrawerToggle(this, sideBarLayout, R.string.toggle_open, R.string.toggle_close);
         sideBarLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
 
@@ -72,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(mDrawerToggle.onOptionsItemSelected(item)){
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -86,8 +118,8 @@ public class MainActivity extends AppCompatActivity {
 
         public ViewPagerAdapter(FragmentManager fm) {
             super(fm);
-            this.fragments=new ArrayList<>();
-            this.titles=new ArrayList<>();
+            this.fragments = new ArrayList<>();
+            this.titles = new ArrayList<>();
         }
 
         @Override
@@ -100,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
             return fragments.size();
         }
 
-        public void addFragments(Fragment fragment,String title){
+        public void addFragments(Fragment fragment, String title) {
             fragments.add(fragment);
             titles.add(title);
 
