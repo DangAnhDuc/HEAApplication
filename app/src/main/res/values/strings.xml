@@ -6,7 +6,8 @@
     <string name="side_bar_info_app">Thông tin ứng dụng</string>
     <string name="side_bar_logout">Đăng xuất</string>
 
-    <string name="side_bar_header_text">Title</string>
+    <string name ="side_bar_header_text">All for your health</string>
+
 
     <string name="toggle_open">Open</string>
     <string name="toggle_close">Close</string>
