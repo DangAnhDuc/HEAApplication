@@ -2,7 +2,8 @@
 <resources>
     <color name="colorPrimary">#2eb872</color>
     <color name="colorPrimaryDark">#0e9577</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#fff</color>
+    <color name="borderColor">#fff</color>
 
     <!-- Color for button -->
     <color name="gradient_start_color">#4c84ff</color>
