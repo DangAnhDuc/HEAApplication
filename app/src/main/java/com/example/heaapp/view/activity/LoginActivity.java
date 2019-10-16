@@ -1,4 +1,4 @@
-package com.example.heaapp.view;
+package com.example.heaapp.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import com.example.heaapp.R;
+import com.example.heaapp.ultis.ultis;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,8 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         linkSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(LoginActivity.this,SignUpActivity.class);
-                startActivity(intent);
+                ultis.setIntent(LoginActivity.this, SignUpActivity.class);
                 finish();
             }
         });

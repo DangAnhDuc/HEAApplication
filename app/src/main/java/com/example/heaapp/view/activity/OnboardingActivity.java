@@ -1,4 +1,4 @@
-package com.example.heaapp.view;
+package com.example.heaapp.view.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +17,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.heaapp.R;
 import com.example.heaapp.adapter.OnboardingPagerAdapter;
 import com.example.heaapp.model.OnboardingItem;
+import com.example.heaapp.ultis.ultis;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -51,8 +52,7 @@ public class OnboardingActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         if (restorePrefsData()) {
-            Intent intent = new Intent(OnboardingActivity.this, MainActivity.class);
-            startActivity(intent);
+            ultis.setIntent(OnboardingActivity.this, MainActivity.class);
             finish();
         }
         setContentView(R.layout.activity_onboarding);
@@ -104,9 +104,7 @@ public class OnboardingActivity extends AppCompatActivity {
         btnGetStarted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(OnboardingActivity.this, LoginActivity.class);
-                startActivity(intent);
-
+                ultis.setIntent(OnboardingActivity.this, LoginActivity.class);
                 savePrefsData();
                 finish();
             }
@@ -115,8 +113,7 @@ public class OnboardingActivity extends AppCompatActivity {
         tvSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(OnboardingActivity.this, LoginActivity.class);
-                startActivity(intent);
+                ultis.setIntent(OnboardingActivity.this, LoginActivity.class);
 
                 savePrefsData();
                 finish();

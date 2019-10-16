@@ -1,10 +1,9 @@
-package com.example.heaapp.view;
+package com.example.heaapp.view.activity;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -15,9 +14,9 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.heaapp.R;
-import com.example.heaapp.fragment.DashBoardFragment;
-import com.example.heaapp.fragment.HealthInforFragment;
-import com.example.heaapp.fragment.WorkoutFragment;
+import com.example.heaapp.view.fragment.DashBoardFragment;
+import com.example.heaapp.view.fragment.HealthInforFragment;
+import com.example.heaapp.view.fragment.WorkoutFragment;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
