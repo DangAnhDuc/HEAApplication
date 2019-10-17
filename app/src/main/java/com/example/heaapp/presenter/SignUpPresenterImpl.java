@@ -21,7 +21,16 @@ public class SignUpPresenterImpl implements SignUpPresenter {
     @Override
     public void signUp(String name, String email, String password) {
         if(TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
-            signUpView.showValidationError();
+            signUpView.showValidationError("All fields must not be empty!");
+        }
+        else if(name.length()<3){
+            signUpView.showNameError();
+        }
+        else if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            signUpView.showEmailError();
+        }
+        else if(password.length()<6){
+            signUpView.showPasswordError();
         }
         else {
             signUpView.setProgressVisibility(true);

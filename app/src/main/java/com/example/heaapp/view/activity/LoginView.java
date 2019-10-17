@@ -8,5 +8,6 @@ public interface LoginView extends BaseView {
     void loginError();
     void isLogin(boolean isLogin);
     void setProgressVisibility(boolean visibility);
-
+    void showPasswordError();
+    void showEmailError();
 }

@@ -35,7 +35,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
 
     FirebaseAuth firebaseAuth;
     SignUpPresenterImpl signUpPresenter;
-
+    ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +61,8 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
                 signUpPresenter.signUp(edtName.getText().toString().trim(),edtEmail.getText().toString().trim(),edtPassword.getText().toString().trim());
             }
         });
+        progressDialog = new ProgressDialog(SignUpActivity.this,R.style.AppTheme_Dark_Dialog);
+
     }
 
     @Override
@@ -71,7 +73,6 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
 
     @Override
     public void setProgressVisibility(boolean visibility) {
-        final ProgressDialog progressDialog = new ProgressDialog(SignUpActivity.this,R.style.AppTheme_Dark_Dialog);
         if(visibility){
             btnSignup.setEnabled(false);
             progressDialog.setIndeterminate(true);
@@ -85,8 +86,22 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
     }
 
     @Override
-    public void showValidationError() {
-        ultis.showMessage(this,"Please, Check email and password");
+    public void showNameError() {
+        edtName.setError("Name must be at least 3 characters!");
+    }
+
+    @Override
+    public void showPasswordError() {
+        edtPassword.setError("Password must be at least 6 characters!");
+    }
+
+    @Override
+    public void showEmailError() {
+        edtEmail.setError("Invalid email address!");
+    }
+    @Override
+    public void showValidationError(String message) {
+        ultis.showMessage(this,message);
     }
 
     @Override
@@ -97,7 +112,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
 
     @Override
     public void signUpError() {
-        ultis.showMessage(this,"Sign Up Failed");
+        ultis.showMessage(this,"Sign Up Failed!");
     }
 
     @Override

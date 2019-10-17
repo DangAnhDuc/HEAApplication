@@ -32,6 +32,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     FirebaseAuth firebaseAuth;
     LoginPresenterImpl loginPresenter;
+    ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +58,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
                 loginPresenter.login(edtEmail.getText().toString().trim(),edtPassword.getText().toString().trim());
             }
         });
+        progressDialog = new ProgressDialog(LoginActivity.this,R.style.AppTheme_Dark_Dialog);
+
     }
 
     @Override
@@ -66,8 +69,17 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     }
 
     @Override
+    public void showPasswordError() {
+        edtPassword.setError("Password must be at least 6 characters!");
+    }
+
+    @Override
+    public void showEmailError() {
+        edtEmail.setError("Invalid email address!");
+    }
+
+    @Override
     public void setProgressVisibility(boolean visibility) {
-        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,R.style.AppTheme_Dark_Dialog);
         if(visibility){
             btnLogin.setEnabled(false);
             progressDialog.setIndeterminate(true);
@@ -75,8 +87,9 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
             progressDialog.show();
         }
         else {
-            btnLogin.setEnabled(false);
             progressDialog.dismiss();
+            btnLogin.setEnabled(true);
+
         }
     }
 
