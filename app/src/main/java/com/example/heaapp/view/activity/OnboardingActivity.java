@@ -52,7 +52,7 @@ public class OnboardingActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         if (restorePrefsData()) {
-            ultis.setIntent(OnboardingActivity.this, MainActivity.class);
+            ultis.setIntent(OnboardingActivity.this, LoginActivity.class);
             finish();
         }
         setContentView(R.layout.activity_onboarding);
