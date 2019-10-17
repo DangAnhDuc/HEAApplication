@@ -1,5 +1,6 @@
 package com.example.heaapp.view.activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -65,6 +66,21 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     }
 
     @Override
+    public void setProgressVisibility(boolean visibility) {
+        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,R.style.AppTheme_Dark_Dialog);
+        if(visibility){
+            btnLogin.setEnabled(false);
+            progressDialog.setIndeterminate(true);
+            progressDialog.setMessage("Authenticating...");
+            progressDialog.show();
+        }
+        else {
+            btnLogin.setEnabled(false);
+            progressDialog.dismiss();
+        }
+    }
+
+    @Override
     public void showValidationError(String message) {
         ultis.showMessage(this,message);
     }
@@ -92,4 +108,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     public Context getContext() {
         return this;
     }
+
+
 }

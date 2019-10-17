@@ -25,11 +25,14 @@ public class LoginPresenterImpl implements LoginPresenter {
         if(TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
             loginView.showValidationError("Email and password can't be empty");
         }else {
+            loginView.setProgressVisibility(true);
 
             firebaseAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener((Activity) loginView, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
+                            loginView.setProgressVisibility(false);
+
                             if(!task.isSuccessful()) {
                                 loginView.loginError();
                             } else {

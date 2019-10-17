@@ -13,4 +13,9 @@
         <item name="android:paddingBottom">8dp</item>
     </style>
 
+    <style name="AppTheme.Dark.Dialog" parent="Theme.AppCompat.Dialog">
+        <item name="colorAccent">@color/borderColor</item>
+        <item name="android:textColorPrimary">@color/borderColor</item>
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
 </resources>

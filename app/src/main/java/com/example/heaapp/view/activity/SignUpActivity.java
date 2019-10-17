@@ -1,5 +1,6 @@
 package com.example.heaapp.view.activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -66,6 +67,21 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
     protected void onDestroy() {
         super.onDestroy();
         signUpPresenter.detachView();
+    }
+
+    @Override
+    public void setProgressVisibility(boolean visibility) {
+        final ProgressDialog progressDialog = new ProgressDialog(SignUpActivity.this,R.style.AppTheme_Dark_Dialog);
+        if(visibility){
+            btnSignup.setEnabled(false);
+            progressDialog.setIndeterminate(true);
+            progressDialog.setMessage("Creating Account...");
+            progressDialog.show();
+        }
+        else {
+            btnSignup.setEnabled(true);
+            progressDialog.dismiss();
+        }
     }
 
     @Override

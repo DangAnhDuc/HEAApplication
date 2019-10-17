@@ -24,10 +24,13 @@ public class SignUpPresenterImpl implements SignUpPresenter {
             signUpView.showValidationError();
         }
         else {
+            signUpView.setProgressVisibility(true);
+
             firebaseAuth.createUserWithEmailAndPassword(email,password)
                     .addOnCompleteListener((Activity) signUpView, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
+                            signUpView.setProgressVisibility(false);
                             if(!task.isSuccessful()){
                                 signUpView.signUpError();
                             }
