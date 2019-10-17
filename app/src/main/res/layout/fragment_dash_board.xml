@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fragment.DashBoardFragment">
+    tools:context=".view.fragment.DashBoardFragment">
 
     <TextView
         android:id="@+id/txtDashboard"

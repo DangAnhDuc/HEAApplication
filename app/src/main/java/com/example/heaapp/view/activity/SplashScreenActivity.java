@@ -1,4 +1,4 @@
-package com.example.heaapp.view;
+package com.example.heaapp.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.heaapp.R;
+import com.example.heaapp.ultis.ultis;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,7 +31,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         Animation splashanimation= AnimationUtils.loadAnimation(this,R.anim.splashtransition);
         imgSplash.setAnimation(splashanimation);
         txtSplash.setAnimation(splashanimation);
-        final Intent intent=new Intent(this,OnboardingActivity.class);
         Thread timer=new Thread(){
             public void run(){
                 try {
@@ -39,7 +39,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 finally {
-                    startActivity(intent);
+                    ultis.setIntent(SplashScreenActivity.this,OnboardingActivity.class);
                     finish();
                 }
             }
