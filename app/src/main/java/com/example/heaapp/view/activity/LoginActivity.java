@@ -1,5 +1,7 @@
 package com.example.heaapp.view.activity;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,12 +12,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import com.example.heaapp.R;
+import com.example.heaapp.presenter.LoginPresenterImpl;
 import com.example.heaapp.ultis.ultis;
+import com.google.firebase.auth.FirebaseAuth;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @BindView(R.id.edt_email)
     EditText edtEmail;
@@ -26,18 +30,97 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.link_signup)
     TextView linkSignup;
 
+    FirebaseAuth firebaseAuth;
+    LoginPresenterImpl loginPresenter;
+    ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
+        firebaseAuth= FirebaseAuth.getInstance();
+        loginPresenter= new LoginPresenterImpl(firebaseAuth);
+
+        loginPresenter.attachView(this);
+        loginPresenter.checkLogin();
+
         linkSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ultis.setIntent(LoginActivity.this, SignUpActivity.class);
-                finish();
             }
         });
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginPresenter.login(edtEmail.getText().toString().trim(),edtPassword.getText().toString().trim());
+            }
+        });
+        progressDialog = new ProgressDialog(LoginActivity.this,R.style.AppTheme_Dark_Dialog);
+
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        loginPresenter.detachView();
+    }
+
+    @Override
+    public void showPasswordError() {
+        edtPassword.setError("Password must be at least 6 characters!");
+    }
+
+    @Override
+    public void showEmailError() {
+        edtEmail.setError("Invalid email address!");
+    }
+
+    @Override
+    public void setProgressVisibility(boolean visibility) {
+        if(visibility){
+            btnLogin.setEnabled(false);
+            progressDialog.setIndeterminate(true);
+            progressDialog.setMessage("Authenticating...");
+            progressDialog.show();
+        }
+        else {
+            progressDialog.dismiss();
+            btnLogin.setEnabled(true);
+
+        }
+    }
+
+    @Override
+    public void showValidationError(String message) {
+        ultis.showMessage(this,message);
+    }
+
+    @Override
+    public void loginSuccess() {
+        ultis.showMessage(this,"Login Successfully!");
+        ultis.setIntent(this,MainActivity.class);
+    }
+
+    @Override
+    public void loginError() {
+        ultis.showMessage(this,"Login Failed!");
+    }
+
+    @Override
+    public void isLogin(boolean isLogin) {
+        if(isLogin){
+            ultis.setIntent(this,MainActivity.class);
+            finish();
+        }
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
+    }
+
+
 }
