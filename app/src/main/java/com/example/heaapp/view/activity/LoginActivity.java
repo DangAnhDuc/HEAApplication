@@ -2,7 +2,6 @@ package com.example.heaapp.view.activity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -101,7 +100,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     @Override
     public void loginSuccess() {
         ultis.showMessage(this,"Login Successfully!");
-        ultis.setIntent(this,MainActivity.class);
+        ultis.setIntent(this, HomeActivity.class);
     }
 
     @Override
@@ -112,7 +111,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     @Override
     public void isLogin(boolean isLogin) {
         if(isLogin){
-            ultis.setIntent(this,MainActivity.class);
+            ultis.setIntent(this, HomeActivity.class);
             finish();
         }
     }

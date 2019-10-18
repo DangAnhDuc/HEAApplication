@@ -1,9 +1,12 @@
 package com.example.heaapp.view.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -14,17 +17,22 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.heaapp.R;
+import com.example.heaapp.presenter.HomePresenterImpl;
+import com.example.heaapp.ultis.ultis;
 import com.example.heaapp.view.fragment.DashBoardFragment;
 import com.example.heaapp.view.fragment.HealthInforFragment;
 import com.example.heaapp.view.fragment.WorkoutFragment;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements HomeView {
 
     @BindView(R.id.activity_main_drawer)
     DrawerLayout sideBarLayout;
@@ -36,7 +44,13 @@ public class MainActivity extends AppCompatActivity {
     TabLayout tabLayout;
     @BindView(R.id.tab_title)
     TextView tabTitle;
+    @BindView(R.id.nav_view)
+    NavigationView navView;
     private ActionBarDrawerToggle mDrawerToggle;
+
+    HomePresenterImpl homePresenter;
+    FirebaseAuth firebaseAuth;
+    private boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +62,11 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        firebaseAuth = FirebaseAuth.getInstance();
         initView();
+        homePresenter = new HomePresenterImpl(firebaseAuth, this);
+        homePresenter.attachView(this);
+        homePresenter.getCurrentUser();
     }
 
     private void initView() {
@@ -76,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                         tabTitle.setText("Workout");
                         break;
                     case 1:
-                        tabTitle.setText("Health sum");
+                        tabTitle.setText("Dashboard");
                         break;
                     case 2:
                         tabTitle.setText("Health Infor");
@@ -102,15 +120,81 @@ public class MainActivity extends AppCompatActivity {
         sideBarLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
 
+        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                    case R.id.side_bar_logout:
+                        homePresenter.signOut();
+                        ultis.showMessage(getContext(),"Sign out successfully!");
+                }
+                return true;
+            }
+        });
     }
 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
+            if (item.getItemId() == R.id.side_bar_logout) {
+
+            }
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        homePresenter.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        homePresenter.onStop();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.doubleBackToExitPressedOnce = false;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        homePresenter.detachView();
+    }
+
+    @Override
+    public void setEnabled(boolean isEnabled) {
+
+    }
+
+    @Override
+    public void setUser(FirebaseUser user) {
+
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            return;
+        }
+        this.doubleBackToExitPressedOnce = true;
+        ultis.showMessage(this, "Press once again to exit!");
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
