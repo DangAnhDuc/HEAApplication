@@ -2,9 +2,9 @@ package com.example.heaapp.api;
 
 import com.example.heaapp.model.CityInfor;
 
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.GET;
-import rx.Observable;
 
 public interface AirApiServices {
     String APIKEY="2955facf-02ae-4d32-aacb-447f15c78f84";
