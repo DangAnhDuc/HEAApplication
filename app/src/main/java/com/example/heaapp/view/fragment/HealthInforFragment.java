@@ -2,6 +2,7 @@ package com.example.heaapp.view.fragment;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,11 +18,13 @@ import com.example.heaapp.api.AirApiServices;
 import com.example.heaapp.api.ApiUtils;
 import com.example.heaapp.api.NewsApiServices;
 import com.example.heaapp.base.BaseFragment;
+import com.example.heaapp.callback.ClickListener;
 import com.example.heaapp.model.airweather.CityInfor;
 import com.example.heaapp.model.news.Article;
 import com.example.heaapp.model.news.News;
 import com.example.heaapp.presenter.HealthInforPresenterImpl;
 import com.example.heaapp.ultis.ultis;
+import com.example.heaapp.view.activity.WebviewNewsActivity;
 
 import java.util.List;
 
@@ -32,12 +35,11 @@ import io.reactivex.schedulers.Schedulers;
 
 
 public class HealthInforFragment extends BaseFragment implements HealthInforView {
-    RecyclerView newsRecyclerview;
-    NewsAdapter newsAdapter;
-    HealthInforPresenterImpl healthInforPresenter;
-    List<Article> articles;
-    private Dialog dialog;
-
+    private RecyclerView newsRecyclerview;
+    private NewsAdapter newsAdapter;
+    private HealthInforPresenterImpl healthInforPresenter;
+    private List<Article> articles;
+    private ClickListener clickListener;
     @Override
     public BaseFragment provideYourFragment() {
         return new HealthInforFragment();
@@ -55,20 +57,20 @@ public class HealthInforFragment extends BaseFragment implements HealthInforView
         return view;
     }
 
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        healthInforPresenter.getListArticles();
-    }
-
     @Override
     public void getListNewsSuccess(List<Article> articles) {
         this.articles= articles;
-        newsAdapter=new NewsAdapter(getContext(),articles);
+        newsAdapter=new NewsAdapter(getContext(),articles,clickListener);
         newsAdapter.notifyData(articles);
         newsRecyclerview.setAdapter(newsAdapter);
-
+        newsAdapter.setOnItemListener(new NewsAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Article article) {
+                Intent intent=new Intent(getContext(), WebviewNewsActivity.class);
+                intent.putExtra("URL",article.getUrl());
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

@@ -7,6 +7,6 @@ import io.reactivex.Observable;
 import retrofit2.http.GET;
 
 public interface NewsApiServices {
-    @GET("top-headlines?country=us&category=health&apiKey=d6461abdc8c04f5aa93c2e5f448e285b")
+    @GET("top-headlines?country=us&category=health&apiKey=dcaf7b9b2b144366a7d8a6fd17824869")
     Observable<News> getNews();
 }
