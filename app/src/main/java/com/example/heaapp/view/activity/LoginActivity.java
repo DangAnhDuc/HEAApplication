@@ -3,6 +3,7 @@ package com.example.heaapp.view.activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -58,6 +59,24 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
             }
         });
         progressDialog = new ProgressDialog(LoginActivity.this,R.style.AppTheme_Dark_Dialog);
+
+        edtPassword.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN)
+                {
+                    switch (keyCode)
+                    {
+                        case KeyEvent.KEYCODE_ENTER:
+                            loginPresenter.login(edtEmail.getText().toString().trim(),edtPassword.getText().toString().trim());
+                            return true;
+                        default:
+                            break;
+                    }
+                }
+                return false;
+            }
+        });
 
     }
 
