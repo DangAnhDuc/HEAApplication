@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.example.heaapp.R;
-import com.example.heaapp.model.OnboardingItem;
+import com.example.heaapp.model.airweather.OnboardingItem;
 
 import java.util.List;
 

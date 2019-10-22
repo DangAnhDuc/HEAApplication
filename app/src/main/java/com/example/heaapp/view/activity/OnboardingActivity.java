@@ -1,6 +1,5 @@
 package com.example.heaapp.view.activity;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -16,7 +15,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.heaapp.R;
 import com.example.heaapp.adapter.OnboardingPagerAdapter;
-import com.example.heaapp.model.OnboardingItem;
+import com.example.heaapp.model.airweather.OnboardingItem;
 import com.example.heaapp.ultis.ultis;
 import com.google.android.material.tabs.TabLayout;
 

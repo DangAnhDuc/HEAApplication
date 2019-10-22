@@ -1,55 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".view.fragment.HealthInforFragment">
 
-    <LinearLayout
-        android:id="@+id/airquality"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/new_recylcerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/txt_ts"
-            android:text="Time Stamp"
-            android:layout_margin="8dp"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/txt_AQIUS"
-            android:text="AQI value based on US EPA standard"
-            android:layout_margin="8dp"
-            />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/txt_mainus"
-            android:text="main pollutant for US AQI"
-            android:layout_margin="8dp"
-            />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/txt_AQICN"
-            android:text="AQI value based on China MEP standard"
-            android:layout_margin="8dp"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/txt_maincn"
-            android:text="main pollutant for Chinese AQI"
-            android:layout_margin="8dp"
-            />
-    </LinearLayout>
-
-</ScrollView>
+</LinearLayout>

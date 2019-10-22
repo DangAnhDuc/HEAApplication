@@ -1,9 +1,8 @@
 package com.example.heaapp.api;
 
-import com.example.heaapp.model.CityInfor;
+import com.example.heaapp.model.airweather.CityInfor;
 
 import io.reactivex.Observable;
-import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface AirApiServices {

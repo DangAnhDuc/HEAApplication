@@ -1,4 +1,4 @@
-package com.example.heaapp.model;
+package com.example.heaapp.model.airweather;
 
 public class OnboardingItem {
     String title, description;
