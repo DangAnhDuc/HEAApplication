@@ -1,4 +1,4 @@
-package com.example.heaapp.model;
+package com.example.heaapp.model.airweather;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
