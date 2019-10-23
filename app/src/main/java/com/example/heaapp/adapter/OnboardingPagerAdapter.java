@@ -17,8 +17,8 @@ import java.util.List;
 
 public class OnboardingPagerAdapter extends PagerAdapter {
 
-    Context context;
-    List<OnboardingItem> onboardingItemList;
+    private Context context;
+    private List<OnboardingItem> onboardingItemList;
 
     public OnboardingPagerAdapter(Context context, List<OnboardingItem> onboardingItemList) {
         this.context = context;

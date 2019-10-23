@@ -69,13 +69,9 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (event.getAction() == KeyEvent.ACTION_DOWN)
                 {
-                    switch (keyCode)
-                    {
-                        case KeyEvent.KEYCODE_ENTER:
-                            signUpPresenter.signUp(edtName.getText().toString().trim(),edtEmail.getText().toString().trim(),edtPassword.getText().toString().trim());
-                            return true;
-                        default:
-                            break;
+                    if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                        signUpPresenter.signUp(edtName.getText().toString().trim(), edtEmail.getText().toString().trim(), edtPassword.getText().toString().trim());
+                        return true;
                     }
                 }
                 return false;

@@ -17,9 +17,9 @@ import io.reactivex.schedulers.Schedulers;
 
 public class HealthInforPresenterImpl implements HealthInforPresenter {
 
-    HealthInforView healthInforView;
-    List<Article> articles;
-    CompositeDisposable compositeDisposable=new CompositeDisposable();
+    private HealthInforView healthInforView;
+    private List<Article> articles;
+    private CompositeDisposable compositeDisposable=new CompositeDisposable();
 
     public HealthInforPresenterImpl(HealthInforView healthInforView) {
         this.healthInforView = healthInforView;
