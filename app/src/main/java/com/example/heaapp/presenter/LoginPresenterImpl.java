@@ -2,7 +2,6 @@ package com.example.heaapp.presenter;
 
 import android.app.Activity;
 import android.text.TextUtils;
-import android.util.Patterns;
 
 import androidx.annotation.NonNull;
 

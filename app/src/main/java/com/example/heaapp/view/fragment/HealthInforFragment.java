@@ -73,6 +73,7 @@ public class HealthInforFragment extends BaseFragment implements HealthInforView
             public void onItemClick(Article article) {
                 Intent intent=new Intent(getContext(), WebviewNewsActivity.class);
                 intent.putExtra("URL",article.getUrl());
+                intent.putExtra("Domain",article.getSource().getName());
                 startActivity(intent);
             }
         });

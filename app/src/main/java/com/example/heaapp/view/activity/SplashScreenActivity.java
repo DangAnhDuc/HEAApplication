@@ -1,6 +1,5 @@
 package com.example.heaapp.view.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -27,7 +26,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         ButterKnife.bind(this);
-
         Animation splashanimation= AnimationUtils.loadAnimation(this,R.anim.splashtransition);
         imgSplash.setAnimation(splashanimation);
         txtSplash.setAnimation(splashanimation);

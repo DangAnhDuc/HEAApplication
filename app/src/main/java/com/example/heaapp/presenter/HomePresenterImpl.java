@@ -1,6 +1,5 @@
 package com.example.heaapp.presenter;
 
-import android.app.Activity;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
