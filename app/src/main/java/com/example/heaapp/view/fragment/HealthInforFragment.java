@@ -1,50 +1,42 @@
 package com.example.heaapp.view.fragment;
 
-import android.app.Dialog;
-import android.content.Context;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.heaapp.R;
 import com.example.heaapp.adapter.NewsAdapter;
-import com.example.heaapp.api.AirApiServices;
-import com.example.heaapp.api.ApiUtils;
-import com.example.heaapp.api.NewsApiServices;
 import com.example.heaapp.base.BaseFragment;
-import com.example.heaapp.callback.ClickListener;
-import com.example.heaapp.model.airweather.CityInfor;
+import com.example.heaapp.callback.OnItemClickListener;
 import com.example.heaapp.model.news.Article;
-import com.example.heaapp.model.news.News;
 import com.example.heaapp.presenter.HealthInforPresenterImpl;
 import com.example.heaapp.ultis.ultis;
 import com.example.heaapp.view.activity.WebviewNewsActivity;
 
 import java.util.List;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
-
-public class HealthInforFragment extends BaseFragment implements HealthInforView {
+public class HealthInforFragment extends BaseFragment implements HealthInforView,SwipeRefreshLayout.OnRefreshListener{
     private RecyclerView newsRecyclerview;
     private NewsAdapter newsAdapter;
     private HealthInforPresenterImpl healthInforPresenter;
-    private List<Article> articles;
-    private ClickListener clickListener;
+    private List<Article> marticles;
+    private SwipeRefreshLayout swipeRefreshLayout;
+
+
     @Override
     public BaseFragment provideYourFragment() {
         return new HealthInforFragment();
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public View provideYourFragmentView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_health_infor, parent, false);
@@ -53,17 +45,30 @@ public class HealthInforFragment extends BaseFragment implements HealthInforView
         newsRecyclerview.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager= new LinearLayoutManager(getContext());
         newsRecyclerview.setLayoutManager(layoutManager);
-        healthInforPresenter.getListArticles();
+
+        swipeRefreshLayout=(SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setColorSchemeColors(R.color.colorPrimary,R.color.colorPrimaryDark);
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                if(swipeRefreshLayout != null) {
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+                healthInforPresenter.getListArticles();
+            }
+        });
+
         return view;
     }
 
     @Override
     public void getListNewsSuccess(List<Article> articles) {
-        this.articles= articles;
-        newsAdapter=new NewsAdapter(getContext(),articles,clickListener);
-        newsAdapter.notifyData(articles);
+        swipeRefreshLayout.setRefreshing(false);
+        marticles= articles;
+        newsAdapter=new NewsAdapter(getContext(),marticles);
         newsRecyclerview.setAdapter(newsAdapter);
-        newsAdapter.setOnItemListener(new NewsAdapter.OnItemClickListener() {
+        newsAdapter.setOnItemListener(new OnItemClickListener() {
             @Override
             public void onItemClick(Article article) {
                 Intent intent=new Intent(getContext(), WebviewNewsActivity.class);
@@ -78,4 +83,9 @@ public class HealthInforFragment extends BaseFragment implements HealthInforView
         ultis.showMessage(getContext(),message);
     }
 
+
+    @Override
+    public void onRefresh() {
+        healthInforPresenter.getListArticles();
+    }
 }

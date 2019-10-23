@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,22 +14,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.heaapp.R;
-import com.example.heaapp.callback.ClickListener;
+import com.example.heaapp.callback.OnItemClickListener;
 import com.example.heaapp.model.news.Article;
 
 import java.util.List;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
-    Context context;
-    List<Article> articles;
+    private Context context;
+    private List<Article> articles;
     private OnItemClickListener listener;
 
-
-
-    public interface OnItemClickListener {
-        void onItemClick(Article article);
-    }
-    public NewsAdapter(Context context, List<Article> articles,ClickListener clickListener) {
+    public NewsAdapter(Context context, List<Article> articles) {
         this.context = context;
         this.articles = articles;
     }
@@ -54,11 +48,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     @Override
     public int getItemCount() {
         return articles.size();
-    }
-
-    public void notifyData(List<Article> articles) {
-        this.articles=articles;
-        notifyDataSetChanged();
     }
 
     public void setOnItemListener(OnItemClickListener listener) {

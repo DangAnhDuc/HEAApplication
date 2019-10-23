@@ -4,6 +4,6 @@ import android.view.View;
 
 import com.example.heaapp.model.news.Article;
 
-public interface ClickListener {
-    void onClick(Article article);
+public interface OnItemClickListener {
+    void onItemClick(Article article);
 }

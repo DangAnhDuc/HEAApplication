@@ -65,13 +65,9 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (event.getAction() == KeyEvent.ACTION_DOWN)
                 {
-                    switch (keyCode)
-                    {
-                        case KeyEvent.KEYCODE_ENTER:
-                            loginPresenter.login(edtEmail.getText().toString().trim(),edtPassword.getText().toString().trim());
-                            return true;
-                        default:
-                            break;
+                    if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                        loginPresenter.login(edtEmail.getText().toString().trim(), edtPassword.getText().toString().trim());
+                        return true;
                     }
                 }
                 return false;

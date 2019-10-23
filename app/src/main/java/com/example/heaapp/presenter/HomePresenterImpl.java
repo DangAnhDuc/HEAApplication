@@ -1,6 +1,7 @@
 package com.example.heaapp.presenter;
 
 import android.app.Activity;
+import android.content.Context;
 
 import androidx.annotation.NonNull;
 
@@ -11,13 +12,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class HomePresenterImpl implements HomePresenter {
-    FirebaseAuth firebaseAuth;
-    HomeView homeView;
-    FirebaseAuth.AuthStateListener authListener;
-    Activity context;
+    private FirebaseAuth firebaseAuth;
+    private HomeView homeView;
+    private FirebaseAuth.AuthStateListener authListener;
+    private Context context;
 
 
-    public HomePresenterImpl(FirebaseAuth firebaseAuth, final Activity context) {
+    public HomePresenterImpl(FirebaseAuth firebaseAuth, final Context context) {
         this.firebaseAuth = firebaseAuth;
         this.context = context;
 
@@ -27,7 +28,6 @@ public class HomePresenterImpl implements HomePresenter {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user == null) {
                     ultis.setIntent(context, LoginActivity.class);
-                    context.finish();
                 }
             }
         };
