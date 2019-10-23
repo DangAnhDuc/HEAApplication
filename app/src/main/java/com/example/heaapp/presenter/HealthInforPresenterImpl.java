@@ -1,11 +1,9 @@
 package com.example.heaapp.presenter;
 
-import com.example.heaapp.adapter.NewsAdapter;
 import com.example.heaapp.api.ApiUtils;
 import com.example.heaapp.api.NewsApiServices;
 import com.example.heaapp.model.news.Article;
 import com.example.heaapp.model.news.News;
-import com.example.heaapp.ultis.ultis;
 import com.example.heaapp.view.fragment.HealthInforView;
 
 import java.util.List;

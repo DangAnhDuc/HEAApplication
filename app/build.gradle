@@ -1,6 +1,9 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
-
+ext {
+    geckoview_channel = "nightly"
+    geckoview_version = "70.0.20190712095934"
+}
 android {
     compileSdkVersion 28
     buildToolsVersion "29.0.2"
@@ -78,4 +81,6 @@ dependencies {
     // Recycler View
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
+
+    implementation "org.mozilla.geckoview:geckoview-${geckoview_channel}:${geckoview_version}"
 }
