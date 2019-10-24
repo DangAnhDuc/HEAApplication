@@ -10,10 +10,17 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class SignUpPresenterImpl implements SignUpPresenter {
     private SignUpView signUpView;
     private FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseUser;
+    DatabaseReference databaseReference;
     public SignUpPresenterImpl(FirebaseAuth auth) {
         this.firebaseAuth = auth;
     }
@@ -44,7 +51,25 @@ public class SignUpPresenterImpl implements SignUpPresenter {
                                 signUpView.signUpError();
                             }
                             else {
-                                signUpView.signUpSuccess();
+                                FirebaseUser firebaseUser=firebaseAuth.getCurrentUser();
+                                String userId= firebaseUser.getUid();
+
+                                databaseReference=FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+
+                                HashMap<String,String> hashMap=new HashMap<>();
+                                hashMap.put("id",userId);
+                                hashMap.put("username",name);
+                                hashMap.put("imageURl","default");
+
+                                databaseReference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(task.isSuccessful()){
+                                            signUpView.signUpSuccess();
+                                        }
+                                    }
+                                });
+
                             }
                         }
                     });
