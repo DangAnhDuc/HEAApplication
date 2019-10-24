@@ -10,6 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
     private static Retrofit retrofit = null;
+    private static Retrofit retrofit1=null;
     private final static OkHttpClient okHttpClient = new OkHttpClient.Builder()
             .readTimeout(60, TimeUnit.SECONDS)
             .connectTimeout(60, TimeUnit.SECONDS)
@@ -25,5 +26,17 @@ public class RetrofitClient {
                     .build();
         }
         return retrofit;
+    }
+
+    public static Retrofit getClient1(String baseUrl) {
+        if (retrofit1 == null) {
+            retrofit1 = new Retrofit.Builder()
+                    .baseUrl(baseUrl)
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(okHttpClient)
+                    .build();
+        }
+        return retrofit1;
     }
 }
