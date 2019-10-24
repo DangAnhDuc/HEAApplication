@@ -4,13 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/layoutWorkout"
     tools:context=".view.fragment.WorkoutFragment">
 
-    <TextView
-        android:id="@+id/txtDashboard"
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Workout Fragment"/>
+        android:id="@+id/category_workout_fragment"/>
 
 </LinearLayout>
