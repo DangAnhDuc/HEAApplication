@@ -1,5 +1,6 @@
 package com.example.heaapp.view.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -13,7 +14,7 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ExerciseWorkoutActivity extends AppCompatActivity {
+public class ExerciseWorkoutActivity extends AppCompatActivity implements ListExerciseVeiw{
     @BindView(R.id.exerciseToolbar)
     Toolbar exerciseToolBar;
     @BindView(R.id.exeText)
@@ -40,4 +41,13 @@ public class ExerciseWorkoutActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void getListExerciseViewSuccess() {
+
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
+    }
 }

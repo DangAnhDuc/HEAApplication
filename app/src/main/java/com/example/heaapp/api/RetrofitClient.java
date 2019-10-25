@@ -15,6 +15,8 @@ public class RetrofitClient {
 
     private static Retrofit retrofit1=null;
 
+    private static Retrofit retrofitExercise = null;
+
     private final static OkHttpClient okHttpClient = new OkHttpClient.Builder()
             .readTimeout(60, TimeUnit.SECONDS)
             .connectTimeout(60, TimeUnit.SECONDS)
@@ -56,5 +58,17 @@ public class RetrofitClient {
                     .build();
         }
         return retrofit1;
+    }
+
+    public static Retrofit getRetrofitExercise(String baseUrl) {
+        if (retrofitExercise == null) {
+            retrofitExercise = new retrofit2.Retrofit.Builder()
+                    .baseUrl(baseUrl)
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(okHttpClient)
+                    .build();
+        }
+        return retrofitExercise;
     }
 }

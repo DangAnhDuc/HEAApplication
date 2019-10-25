@@ -11,5 +11,6 @@
 
     <string name="toggle_open">Open</string>
     <string name="toggle_close">Close</string>
+    <string name="text_list_exercises">List Exercises</string>
 
 </resources>
