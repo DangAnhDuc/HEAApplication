@@ -5,4 +5,5 @@ import com.example.heaapp.view.fragment.HealthInforView;
 
 public interface HealthInforPresenter extends BasePresenter<HealthInforView> {
     void getListArticles();
+    void getWeatherData();
 }

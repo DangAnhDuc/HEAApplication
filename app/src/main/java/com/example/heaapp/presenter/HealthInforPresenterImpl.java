@@ -2,6 +2,8 @@ package com.example.heaapp.presenter;
 
 import com.example.heaapp.api.ApiUtils;
 import com.example.heaapp.api.NewsApiServices;
+import com.example.heaapp.api.WeatherApiServices;
+import com.example.heaapp.model.airweather.CityInfor;
 import com.example.heaapp.model.news.Article;
 import com.example.heaapp.model.news.News;
 import com.example.heaapp.view.fragment.HealthInforView;
@@ -17,11 +19,11 @@ public class HealthInforPresenterImpl implements HealthInforPresenter {
 
     private HealthInforView healthInforView;
     private List<Article> articles;
+    private CityInfor cityInformation;
     private CompositeDisposable compositeDisposable=new CompositeDisposable();
 
     public HealthInforPresenterImpl(HealthInforView healthInforView) {
         this.healthInforView = healthInforView;
-
     }
 
     @Override
@@ -34,12 +36,27 @@ public class HealthInforPresenterImpl implements HealthInforPresenter {
         compositeDisposable.add(disposable);
     }
 
+    @Override
+    public void getWeatherData() {
+        WeatherApiServices weatherApiServices= ApiUtils.getWeatherApiService();
+        Disposable disposable= weatherApiServices.getHCMObs()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(this::handleResponse, this::handleError, this::handleSuccess);
+        compositeDisposable.add(disposable);
+    }
+
+    private void handleResponse(CityInfor cityInfor) {
+        cityInformation=cityInfor;
+        healthInforView.getCityInforSuccess(cityInformation);
+    }
+
     private void handleSuccess() {
-        //ultis.showMessage(getContext(),"Get data success!");
     }
 
     private void handleError(Throwable throwable) {
         healthInforView.getListNewsFailed("Error"+throwable.getLocalizedMessage());
+        healthInforView.getCityInforFailed("Error"+throwable.getLocalizedMessage());
     }
 
     private void handleResponse(News news) {
