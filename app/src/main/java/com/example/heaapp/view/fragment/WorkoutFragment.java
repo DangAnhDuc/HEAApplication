@@ -1,10 +1,12 @@
 package com.example.heaapp.view.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.fragment.app.FragmentManager;
@@ -16,9 +18,14 @@ import com.example.heaapp.R;
 import com.example.heaapp.adapter.CategoryWorkoutAdapter;
 import com.example.heaapp.api.WorkoutApiService;
 import com.example.heaapp.base.BaseFragment;
+import com.example.heaapp.callback.OnItemClickListener;
+import com.example.heaapp.callback.WorkoutListener;
+import com.example.heaapp.model.news.Article;
+import com.example.heaapp.model.workout.Exercisecategory;
 import com.example.heaapp.model.workout.Results;
 import com.example.heaapp.presenter.WorkoutPresenter;
 import com.example.heaapp.presenter.WorkoutPresenterImpl;
+import com.example.heaapp.view.activity.ExerciseWorkoutActivity;
 
 import java.util.List;
 
@@ -44,9 +51,9 @@ public class WorkoutFragment extends BaseFragment implements WorkoutView{
         RecyclerView.LayoutManager layoutManager= new LinearLayoutManager(getActivity());
         categoryLayout.setLayoutManager(layoutManager);
 
-
         layoutWorkout = view.findViewById(R.id.layoutWorkout);
         layoutWorkout.post(() -> workoutPresenter.getListCategoryWorkout());
+
         return view;
     }
 
@@ -55,5 +62,11 @@ public class WorkoutFragment extends BaseFragment implements WorkoutView{
         listResults = results;
         CategoryWorkoutAdapter categoryWorkoutAdapter = new CategoryWorkoutAdapter(getContext(),listResults);
         categoryLayout.setAdapter(categoryWorkoutAdapter);
+
+        categoryWorkoutAdapter.setOnItemListener(results1 -> {
+            Intent intent = new Intent(getContext(), ExerciseWorkoutActivity.class);
+            intent.putExtra("CategoryName",results1.getName());
+            startActivity(intent);
+        });
     }
 }

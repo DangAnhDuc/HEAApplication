@@ -41,6 +41,10 @@ public class CategoryWorkoutAdapter extends Adapter<CategoryWorkoutAdapter.ViewH
         holder.categoryName.setText(listResults.get(position).getName());
     }
 
+    public void setOnItemListener(WorkoutListener workoutListener){
+        this.listener = workoutListener;
+    }
+
     @Override
     public int getItemCount() {
         return listResults.size();
