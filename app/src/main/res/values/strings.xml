@@ -2,9 +2,9 @@
     <string name="app_name">HEAapp</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="side_bar_info_user">Thông tin người dùng</string>
-    <string name="side_bar_info_app">Thông tin ứng dụng</string>
-    <string name="side_bar_logout">Đăng xuất</string>
+    <string name="side_bar_info_user">Information User</string>
+    <string name="side_bar_info_app">Information App</string>
+    <string name="side_bar_logout">Logout</string>
 
     <string name="side_bar_header_text">All for your health</string>
 
