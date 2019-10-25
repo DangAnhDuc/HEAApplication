@@ -10,7 +10,6 @@ import com.example.heaapp.base.BaseFragment;
 
 
 public class DashBoardFragment extends BaseFragment {
-
     @Override
     public BaseFragment provideYourFragment() {
         return new DashBoardFragment();
