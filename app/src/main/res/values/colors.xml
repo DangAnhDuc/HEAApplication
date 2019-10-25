@@ -6,7 +6,7 @@
     <color name="borderColor">#fff</color>
 
     <!-- Color for button -->
-    <color name="gradient_start_color">#4c84ff</color>
+    <color name="water_color">#2389da</color>
     <color name="gradient_end_color">#18a3fe</color>
 
     <!-- Color for tab and screen text -->
