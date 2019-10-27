@@ -5,6 +5,6 @@ import com.example.heaapp.model.workout.ItemExercise;
 
 import java.util.List;
 
-public interface ListExerciseVeiw extends BaseView {
-    void getListExerciseViewSuccess(List<ItemExercise> item);
+public interface ExerciseWorkoutView extends BaseView {
+    void getListWorkoutSuccess(List<ItemExercise> list);
 }

@@ -22,8 +22,8 @@ public class ListExerciseAdapter extends RecyclerView.Adapter<ListExerciseAdapte
     private ListExerciseListener listener;
     private List<ItemExercise> list;
 
-    public ListExerciseAdapter(ListExerciseListener listener, List<ItemExercise> list) {
-        this.listener = listener;
+    public ListExerciseAdapter(Context context, List<ItemExercise> list) {
+        this.context = context;
         this.list = list;
     }
 
