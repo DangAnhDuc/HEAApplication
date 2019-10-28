@@ -1,6 +1,8 @@
 package com.example.heaapp.view.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,6 +38,7 @@ public class WorkoutFragment extends BaseFragment implements WorkoutView{
     private LinearLayout layoutWorkout;
     private List<Results> listResults;
     private WorkoutPresenter workoutPresenter;
+    public static int categoryID = 0;
 
     @Override
     public BaseFragment provideYourFragment() {
@@ -54,6 +57,7 @@ public class WorkoutFragment extends BaseFragment implements WorkoutView{
         layoutWorkout = view.findViewById(R.id.layoutWorkout);
         layoutWorkout.post(() -> workoutPresenter.getListCategoryWorkout());
 
+
         return view;
     }
 
@@ -65,8 +69,14 @@ public class WorkoutFragment extends BaseFragment implements WorkoutView{
 
         categoryWorkoutAdapter.setOnItemListener(results1 -> {
             Intent intent = new Intent(getContext(), ExerciseWorkoutActivity.class);
+            SharedPreferences  preferences= getContext().getSharedPreferences("MyRef", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor=preferences.edit();
+            editor.putInt("category",results1.getId());
+            editor.apply();
             intent.putExtra("CategoryName",results1.getName());
             startActivity(intent);
         });
+
+
     }
 }

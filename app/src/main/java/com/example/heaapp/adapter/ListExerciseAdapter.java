@@ -2,6 +2,8 @@ package com.example.heaapp.adapter;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +39,9 @@ public class ListExerciseAdapter extends Adapter<ListExerciseAdapter.ViewHolder>
     @Override
     public void onBindViewHolder(@NonNull ListExerciseAdapter.ViewHolder holder, int position) {
         holder.viewBind(list.get(position),listener);
-        if(list.get(position).getName().equals("") ||list.get(position).getLanguage() == 2) {
+        final SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(context);
+        int category= sharedPreferences.getInt("category",0);
+        if(category == list.get(position).getCategory() || list.get(position).getName().equals("") ||list.get(position).getLanguage() == 2) {
             holder.exerciseName.setText(list.get(position).getName());
         }
     }

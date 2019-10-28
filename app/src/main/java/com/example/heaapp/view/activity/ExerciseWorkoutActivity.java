@@ -36,6 +36,7 @@ public class ExerciseWorkoutActivity extends AppCompatActivity implements Exerci
     LinearLayout linearLayoutExercise;
     private ExerciseWorkoutPresenter exerciseWorkoutPresenter;
     private List<ItemExercise> listExercise;
+    private int categoryID;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +54,8 @@ public class ExerciseWorkoutActivity extends AppCompatActivity implements Exerci
         //set Text for Exercise Title
         Bundle bundle = getIntent().getExtras();
         exeText.setText(bundle.getString("CategoryName"));
-
+        categoryID = bundle.getInt("CategoryID");
+        Toast.makeText(this, String.valueOf(categoryID), Toast.LENGTH_SHORT).show();
         exerciseToolBar.setNavigationOnClickListener(v -> finish());
 
         recyclerViewList.setHasFixedSize(true);
@@ -72,6 +74,10 @@ public class ExerciseWorkoutActivity extends AppCompatActivity implements Exerci
     @Override
     public void getListWorkoutSuccess(List<ItemExercise> list) {
         listExercise = list;
+        for(int i = 0;i< listExercise.size() ;i++){
+
+        }
+
         ListExerciseAdapter listExerciseAdapter = new ListExerciseAdapter(getContext(),listExercise);
         recyclerViewList.setAdapter(listExerciseAdapter);
         listExerciseAdapter.notifyDataSetChanged();
