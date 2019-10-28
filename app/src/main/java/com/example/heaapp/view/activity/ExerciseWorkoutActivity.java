@@ -3,8 +3,10 @@ package com.example.heaapp.view.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -12,10 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.heaapp.R;
-import com.example.heaapp.adapter.CategoryWorkoutAdapter;
 import com.example.heaapp.adapter.ListExerciseAdapter;
 import com.example.heaapp.model.workout.ItemExercise;
 import com.example.heaapp.presenter.ExerciseWorkoutPresenter;
+import com.example.heaapp.presenter.ExerciseWorkoutPresenterImpl;
 
 import java.util.List;
 import java.util.Objects;
@@ -23,7 +25,7 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ExerciseWorkoutActivity extends AppCompatActivity implements ListExerciseVeiw{
+public class ExerciseWorkoutActivity extends AppCompatActivity implements ExerciseWorkoutView{
     @BindView(R.id.exerciseToolbar)
     Toolbar exerciseToolBar;
     @BindView(R.id.exeText)
@@ -32,7 +34,6 @@ public class ExerciseWorkoutActivity extends AppCompatActivity implements ListEx
     RecyclerView recyclerViewList;
     @BindView(R.id.linearListExercise)
     LinearLayout linearLayoutExercise;
-    private ListExerciseAdapter listExerciseAdapter;
     private ExerciseWorkoutPresenter exerciseWorkoutPresenter;
     private List<ItemExercise> listExercise;
 
@@ -57,6 +58,8 @@ public class ExerciseWorkoutActivity extends AppCompatActivity implements ListEx
 
         recyclerViewList.setHasFixedSize(true);
 
+        exerciseWorkoutPresenter = new ExerciseWorkoutPresenterImpl(this);
+
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerViewList.setLayoutManager(layoutManager);
 
@@ -65,21 +68,18 @@ public class ExerciseWorkoutActivity extends AppCompatActivity implements ListEx
 
 
 
+
     @Override
-    public Context getContext() {
-        return this;
+    public void getListWorkoutSuccess(List<ItemExercise> list) {
+        listExercise = list;
+        ListExerciseAdapter listExerciseAdapter = new ListExerciseAdapter(getContext(),listExercise);
+        recyclerViewList.setAdapter(listExerciseAdapter);
+        listExerciseAdapter.notifyDataSetChanged();
+        listExerciseAdapter.setOnItemListener(listExercise-> Log.d("textString",listExercise.getName()));
     }
 
     @Override
-    public void getListExerciseViewSuccess(List<ItemExercise> item) {
-        listExercise = item;
-        ListExerciseAdapter listExerciseAdapter = new ListExerciseAdapter(getContext(),listExercise);
-        recyclerViewList.setAdapter(listExerciseAdapter);
-
-//        ListExerciseAdapter(results1 -> {
-//            Intent intent = new Intent(getContext(), ExerciseWorkoutActivity.class);
-//            intent.putExtra("CategoryName",results1.getName());
-//            startActivity(intent);
-//        });
+    public Context getContext() {
+        return this;
     }
 }

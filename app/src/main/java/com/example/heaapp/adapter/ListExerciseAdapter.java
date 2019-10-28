@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import androidx.recyclerview.widget.RecyclerView.Adapter;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,11 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.heaapp.R;
 import com.example.heaapp.callback.ListExerciseListener;
 import com.example.heaapp.model.workout.ItemExercise;
-import com.example.heaapp.model.workout.ListExercise;
 
 import java.util.List;
 
-public class ListExerciseAdapter extends RecyclerView.Adapter<ListExerciseAdapter.ViewHolder> {
+public class ListExerciseAdapter extends Adapter<ListExerciseAdapter.ViewHolder> {
     private Context context;
     private ListExerciseListener listener;
     private List<ItemExercise> list;
@@ -29,7 +29,7 @@ public class ListExerciseAdapter extends RecyclerView.Adapter<ListExerciseAdapte
 
     @NonNull
     @Override
-    public ListExerciseAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(context).inflate(R.layout.list_exercise_item,parent,false);
         return new ViewHolder(view);
     }
@@ -37,9 +37,13 @@ public class ListExerciseAdapter extends RecyclerView.Adapter<ListExerciseAdapte
     @Override
     public void onBindViewHolder(@NonNull ListExerciseAdapter.ViewHolder holder, int position) {
         holder.viewBind(list.get(position),listener);
-        holder.exerciseName.setText(list.get(position).getName());
+        if(list.get(position).getName().equals("") ||list.get(position).getLanguage() == 2) {
+            holder.exerciseName.setText(list.get(position).getName());
+        }
     }
-
+    public void setOnItemListener(ListExerciseListener onItemListener){
+        this.listener = onItemListener;
+    }
     @Override
     public int getItemCount() {
         return list.size();

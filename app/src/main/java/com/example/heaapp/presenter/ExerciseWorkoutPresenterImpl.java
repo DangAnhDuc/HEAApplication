@@ -1,9 +1,9 @@
 package com.example.heaapp.presenter;
 
+import android.content.Context;
+
 import com.example.heaapp.api.ApiUtils;
 import com.example.heaapp.api.WorkoutApiService;
-import com.example.heaapp.base.BaseView;
-import com.example.heaapp.model.workout.Exercisecategory;
 import com.example.heaapp.model.workout.ItemExercise;
 import com.example.heaapp.model.workout.ListExercise;
 import com.example.heaapp.view.activity.ExerciseWorkoutView;
@@ -18,8 +18,12 @@ import io.reactivex.schedulers.Schedulers;
 public class ExerciseWorkoutPresenterImpl implements ExerciseWorkoutPresenter{
 
     private List<ItemExercise> listItem;
-    private ExerciseWorkoutView view;
+    private ExerciseWorkoutView exerciseView;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
+
+    public ExerciseWorkoutPresenterImpl(ExerciseWorkoutView exerciseView) {
+        this.exerciseView = exerciseView;
+    }
 
     @Override
     public void getListExercise() {
@@ -32,17 +36,17 @@ public class ExerciseWorkoutPresenterImpl implements ExerciseWorkoutPresenter{
     }
 
     @Override
-    public void attachView(BaseView view) {
-
+    public void attachView(ExerciseWorkoutView view) {
+        exerciseView = view;
     }
 
     @Override
     public void detachView() {
-
+        exerciseView= null;
     }
 
     private void handleReponse(ListExercise listExercise){
         listItem = listExercise.getResults();
-        view.getListWorkoutSuccess(listItem);
+        exerciseView.getListWorkoutSuccess(listItem);
     }
 }

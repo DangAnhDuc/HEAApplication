@@ -55,7 +55,7 @@ public class CategoryWorkoutAdapter extends Adapter<CategoryWorkoutAdapter.ViewH
             categoryName = itemView.findViewById(R.id.category_workout_name);
         }
 
-        public void viewBind(final Results results, WorkoutListener lis){
+        public void viewBind(Results results, WorkoutListener lis){
             itemView.setOnClickListener(v -> lis.OnItemClick(results));
         }
     }
