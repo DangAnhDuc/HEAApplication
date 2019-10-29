@@ -9,10 +9,17 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.heaapp.R;
+import com.example.heaapp.model.user_information.CurrentUserInfo;
+import com.example.heaapp.model.user_information.DailySummary;
 import com.example.heaapp.ultis.ultis;
+
+import java.util.concurrent.atomic.AtomicLong;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -20,6 +27,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     ImageView imgSplash;
     @BindView(R.id.txtSplash)
     TextView txtSplash;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +37,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         Animation splashanimation= AnimationUtils.loadAnimation(this,R.anim.splashtransition);
         imgSplash.setAnimation(splashanimation);
         txtSplash.setAnimation(splashanimation);
+        Realm.init(getApplicationContext());
         Thread timer=new Thread(){
             public void run(){
                 try {

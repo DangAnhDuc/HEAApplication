@@ -4,5 +4,6 @@ import com.example.heaapp.base.BasePresenter;
 import com.example.heaapp.view.fragment.DashboardView;
 
 public interface DashboardPresenter extends BasePresenter<DashboardView> {
-    void addDrunkWater(int wateramount);
+    void getDailySummary();
+    void addDrunkWater(long wateramount);
 }

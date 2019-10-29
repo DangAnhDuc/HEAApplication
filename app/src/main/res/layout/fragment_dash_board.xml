@@ -48,7 +48,7 @@
                             android:drawablePadding="10dp"
                             android:ellipsize="end"
                             android:text="108"
-                            android:textColor="@color/colorAccent"
+                            android:textColor="@android:color/white"
                             android:textSize="20sp"
                             android:textStyle="bold" />
 
@@ -60,7 +60,7 @@
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="5dp"
                             android:text="Eaten"
-                            android:textColor="@color/colorAccent"
+                            android:textColor="@android:color/white"
                             android:textSize="15sp" />
 
                     </RelativeLayout>
@@ -86,7 +86,7 @@
                                 android:drawablePadding="10dp"
                                 android:ellipsize="end"
                                 android:text="250"
-                                android:textColor="@color/colorAccent"
+                                android:textColor="@android:color/white"
                                 android:textSize="40sp"
                                 android:textStyle="bold" />
 
@@ -98,7 +98,7 @@
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="5dp"
                                 android:text="kCal Left"
-                                android:textColor="@color/colorAccent"
+                                android:textColor="@android:color/white"
                                 android:textSize="20sp" />
 
                         </LinearLayout>
@@ -120,7 +120,7 @@
                             android:drawablePadding="10dp"
                             android:ellipsize="end"
                             android:text="150"
-                            android:textColor="@color/colorAccent"
+                            android:textColor="@android:color/white"
                             android:textSize="20sp"
                             android:textStyle="bold" />
 
@@ -132,7 +132,7 @@
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="5dp"
                             android:text="Burned"
-                            android:textColor="@color/colorAccent"
+                            android:textColor="@android:color/white"
                             android:textSize="15sp" />
                     </RelativeLayout>
                 </LinearLayout>
@@ -158,7 +158,7 @@
                             android:drawablePadding="10dp"
                             android:ellipsize="end"
                             android:text="Carbs"
-                            android:textColor="@color/colorAccent"
+                            android:textColor="@android:color/white"
                             android:textSize="20sp"
                             android:textStyle="bold" />
 
@@ -170,7 +170,7 @@
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="5dp"
                             android:text="25g left"
-                            android:textColor="@color/colorAccent"
+                            android:textColor="@android:color/white"
                             android:textSize="15sp" />
 
                     </RelativeLayout>
@@ -190,7 +190,7 @@
                             android:drawablePadding="10dp"
                             android:ellipsize="end"
                             android:text="Protein"
-                            android:textColor="@color/colorAccent"
+                            android:textColor="@android:color/white"
                             android:textSize="20sp"
                             android:textStyle="bold" />
 
@@ -202,7 +202,7 @@
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="5dp"
                             android:text="30g left"
-                            android:textColor="@color/colorAccent"
+                            android:textColor="@android:color/white"
                             android:textSize="15sp" />
                     </RelativeLayout>
 
@@ -221,7 +221,7 @@
                             android:drawablePadding="10dp"
                             android:ellipsize="end"
                             android:text="Fat"
-                            android:textColor="@color/colorAccent"
+                            android:textColor="@android:color/white"
                             android:textSize="20sp"
                             android:textStyle="bold" />
 
@@ -233,7 +233,7 @@
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="5dp"
                             android:text="15g left"
-                            android:textColor="@color/colorAccent"
+                            android:textColor="@android:color/white"
                             android:textSize="15sp" />
                     </RelativeLayout>
                 </LinearLayout>
@@ -241,7 +241,7 @@
 
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -266,11 +266,12 @@
                         android:textSize="25sp" />
 
                     <TextView
+                        android:id="@+id/tv_total_water"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentRight="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Total: 500ml"/>
+                        android:text="Total: 0ml"/>
                 </RelativeLayout>
 
                 <View
@@ -290,9 +291,9 @@
                         android:layout_weight="1">
 
                         <Button
+                            android:id="@+id/btn_75"
                             android:layout_width="55dp"
                             android:layout_height="80dp"
-                            android:layout_centerHorizontal="true"
                             android:background="@drawable/cup_button_background"
                             android:text="75ml"
                             android:textColor="@android:color/white"
@@ -305,9 +306,9 @@
                         android:layout_weight="1">
 
                         <Button
+                            android:id="@+id/btn_150"
                             android:layout_width="55dp"
                             android:layout_height="80dp"
-                            android:layout_centerHorizontal="true"
                             android:background="@drawable/cup_button_background"
                             android:text="150ml"
                             android:textColor="@android:color/white"
@@ -320,9 +321,9 @@
                         android:layout_weight="1">
 
                         <Button
+                            android:id="@+id/btn_250"
                             android:layout_width="55dp"
                             android:layout_height="80dp"
-                            android:layout_centerHorizontal="true"
                             android:background="@drawable/cup_button_background"
                             android:text="250ml"
                             android:textColor="@android:color/white"
@@ -335,6 +336,7 @@
                         android:layout_weight="1">
 
                         <Button
+                            android:id="@+id/btn_330"
                             android:layout_width="55dp"
                             android:layout_height="80dp"
                             android:layout_centerHorizontal="true"
@@ -350,6 +352,7 @@
                         android:layout_weight="1">
 
                         <Button
+                            android:id="@+id/btn_custom_water"
                             android:layout_width="55dp"
                             android:layout_height="80dp"
                             android:layout_centerHorizontal="true"
