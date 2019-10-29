@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.heaapp.R;
 import com.example.heaapp.callback.ListExerciseListener;
 import com.example.heaapp.model.workout.ItemExercise;
-import com.example.heaapp.view.activity.ExerciseWorkoutActivity;
 
 import java.util.List;
 
@@ -25,8 +24,7 @@ public class ListExerciseAdapter extends Adapter<ListExerciseAdapter.ViewHolder>
     private ListExerciseListener listener;
     private List<ItemExercise> list;
     private int categoryID;
-    ExerciseWorkoutActivity exerciseWorkoutActivity = new ExerciseWorkoutActivity();
-
+    private int pos;
     public ListExerciseAdapter(Context context, List<ItemExercise> list,int categoryID) {
         this.context = context;
         this.list = list;
@@ -43,10 +41,18 @@ public class ListExerciseAdapter extends Adapter<ListExerciseAdapter.ViewHolder>
     @Override
     public void onBindViewHolder(@NonNull ListExerciseAdapter.ViewHolder holder, int position) {
         holder.viewBind(list.get(position),listener);
-        Log.d("asdasda", "adapter"+String.valueOf(categoryID));
-        if(list.get(position).getLanguage() == 2 && list.get(position).getName() != null && !list.get(position).getName().isEmpty() && categoryID == list.get(position).getCategory()) {
-            holder.exerciseName.setText(list.get(position).getName());
+
+        for(pos = 0 ; pos < list.size(); pos++){
+            if(list.get(position).getLanguage() != 2 || list.get(position).getName() == null || list.get(position).getName().isEmpty() || categoryID != list.get(position).getCategory()) {
+                new Thread(() -> {
+                    this.list.remove(position);
+                    notifyItemRemoved(position);
+                    notifyDataSetChanged();
+                });
+            }
         }
+        holder.exerciseName.setText(list.get(position).getName());
+
     }
 
     public void setOnItemListener(ListExerciseListener onItemListener){

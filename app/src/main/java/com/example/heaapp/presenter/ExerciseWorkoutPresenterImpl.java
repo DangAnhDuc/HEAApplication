@@ -72,6 +72,7 @@ public class ExerciseWorkoutPresenterImpl implements ExerciseWorkoutPresenter {
 
     private void handleReponse(ListExercise listExercise) {
         listItem = listExercise.getResults();
+        listItem.remove(this);
         exerciseView.getListWorkoutSuccess(listItem);
     }
 }
