@@ -1,5 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.android.application'
+apply plugin: 'realm-android'
+
 ext {
     geckoview_channel = "nightly"
     geckoview_version = "70.0.20190712095934"

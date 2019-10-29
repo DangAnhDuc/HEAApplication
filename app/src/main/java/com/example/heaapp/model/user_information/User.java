@@ -1,4 +1,4 @@
-package com.example.heaapp.model.login_register;
+package com.example.heaapp.model.user_information;
 
 public class User {
     String userId;
