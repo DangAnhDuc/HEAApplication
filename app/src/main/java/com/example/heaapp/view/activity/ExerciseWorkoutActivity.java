@@ -1,12 +1,10 @@
 package com.example.heaapp.view.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -36,7 +34,7 @@ public class ExerciseWorkoutActivity extends AppCompatActivity implements Exerci
     LinearLayout linearLayoutExercise;
     private ExerciseWorkoutPresenter exerciseWorkoutPresenter;
     private List<ItemExercise> listExercise;
-    private int categoryID;
+    private int categoryID ;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,30 +53,24 @@ public class ExerciseWorkoutActivity extends AppCompatActivity implements Exerci
         Bundle bundle = getIntent().getExtras();
         exeText.setText(bundle.getString("CategoryName"));
         categoryID = bundle.getInt("CategoryID");
-        Toast.makeText(this, String.valueOf(categoryID), Toast.LENGTH_SHORT).show();
+        Log.d("asdasda","activity"+categoryID);
         exerciseToolBar.setNavigationOnClickListener(v -> finish());
 
         recyclerViewList.setHasFixedSize(true);
 
         exerciseWorkoutPresenter = new ExerciseWorkoutPresenterImpl(this);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerViewList.setLayoutManager(layoutManager);
 
         linearLayoutExercise.post(()->exerciseWorkoutPresenter.getListExercise());
     }
 
-
-
-
     @Override
     public void getListWorkoutSuccess(List<ItemExercise> list) {
         listExercise = list;
-        for(int i = 0;i< listExercise.size() ;i++){
 
-        }
-
-        ListExerciseAdapter listExerciseAdapter = new ListExerciseAdapter(getContext(),listExercise);
+        ListExerciseAdapter listExerciseAdapter = new ListExerciseAdapter(getContext(),listExercise,categoryID);
         recyclerViewList.setAdapter(listExerciseAdapter);
         listExerciseAdapter.notifyDataSetChanged();
         listExerciseAdapter.setOnItemListener(listExercise-> Log.d("textString",listExercise.getName()));

@@ -38,7 +38,7 @@ public class WorkoutFragment extends BaseFragment implements WorkoutView{
     private LinearLayout layoutWorkout;
     private List<Results> listResults;
     private WorkoutPresenter workoutPresenter;
-    public static int categoryID = 0;
+
 
     @Override
     public BaseFragment provideYourFragment() {
@@ -69,10 +69,7 @@ public class WorkoutFragment extends BaseFragment implements WorkoutView{
 
         categoryWorkoutAdapter.setOnItemListener(results1 -> {
             Intent intent = new Intent(getContext(), ExerciseWorkoutActivity.class);
-            SharedPreferences  preferences= getContext().getSharedPreferences("MyRef", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor=preferences.edit();
-            editor.putInt("category",results1.getId());
-            editor.apply();
+            intent.putExtra("CategoryID",results1.getId());
             intent.putExtra("CategoryName",results1.getName());
             startActivity(intent);
         });

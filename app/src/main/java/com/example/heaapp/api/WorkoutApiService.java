@@ -6,7 +6,10 @@ import com.example.heaapp.model.workout.Exercisecategory;
 import com.example.heaapp.model.workout.ListExercise;
 
 import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Part;
+import retrofit2.http.Path;
 
 public interface WorkoutApiService {
     @GET("exercisecategory")
@@ -73,24 +76,8 @@ public interface WorkoutApiService {
     Observable<ListExercise> getExercisePage29();
     @GET("exercise/?page=30")
     Observable<ListExercise> getExercisePage30();
-    @GET("exercise/?page=31")
-    Observable<ListExercise> getExercisePage31();
-    @GET("exercise/?page=32")
-    Observable<ListExercise> getExercisePage32();
-    @GET("exercise/?page=33")
-    Observable<ListExercise> getExercisePage33();
-    @GET("exercise/?page=34")
-    Observable<ListExercise> getExercisePage34();
-    @GET("exercise/?page=35")
-    Observable<ListExercise> getExercisePage35();
-    @GET("exercise/?page=36")
-    Observable<ListExercise> getExercisePage36();
-    @GET("exercise/?page=37")
-    Observable<ListExercise> getExercisePage37();
-    @GET("exercise/?page=38")
-    Observable<ListExercise> getExercisePage38();
-    @GET("exercise/?page=39")
-    Observable<ListExercise> getExercisePage39();
-    @GET("exercise/?page=40")
-    Observable<ListExercise> getExercisePage40();
+
+
+
+
 }
