@@ -2,6 +2,7 @@ package com.example.heaapp.view.activity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -33,6 +34,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     FirebaseAuth firebaseAuth;
     LoginPresenterImpl loginPresenter;
     ProgressDialog progressDialog;
+    private boolean doubleBackToExitPressedOnce = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,5 +139,17 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         return this;
     }
 
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            return;
+        }
+        this.doubleBackToExitPressedOnce = true;
+        ultis.showMessage(this, "Press once again to exit!");
+    }
 
 }

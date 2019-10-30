@@ -11,7 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".view.activity.WebviewNewsActivity"/>
+        <activity android:name=".view.activity.UserInfoActivity"></activity>
+        <activity android:name=".view.activity.WebviewNewsActivity" />
         <activity android:name=".view.activity.SignUpActivity" />
         <activity android:name=".view.activity.LoginActivity" />
         <activity android:name=".view.activity.OnboardingActivity" />

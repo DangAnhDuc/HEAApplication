@@ -129,6 +129,10 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
                     case R.id.side_bar_logout:
                         homePresenter.signOut();
                         ultis.showMessage(getContext(),"Sign out successfully!");
+                        break;
+                    case  R.id.side_bar_info_user:
+                        ultis.setIntent(getContext(),UserInfoActivity.class);
+                        break;
                 }
                 return true;
             }
