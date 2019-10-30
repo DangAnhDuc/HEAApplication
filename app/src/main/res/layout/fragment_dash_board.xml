@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -47,7 +47,7 @@
                             android:layout_marginTop="60dp"
                             android:drawablePadding="10dp"
                             android:ellipsize="end"
-                            android:text="108"
+                            android:text="0"
                             android:textColor="@android:color/white"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -85,7 +85,7 @@
                                 android:layout_marginTop="30dp"
                                 android:drawablePadding="10dp"
                                 android:ellipsize="end"
-                                android:text="250"
+                                android:text="0"
                                 android:textColor="@android:color/white"
                                 android:textSize="40sp"
                                 android:textStyle="bold" />
@@ -119,7 +119,7 @@
                             android:layout_marginTop="60dp"
                             android:drawablePadding="10dp"
                             android:ellipsize="end"
-                            android:text="150"
+                            android:text="0"
                             android:textColor="@android:color/white"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -169,7 +169,7 @@
                             android:layout_below="@+id/title_carbs"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="5dp"
-                            android:text="25g left"
+                            android:text="0g left"
                             android:textColor="@android:color/white"
                             android:textSize="15sp" />
 
@@ -201,7 +201,7 @@
                             android:layout_below="@+id/title_protein"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="5dp"
-                            android:text="30g left"
+                            android:text="0g left"
                             android:textColor="@android:color/white"
                             android:textSize="15sp" />
                     </RelativeLayout>
@@ -232,7 +232,7 @@
                             android:layout_below="@+id/title_fat"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="5dp"
-                            android:text="15g left"
+                            android:text="0g left"
                             android:textColor="@android:color/white"
                             android:textSize="15sp" />
                     </RelativeLayout>
@@ -618,5 +618,6 @@
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

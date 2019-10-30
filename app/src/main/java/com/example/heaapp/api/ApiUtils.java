@@ -2,16 +2,17 @@ package com.example.heaapp.api;
 
 public class ApiUtils {
 
+    //base urls
     private static final String WeatherApi = "https://api.airvisual.com/v2/";
     private static final String NewApi= "https://newsapi.org/v2/";
     private static final String WorkoutApi = "https://wger.de/api/v2/";
 
     public static WeatherApiServices getWeatherApiService() {
-        return RetrofitClient.getClient1(WeatherApi).create(WeatherApiServices.class);
+        return RetrofitClient.getClientWeather(WeatherApi).create(WeatherApiServices.class);
     }
 
     public static NewsApiServices getNewsApiService() {
-        return RetrofitClient.getClient(NewApi).create(NewsApiServices.class);
+        return RetrofitClient.getClientNews(NewApi).create(NewsApiServices.class);
     }
 
     public static WorkoutApiService getWorkoutApiService(){

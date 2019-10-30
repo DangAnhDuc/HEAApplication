@@ -2,7 +2,9 @@ package com.example.heaapp.service;
 
 import com.example.heaapp.callback.OnTransactionCallback;
 import com.example.heaapp.model.user_information.DailySummary;
+import com.example.heaapp.ultis.Common;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import io.realm.Realm;
@@ -30,39 +32,14 @@ public class RealmService {
     public RealmResults<DailySummary> getAllDaySummary() {
         return mRealm.where(DailySummary.class).findAll();
     }
-    public void addWaterAsync(int id, int dayCount, Date date, long waterAmount, OnTransactionCallback onTransactionCallback){
-        mRealm.executeTransactionAsync(new Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                DailySummary dailySummary = realm.createObject(DailySummary.class);
-                dailySummary.setId(0);
-                dailySummary.setDayCount(0);
-                dailySummary.setDate(date);
-                dailySummary.setWaterConsume(waterAmount);
-            }
-        }, new Realm.Transaction.OnSuccess() {
-            @Override
-            public void onSuccess() {
-                if (onTransactionCallback != null) {
-                    onTransactionCallback.onTransactionSuccess();
-                }
-            }
-        }, new Transaction.OnError() {
-            @Override
-            public void onError(Throwable error) {
-                if (onTransactionCallback != null) {
-                    onTransactionCallback.onTransactionError((Exception) error);
-                }
-            }
-        });
-    }
 
-    public void modiWaterAsync(long totalWaterAmount,OnTransactionCallback onTransactionCallback) {
+    //modify drunk water
+    public void modifyWaterAsync(long totalWaterAmount,OnTransactionCallback onTransactionCallback) {
         mRealm.executeTransactionAsync(new Transaction() {
             @Override
             public void execute(Realm realm) {
                 RealmResults<DailySummary> result = realm.where(DailySummary.class)
-                        .equalTo("id", 0)
+                        .equalTo("date", Common.today)
                         .findAll();
                 result.setValue("waterConsume", totalWaterAmount);
             }

@@ -11,8 +11,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.heaapp.R;
 import com.example.heaapp.model.user_information.CurrentUserInfo;
 import com.example.heaapp.model.user_information.DailySummary;
+import com.example.heaapp.service.RealmService;
+import com.example.heaapp.ultis.Common;
 import com.example.heaapp.ultis.ultis;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.concurrent.atomic.AtomicLong;
 
 import butterknife.BindView;
@@ -27,7 +32,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     ImageView imgSplash;
     @BindView(R.id.txtSplash)
     TextView txtSplash;
-
+    public static AtomicLong dailySummaryPrimaryKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +42,41 @@ public class SplashScreenActivity extends AppCompatActivity {
         Animation splashanimation= AnimationUtils.loadAnimation(this,R.anim.splashtransition);
         imgSplash.setAnimation(splashanimation);
         txtSplash.setAnimation(splashanimation);
+        //init database
         Realm.init(getApplicationContext());
+        Realm realm=Realm.getDefaultInstance();
+        RealmService realmService= RealmService.getInstance();
+
+        //check if the app is just install
+        try {
+            dailySummaryPrimaryKey=new AtomicLong(realm.where(DailySummary.class).max("id").longValue()+1);
+        }
+        catch (Exception e){
+            realm.beginTransaction();
+            DailySummary dailySummary = realm.createObject(DailySummary.class);
+            dailySummary.setId(0);
+            dailySummary.setDate(Common.today);
+            dailySummary.setWaterConsume(0);
+            dailySummary.setEatenCalories(0);
+            dailySummary.setBurnedCalories(0);
+            dailySummaryPrimaryKey=new AtomicLong(realm.where(DailySummary.class).findAll().size());
+            RealmResults<DailySummary> realmResults= realm.where(DailySummary.class).equalTo("id",0).findAll();
+            realmResults.deleteAllFromRealm();
+            realm.commitTransaction();
+        }
+
+        //Daily check
+        RealmResults<DailySummary> realmResults= realm.where(DailySummary.class).equalTo("date",Common.today).findAll();
+        if(realmResults.size()==0){
+            realm.beginTransaction();
+            DailySummary dailySummary = realm.createObject(DailySummary.class);
+            dailySummary.setId(dailySummaryPrimaryKey.getAndIncrement());
+            dailySummary.setDate(Common.today);
+            dailySummary.setWaterConsume(0);
+            dailySummary.setEatenCalories(0);
+            dailySummary.setBurnedCalories(0);
+            realm.commitTransaction();
+        }
         Thread timer=new Thread(){
             public void run(){
                 try {

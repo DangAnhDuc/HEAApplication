@@ -79,7 +79,7 @@ public class DashBoardFragment extends BaseFragment implements DashboardView, Vi
                 dashboardPresenter.addDrunkWater(330);
                 break;
             case R.id.btn_custom_water:
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.AlertDialogTheme);
                 builder.setTitle("Input water amount");
 
                 final EditText input = new EditText(getContext());

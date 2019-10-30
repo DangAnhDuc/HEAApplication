@@ -26,6 +26,7 @@ public class HealthInforPresenterImpl implements HealthInforPresenter {
         this.healthInforView = healthInforView;
     }
 
+    //get news
     @Override
     public void getListArticles() {
         NewsApiServices newsApiServices= ApiUtils.getNewsApiService();
@@ -36,6 +37,7 @@ public class HealthInforPresenterImpl implements HealthInforPresenter {
         compositeDisposable.add(disposable);
     }
 
+    //get weather data
     @Override
     public void getWeatherData() {
         WeatherApiServices weatherApiServices= ApiUtils.getWeatherApiService();
