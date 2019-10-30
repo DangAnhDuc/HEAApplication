@@ -53,12 +53,11 @@ public class ExerciseWorkoutActivity extends AppCompatActivity implements Exerci
         Bundle bundle = getIntent().getExtras();
         exeText.setText(bundle.getString("CategoryName"));
         categoryID = bundle.getInt("CategoryID");
-        Log.d("asdasda","activity"+categoryID);
         exerciseToolBar.setNavigationOnClickListener(v -> finish());
 
         recyclerViewList.setHasFixedSize(true);
 
-        exerciseWorkoutPresenter = new ExerciseWorkoutPresenterImpl(this);
+        exerciseWorkoutPresenter = new ExerciseWorkoutPresenterImpl(categoryID,this);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerViewList.setLayoutManager(layoutManager);
@@ -70,7 +69,7 @@ public class ExerciseWorkoutActivity extends AppCompatActivity implements Exerci
     public void getListWorkoutSuccess(List<ItemExercise> list) {
         listExercise = list;
 
-        ListExerciseAdapter listExerciseAdapter = new ListExerciseAdapter(getContext(),listExercise,categoryID);
+        ListExerciseAdapter listExerciseAdapter = new ListExerciseAdapter(getContext(),listExercise);
         recyclerViewList.setAdapter(listExerciseAdapter);
         listExerciseAdapter.notifyDataSetChanged();
         listExerciseAdapter.setOnItemListener(listExercise-> Log.d("textString",listExercise.getName()));

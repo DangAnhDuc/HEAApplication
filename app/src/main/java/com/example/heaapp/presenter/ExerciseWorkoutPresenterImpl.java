@@ -1,5 +1,7 @@
 package com.example.heaapp.presenter;
 
+import android.util.Log;
+
 import com.example.heaapp.api.ApiUtils;
 import com.example.heaapp.api.WorkoutApiService;
 import com.example.heaapp.model.workout.ItemExercise;
@@ -17,9 +19,12 @@ public class ExerciseWorkoutPresenterImpl implements ExerciseWorkoutPresenter {
     private List<ItemExercise> listItem;
     private ExerciseWorkoutView exerciseView;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private int CateID;
+    int i;
 
-    public ExerciseWorkoutPresenterImpl(ExerciseWorkoutView exerciseView) {
+    public ExerciseWorkoutPresenterImpl(int Cateid,ExerciseWorkoutView exerciseView) {
         this.exerciseView = exerciseView;
+        this.CateID = Cateid;
     }
 
     @Override
@@ -72,7 +77,13 @@ public class ExerciseWorkoutPresenterImpl implements ExerciseWorkoutPresenter {
 
     private void handleReponse(ListExercise listExercise) {
         listItem = listExercise.getResults();
-        listItem.remove(this);
+        while(i<listItem.size()){
+            if(listItem.get(i).getLanguage()!= 2){
+                listItem.remove(i);
+            }
+            Log.d("test",listItem.get(i).getName()+".."+listItem.get(i).getId()+".."+listItem.get(i).getCategory());
+            i++;
+        }
         exerciseView.getListWorkoutSuccess(listItem);
     }
 }

@@ -23,12 +23,9 @@ public class ListExerciseAdapter extends Adapter<ListExerciseAdapter.ViewHolder>
     private Context context;
     private ListExerciseListener listener;
     private List<ItemExercise> list;
-    private int categoryID;
-    private int pos;
-    public ListExerciseAdapter(Context context, List<ItemExercise> list,int categoryID) {
+    public ListExerciseAdapter(Context context, List<ItemExercise> list) {
         this.context = context;
         this.list = list;
-        this.categoryID = categoryID;
     }
 
     @NonNull
@@ -41,18 +38,7 @@ public class ListExerciseAdapter extends Adapter<ListExerciseAdapter.ViewHolder>
     @Override
     public void onBindViewHolder(@NonNull ListExerciseAdapter.ViewHolder holder, int position) {
         holder.viewBind(list.get(position),listener);
-
-        for(pos = 0 ; pos < list.size(); pos++){
-            if(list.get(position).getLanguage() != 2 || list.get(position).getName() == null || list.get(position).getName().isEmpty() || categoryID != list.get(position).getCategory()) {
-                new Thread(() -> {
-                    this.list.remove(position);
-                    notifyItemRemoved(position);
-                    notifyDataSetChanged();
-                });
-            }
-        }
         holder.exerciseName.setText(list.get(position).getName());
-
     }
 
     public void setOnItemListener(ListExerciseListener onItemListener){
