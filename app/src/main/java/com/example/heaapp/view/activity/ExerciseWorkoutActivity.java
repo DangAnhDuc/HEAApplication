@@ -1,5 +1,6 @@
 package com.example.heaapp.view.activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,6 +36,7 @@ public class ExerciseWorkoutActivity extends AppCompatActivity implements Exerci
     private ExerciseWorkoutPresenter exerciseWorkoutPresenter;
     private List<ItemExercise> listExercise;
     private int categoryID ;
+    ProgressDialog dialog;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +45,18 @@ public class ExerciseWorkoutActivity extends AppCompatActivity implements Exerci
         initView();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        dialog.setIndeterminate(true);
+        dialog.setMessage("Loading...");
+        dialog.setCancelable(false);
+        dialog.show();
+    }
+
     public void initView(){
+        dialog = new ProgressDialog(getContext(),R.style.AppTheme_Dark_Dialog);
+
         //set toolbar
         setSupportActionBar(exerciseToolBar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -67,6 +80,7 @@ public class ExerciseWorkoutActivity extends AppCompatActivity implements Exerci
 
     @Override
     public void getListWorkoutSuccess(List<ItemExercise> list) {
+        dialog.dismiss();
         listExercise = list;
 
         ListExerciseAdapter listExerciseAdapter = new ListExerciseAdapter(getContext(),listExercise);
