@@ -11,10 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 
 import com.example.heaapp.R;
-import com.example.heaapp.callback.OnItemClickListener;
 import com.example.heaapp.callback.WorkoutListener;
 import com.example.heaapp.model.workout.Results;
-import com.example.heaapp.presenter.WorkoutPresenter;
 
 import java.util.List;
 
@@ -41,6 +39,10 @@ public class CategoryWorkoutAdapter extends Adapter<CategoryWorkoutAdapter.ViewH
         holder.categoryName.setText(listResults.get(position).getName());
     }
 
+    public void setOnItemListener(WorkoutListener workoutListener){
+        this.listener = workoutListener;
+    }
+
     @Override
     public int getItemCount() {
         return listResults.size();
@@ -53,7 +55,7 @@ public class CategoryWorkoutAdapter extends Adapter<CategoryWorkoutAdapter.ViewH
             categoryName = itemView.findViewById(R.id.category_workout_name);
         }
 
-        public void viewBind(final Results results, WorkoutListener lis){
+        public void viewBind(Results results, WorkoutListener lis){
             itemView.setOnClickListener(v -> lis.OnItemClick(results));
         }
     }

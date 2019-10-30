@@ -1,9 +1,7 @@
 package com.example.heaapp.presenter;
 
-import android.view.View;
 
 import com.example.heaapp.api.ApiUtils;
-import com.example.heaapp.api.NewsApiServices;
 import com.example.heaapp.api.WorkoutApiService;
 import com.example.heaapp.model.workout.Exercisecategory;
 import com.example.heaapp.model.workout.Results;
