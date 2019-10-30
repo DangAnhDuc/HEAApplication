@@ -21,6 +21,7 @@ public class HomePresenterImpl implements HomePresenter {
         this.firebaseAuth = firebaseAuth;
         this.context = context;
 
+        //check user signout
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {

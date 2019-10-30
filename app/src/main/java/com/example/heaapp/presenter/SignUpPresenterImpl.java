@@ -27,6 +27,7 @@ public class SignUpPresenterImpl implements SignUpPresenter {
 
     @Override
     public void signUp(String name, String email, String password) {
+        //check input condition
         if(TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
             signUpView.showValidationError("All fields must not be empty!");
         }
@@ -41,7 +42,7 @@ public class SignUpPresenterImpl implements SignUpPresenter {
         }
         else {
             signUpView.setProgressVisibility(true);
-
+            //create user and add to firebase database
             firebaseAuth.createUserWithEmailAndPassword(email,password)
                     .addOnCompleteListener((Activity) signUpView, new OnCompleteListener<AuthResult>() {
                         @Override

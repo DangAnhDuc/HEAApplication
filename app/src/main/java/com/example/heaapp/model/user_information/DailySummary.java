@@ -8,26 +8,44 @@ import io.realm.annotations.PrimaryKey;
 
 public class DailySummary extends RealmObject {
     private long id;
-    private int dayCount;
-    private Date date;
+    private String date;
     private long waterConsume;
+    private long eatenCalories;
+    private long burnedCalories;
 
     public DailySummary() {
     }
 
-    public DailySummary(long id, int dayCount, Date date, long waterConsume) {
+    public DailySummary(long id, String date, long waterConsume, long eatenCalories, long burnedCalories) {
         this.id = id;
-        this.dayCount = dayCount;
         this.date = date;
         this.waterConsume = waterConsume;
+        this.eatenCalories = eatenCalories;
+        this.burnedCalories = burnedCalories;
     }
 
-    public int getDayCount() {
-        return dayCount;
+    public String getDate() {
+        return date;
     }
 
-    public void setDayCount(int dayCount) {
-        this.dayCount = dayCount;
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public long getEatenCalories() {
+        return eatenCalories;
+    }
+
+    public void setEatenCalories(long eatenCalories) {
+        this.eatenCalories = eatenCalories;
+    }
+
+    public long getBurnedCalories() {
+        return burnedCalories;
+    }
+
+    public void setBurnedCalories(long burnedCalories) {
+        this.burnedCalories = burnedCalories;
     }
 
     public long getId() {
@@ -36,14 +54,6 @@ public class DailySummary extends RealmObject {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public long getWaterConsume() {

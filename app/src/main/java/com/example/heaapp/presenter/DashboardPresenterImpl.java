@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.heaapp.callback.OnTransactionCallback;
 import com.example.heaapp.model.user_information.DailySummary;
 import com.example.heaapp.service.RealmService;
+import com.example.heaapp.ultis.Common;
 import com.example.heaapp.view.fragment.DashboardView;
 
 import java.util.Calendar;
@@ -34,39 +35,40 @@ public class DashboardPresenterImpl implements DashboardPresenter, OnTransaction
     }
 
 
+    //get all information of each day
     @Override
     public void getDailySummary() {
-        RealmResults<DailySummary> result= realm.where(DailySummary.class)
-                .equalTo("id",0)
-                .findAll();
-        dashboardView.dispayDailySummary(result.get(0));
+        RealmResults<DailySummary> realmResults=getCurrentDate();
+        dashboardView.dispayDailySummary(realmResults.get(0));
     }
 
     @Override
     public void addDrunkWater(long waterAmount) {
+        RealmResults<DailySummary> realmResults=getCurrentDate();
+        totalWaterAmount=realmResults.get(0).getWaterConsume();
+        totalWaterAmount=totalWaterAmount+waterAmount;
+        mRealmService.modifyWaterAsync(totalWaterAmount,this);
+    }
+
+    @Override
+    public RealmResults<DailySummary> getCurrentDate() {
         RealmResults<DailySummary> result= realm.where(DailySummary.class)
-                .equalTo("id",0)
+                .equalTo("date", Common.today)
                 .findAll();
-        totalWaterAmount=result.get(0).getWaterConsume()+waterAmount;
-        if(result==null){
-            mRealmService.addWaterAsync(0,0,Calendar.getInstance().getTime(),totalWaterAmount,this);
-        }
-        else {
-            mRealmService.modiWaterAsync(totalWaterAmount,this);
-        }
+        return  result;
     }
 
 
     @Override
     public void onTransactionSuccess() {
-        RealmResults<DailySummary> result= realm.where(DailySummary.class)
-                .equalTo("id",0)
-                .findAll();
-        dashboardView.updateWaterAmount(Long.toString(result.get(0).getWaterConsume()));
+        RealmResults<DailySummary> realmResults=getCurrentDate();
+        dashboardView.updateWaterAmount(Long.toString(realmResults.get(0).getWaterConsume()));
     }
 
     @Override
     public void onTransactionError(Exception e) {
 
     }
+
+
 }

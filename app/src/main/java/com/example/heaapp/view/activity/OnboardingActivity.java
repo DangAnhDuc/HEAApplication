@@ -58,6 +58,8 @@ public class OnboardingActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         btnAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.buttonanimation);
+
+        //create onboarding list
         final List<OnboardingItem> onboardingItemList = new ArrayList<>();
         onboardingItemList.add(new OnboardingItem("Workout", "Take care your health with  most useful and effective workout plans", R.drawable.img1));
         onboardingItemList.add(new OnboardingItem("Health summary", "Keep your eyes on health tracking by log and reminder your activities", R.drawable.img2));
@@ -125,6 +127,7 @@ public class OnboardingActivity extends AppCompatActivity {
         return sharedPreferences.getBoolean("isOpened", false);
     }
 
+    //check onboardins are seen
     private void savePrefsData() {
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("myPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();

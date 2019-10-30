@@ -48,6 +48,7 @@ public class WebviewNewsActivity extends AppCompatActivity implements GeckoSessi
             }
         });
 
+        //create gecko session
         Bundle extras = getIntent().getExtras();
         url = extras.getString("URL");
         domain = extras.getString("Domain");

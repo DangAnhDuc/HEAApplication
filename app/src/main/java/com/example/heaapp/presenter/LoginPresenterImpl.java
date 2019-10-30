@@ -20,8 +20,10 @@ public class LoginPresenterImpl implements LoginPresenter {
         this.firebaseAuth = firebaseAuth;
     }
 
+    //login to account
     @Override
     public void login(String email, String password) {
+        //check input condition
         if(TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
             loginView.showValidationError("Email and password can't be empty");
         }
@@ -34,6 +36,7 @@ public class LoginPresenterImpl implements LoginPresenter {
         else {
             loginView.setProgressVisibility(true);
 
+            //login to firebase account
             firebaseAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener((Activity) loginView, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -49,6 +52,7 @@ public class LoginPresenterImpl implements LoginPresenter {
         }
     }
 
+    //check if user have logined
     @Override
     public void checkLogin() {
         if(firebaseAuth.getCurrentUser()!=null){

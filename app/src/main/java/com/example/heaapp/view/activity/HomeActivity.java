@@ -71,6 +71,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     }
 
     private void initView() {
+        //setup 3 main fragment
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPagerAdapter.addFragments(new WorkoutFragment(), "Workout");
         viewPagerAdapter.addFragments(new DashBoardFragment(), "Dashboard");
