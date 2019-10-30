@@ -1,5 +1,6 @@
 package com.example.heaapp.presenter;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.example.heaapp.api.ApiUtils;
@@ -8,6 +9,7 @@ import com.example.heaapp.model.workout.ItemExercise;
 import com.example.heaapp.model.workout.ListExercise;
 import com.example.heaapp.view.activity.ExerciseWorkoutView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -20,9 +22,10 @@ public class ExerciseWorkoutPresenterImpl implements ExerciseWorkoutPresenter {
     private ExerciseWorkoutView exerciseView;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private int CateID;
-    int i;
 
-    public ExerciseWorkoutPresenterImpl(int Cateid,ExerciseWorkoutView exerciseView) {
+    List<ItemExercise> list = new ArrayList<>();
+
+    public ExerciseWorkoutPresenterImpl(int Cateid, ExerciseWorkoutView exerciseView) {
         this.exerciseView = exerciseView;
         this.CateID = Cateid;
     }
@@ -30,35 +33,35 @@ public class ExerciseWorkoutPresenterImpl implements ExerciseWorkoutPresenter {
     @Override
     public void getListExercise() {
         WorkoutApiService workoutApiService = ApiUtils.getExerciseWorkoutApiService();
-        Disposable disposable = workoutApiService.getExercisePage3()
-//                .mergeWith(workoutApiService.getExercisePage3())
-//                .mergeWith(workoutApiService.getExercisePage4())
-//                .mergeWith(workoutApiService.getExercisePage5())
-//                .mergeWith(workoutApiService.getExercisePage6())
-//                .mergeWith(workoutApiService.getExercisePage7())
-//                .mergeWith(workoutApiService.getExercisePage8())
-//                .mergeWith(workoutApiService.getExercisePage9())
-//                .mergeWith(workoutApiService.getExercisePage10())
-//                .mergeWith(workoutApiService.getExercisePage11())
-//                .mergeWith(workoutApiService.getExercisePage12())
-//                .mergeWith(workoutApiService.getExercisePage13())
-//                .mergeWith(workoutApiService.getExercisePage14())
-//                .mergeWith(workoutApiService.getExercisePage15())
-//                .mergeWith(workoutApiService.getExercisePage16())
-//                .mergeWith(workoutApiService.getExercisePage17())
-//                .mergeWith(workoutApiService.getExercisePage18())
-//                .mergeWith(workoutApiService.getExercisePage19())
-//                .mergeWith(workoutApiService.getExercisePage20())
-//                .mergeWith(workoutApiService.getExercisePage21())
-//                .mergeWith(workoutApiService.getExercisePage22())
-//                .mergeWith(workoutApiService.getExercisePage23())
-//                .mergeWith(workoutApiService.getExercisePage24())
-//                .mergeWith(workoutApiService.getExercisePage25())
-//                .mergeWith(workoutApiService.getExercisePage26())
-//                .mergeWith(workoutApiService.getExercisePage27())
-//                .mergeWith(workoutApiService.getExercisePage28())
-//                .mergeWith(workoutApiService.getExercisePage29())
-//                .mergeWith(workoutApiService.getExercisePage30())
+        Disposable disposable = workoutApiService.getExercise()
+                .mergeWith(workoutApiService.getExercisePage3())
+                .mergeWith(workoutApiService.getExercisePage4())
+                .mergeWith(workoutApiService.getExercisePage5())
+                .mergeWith(workoutApiService.getExercisePage6())
+                .mergeWith(workoutApiService.getExercisePage7())
+                .mergeWith(workoutApiService.getExercisePage8())
+                .mergeWith(workoutApiService.getExercisePage9())
+                .mergeWith(workoutApiService.getExercisePage10())
+                .mergeWith(workoutApiService.getExercisePage11())
+                .mergeWith(workoutApiService.getExercisePage12())
+                .mergeWith(workoutApiService.getExercisePage13())
+                .mergeWith(workoutApiService.getExercisePage14())
+                .mergeWith(workoutApiService.getExercisePage15())
+                .mergeWith(workoutApiService.getExercisePage16())
+                .mergeWith(workoutApiService.getExercisePage17())
+                .mergeWith(workoutApiService.getExercisePage18())
+                .mergeWith(workoutApiService.getExercisePage19())
+                .mergeWith(workoutApiService.getExercisePage20())
+                .mergeWith(workoutApiService.getExercisePage21())
+                .mergeWith(workoutApiService.getExercisePage22())
+                .mergeWith(workoutApiService.getExercisePage23())
+                .mergeWith(workoutApiService.getExercisePage24())
+                .mergeWith(workoutApiService.getExercisePage25())
+                .mergeWith(workoutApiService.getExercisePage26())
+                .mergeWith(workoutApiService.getExercisePage27())
+                .mergeWith(workoutApiService.getExercisePage28())
+                .mergeWith(workoutApiService.getExercisePage29())
+                .mergeWith(workoutApiService.getExercisePage30())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::handleReponse);
@@ -77,13 +80,16 @@ public class ExerciseWorkoutPresenterImpl implements ExerciseWorkoutPresenter {
 
     private void handleReponse(ListExercise listExercise) {
         listItem = listExercise.getResults();
-        while(i<listItem.size()){
-            if(listItem.get(i).getLanguage()!= 2){
-                listItem.remove(i);
+        try {
+            for (int i = 0; i < listItem.size() - 1; i++) {
+                if (listItem.get(i).getLanguage() == 2 && !TextUtils.isEmpty(listItem.get(i).getName()) && listItem.get(i).getCategory() == CateID) {
+                    list.add(listItem.get(i));
+                    Log.d("test", listItem.get(i).getName() + ".." + listItem.get(i).getId() + ".." + listItem.get(i).getCategory());
+                }
             }
-            Log.d("test",listItem.get(i).getName()+".."+listItem.get(i).getId()+".."+listItem.get(i).getCategory());
-            i++;
+            exerciseView.getListWorkoutSuccess(list);
+        } catch (Exception ex) {
+            Log.d("bug", String.valueOf(ex));
         }
-        exerciseView.getListWorkoutSuccess(listItem);
     }
 }
