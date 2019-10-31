@@ -24,6 +24,13 @@
             android:textSize="50sp"
             android:textStyle="italic" />
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal"
+            app:civ_border_width="3dp"
+            app:civ_border_color="#fff"
+            android:src="@drawable/default_ava"/>
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
@@ -39,7 +46,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textCapWords"
-                android:textColor="@color/borderColor" />
+                android:textColor="@color/borderColor"
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -57,8 +65,42 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:textColor="@color/borderColor" />
+                android:textColor="@color/borderColor"
+                android:maxLength="2"/>
         </com.google.android.material.textfield.TextInputLayout>
+
+        <RadioGroup
+            android:id="@+id/radioSexGrp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:layout_gravity="right|center_vertical"
+            >
+            <RadioButton
+                android:id="@+id/radioM"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:checked="true"
+                android:drawableLeft="@drawable/male"
+                android:layout_weight="1"
+                android:textSize="14sp"
+                android:text="Male"
+                />
+            <RadioButton
+                android:id="@+id/radioF"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:checked="false"
+                android:drawableLeft="@drawable/female"
+                android:layout_weight="1"
+                android:textSize="14dp"
+                android:text="Female"
+                />
+        </RadioGroup>
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -75,7 +117,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:textColor="@color/borderColor" />
+                android:textColor="@color/borderColor"
+                android:maxLength="3"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -93,35 +136,67 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:textColor="@color/borderColor" />
+                android:textColor="@color/borderColor"
+                android:maxLength="3"/>
         </com.google.android.material.textfield.TextInputLayout>
-        <RelativeLayout
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="3dp"
-            android:layout_weight=".28"
-            android:background="@drawable/spinner_background"
-            android:orientation="horizontal">
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:hint="Waist in cm"
+            android:textColorHint="@color/borderColor"
+            app:boxStrokeColor="@color/borderColor">
 
-            <Spinner
-                android:id="@+id/spinner2"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_waist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:background="@android:color/transparent"
-                android:gravity="center"
-                android:layout_marginLeft="5dp"
-                android:spinnerMode="dropdown" />
+                android:inputType="number"
+                android:textColor="@color/borderColor"
+                android:maxLength="3"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-            <ImageView
-                android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:hint="Hip in cm"
+            android:textColorHint="@color/borderColor"
+            app:boxStrokeColor="@color/borderColor">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_Hip"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_arrow_drop_down_black_24dp" />
-        </RelativeLayout>
+                android:inputType="number"
+                android:textColor="@color/borderColor"
+                android:maxLength="3"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:hint="Chest in cm"
+            android:textColorHint="@color/borderColor"
+            app:boxStrokeColor="@color/borderColor">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_chest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:textColor="@color/borderColor"
+                android:maxLength="3"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_saveInfo"
             android:layout_width="fill_parent"

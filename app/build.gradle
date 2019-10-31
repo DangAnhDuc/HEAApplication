@@ -85,5 +85,6 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
 
+    //Gecko webview
     implementation "org.mozilla.geckoview:geckoview-${geckoview_channel}:${geckoview_version}"
 }

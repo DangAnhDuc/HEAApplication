@@ -14,6 +14,7 @@ import com.example.heaapp.model.user_information.DailySummary;
 import com.example.heaapp.service.RealmService;
 import com.example.heaapp.ultis.Common;
 import com.example.heaapp.ultis.ultis;
+import com.google.firebase.auth.UserInfo;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -33,7 +34,6 @@ public class SplashScreenActivity extends AppCompatActivity {
     @BindView(R.id.txtSplash)
     TextView txtSplash;
     public static AtomicLong dailySummaryPrimaryKey;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,12 +53,26 @@ public class SplashScreenActivity extends AppCompatActivity {
         }
         catch (Exception e){
             realm.beginTransaction();
+
+            //create database table for daily summary
             DailySummary dailySummary = realm.createObject(DailySummary.class);
             dailySummary.setId(0);
             dailySummary.setDate(Common.today);
             dailySummary.setWaterConsume(0);
             dailySummary.setEatenCalories(0);
             dailySummary.setBurnedCalories(0);
+
+            //create database table for current user
+            CurrentUserInfo currentUserInfo= realm.createObject(CurrentUserInfo.class);
+            currentUserInfo.setId(0);
+            currentUserInfo.setAge(0);
+            currentUserInfo.setSex("Male");
+            currentUserInfo.setWeight(0);
+            currentUserInfo.setHeight(0);
+            currentUserInfo.setWaist(0);
+            currentUserInfo.setHip(0);
+            currentUserInfo.setChest(0);
+
             dailySummaryPrimaryKey=new AtomicLong(realm.where(DailySummary.class).findAll().size());
             RealmResults<DailySummary> realmResults= realm.where(DailySummary.class).equalTo("id",0).findAll();
             realmResults.deleteAllFromRealm();

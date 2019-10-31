@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="140dp"
         android:gravity="bottom"
-        android:background="@drawable/sports">
+        android:background="@drawable/running">
 
         <TextView
             android:layout_width="match_parent"

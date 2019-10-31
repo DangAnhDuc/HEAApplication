@@ -1,11 +1,14 @@
 package com.example.heaapp.presenter;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.example.heaapp.callback.OnTransactionCallback;
 import com.example.heaapp.model.user_information.DailySummary;
 import com.example.heaapp.service.RealmService;
 import com.example.heaapp.ultis.Common;
+import com.example.heaapp.ultis.ultis;
 import com.example.heaapp.view.fragment.DashboardView;
 
 import java.util.Calendar;
@@ -48,6 +51,11 @@ public class DashboardPresenterImpl implements DashboardPresenter, OnTransaction
         totalWaterAmount=realmResults.get(0).getWaterConsume();
         totalWaterAmount=totalWaterAmount+waterAmount;
         mRealmService.modifyWaterAsync(totalWaterAmount,this);
+    }
+
+    @Override
+    public void getUserInfoStatus() {
+
     }
 
     @Override

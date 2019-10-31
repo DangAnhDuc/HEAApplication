@@ -56,4 +56,6 @@ public class WorkoutFragment extends BaseFragment implements WorkoutView{
         CategoryWorkoutAdapter categoryWorkoutAdapter = new CategoryWorkoutAdapter(getContext(),listResults);
         categoryLayout.setAdapter(categoryWorkoutAdapter);
     }
+
+
 }
