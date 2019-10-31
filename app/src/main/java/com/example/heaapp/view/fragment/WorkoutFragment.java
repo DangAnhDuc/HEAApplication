@@ -3,7 +3,6 @@ package com.example.heaapp.view.fragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +17,7 @@ import com.example.heaapp.base.BaseFragment;
 import com.example.heaapp.model.workout.Results;
 import com.example.heaapp.presenter.WorkoutPresenter;
 import com.example.heaapp.presenter.WorkoutPresenterImpl;
+import com.example.heaapp.ultis.ultis;
 import com.example.heaapp.view.activity.ExerciseWorkoutActivity;
 
 import java.util.List;
@@ -25,7 +25,6 @@ import java.util.List;
 
 public class WorkoutFragment extends BaseFragment implements WorkoutView{
     private RecyclerView categoryLayout;
-    private CategoryWorkoutAdapter categoryWorkoutAdapter;
     private LinearLayout layoutWorkout;
     private List<Results> listResults;
     private WorkoutPresenter workoutPresenter;
@@ -51,18 +50,14 @@ public class WorkoutFragment extends BaseFragment implements WorkoutView{
 
         layoutWorkout = view.findViewById(R.id.layoutWorkout);
         layoutWorkout.post(() -> workoutPresenter.getListCategoryWorkout());
-
-        return view;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
         dialog.setIndeterminate(true);
         dialog.setMessage("Loading...");
         dialog.setCancelable(false);
         dialog.show();
+
+        return view;
     }
+
 
     @Override
     public void getListWorkoutSuccess(List<Results> results) {
@@ -72,12 +67,10 @@ public class WorkoutFragment extends BaseFragment implements WorkoutView{
         categoryLayout.setAdapter(categoryWorkoutAdapter);
 
         categoryWorkoutAdapter.setOnItemListener(results1 -> {
-            Intent intent = new Intent(getContext(), ExerciseWorkoutActivity.class);
+            Intent intent = new Intent(getContext(),ExerciseWorkoutActivity.class);
             intent.putExtra("CategoryID",results1.getId());
             intent.putExtra("CategoryName",results1.getName());
             startActivity(intent);
         });
-
-
     }
 }

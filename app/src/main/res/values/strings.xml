@@ -12,5 +12,10 @@
     <string name="toggle_open">Open</string>
     <string name="toggle_close">Close</string>
     <string name="text_list_exercises">List Exercises</string>
+    <string name="start_exercise">Start Exercise</string>
+    <string name="exer_info_name">Name :</string>
+    <string name="exer_info_description">Description :</string>
+    <string name="exer_info_muscles">Muscles Affect :</string>
+    <string name="todo">TODO</string>
 
 </resources>
