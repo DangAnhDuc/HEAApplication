@@ -53,7 +53,7 @@ public class RealmService {
         mRealm.executeTransactionAsync(new Transaction() {
             @Override
             public void execute(Realm realm) {
-                RealmResults<DailySummary> resultCurrentDate= mRealm.where(DailySummary.class)
+                RealmResults<DailySummary> resultCurrentDate= realm.where(DailySummary.class)
                         .equalTo("date", Common.today)
                         .findAll();
                 resultCurrentDate.setValue("waterConsume", totalWaterAmount);
@@ -80,7 +80,7 @@ public class RealmService {
         mRealm.executeTransactionAsync(new Transaction() {
             @Override
             public void execute(Realm realm) {
-                RealmResults<CurrentUserInfo> resultCurrentUser= mRealm.where(CurrentUserInfo.class)
+                RealmResults<CurrentUserInfo> resultCurrentUser= realm.where(CurrentUserInfo.class)
                         .equalTo("id",0)
                         .findAll();
                 resultCurrentUser.setValue("age", age);

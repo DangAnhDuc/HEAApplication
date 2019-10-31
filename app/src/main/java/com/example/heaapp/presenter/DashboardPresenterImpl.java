@@ -19,12 +19,14 @@ import io.realm.RealmResults;
 public class DashboardPresenterImpl implements DashboardPresenter, OnTransactionCallback {
     DashboardView dashboardView;
     long totalWaterAmount;
+    Context context;
     private final RealmService mRealmService;
     Realm realm= Realm.getDefaultInstance();
 
-    public DashboardPresenterImpl(DashboardView dashboardView, RealmService mRealmService) {
+    public DashboardPresenterImpl(Context context,DashboardView dashboardView, RealmService mRealmService) {
         this.dashboardView = dashboardView;
         this.mRealmService = mRealmService;
+        this.context=context;
     }
 
     @Override
@@ -41,13 +43,13 @@ public class DashboardPresenterImpl implements DashboardPresenter, OnTransaction
     //get all information of each day
     @Override
     public void getDailySummary() {
-        RealmResults<DailySummary> realmResults=getCurrentDate();
+        RealmResults<DailySummary> realmResults=mRealmService.getCurrentDate();
         dashboardView.dispayDailySummary(realmResults.get(0));
     }
 
     @Override
     public void addDrunkWater(long waterAmount) {
-        RealmResults<DailySummary> realmResults=getCurrentDate();
+        RealmResults<DailySummary> realmResults=mRealmService.getCurrentDate();
         totalWaterAmount=realmResults.get(0).getWaterConsume();
         totalWaterAmount=totalWaterAmount+waterAmount;
         mRealmService.modifyWaterAsync(totalWaterAmount,this);
@@ -55,21 +57,13 @@ public class DashboardPresenterImpl implements DashboardPresenter, OnTransaction
 
     @Override
     public void getUserInfoStatus() {
-
+        SharedPreferences sharedPreferences = context.getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
+        dashboardView.isUserInfoEntered(sharedPreferences.getBoolean("isEntered", false));
     }
-
-    @Override
-    public RealmResults<DailySummary> getCurrentDate() {
-        RealmResults<DailySummary> result= realm.where(DailySummary.class)
-                .equalTo("date", Common.today)
-                .findAll();
-        return  result;
-    }
-
 
     @Override
     public void onTransactionSuccess() {
-        RealmResults<DailySummary> realmResults=getCurrentDate();
+        RealmResults<DailySummary> realmResults=mRealmService.getCurrentDate();
         dashboardView.updateWaterAmount(Long.toString(realmResults.get(0).getWaterConsume()));
     }
 

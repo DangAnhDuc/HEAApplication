@@ -70,7 +70,7 @@ public class UserInfoActivity extends AppCompatActivity implements UserInforView
 
     @Override
     public void onSaveInfoSuccess() {
-        ultis.showMessage(getContext(), "Save information successfully1");
+        ultis.showMessage(getContext(), "Save information successfully!");
         ultis.setIntent(getContext(), HomeActivity.class);
     }
 

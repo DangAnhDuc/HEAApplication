@@ -18,6 +18,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.heaapp.R;
 import com.example.heaapp.presenter.HomePresenterImpl;
+import com.example.heaapp.service.RealmService;
 import com.example.heaapp.ultis.ultis;
 import com.example.heaapp.view.fragment.DashBoardFragment;
 import com.example.heaapp.view.fragment.HealthInforFragment;
@@ -65,7 +66,8 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
 
         firebaseAuth = FirebaseAuth.getInstance();
         initView();
-        homePresenter = new HomePresenterImpl(firebaseAuth, this);
+        RealmService realmService=RealmService.getInstance();
+        homePresenter = new HomePresenterImpl(realmService,firebaseAuth, this);
         homePresenter.attachView(this);
         homePresenter.getCurrentUser();
     }

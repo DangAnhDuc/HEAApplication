@@ -53,7 +53,7 @@ public class DashBoardFragment extends BaseFragment implements DashboardView, Vi
         btn330.setOnClickListener(this);
         btn_custom_water_.setOnClickListener(this);
         dashboardPresenter.getDailySummary();
-        /*view.setOnTouchListener(new View.OnTouchListener() {
+        view.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction()==MotionEvent.ACTION_UP){
@@ -61,7 +61,7 @@ public class DashBoardFragment extends BaseFragment implements DashboardView, Vi
                 }
                 return false;
             }
-        });*/
+        });
         return view;
     }
 
@@ -78,7 +78,7 @@ public class DashBoardFragment extends BaseFragment implements DashboardView, Vi
     @Override
     public void isUserInfoEntered(boolean isEntered) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.AlertDialogTheme);
-        if(isEntered){
+        if(!isEntered){
             builder.setTitle("You have to input your detail for this function");
             builder.setCancelable(false);
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {

@@ -6,19 +6,28 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.heaapp.R;
+import com.example.heaapp.callback.OnTransactionCallback;
 import com.example.heaapp.model.user_information.CurrentUserInfo;
 import com.example.heaapp.model.user_information.DailySummary;
 import com.example.heaapp.service.RealmService;
 import com.example.heaapp.ultis.Common;
 import com.example.heaapp.ultis.ultis;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 import butterknife.BindView;
@@ -27,13 +36,14 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
-public class SplashScreenActivity extends AppCompatActivity {
+public class SplashScreenActivity extends AppCompatActivity   {
 
     @BindView(R.id.imgSplash)
     ImageView imgSplash;
     @BindView(R.id.txtSplash)
     TextView txtSplash;
     public static AtomicLong dailySummaryPrimaryKey;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +56,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         Realm.init(getApplicationContext());
         Realm realm=Realm.getDefaultInstance();
         RealmService realmService= RealmService.getInstance();
-
         //check if the app is just install
         try {
             dailySummaryPrimaryKey=new AtomicLong(realm.where(DailySummary.class).max("id").longValue()+1);
@@ -79,6 +88,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             realm.commitTransaction();
         }
 
+
         //Daily check
         RealmResults<DailySummary> realmResults= realm.where(DailySummary.class).equalTo("date",Common.today).findAll();
         if(realmResults.size()==0){
@@ -106,4 +116,5 @@ public class SplashScreenActivity extends AppCompatActivity {
         };
         timer.start();
     }
+
 }

@@ -10,5 +10,4 @@ public interface DashboardPresenter extends BasePresenter<DashboardView> {
     void getDailySummary();
     void addDrunkWater(long wateramount);
     void getUserInfoStatus();
-    RealmResults<DailySummary> getCurrentDate();
 }
