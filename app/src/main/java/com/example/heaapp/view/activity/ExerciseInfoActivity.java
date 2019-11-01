@@ -1,13 +1,13 @@
 package com.example.heaapp.view.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.os.Bundle;
 import android.text.Html;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.heaapp.R;
 
@@ -28,6 +28,7 @@ public class ExerciseInfoActivity extends AppCompatActivity {
     TextView txtExeInfoMus;
     @BindView(R.id.btnExerInfo)
     Button btnExe;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,17 +37,17 @@ public class ExerciseInfoActivity extends AppCompatActivity {
         initView();
     }
 
-    private void initView(){
+    private void initView() {
         setSupportActionBar(exerInfoToolBar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         exerInfoToolBar.setNavigationOnClickListener(v -> finish());
 
         Bundle bundle = getIntent().getExtras();
-        txtExeInfoName.setText(Html.fromHtml("<p>"+bundle.getString("name")+"</p>"));
+        txtExeInfoName.setText(Html.fromHtml("<p>" + bundle.getString("name") + "</p>"));
         txtExeInfoDes.setText(Html.fromHtml(bundle.getString("description")));
-        txtExeInfoMus.setText(Html.fromHtml("<p>"+bundle.getString("muscles")+"</p>"));
+        txtExeInfoMus.setText(Html.fromHtml("<p>" + bundle.getString("muscles") + "</p>"));
 
-        btnExe.setOnClickListener(v-> Toast.makeText(this, "This function is developing", Toast.LENGTH_SHORT).show());
+        btnExe.setOnClickListener(v -> Toast.makeText(this, "This function is developing", Toast.LENGTH_SHORT).show());
     }
 }

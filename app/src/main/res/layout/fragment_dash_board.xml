@@ -698,28 +698,7 @@
                             android:layout_height="wrap_content"
                             android:text="0"/>
                     </RelativeLayout>
-                    <RelativeLayout
-                        android:elevation="8dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        >
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:text="FFMI"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:id="@+id/tv_ffmi"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginRight="15dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="0"/>
-                    </RelativeLayout>
                     <RelativeLayout
                         android:elevation="8dp"
                         android:layout_width="match_parent"
@@ -787,6 +766,52 @@
                             android:layout_height="wrap_content"
                             android:text="0"/>
                     </RelativeLayout>
+                    <RelativeLayout
+                        android:elevation="8dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:text="Body Fat"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tv_bodyfat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginRight="15dp"
+                            android:text="0" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:elevation="8dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:text="FFMI"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tv_ffmi"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="15dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"/>
+                    </RelativeLayout>
+
                     <RelativeLayout
                         android:elevation="8dp"
                         android:layout_width="match_parent"

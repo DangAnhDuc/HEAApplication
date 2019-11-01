@@ -32,48 +32,35 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
     @BindView(R.id.link_login)
     TextView linkLogin;
 
-    FirebaseAuth firebaseAuth;
     SignUpPresenterImpl signUpPresenter;
     ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         ButterKnife.bind(this);
 
-        firebaseAuth=FirebaseAuth.getInstance();
-        linkLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ultis.setIntent(SignUpActivity.this, LoginActivity.class);
-                finish();
-            }
+        linkLogin.setOnClickListener(v -> {
+            ultis.setIntent(SignUpActivity.this, LoginActivity.class);
+            finish();
         });
 
 
-        signUpPresenter= new SignUpPresenterImpl(firebaseAuth);
+        signUpPresenter = new SignUpPresenterImpl();
         signUpPresenter.attachView(this);
 
-        btnSignup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signUpPresenter.signUp(edtName.getText().toString().trim(),edtEmail.getText().toString().trim(),edtPassword.getText().toString().trim());
-            }
-        });
-        progressDialog = new ProgressDialog(SignUpActivity.this,R.style.AppTheme_Dark_Dialog);
+        btnSignup.setOnClickListener(v -> signUpPresenter.signUp(edtName.getText().toString().trim(), edtEmail.getText().toString().trim(), edtPassword.getText().toString().trim()));
+        progressDialog = new ProgressDialog(SignUpActivity.this, R.style.AppTheme_Dark_Dialog);
 
-        edtPassword.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (event.getAction() == KeyEvent.ACTION_DOWN)
-                {
-                    if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                        signUpPresenter.signUp(edtName.getText().toString().trim(), edtEmail.getText().toString().trim(), edtPassword.getText().toString().trim());
-                        return true;
-                    }
+        edtPassword.setOnKeyListener((v, keyCode, event) -> {
+            if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    signUpPresenter.signUp(edtName.getText().toString().trim(), edtEmail.getText().toString().trim(), edtPassword.getText().toString().trim());
+                    return true;
                 }
-                return false;
             }
+            return false;
         });
 
     }
@@ -86,13 +73,12 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
 
     @Override
     public void setProgressVisibility(boolean visibility) {
-        if(visibility){
+        if (visibility) {
             btnSignup.setEnabled(false);
             progressDialog.setIndeterminate(true);
-            progressDialog.setMessage("Creating Account...");
+            progressDialog.setMessage(getString(R.string.msg_create_account));
             progressDialog.show();
-        }
-        else {
+        } else {
             btnSignup.setEnabled(true);
             progressDialog.dismiss();
         }
@@ -100,32 +86,33 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
 
     @Override
     public void showNameError() {
-        edtName.setError("Name must be at least 3 characters!");
+        edtName.setError(getString(R.string.msg_username_policy));
     }
 
     @Override
     public void showPasswordError() {
-        edtPassword.setError("Password must be at least 6 characters!");
+        edtPassword.setError(getString(R.string.msg_password_policy));
     }
 
     @Override
     public void showEmailError() {
-        edtEmail.setError("Invalid email address!");
+        edtEmail.setError(getString(R.string.msg_invalid_email));
     }
+
     @Override
     public void showValidationError(String message) {
-        ultis.showMessage(this,message);
+        ultis.showMessage(this, message);
     }
 
     @Override
     public void signUpSuccess() {
-        ultis.showMessage(this,"Sign Up Successfully!");
-        ultis.setIntent(this,LoginActivity.class);
+        ultis.showMessage(this, getString(R.string.msg_signup_success));
+        ultis.setIntent(this, LoginActivity.class);
     }
 
     @Override
     public void signUpError() {
-        ultis.showMessage(this,"Sign Up Failed!");
+        ultis.showMessage(this, getString(R.string.msg_signup_failed));
     }
 
     @Override

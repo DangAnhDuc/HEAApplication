@@ -17,18 +17,15 @@ import com.example.heaapp.base.BaseFragment;
 import com.example.heaapp.model.workout.Results;
 import com.example.heaapp.presenter.WorkoutPresenter;
 import com.example.heaapp.presenter.WorkoutPresenterImpl;
-import com.example.heaapp.ultis.ultis;
 import com.example.heaapp.view.activity.ExerciseWorkoutActivity;
 
 import java.util.List;
 
 
-public class WorkoutFragment extends BaseFragment implements WorkoutView{
+public class WorkoutFragment extends BaseFragment implements WorkoutView {
     private RecyclerView categoryLayout;
-    private LinearLayout layoutWorkout;
-    private List<Results> listResults;
     private WorkoutPresenter workoutPresenter;
-    ProgressDialog dialog;
+    private ProgressDialog dialog;
 
 
     @Override
@@ -38,20 +35,20 @@ public class WorkoutFragment extends BaseFragment implements WorkoutView{
 
     @Override
     public View provideYourFragmentView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_workout,parent,false);
+        View view = inflater.inflate(R.layout.fragment_workout, parent, false);
 
-        dialog = new ProgressDialog(getContext(),R.style.AppTheme_Dark_Dialog);
+        dialog = new ProgressDialog(getContext(), R.style.AppTheme_Dark_Dialog);
 
         categoryLayout = view.findViewById(R.id.category_workout_fragment);
         categoryLayout.setHasFixedSize(true);
         workoutPresenter = new WorkoutPresenterImpl(this);
-        RecyclerView.LayoutManager layoutManager= new LinearLayoutManager(getActivity());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         categoryLayout.setLayoutManager(layoutManager);
 
-        layoutWorkout = view.findViewById(R.id.layoutWorkout);
+        LinearLayout layoutWorkout = view.findViewById(R.id.layoutWorkout);
         layoutWorkout.post(() -> workoutPresenter.getListCategoryWorkout());
         dialog.setIndeterminate(true);
-        dialog.setMessage("Loading...");
+        dialog.setMessage(getString(R.string.msg_loading));
         dialog.setCancelable(false);
         dialog.show();
 
@@ -62,14 +59,13 @@ public class WorkoutFragment extends BaseFragment implements WorkoutView{
     @Override
     public void getListWorkoutSuccess(List<Results> results) {
         dialog.dismiss();
-        listResults = results;
-        CategoryWorkoutAdapter categoryWorkoutAdapter = new CategoryWorkoutAdapter(getContext(),listResults);
+        CategoryWorkoutAdapter categoryWorkoutAdapter = new CategoryWorkoutAdapter(getContext(), results);
         categoryLayout.setAdapter(categoryWorkoutAdapter);
 
         categoryWorkoutAdapter.setOnItemListener(results1 -> {
-            Intent intent = new Intent(getContext(),ExerciseWorkoutActivity.class);
-            intent.putExtra("CategoryID",results1.getId());
-            intent.putExtra("CategoryName",results1.getName());
+            Intent intent = new Intent(getContext(), ExerciseWorkoutActivity.class);
+            intent.putExtra("CategoryID", results1.getId());
+            intent.putExtra("CategoryName", results1.getName());
             startActivity(intent);
         });
     }

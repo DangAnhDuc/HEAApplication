@@ -18,11 +18,9 @@ import java.util.HashMap;
 
 public class SignUpPresenterImpl implements SignUpPresenter {
     private SignUpView signUpView;
-    private FirebaseAuth firebaseAuth;
-    FirebaseUser firebaseUser;
+    private FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
     DatabaseReference databaseReference;
-    public SignUpPresenterImpl(FirebaseAuth auth) {
-        this.firebaseAuth = auth;
+    public SignUpPresenterImpl() {
     }
 
     @Override
@@ -62,12 +60,9 @@ public class SignUpPresenterImpl implements SignUpPresenter {
                                 hashMap.put("username",name);
                                 hashMap.put("imageURl","default_ava");
 
-                                databaseReference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if(task.isSuccessful()){
-                                            signUpView.signUpSuccess();
-                                        }
+                                databaseReference.setValue(hashMap).addOnCompleteListener(task1 -> {
+                                    if(task1.isSuccessful()){
+                                        signUpView.signUpSuccess();
                                     }
                                 });
 

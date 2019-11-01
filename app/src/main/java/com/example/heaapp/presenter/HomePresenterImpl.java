@@ -21,15 +21,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 
 public class HomePresenterImpl implements HomePresenter {
-    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
     private HomeView homeView;
     private FirebaseAuth.AuthStateListener authListener;
     private Context context;
     private DatabaseReference databaseReference;
     private RealmService realmService;
 
-    public HomePresenterImpl(RealmService realmService, FirebaseAuth firebaseAuth, final Context context) {
-        this.firebaseAuth = firebaseAuth;
+    public HomePresenterImpl(RealmService realmService , final Context context) {
         this.context = context;
         this.realmService = realmService;
         //check user signout

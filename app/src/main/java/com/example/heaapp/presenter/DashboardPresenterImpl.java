@@ -2,16 +2,12 @@ package com.example.heaapp.presenter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.example.heaapp.callback.OnTransactionCallback;
+import com.example.heaapp.model.user_information.CurrentUserIndices;
 import com.example.heaapp.model.user_information.DailySummary;
 import com.example.heaapp.service.RealmService;
-import com.example.heaapp.ultis.Common;
-import com.example.heaapp.ultis.ultis;
 import com.example.heaapp.view.fragment.DashboardView;
-
-import java.util.Calendar;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -44,7 +40,7 @@ public class DashboardPresenterImpl implements DashboardPresenter, OnTransaction
     @Override
     public void getDailySummary() {
         RealmResults<DailySummary> realmResults=mRealmService.getCurrentDate();
-        dashboardView.dispayDailySummary(realmResults.get(0));
+        dashboardView.displayDailySummary(realmResults.get(0));
     }
 
     @Override
@@ -59,6 +55,14 @@ public class DashboardPresenterImpl implements DashboardPresenter, OnTransaction
     public void getUserInfoStatus() {
         SharedPreferences sharedPreferences = context.getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
         dashboardView.isUserInfoEntered(sharedPreferences.getBoolean("isEntered", false));
+    }
+
+    @Override
+    public void getCurrentUserIndices() {
+        RealmResults<CurrentUserIndices> realmResults = realm.where(CurrentUserIndices.class)
+                .equalTo("id", 0)
+                .findAll();
+        dashboardView.displayCurrentUserIndices(realmResults.get(0));
     }
 
     @Override

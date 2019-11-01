@@ -1,15 +1,11 @@
 package com.example.heaapp.api;
 
 
-
 import com.example.heaapp.model.workout.Exercisecategory;
 import com.example.heaapp.model.workout.ListExercise;
 
 import io.reactivex.Observable;
-import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Part;
-import retrofit2.http.Path;
 
 public interface WorkoutApiService {
     @GET("exercisecategory")
