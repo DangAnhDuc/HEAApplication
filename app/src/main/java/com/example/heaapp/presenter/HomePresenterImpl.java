@@ -49,7 +49,7 @@ public class HomePresenterImpl implements HomePresenter {
         if (firebaseAuth.getCurrentUser() != null) {
             homeView.setUser(firebaseAuth.getCurrentUser());
 
-            databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseAuth.getCurrentUser().getUid()).child("userBodyInfo");
+            databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseAuth.getCurrentUser().getUid()).child("remote").child("userBodyInfo");
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -69,7 +69,7 @@ public class HomePresenterImpl implements HomePresenter {
 
                         }
                         else {
-                        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseAuth.getCurrentUser().getUid()).child("userBodyInfo");
+                        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseAuth.getCurrentUser().getUid()).child("remote");
                         HashMap<String, CurrentUserInfo> userInfoHashMap = new HashMap<>();
                         userInfoHashMap.put("userBodyInfo", new CurrentUserInfo(0, 0, 0, 0, "Male", 0, 0, 0));
                         databaseReference.setValue(userInfoHashMap);

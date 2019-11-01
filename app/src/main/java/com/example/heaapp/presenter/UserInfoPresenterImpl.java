@@ -17,15 +17,19 @@ import com.example.heaapp.view.activity.UserInforView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class UserInfoPresenterImpl implements UserInfoPresenter, OnTransactionCallback {
+public class UserInfoPresenterImpl implements UserInfoPresenter {
 
     private UserInforView userInforView;
     private Context context;
@@ -55,15 +59,35 @@ public class UserInfoPresenterImpl implements UserInfoPresenter, OnTransactionCa
             userInforView.displayErrorMessage("All field must be enter");
         }
         else {
-            databaseReference= FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseAuth.getCurrentUser().getUid()).child("userBodyInfo");
-            databaseReference.child("age").setValue(age);
+            databaseReference= FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseAuth.getCurrentUser().getUid()).child("remote").child("userBodyInfo");
+            databaseReference.child("age").setValue(Integer.parseInt(age));
             databaseReference.child("sex").setValue(sex);
-            databaseReference.child("weight").setValue(weight);
-            databaseReference.child("height").setValue(height);
-            databaseReference.child("waist").setValue(waist);
-            databaseReference.child("hip").setValue(hip);
-            databaseReference.child("chest").setValue(chest);
-            //realmService.modifyUserInforAsync(Integer.parseInt(age),sex,Long.parseLong(weight),Long.parseLong(height),Long.parseLong(waist),Long.parseLong(hip),Long.parseLong(chest),this);
+            databaseReference.child("weight").setValue(Long.parseLong(weight));
+            databaseReference.child("height").setValue(Long.parseLong(height));
+            databaseReference.child("waist").setValue(Long.parseLong(waist));
+            databaseReference.child("hip").setValue(Long.parseLong(hip));
+            databaseReference.child("chest").setValue(Long.parseLong(chest));
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    realmService.modifyUserInforAsync(Integer.parseInt(age), sex, Long.parseLong(weight), Long.parseLong(height), Long.parseLong(waist), Long.parseLong(hip), Long.parseLong(chest), new OnTransactionCallback() {
+                        @Override
+                        public void onTransactionSuccess() {
+                            saveUserInfoStatusPref();
+                            userInforView.onSaveInfoSuccess();
+                        }
+
+                        @Override
+                        public void onTransactionError(Exception e) {
+                            userInforView.onSaveInfoFail(e.getMessage());
+                        }
+                    });
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
         }
     }
 
@@ -87,14 +111,5 @@ public class UserInfoPresenterImpl implements UserInfoPresenter, OnTransactionCa
         userInforView=null;
     }
 
-    @Override
-    public void onTransactionSuccess() {
-        saveUserInfoStatusPref();
-        userInforView.onSaveInfoSuccess();
-    }
 
-    @Override
-    public void onTransactionError(Exception e) {
-        userInforView.onSaveInfoFail(e.getMessage());
-    }
 }
