@@ -67,13 +67,13 @@
 
                     <RelativeLayout
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="3"
                         android:padding="10dp">
 
                         <LinearLayout
-                            android:layout_width="250dp"
-                            android:layout_height="250dp"
+                            android:layout_width="200dp"
+                            android:layout_height="200dp"
                             android:background="@drawable/circle_round"
                             android:orientation="vertical">
 
@@ -297,7 +297,7 @@
                             android:background="@drawable/cup_button_background"
                             android:text="75ml"
                             android:textColor="@android:color/white"
-                            android:textSize="12sp" />
+                            android:textSize="8sp" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -312,7 +312,7 @@
                             android:background="@drawable/cup_button_background"
                             android:text="150ml"
                             android:textColor="@android:color/white"
-                            android:textSize="12sp" />
+                            android:textSize="8sp" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -327,7 +327,7 @@
                             android:background="@drawable/cup_button_background"
                             android:text="250ml"
                             android:textColor="@android:color/white"
-                            android:textSize="12sp" />
+                            android:textSize="8sp" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -343,7 +343,7 @@
                             android:background="@drawable/cup_button_background"
                             android:text="330ml"
                             android:textColor="@android:color/white"
-                            android:textSize="12sp" />
+                            android:textSize="8sp" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -359,7 +359,7 @@
                             android:background="@drawable/cup_button_background"
                             android:text="Custom"
                             android:textColor="@android:color/white"
-                            android:textSize="12sp" />
+                            android:textSize="8sp" />
                     </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -413,8 +413,8 @@
 
                         <ImageView
                             android:id="@+id/img_breakfast"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             android:layout_centerHorizontal="true"
                             android:src="@drawable/breakfast" />
 
@@ -476,8 +476,8 @@
 
                         <ImageView
                             android:id="@+id/img_launch"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             android:layout_centerHorizontal="true"
                             android:src="@drawable/launch" />
 
@@ -539,8 +539,8 @@
 
                         <ImageView
                             android:id="@+id/img_dinner"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             android:layout_centerHorizontal="true"
                             android:src="@drawable/dinner" />
 
@@ -603,10 +603,10 @@
 
                         <ImageView
                             android:id="@+id/img_exercise"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             android:layout_centerHorizontal="true"
-                            android:src="@drawable/exercise" />
+                            android:src="@drawable/sports" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -618,6 +618,199 @@
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="4dp"
+            app:cardMaxElevation="6dp">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Your body indices"
+                        android:textSize="25sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical"
+                    >
+                    <RelativeLayout
+                        android:elevation="8dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:text="BMI"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tv_bmi"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="15dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:elevation="8dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:text="Lean Body Mass"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tv_leanbodymass"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="15dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:elevation="8dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:text="FFMI"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tv_ffmi"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="15dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:elevation="8dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:text="Body Water"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tv_bodywater"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="15dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:elevation="8dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:text="Water Requirement"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tv_waterreq"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="15dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:elevation="8dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:text="Blood Volume"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tv_bloodVol"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="15dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:elevation="8dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:text="Daily Calories"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tv_dailyCal"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="15dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"/>
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

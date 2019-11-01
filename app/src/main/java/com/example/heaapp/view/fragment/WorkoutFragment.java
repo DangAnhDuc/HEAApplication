@@ -73,4 +73,6 @@ public class WorkoutFragment extends BaseFragment implements WorkoutView{
             startActivity(intent);
         });
     }
+
+
 }

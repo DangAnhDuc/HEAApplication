@@ -9,5 +9,5 @@ import io.realm.RealmResults;
 public interface DashboardPresenter extends BasePresenter<DashboardView> {
     void getDailySummary();
     void addDrunkWater(long wateramount);
-    RealmResults<DailySummary> getCurrentDate();
+    void getUserInfoStatus();
 }

@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -18,6 +19,8 @@ import com.example.heaapp.base.BaseFragment;
 import com.example.heaapp.model.user_information.DailySummary;
 import com.example.heaapp.presenter.DashboardPresenterImpl;
 import com.example.heaapp.service.RealmService;
+import com.example.heaapp.ultis.ultis;
+import com.example.heaapp.view.activity.UserInfoActivity;
 
 import io.realm.Realm;
 
@@ -25,6 +28,7 @@ import io.realm.Realm;
 public class DashBoardFragment extends BaseFragment implements DashboardView, View.OnClickListener {
     private DashboardPresenterImpl dashboardPresenter;
     private TextView tvTotalWater;
+    AlertDialog alertDialog;
 
     @Override
     public BaseFragment provideYourFragment() {
@@ -42,16 +46,24 @@ public class DashBoardFragment extends BaseFragment implements DashboardView, Vi
         Button btn_custom_water_=(Button) view.findViewById(R.id.btn_custom_water);
         tvTotalWater=(TextView) view.findViewById(R.id.tv_total_water);
         RealmService realmService = RealmService.getInstance();
-        dashboardPresenter= new DashboardPresenterImpl(this, realmService);
+        dashboardPresenter= new DashboardPresenterImpl(getContext(),this, realmService);
         btn75.setOnClickListener(this);
         btn150.setOnClickListener(this);
         btn250.setOnClickListener(this);
         btn330.setOnClickListener(this);
         btn_custom_water_.setOnClickListener(this);
         dashboardPresenter.getDailySummary();
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction()==MotionEvent.ACTION_UP){
+                    dashboardPresenter.getUserInfoStatus();
+                }
+                return false;
+            }
+        });
         return view;
     }
-
 
     @Override
     public void dispayDailySummary(DailySummary dailySummary) {
@@ -62,6 +74,30 @@ public class DashBoardFragment extends BaseFragment implements DashboardView, Vi
     public void updateWaterAmount(String waterAmount) {
             tvTotalWater.setText(new StringBuilder().append("Total: ").append(waterAmount).append("ml").toString());
     }
+
+    @Override
+    public void isUserInfoEntered(boolean isEntered) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.AlertDialogTheme);
+        if(!isEntered){
+            builder.setTitle("You have to input your detail for this function");
+            builder.setCancelable(false);
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    ultis.setIntent(getContext(), UserInfoActivity.class);
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            alertDialog=builder.create();
+            alertDialog.show();
+        }
+    }
+
 
     @Override
     public void onClick(View v) {

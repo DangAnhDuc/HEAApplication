@@ -14,7 +14,7 @@ public class ultis<Data> {
         return intent ;
     }
 
-    public Intent setIntentExtra(Context context, Class destination, String key, Data data) {
+    public  Intent setIntentExtra(Context context, Class destination, String key, Data data) {
         Intent intent = new Intent(context, destination);
         intent.putExtra(key, (Parcelable) data);
         context.startActivity(intent);

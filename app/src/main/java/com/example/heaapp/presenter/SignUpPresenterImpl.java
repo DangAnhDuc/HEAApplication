@@ -60,7 +60,7 @@ public class SignUpPresenterImpl implements SignUpPresenter {
                                 HashMap<String,String> hashMap=new HashMap<>();
                                 hashMap.put("id",userId);
                                 hashMap.put("username",name);
-                                hashMap.put("imageURl","default");
+                                hashMap.put("imageURl","default_ava");
 
                                 databaseReference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
