@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HEAapp</string>
+    <string name="app_name">HEA App</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="side_bar_info_user">Information User</string>
@@ -11,5 +11,11 @@
 
     <string name="toggle_open">Open</string>
     <string name="toggle_close">Close</string>
+    <string name="text_list_exercises">List Exercises</string>
+    <string name="start_exercise">Start Exercise</string>
+    <string name="exer_info_name">Name :</string>
+    <string name="exer_info_description">Description :</string>
+    <string name="exer_info_muscles">Muscles Affect :</string>
+    <string name="todo">TODO</string>
 
 </resources>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="top"
+    android:id="@+id/linearListExercise">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        android:textAlignment="center"
+        android:id="@+id/exerciseToolbar">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:gravity="center_vertical"
+            android:importantForAutofill="no"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:id="@+id/exeText"/>
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <TextView
+        android:textStyle="italic"
+        android:textSize="30sp"
+        android:textAlignment="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/text_list_exercises"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/list_exercise_fragment"/>
+
+</LinearLayout>
