@@ -20,6 +20,11 @@ public class ApiUtils {
     }
 
     public static WorkoutApiService getExerciseWorkoutApiService(){
+
+        return RetrofitClient.getRetrofitExercise(WorkoutApi).create(WorkoutApiService.class);
+    }
+
+    public static WorkoutApiService getMusclesApiService(){
         return RetrofitClient.getRetrofitExercise(WorkoutApi).create(WorkoutApiService.class);
     }
 }
