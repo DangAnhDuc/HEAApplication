@@ -32,13 +32,10 @@ public class HomePresenterImpl implements HomePresenter {
         this.context = context;
         this.realmService = realmService;
         //check user signout
-        authListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user == null) {
-                    ultis.setIntent(context, LoginActivity.class);
-                }
+        authListener = firebaseAuth -> {
+            FirebaseUser user = firebaseAuth.getCurrentUser();
+            if (user == null) {
+                ultis.setIntent(context, LoginActivity.class);
             }
         };
     }

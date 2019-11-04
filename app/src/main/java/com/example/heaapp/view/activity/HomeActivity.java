@@ -25,7 +25,6 @@ import com.example.heaapp.view.fragment.HealthInforFragment;
 import com.example.heaapp.view.fragment.WorkoutFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
@@ -73,15 +72,15 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     private void initView() {
         //setup 3 main fragment
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFragments(new WorkoutFragment(), "Workout");
-        viewPagerAdapter.addFragments(new DashBoardFragment(), "Dashboard");
-        viewPagerAdapter.addFragments(new HealthInforFragment(), "Health Infor");
+        viewPagerAdapter.addFragments(new WorkoutFragment(), getString(R.string.title_workout));
+        viewPagerAdapter.addFragments(new DashBoardFragment(), getString(R.string.title_health_summary));
+        viewPagerAdapter.addFragments(new HealthInforFragment(), getString(R.string.title_health_infomation));
 
 
         viewPager.setAdapter(viewPagerAdapter);
         viewPager.setCurrentItem(1);
         tabLayout.setupWithViewPager(viewPager);
-        tabTitle.setText("Health sum");
+        tabTitle.setText(getString(R.string.title_health_summary));
 
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_workout_icon);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_doctor_icon);
@@ -94,9 +93,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
                 switch (position) {
                     case 0:
                         tabTitle.setText(getString(R.string.title_workout));
-                        break;
-                    case 1:
-                        tabTitle.setText(getString(R.string.title_health_summary));
                         break;
                     case 2:
                         tabTitle.setText(getString(R.string.title_health_infomation));
@@ -140,9 +136,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
-            if (item.getItemId() == R.id.side_bar_logout) {
-
-            }
+            item.getItemId();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -206,12 +200,13 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         private ArrayList<String> titles;
 
 
-        public ViewPagerAdapter(FragmentManager fm) {
+        ViewPagerAdapter(FragmentManager fm) {
             super(fm);
             this.fragments = new ArrayList<>();
             this.titles = new ArrayList<>();
         }
 
+        @NonNull
         @Override
         public Fragment getItem(int position) {
             return fragments.get(position);
@@ -222,7 +217,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
             return fragments.size();
         }
 
-        public void addFragments(Fragment fragment, String title) {
+        void addFragments(Fragment fragment, String title) {
             fragments.add(fragment);
             titles.add(title);
 

@@ -71,7 +71,6 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
     @BindView(R.id.tv_dailyCal)
     TextView tvDailyCal;
     private DashboardPresenterImpl dashboardPresenter;
-    private AlertDialog alertDialog;
     private Unbinder unbinder;
 
     @Override
@@ -102,12 +101,12 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
 
     @Override
     public void displayDailySummary(DailySummary dailySummary) {
-        tvTotalWater.setText(new StringBuilder().append("Total: ").append(String.valueOf(dailySummary.getWaterConsume())).append("ml").toString());
+        tvTotalWater.setText(String.format("Total: %sml", String.valueOf(dailySummary.getWaterConsume())));
     }
 
     @Override
     public void updateWaterAmount(String waterAmount) {
-        tvTotalWater.setText(new StringBuilder().append("Total: ").append(waterAmount).append("ml").toString());
+        tvTotalWater.setText(String.format("Total: %sml", waterAmount));
     }
 
     @Override
@@ -118,7 +117,7 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
             builder.setCancelable(false);
             builder.setPositiveButton("OK", (dialog, which) -> ultis.setIntent(getContext(), UserInfoActivity.class));
             builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
-            alertDialog = builder.create();
+            AlertDialog alertDialog = builder.create();
             alertDialog.show();
         }
     }
@@ -127,18 +126,18 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
     public void displayCurrentUserIndices(CurrentUserIndices currentUserIndices) {
         DecimalFormat format = new DecimalFormat("0.00");
         tvBmi.setText(format.format(currentUserIndices.getBMI()));
-        tvLeanbodymass.setText(format.format(currentUserIndices.getBodyMass())+" kg");
-        tvBodywater.setText(format.format(currentUserIndices.getBodyWater())+ " litters");
-        tvWaterreq.setText(format.format(currentUserIndices.getWaterRequired())+" litters");
-        tvBloodVol.setText(format.format(currentUserIndices.getBloodVolume())+" litters");
-        tvBodyfat.setText(format.format(currentUserIndices.getBodyFat())+" %");
-        tvFfmi.setText(format.format(currentUserIndices.getFFMI())+ " kg/m²");
-        tvDailyCal.setText(format.format(currentUserIndices.getDailyCal())+" kCal");
+        tvLeanbodymass.setText(String.format("%s kg", format.format(currentUserIndices.getBodyMass())));
+        tvBodywater.setText(String.format("%s litters", format.format(currentUserIndices.getBodyWater())));
+        tvWaterreq.setText(String.format("%s litters", format.format(currentUserIndices.getWaterRequired())));
+        tvBloodVol.setText(String.format("%s litters", format.format(currentUserIndices.getBloodVolume())));
+        tvBodyfat.setText(String.format("%s %%", format.format(currentUserIndices.getBodyFat())));
+        tvFfmi.setText(String.format("%s kg/m²", format.format(currentUserIndices.getFFMI())));
+        tvDailyCal.setText(String.format("%s kCal", format.format(currentUserIndices.getDailyCal())));
     }
 
 
     @OnClick({R.id.btn_75, R.id.btn_150, R.id.btn_250, R.id.btn_330, R.id.btn_custom_water})
-    public void onViewClicked(View view) {
+    void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_75:
                 dashboardPresenter.addDrunkWater(75);

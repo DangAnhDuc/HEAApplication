@@ -13,11 +13,10 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class DashboardPresenterImpl implements DashboardPresenter, OnTransactionCallback {
-    DashboardView dashboardView;
-    long totalWaterAmount;
-    Context context;
+    private DashboardView dashboardView;
+    private Context context;
     private final RealmService mRealmService;
-    Realm realm= Realm.getDefaultInstance();
+    private Realm realm= Realm.getDefaultInstance();
 
     public DashboardPresenterImpl(Context context,DashboardView dashboardView, RealmService mRealmService) {
         this.dashboardView = dashboardView;
@@ -46,8 +45,8 @@ public class DashboardPresenterImpl implements DashboardPresenter, OnTransaction
     @Override
     public void addDrunkWater(long waterAmount) {
         RealmResults<DailySummary> realmResults=mRealmService.getCurrentDate();
-        totalWaterAmount=realmResults.get(0).getWaterConsume();
-        totalWaterAmount=totalWaterAmount+waterAmount;
+        long totalWaterAmount = realmResults.get(0).getWaterConsume();
+        totalWaterAmount = totalWaterAmount +waterAmount;
         mRealmService.modifyWaterAsync(totalWaterAmount,this);
     }
 

@@ -39,7 +39,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.bind(articles.get(position), listener);
-        holder.container.setAnimation(AnimationUtils.loadAnimation(context, R.anim.news_animation));
+        //holder.container.setAnimation(AnimationUtils.loadAnimation(context, R.anim.news_animation));
         holder.tv_title.setText(articles.get(position).getTitle());
         holder.tv_description.setText(articles.get(position).getDescription());
         Glide.with(context).load(articles.get(position).getUrlToImage()).into(holder.img_news);
@@ -59,7 +59,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         ImageView img_news;
         LinearLayout container;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tv_title = itemView.findViewById(R.id.tv_news_title);
