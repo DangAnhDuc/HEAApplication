@@ -24,7 +24,4 @@ public class ApiUtils {
         return RetrofitClient.getRetrofitExercise(WorkoutApi).create(WorkoutApiService.class);
     }
 
-    public static WorkoutApiService getMusclesApiService(){
-        return RetrofitClient.getRetrofitExercise(WorkoutApi).create(WorkoutApiService.class);
-    }
 }

@@ -1,7 +1,7 @@
 package com.example.heaapp.view.fragment;
 
 import com.example.heaapp.base.BaseView;
-import com.example.heaapp.model.workout.Results;
+import com.example.heaapp.model.workout.Category.Results;
 
 import java.util.List;
 

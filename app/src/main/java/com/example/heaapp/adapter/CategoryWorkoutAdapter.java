@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView.Adapter;
 
 import com.example.heaapp.R;
 import com.example.heaapp.callback.WorkoutListener;
-import com.example.heaapp.model.workout.Results;
+import com.example.heaapp.model.workout.Category.Results;
 
 import java.util.List;
 

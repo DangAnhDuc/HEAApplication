@@ -1,9 +1,9 @@
-package com.example.heaapp.model.workout;
+package com.example.heaapp.model.workout.Equipment;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ListMuscle {
+public class Result {
 
     @SerializedName("id")
     @Expose
@@ -11,9 +11,6 @@ public class ListMuscle {
     @SerializedName("name")
     @Expose
     private String name;
-    @SerializedName("is_front")
-    @Expose
-    private Boolean isFront;
 
     public Integer getId() {
         return id;
@@ -29,14 +26,6 @@ public class ListMuscle {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Boolean getIsFront() {
-        return isFront;
-    }
-
-    public void setIsFront(Boolean isFront) {
-        this.isFront = isFront;
     }
 
 }
