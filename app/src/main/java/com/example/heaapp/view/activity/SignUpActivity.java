@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -14,7 +13,6 @@ import androidx.appcompat.widget.AppCompatButton;
 import com.example.heaapp.R;
 import com.example.heaapp.presenter.SignUpPresenterImpl;
 import com.example.heaapp.ultis.ultis;
-import com.google.firebase.auth.FirebaseAuth;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,7 +45,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
         });
 
 
-        signUpPresenter = new SignUpPresenterImpl();
+        signUpPresenter = new SignUpPresenterImpl(getContext());
         signUpPresenter.attachView(this);
 
         btnSignup.setOnClickListener(v -> signUpPresenter.signUp(edtName.getText().toString().trim(), edtEmail.getText().toString().trim(), edtPassword.getText().toString().trim()));

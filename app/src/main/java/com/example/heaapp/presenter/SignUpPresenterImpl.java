@@ -1,10 +1,12 @@
 package com.example.heaapp.presenter;
 
 import android.app.Activity;
+import android.content.Context;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 
+import com.example.heaapp.R;
 import com.example.heaapp.view.activity.SignUpView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -18,55 +20,50 @@ import java.util.HashMap;
 
 public class SignUpPresenterImpl implements SignUpPresenter {
     private SignUpView signUpView;
-    private FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
-    DatabaseReference databaseReference;
-    public SignUpPresenterImpl() {
+    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private DatabaseReference databaseReference;
+    private Context context;
+
+    public SignUpPresenterImpl(Context context) {
+        this.context=context;
     }
 
     @Override
     public void signUp(String name, String email, String password) {
         //check input condition
-        if(TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
-            signUpView.showValidationError("All fields must not be empty!");
-        }
-        else if(name.length()<3){
+        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+            signUpView.showValidationError(context.getString(R.string.msg_all_field_empty));
+        } else if (name.length() < 3) {
             signUpView.showNameError();
-        }
-        else if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             signUpView.showEmailError();
-        }
-        else if(password.length()<6){
+        } else if (password.length() < 6) {
             signUpView.showPasswordError();
-        }
-        else {
+        } else {
             signUpView.setProgressVisibility(true);
             //create user and add to firebase database
-            firebaseAuth.createUserWithEmailAndPassword(email,password)
-                    .addOnCompleteListener((Activity) signUpView, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            signUpView.setProgressVisibility(false);
-                            if(!task.isSuccessful()){
-                                signUpView.signUpError();
-                            }
-                            else {
-                                FirebaseUser firebaseUser=firebaseAuth.getCurrentUser();
-                                String userId= firebaseUser.getUid();
+            firebaseAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener((Activity) signUpView, task -> {
+                        signUpView.setProgressVisibility(false);
+                        if (!task.isSuccessful()) {
+                            signUpView.signUpError();
+                        } else {
+                            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                            String userId = firebaseUser.getUid();
 
-                                databaseReference=FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+                            databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
 
-                                HashMap<String,String> hashMap=new HashMap<>();
-                                hashMap.put("id",userId);
-                                hashMap.put("username",name);
-                                hashMap.put("imageURl","default_ava");
+                            HashMap<String, String> hashMap = new HashMap<>();
+                            hashMap.put("id", userId);
+                            hashMap.put("username", name);
+                            hashMap.put("imageURl", "default_ava");
 
-                                databaseReference.setValue(hashMap).addOnCompleteListener(task1 -> {
-                                    if(task1.isSuccessful()){
-                                        signUpView.signUpSuccess();
-                                    }
-                                });
+                            databaseReference.setValue(hashMap).addOnCompleteListener(task1 -> {
+                                if (task1.isSuccessful()) {
+                                    signUpView.signUpSuccess();
+                                }
+                            });
 
-                            }
                         }
                     });
         }
@@ -74,11 +71,11 @@ public class SignUpPresenterImpl implements SignUpPresenter {
 
     @Override
     public void attachView(SignUpView view) {
-        signUpView=view;
+        signUpView = view;
     }
 
     @Override
     public void detachView() {
-        signUpView=null;
+        signUpView = null;
     }
 }

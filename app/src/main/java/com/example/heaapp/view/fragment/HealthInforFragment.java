@@ -84,20 +84,6 @@ public class HealthInforFragment extends BaseFragment implements HealthInforView
     @Override
     public void onStart() {
         super.onStart();
-
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && isResumed()) {
-            onResume();
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
         if (!getUserVisibleHint()) {
             return;
         }
@@ -105,6 +91,20 @@ public class HealthInforFragment extends BaseFragment implements HealthInforView
         progressDialog.setMessage(getString(R.string.msg_loading));
         progressDialog.show();
         healthInforPresenter.getLatestData();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && isResumed()) {
+            onStart();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
     }
 
     @Override

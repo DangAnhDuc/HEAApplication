@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -15,7 +14,6 @@ import androidx.appcompat.widget.AppCompatButton;
 import com.example.heaapp.R;
 import com.example.heaapp.presenter.LoginPresenterImpl;
 import com.example.heaapp.ultis.ultis;
-import com.google.firebase.auth.FirebaseAuth;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,7 +39,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
-        loginPresenter = new LoginPresenterImpl();
+        loginPresenter = new LoginPresenterImpl(getContext());
         loginPresenter.attachView(this);
         loginPresenter.checkLogin();
 

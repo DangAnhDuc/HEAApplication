@@ -38,5 +38,7 @@
     <string name="msg_login_failed">Login Failed!</string>
     <string name="msg_press_to_exit">Press once again to exit!</string>
     <string name="msg_signout_success">Sign out successfully!</string>
+    <string name="msg_emai_pw_empty">Email and password can\'t be empty</string>
+    <string name="msg_all_field_empty">All fields must not be empty!</string>
 
 </resources>

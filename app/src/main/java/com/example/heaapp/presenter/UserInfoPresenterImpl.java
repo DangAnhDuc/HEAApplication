@@ -84,20 +84,20 @@ public class UserInfoPresenterImpl implements UserInfoPresenter {
         RealmResults<CurrentUserInfo> realmResults = realmService.getCurrentUser();
         CurrentUserInfo currentUserInfo = realmResults.get(0);
         double BMI = currentUserInfo.getWeight() / ((currentUserInfo.getHeight() * 0.01) * (currentUserInfo.getHeight() * 0.01));
-        double bodyMass = 0;
+        double bodyMass;
         if (currentUserInfo.getSex().equals("Male")) {
             bodyMass = (0.32810 * currentUserInfo.getWeight()) + (0.33929 * currentUserInfo.getHeight()) - 29.5336;
         } else {
             bodyMass = (0.29569 * currentUserInfo.getWeight()) + (0.41813 * currentUserInfo.getHeight()) - 43.2933;
         }
-        double bodyWater = 0;
+        double bodyWater;
         if (currentUserInfo.getSex().equals("Male")) {
             bodyWater = 2.447 - 0.09156 * currentUserInfo.getAge() + 0.1074 * currentUserInfo.getHeight() + 0.3362 * currentUserInfo.getWeight();
         } else {
             bodyWater = -2.097 + 1069 * currentUserInfo.getHeight() + 0.2466 * currentUserInfo.getWeight();
 
         }
-        double waterRequired = 0;
+        double waterRequired;
         if (currentUserInfo.getAge() < 30) {
             waterRequired = (currentUserInfo.getWeight() * 40) / 28.3 * 0.0295735;
         } else if (currentUserInfo.getAge() > 30 && currentUserInfo.getAge() < 50) {
@@ -106,7 +106,7 @@ public class UserInfoPresenterImpl implements UserInfoPresenter {
             waterRequired = (currentUserInfo.getWeight() * 30) / 28.3 * 0.0295735;
         }
 
-        double bloodVolume = 0;
+        double bloodVolume;
         if (currentUserInfo.getSex().equals("Male")) {
             bloodVolume = ((0.006012 * currentUserInfo.getHeight() * currentUserInfo.getHeight() * currentUserInfo.getHeight() * 0.39 * 0.39 * 0.39) + (14.6 * currentUserInfo.getWeight() * 2.2) + 604) * 0.001;
         } else {
@@ -114,17 +114,17 @@ public class UserInfoPresenterImpl implements UserInfoPresenter {
 
         }
 
-        double bodyFat = 0;
+        double bodyFat;
         if (currentUserInfo.getSex().equals("Male")) {
             bodyFat = (1.2 * BMI) + (0.23 * currentUserInfo.getAge()) - (10.8 * 1) - 5.4;
         } else {
             bodyFat = (1.2 * BMI) + (0.23 * currentUserInfo.getAge()) - (10.8 * 0) - 5.4;
         }
 
-        double FFMI = 0;
+        double FFMI;
         FFMI = (currentUserInfo.getWeight() * (1 - (bodyFat / 100))) / ((currentUserInfo.getHeight() * 0.01) * (currentUserInfo.getHeight() * 0.01));
 
-        double dailyCal = 0;
+        double dailyCal;
         if (currentUserInfo.getSex().equals("Male")) {
             dailyCal = 66.4730 + (17.7516 * currentUserInfo.getWeight()) + (5.0033 * currentUserInfo.getHeight()) - (6.7550 * currentUserInfo.getAge());
         } else {
