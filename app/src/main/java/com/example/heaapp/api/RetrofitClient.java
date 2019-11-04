@@ -1,10 +1,7 @@
 package com.example.heaapp.api;
 
-import com.example.heaapp.model.workout.ListExercise;
-
 import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Observable;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -53,7 +50,6 @@ public class RetrofitClient {
     public static Retrofit getClientWeather(String baseUrl) {
         if (retrofitWeather == null) {
             retrofitWeather = new Retrofit.Builder()
-
                     .baseUrl(baseUrl)
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())

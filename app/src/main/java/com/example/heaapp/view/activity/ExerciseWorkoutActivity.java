@@ -17,11 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.heaapp.R;
 import com.example.heaapp.adapter.ListExerciseAdapter;
-import com.example.heaapp.model.workout.ItemExercise;
+import com.example.heaapp.model.workout.ExerciseInfo.ItemExercise;
 import com.example.heaapp.presenter.ExerciseWorkoutPresenter;
 import com.example.heaapp.presenter.ExerciseWorkoutPresenterImpl;
-import com.example.heaapp.ultis.ultis;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -84,8 +84,7 @@ public class ExerciseWorkoutActivity extends AppCompatActivity implements Exerci
     @Override
     public void getListWorkoutSuccess(List<ItemExercise> list) {
         dialog.dismiss();
-        listExercise = list;
-        listExerciseAdapter = new ListExerciseAdapter(getContext(), listExercise);
+        listExerciseAdapter = new ListExerciseAdapter(getContext(), list);
         recyclerViewList.setAdapter(listExerciseAdapter);
         listExerciseAdapter.notifyDataSetChanged();
         listExerciseAdapter.setOnItemListener(listExercise -> {
@@ -93,7 +92,8 @@ public class ExerciseWorkoutActivity extends AppCompatActivity implements Exerci
             intent.putExtra("name",listExercise.getName());
             Log.d("Error",listExercise.getName());
             intent.putExtra("description",listExercise.getDescription());
-            intent.putExtra("muscles", String.valueOf(listExercise.getMuscles()));
+            intent.putIntegerArrayListExtra("muscles", (ArrayList<Integer>) listExercise.getMuscles());
+            intent.putIntegerArrayListExtra("equipment", (ArrayList<Integer>) listExercise.getEquipment());
             startActivity(intent);
         });
     }

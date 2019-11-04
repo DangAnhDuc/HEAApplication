@@ -14,10 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.heaapp.R;
 import com.example.heaapp.adapter.CategoryWorkoutAdapter;
 import com.example.heaapp.base.BaseFragment;
-import com.example.heaapp.model.workout.Results;
+import com.example.heaapp.model.workout.Category.Results;
 import com.example.heaapp.presenter.WorkoutPresenter;
 import com.example.heaapp.presenter.WorkoutPresenterImpl;
-import com.example.heaapp.ultis.ultis;
 import com.example.heaapp.view.activity.ExerciseWorkoutActivity;
 
 import java.util.List;

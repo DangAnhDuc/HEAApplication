@@ -2,15 +2,13 @@ package com.example.heaapp.api;
 
 
 
-import com.example.heaapp.model.workout.Exercisecategory;
-import com.example.heaapp.model.workout.ListExercise;
-import com.example.heaapp.model.workout.Muscle;
+import com.example.heaapp.model.workout.Category.Exercisecategory;
+import com.example.heaapp.model.workout.Equipment.Equipment;
+import com.example.heaapp.model.workout.ExerciseInfo.ListExercise;
+import com.example.heaapp.model.workout.Muscle.Muscle;
 
 import io.reactivex.Observable;
-import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Part;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface WorkoutApiService {
@@ -25,5 +23,9 @@ public interface WorkoutApiService {
 
     //Get Muscles
     @GET("muscle")
-    Observable<Muscle> getMusclepage(@Query("page") int page);
+    Observable<Muscle> getMuscle();
+
+    //Get Equipment
+    @GET("equipment")
+    Observable<Equipment> getEquipment();
 }
