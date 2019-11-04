@@ -1,6 +1,5 @@
 package com.example.heaapp.api;
 
-import com.example.heaapp.model.airweather.CityInfor;
 import com.example.heaapp.model.news.News;
 
 import io.reactivex.Observable;

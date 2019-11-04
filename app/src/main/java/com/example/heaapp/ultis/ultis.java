@@ -5,20 +5,11 @@ import android.content.Intent;
 import android.os.Parcelable;
 import android.widget.Toast;
 
-public class ultis<Data> {
+public class ultis{
     public static Intent setIntent(Context context, Class destination) {
 
         Intent intent = new Intent(context, destination);
         context.startActivity(intent);
-
-        return intent ;
-    }
-
-    public  Intent setIntentExtra(Context context, Class destination, String key, Data data) {
-        Intent intent = new Intent(context, destination);
-        intent.putExtra(key, (Parcelable) data);
-        context.startActivity(intent);
-
         return intent ;
     }
 

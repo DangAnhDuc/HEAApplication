@@ -7,6 +7,7 @@ import com.example.heaapp.model.workout.Equipment.Equipment;
 import com.example.heaapp.model.workout.ExerciseInfo.ListExercise;
 import com.example.heaapp.model.workout.Muscle.Muscle;
 
+
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

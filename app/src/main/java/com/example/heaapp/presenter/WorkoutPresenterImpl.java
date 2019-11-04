@@ -16,7 +16,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class WorkoutPresenterImpl implements WorkoutPresenter{
     private WorkoutView workoutView;
-    private List<Results> listCategory;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     public WorkoutPresenterImpl(WorkoutView view) {
         this.workoutView = view;
@@ -43,7 +42,7 @@ public class WorkoutPresenterImpl implements WorkoutPresenter{
     }
 
     private void handleReponse(Exercisecategory exercisecategory){
-        listCategory = exercisecategory.getResults();
+        List<Results> listCategory = exercisecategory.getResults();
         workoutView.getListWorkoutSuccess(listCategory);
     }
 }

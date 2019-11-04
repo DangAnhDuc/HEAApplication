@@ -15,42 +15,41 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class HealthInforPresenterImpl implements HealthInforPresenter {
+public class HealthInfoPresenterImpl implements HealthInfoPresenter {
 
     private HealthInforView healthInforView;
-    private List<Article> articles;
-    private CityInfor cityInformation;
     private CompositeDisposable compositeDisposable=new CompositeDisposable();
 
-    public HealthInforPresenterImpl(HealthInforView healthInforView) {
+    public HealthInfoPresenterImpl(HealthInforView healthInforView) {
         this.healthInforView = healthInforView;
     }
 
-    //get news
+    //get latest news and weather data
     @Override
-    public void getListArticles() {
+    public void getLatestData() {
         NewsApiServices newsApiServices= ApiUtils.getNewsApiService();
-        Disposable disposable= newsApiServices.getNews()
+        Disposable disposableNews= newsApiServices.getNews()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::handleResponse, this::handleError, this::handleSuccess);
-        compositeDisposable.add(disposable);
+
+        WeatherApiServices weatherApiServices= ApiUtils.getWeatherApiService();
+        Disposable disposableWeather= weatherApiServices.getHCMObs()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(this::handleResponse, this::handleError, this::handleSuccess);
+        compositeDisposable.add(disposableNews);
+        compositeDisposable.add(disposableWeather);
     }
 
-    //get weather data
     @Override
-    public void getWeatherData() {
-        WeatherApiServices weatherApiServices= ApiUtils.getWeatherApiService();
-        Disposable disposable= weatherApiServices.getHCMObs()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(this::handleResponse, this::handleError, this::handleSuccess);
-        compositeDisposable.add(disposable);
+    public void disposeApi() {
+        compositeDisposable.dispose();
     }
+
 
     private void handleResponse(CityInfor cityInfor) {
-        cityInformation=cityInfor;
-        healthInforView.getCityInforSuccess(cityInformation);
+        healthInforView.getCityInfoSuccess(cityInfor);
     }
 
     private void handleSuccess() {
@@ -58,13 +57,13 @@ public class HealthInforPresenterImpl implements HealthInforPresenter {
 
     private void handleError(Throwable throwable) {
         healthInforView.getListNewsFailed("Error"+throwable.getLocalizedMessage());
-        healthInforView.getCityInforFailed("Error"+throwable.getLocalizedMessage());
     }
 
     private void handleResponse(News news) {
-        articles= news.getArticles();
+        List<Article> articles = news.getArticles();
         healthInforView.getListNewsSuccess(articles);
     }
+
 
     @Override
     public void attachView(HealthInforView view) {

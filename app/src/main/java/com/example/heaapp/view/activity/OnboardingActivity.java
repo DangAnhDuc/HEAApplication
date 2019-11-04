@@ -61,25 +61,22 @@ public class OnboardingActivity extends AppCompatActivity {
 
         //create onboarding list
         final List<OnboardingItem> onboardingItemList = new ArrayList<>();
-        onboardingItemList.add(new OnboardingItem("Workout", "Take care your health with  most useful and effective workout plans", R.drawable.img1));
-        onboardingItemList.add(new OnboardingItem("Health summary", "Keep your eyes on health tracking by log and reminder your activities", R.drawable.img2));
-        onboardingItemList.add(new OnboardingItem("Health information", "Provide information about environment and food for your healthy life", R.drawable.img3));
+        onboardingItemList.add(new OnboardingItem(getString(R.string.title_workout), getString(R.string.des_workout), R.drawable.img1));
+        onboardingItemList.add(new OnboardingItem(getString(R.string.title_health_summary), getString(R.string.des_health_summary), R.drawable.img2));
+        onboardingItemList.add(new OnboardingItem(getString(R.string.title_health_infomation), getString(R.string.des_health_info), R.drawable.img3));
 
         onboardingPagerAdapter = new OnboardingPagerAdapter(this, onboardingItemList);
         screenViewpager.setAdapter(onboardingPagerAdapter);
 
         tabIndicator.setupWithViewPager(screenViewpager);
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                position = screenViewpager.getCurrentItem();
-                if (position < onboardingItemList.size()) {
-                    position++;
-                    screenViewpager.setCurrentItem(position);
-                }
-                if (position == onboardingItemList.size() - 1) {
-                    loadLastPager();
-                }
+        btnNext.setOnClickListener(v -> {
+            position = screenViewpager.getCurrentItem();
+            if (position < onboardingItemList.size()) {
+                position++;
+                screenViewpager.setCurrentItem(position);
+            }
+            if (position == onboardingItemList.size() - 1) {
+                loadLastPager();
             }
         });
 
@@ -102,23 +99,17 @@ public class OnboardingActivity extends AppCompatActivity {
             }
         });
 
-        btnGetStarted.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ultis.setIntent(OnboardingActivity.this, LoginActivity.class);
-                savePrefsData();
-                finish();
-            }
+        btnGetStarted.setOnClickListener(v -> {
+            ultis.setIntent(OnboardingActivity.this, LoginActivity.class);
+            savePrefsData();
+            finish();
         });
 
-        tvSkip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ultis.setIntent(OnboardingActivity.this, LoginActivity.class);
+        tvSkip.setOnClickListener(v -> {
+            ultis.setIntent(OnboardingActivity.this, LoginActivity.class);
 
-                savePrefsData();
-                finish();
-            }
+            savePrefsData();
+            finish();
         });
     }
 
@@ -127,7 +118,7 @@ public class OnboardingActivity extends AppCompatActivity {
         return sharedPreferences.getBoolean("isOpened", false);
     }
 
-    //check onboardins are seen
+    //check onboarding are seen
     private void savePrefsData() {
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("myPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();

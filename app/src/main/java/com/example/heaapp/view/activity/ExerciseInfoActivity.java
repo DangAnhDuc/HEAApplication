@@ -96,5 +96,6 @@ public class ExerciseInfoActivity extends AppCompatActivity implements ExerciseI
     @Override
     public Context getContext() {
         return this;
+
     }
 }

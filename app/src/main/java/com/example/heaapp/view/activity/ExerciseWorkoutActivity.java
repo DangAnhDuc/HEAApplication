@@ -94,6 +94,7 @@ public class ExerciseWorkoutActivity extends AppCompatActivity implements Exerci
             intent.putExtra("description",listExercise.getDescription());
             intent.putIntegerArrayListExtra("muscles", (ArrayList<Integer>) listExercise.getMuscles());
             intent.putIntegerArrayListExtra("equipment", (ArrayList<Integer>) listExercise.getEquipment());
+
             startActivity(intent);
         });
     }
@@ -115,6 +116,7 @@ public class ExerciseWorkoutActivity extends AppCompatActivity implements Exerci
                 listExerciseAdapter.notifyDataSetChanged();
                 return false;
             }
+
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 

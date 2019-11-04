@@ -32,14 +32,14 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(context).inflate(R.layout.news_item,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.news_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bind(articles.get(position),listener);
-        holder.container.setAnimation(AnimationUtils.loadAnimation(context,R.anim.news_animation));
+        holder.bind(articles.get(position), listener);
+        //holder.container.setAnimation(AnimationUtils.loadAnimation(context, R.anim.news_animation));
         holder.tv_title.setText(articles.get(position).getTitle());
         holder.tv_description.setText(articles.get(position).getDescription());
         Glide.with(context).load(articles.get(position).getUrlToImage()).into(holder.img_news);
@@ -55,26 +55,21 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tv_title,tv_description;
+        TextView tv_title, tv_description;
         ImageView img_news;
         LinearLayout container;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            tv_title= itemView.findViewById(R.id.tv_news_title);
-            tv_description= itemView.findViewById((R.id.tv_description));
-            img_news= itemView.findViewById(R.id.img_new);
-            container= itemView.findViewById(R.id.layout_container);
+            tv_title = itemView.findViewById(R.id.tv_news_title);
+            tv_description = itemView.findViewById((R.id.tv_description));
+            img_news = itemView.findViewById(R.id.img_new);
+            container = itemView.findViewById(R.id.layout_container);
         }
 
         public void bind(final Article article, final OnItemClickListener listener) {
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onItemClick(article);
-                }
-            });
+            itemView.setOnClickListener(v -> listener.onItemClick(article));
         }
     }
 }

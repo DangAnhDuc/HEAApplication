@@ -40,7 +40,7 @@
                         android:padding="10dp">
 
                         <TextView
-                            android:id="@+id/desc_kacl_eaten"
+                            android:id="@+id/desc_kcal_eaten"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
@@ -49,14 +49,14 @@
                             android:ellipsize="end"
                             android:text="0"
                             android:textColor="@android:color/white"
-                            android:textSize="20sp"
+                            android:textSize="15sp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/title_kcal_eaten"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/desc_kacl_eaten"
+                            android:layout_below="@id/desc_kcal_eaten"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="5dp"
                             android:text="Eaten"
@@ -78,7 +78,7 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/desc_kacl_left"
+                                android:id="@+id/desc_kcal_left"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -87,19 +87,19 @@
                                 android:ellipsize="end"
                                 android:text="0"
                                 android:textColor="@android:color/white"
-                                android:textSize="40sp"
+                                android:textSize="30sp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/title_kcal_left"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@id/desc_kacl_left"
+                                android:layout_below="@id/desc_kcal_left"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="5dp"
                                 android:text="kCal Left"
                                 android:textColor="@android:color/white"
-                                android:textSize="20sp" />
+                                android:textSize="15sp" />
 
                         </LinearLayout>
 
@@ -112,7 +112,7 @@
                         android:padding="10dp">
 
                         <TextView
-                            android:id="@+id/desc_kacl_burned"
+                            android:id="@+id/desc_kcal_burned"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
@@ -121,14 +121,14 @@
                             android:ellipsize="end"
                             android:text="0"
                             android:textColor="@android:color/white"
-                            android:textSize="20sp"
+                            android:textSize="15sp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/title_kcal_burned"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/desc_kacl_burned"
+                            android:layout_below="@id/desc_kcal_burned"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="5dp"
                             android:text="Burned"
@@ -159,7 +159,7 @@
                             android:ellipsize="end"
                             android:text="Carbs"
                             android:textColor="@android:color/white"
-                            android:textSize="20sp"
+                            android:textSize="15sp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -171,7 +171,7 @@
                             android:layout_marginTop="5dp"
                             android:text="0g left"
                             android:textColor="@android:color/white"
-                            android:textSize="15sp" />
+                            android:textSize="10sp" />
 
                     </RelativeLayout>
 
@@ -191,7 +191,7 @@
                             android:ellipsize="end"
                             android:text="Protein"
                             android:textColor="@android:color/white"
-                            android:textSize="20sp"
+                            android:textSize="15sp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -203,7 +203,7 @@
                             android:layout_marginTop="5dp"
                             android:text="0g left"
                             android:textColor="@android:color/white"
-                            android:textSize="15sp" />
+                            android:textSize="10sp" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -222,7 +222,7 @@
                             android:ellipsize="end"
                             android:text="Fat"
                             android:textColor="@android:color/white"
-                            android:textSize="20sp"
+                            android:textSize="15sp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -234,7 +234,7 @@
                             android:layout_marginTop="5dp"
                             android:text="0g left"
                             android:textColor="@android:color/white"
-                            android:textSize="15sp" />
+                            android:textSize="10sp" />
                     </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -698,28 +698,7 @@
                             android:layout_height="wrap_content"
                             android:text="0"/>
                     </RelativeLayout>
-                    <RelativeLayout
-                        android:elevation="8dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        >
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:text="FFMI"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:id="@+id/tv_ffmi"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginRight="15dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="0"/>
-                    </RelativeLayout>
                     <RelativeLayout
                         android:elevation="8dp"
                         android:layout_width="match_parent"
@@ -787,6 +766,52 @@
                             android:layout_height="wrap_content"
                             android:text="0"/>
                     </RelativeLayout>
+                    <RelativeLayout
+                        android:elevation="8dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:text="Body Fat"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tv_bodyfat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginRight="15dp"
+                            android:text="0" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:elevation="8dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:text="FFMI"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tv_ffmi"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="15dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"/>
+                    </RelativeLayout>
+
                     <RelativeLayout
                         android:elevation="8dp"
                         android:layout_width="match_parent"

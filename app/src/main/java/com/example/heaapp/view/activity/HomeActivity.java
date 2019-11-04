@@ -25,7 +25,6 @@ import com.example.heaapp.view.fragment.HealthInforFragment;
 import com.example.heaapp.view.fragment.WorkoutFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
@@ -51,7 +50,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     private ActionBarDrawerToggle mDrawerToggle;
 
     HomePresenterImpl homePresenter;
-    FirebaseAuth firebaseAuth;
     private boolean doubleBackToExitPressedOnce = false;
 
     @Override
@@ -64,10 +62,9 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         Objects.requireNonNull(getSupportActionBar()).setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        firebaseAuth = FirebaseAuth.getInstance();
         initView();
-        RealmService realmService=RealmService.getInstance();
-        homePresenter = new HomePresenterImpl(realmService,firebaseAuth, this);
+        RealmService realmService = RealmService.getInstance();
+        homePresenter = new HomePresenterImpl(realmService, this);
         homePresenter.attachView(this);
         homePresenter.getCurrentUser();
     }
@@ -75,15 +72,15 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     private void initView() {
         //setup 3 main fragment
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFragments(new WorkoutFragment(), "Workout");
-        viewPagerAdapter.addFragments(new DashBoardFragment(), "Dashboard");
-        viewPagerAdapter.addFragments(new HealthInforFragment(), "Health Infor");
+        viewPagerAdapter.addFragments(new WorkoutFragment(), getString(R.string.title_workout));
+        viewPagerAdapter.addFragments(new DashBoardFragment(), getString(R.string.title_health_summary));
+        viewPagerAdapter.addFragments(new HealthInforFragment(), getString(R.string.title_health_infomation));
 
 
         viewPager.setAdapter(viewPagerAdapter);
         viewPager.setCurrentItem(1);
         tabLayout.setupWithViewPager(viewPager);
-        tabTitle.setText("Health sum");
+        tabTitle.setText(getString(R.string.title_health_summary));
 
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_workout_icon);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_doctor_icon);
@@ -95,16 +92,13 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
                 int position = tab.getPosition();
                 switch (position) {
                     case 0:
-                        tabTitle.setText("Workout");
-                        break;
-                    case 1:
-                        tabTitle.setText("Dashboard");
+                        tabTitle.setText(getString(R.string.title_workout));
                         break;
                     case 2:
-                        tabTitle.setText("Health Infor");
+                        tabTitle.setText(getString(R.string.title_health_infomation));
                         break;
                     default:
-                        tabTitle.setText("Health sum");
+                        tabTitle.setText(getString(R.string.title_health_summary));
                         break;
                 }
             }
@@ -124,20 +118,17 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         sideBarLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
 
-        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()){
-                    case R.id.side_bar_logout:
-                        homePresenter.signOut();
-                        ultis.showMessage(getContext(),"Sign out successfully!");
-                        break;
-                    case  R.id.side_bar_info_user:
-                        ultis.setIntent(getContext(),UserInfoActivity.class);
-                        break;
-                }
-                return true;
+        navView.setNavigationItemSelectedListener(menuItem -> {
+            switch (menuItem.getItemId()) {
+                case R.id.side_bar_logout:
+                    homePresenter.signOut();
+                    ultis.showMessage(getContext(), getString(R.string.msg_signout_success));
+                    break;
+                case R.id.side_bar_info_user:
+                    ultis.setIntent(getContext(), UserInfoActivity.class);
+                    break;
             }
+            return true;
         });
     }
 
@@ -145,9 +136,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
-            if (item.getItemId() == R.id.side_bar_logout) {
-
-            }
+            item.getItemId();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -202,7 +191,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
             return;
         }
         this.doubleBackToExitPressedOnce = true;
-        ultis.showMessage(this, "Press once again to exit!");
+        ultis.showMessage(this, getString(R.string.msg_press_to_exit));
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
@@ -211,12 +200,13 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         private ArrayList<String> titles;
 
 
-        public ViewPagerAdapter(FragmentManager fm) {
+        ViewPagerAdapter(FragmentManager fm) {
             super(fm);
             this.fragments = new ArrayList<>();
             this.titles = new ArrayList<>();
         }
 
+        @NonNull
         @Override
         public Fragment getItem(int position) {
             return fragments.get(position);
@@ -227,7 +217,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
             return fragments.size();
         }
 
-        public void addFragments(Fragment fragment, String title) {
+        void addFragments(Fragment fragment, String title) {
             fragments.add(fragment);
             titles.add(title);
 
