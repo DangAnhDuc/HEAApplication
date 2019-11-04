@@ -1,6 +1,5 @@
 package com.example.heaapp.view.fragment;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -22,12 +21,58 @@ import com.example.heaapp.service.RealmService;
 import com.example.heaapp.ultis.ultis;
 import com.example.heaapp.view.activity.UserInfoActivity;
 
+import java.text.DecimalFormat;
 
-public class DashBoardFragment extends BaseFragment implements DashboardView, View.OnClickListener {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
+
+
+public class DashBoardFragment extends BaseFragment implements DashboardView {
+    @BindView(R.id.desc_kcal_eaten)
+    TextView descKcalEaten;
+    @BindView(R.id.desc_kcal_left)
+    TextView descKcalLeft;
+    @BindView(R.id.desc_kcal_burned)
+    TextView descKcalBurned;
+    @BindView(R.id.des_carbs)
+    TextView desCarbs;
+    @BindView(R.id.des_protein)
+    TextView desProtein;
+    @BindView(R.id.des_fat)
+    TextView desFat;
+    @BindView(R.id.tv_total_water)
+    TextView tvTotalWater;
+    @BindView(R.id.btn_75)
+    Button btn75;
+    @BindView(R.id.btn_150)
+    Button btn150;
+    @BindView(R.id.btn_250)
+    Button btn250;
+    @BindView(R.id.btn_330)
+    Button btn330;
+    @BindView(R.id.btn_custom_water)
+    Button btnCustomWater;
+    @BindView(R.id.tv_bmi)
+    TextView tvBmi;
+    @BindView(R.id.tv_leanbodymass)
+    TextView tvLeanbodymass;
+    @BindView(R.id.tv_bodywater)
+    TextView tvBodywater;
+    @BindView(R.id.tv_waterreq)
+    TextView tvWaterreq;
+    @BindView(R.id.tv_bloodVol)
+    TextView tvBloodVol;
+    @BindView(R.id.tv_bodyfat)
+    TextView tvBodyfat;
+    @BindView(R.id.tv_ffmi)
+    TextView tvFfmi;
+    @BindView(R.id.tv_dailyCal)
+    TextView tvDailyCal;
     private DashboardPresenterImpl dashboardPresenter;
-    private TextView tvTotalWater;
-    AlertDialog alertDialog;
-    private TextView tv_BMI, tv_bodyMass, tv_bodyWater, tv_waterRequired, tv_bloodVolume, tv_bodyFat, tv_FFMI, tv_DailyCal;
+    private AlertDialog alertDialog;
+    private Unbinder unbinder;
 
     @Override
     public BaseFragment provideYourFragment() {
@@ -38,34 +83,9 @@ public class DashBoardFragment extends BaseFragment implements DashboardView, Vi
     public View provideYourFragmentView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_dash_board, parent, false);
-
-        //button
-        Button btn75 = view.findViewById(R.id.btn_75);
-        Button btn150 = view.findViewById(R.id.btn_150);
-        Button btn250 = view.findViewById(R.id.btn_250);
-        Button btn330 = view.findViewById(R.id.btn_330);
-        Button btn_custom_water_ = view.findViewById(R.id.btn_custom_water);
-
-        //textview
-        tvTotalWater = view.findViewById(R.id.tv_total_water);
-
-        tv_BMI = view.findViewById(R.id.tv_bmi);
-        tv_bodyMass = view.findViewById(R.id.tv_leanbodymass);
-        tv_bodyWater = view.findViewById(R.id.tv_bodywater);
-        tv_waterRequired = view.findViewById(R.id.tv_waterreq);
-        tv_bloodVolume = view.findViewById(R.id.tv_bloodVol);
-        tv_bodyFat = view.findViewById(R.id.tv_bodyfat);
-        tv_FFMI = view.findViewById(R.id.tv_ffmi);
-        tv_DailyCal = view.findViewById(R.id.tv_dailyCal);
-
-
+        unbinder= ButterKnife.bind(this,view);
         RealmService realmService = RealmService.getInstance();
         dashboardPresenter = new DashboardPresenterImpl(getContext(), this, realmService);
-        btn75.setOnClickListener(this);
-        btn150.setOnClickListener(this);
-        btn250.setOnClickListener(this);
-        btn330.setOnClickListener(this);
-        btn_custom_water_.setOnClickListener(this);
         dashboardPresenter.getDailySummary();
         dashboardPresenter.getCurrentUserIndices();
         view.setOnTouchListener(new View.OnTouchListener() {
@@ -105,20 +125,21 @@ public class DashBoardFragment extends BaseFragment implements DashboardView, Vi
 
     @Override
     public void displayCurrentUserIndices(CurrentUserIndices currentUserIndices) {
-        tv_BMI.setText(String.valueOf(currentUserIndices.getBMI()));
-        tv_bodyMass.setText(String.valueOf(currentUserIndices.getBodyMass()));
-        tv_bodyWater.setText(String.valueOf(currentUserIndices.getBodyWater()));
-        tv_waterRequired.setText(String.valueOf(currentUserIndices.getWaterRequired()));
-        tv_bloodVolume.setText(String.valueOf(currentUserIndices.getBloodVolume()));
-        tv_bodyFat.setText(String.valueOf(currentUserIndices.getBodyFat()));
-        tv_FFMI.setText(String.valueOf(currentUserIndices.getFFMI()));
-        tv_DailyCal.setText(String.valueOf(currentUserIndices.getDailyCal()));
+        DecimalFormat format = new DecimalFormat("0.00");
+        tvBmi.setText(format.format(currentUserIndices.getBMI()));
+        tvLeanbodymass.setText(format.format(currentUserIndices.getBodyMass())+" kg");
+        tvBodywater.setText(format.format(currentUserIndices.getBodyWater())+ " litters");
+        tvWaterreq.setText(format.format(currentUserIndices.getWaterRequired())+" litters");
+        tvBloodVol.setText(format.format(currentUserIndices.getBloodVolume())+" litters");
+        tvBodyfat.setText(format.format(currentUserIndices.getBodyFat())+" %");
+        tvFfmi.setText(format.format(currentUserIndices.getFFMI())+ " kg/m²");
+        tvDailyCal.setText(format.format(currentUserIndices.getDailyCal())+" kCal");
     }
 
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
+    @OnClick({R.id.btn_75, R.id.btn_150, R.id.btn_250, R.id.btn_330, R.id.btn_custom_water})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
             case R.id.btn_75:
                 dashboardPresenter.addDrunkWater(75);
                 break;
@@ -143,5 +164,11 @@ public class DashBoardFragment extends BaseFragment implements DashboardView, Vi
                 builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
                 builder.show();
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
     }
 }

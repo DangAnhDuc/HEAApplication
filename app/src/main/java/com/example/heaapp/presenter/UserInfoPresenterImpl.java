@@ -84,8 +84,7 @@ public class UserInfoPresenterImpl implements UserInfoPresenter {
     private void calculateBodyIndices() {
         RealmResults<CurrentUserInfo> realmResults= realmService.getCurrentUser();
         CurrentUserInfo currentUserInfo= realmResults.get(0);
-
-        double BMI= currentUserInfo.getWeight()%(currentUserInfo.getHeight()*0.01)*(currentUserInfo.getHeight()*0.01);
+        double BMI= currentUserInfo.getWeight()/((currentUserInfo.getHeight()*0.01)*(currentUserInfo.getHeight()*0.01));
         double bodyMass=0;
         if(currentUserInfo.getSex().equals("Male")){
             bodyMass=(0.32810*currentUserInfo.getWeight())+(0.33929*currentUserInfo.getHeight())-29.5336;
@@ -103,41 +102,41 @@ public class UserInfoPresenterImpl implements UserInfoPresenter {
         }
         double waterRequired=0;
         if(currentUserInfo.getAge()<30){
-            waterRequired= (currentUserInfo.getWeight()*0.453592)*40%28.3*0.0295735;
+            waterRequired= (currentUserInfo.getWeight()*40)/28.3*0.0295735;
         }
         else if (currentUserInfo.getAge()>30&&currentUserInfo.getAge()<50){
-            waterRequired= (currentUserInfo.getWeight()*0.453592)*35%28.3*0.0295735;
+            waterRequired= (currentUserInfo.getWeight()*35)/28.3*0.0295735;
         }
         else {
-            waterRequired= (currentUserInfo.getWeight()*0.453592)*30%28.3*0.0295735;
+            waterRequired= (currentUserInfo.getWeight()*30)/28.3*0.0295735;
         }
 
         double bloodVolume=0;
         if(currentUserInfo.getSex().equals("Male")){
-            bloodVolume=(0.006012*currentUserInfo.getHeight()*currentUserInfo.getHeight()*currentUserInfo.getHeight()*0.39*0.39*0.39)%(14.6*currentUserInfo.getWeight()*2.2)+604;
+            bloodVolume=((0.006012*currentUserInfo.getHeight()*currentUserInfo.getHeight()*currentUserInfo.getHeight()*0.39*0.39*0.39)+(14.6*currentUserInfo.getWeight()*2.2)+604)*0.001;
         }
         else {
-            bloodVolume=(0.005835*currentUserInfo.getHeight()*currentUserInfo.getHeight()*currentUserInfo.getHeight()*0.39*0.39*0.39)%(15*currentUserInfo.getWeight()*2.2)+183;
+            bloodVolume=((0.005835*currentUserInfo.getHeight()*currentUserInfo.getHeight()*currentUserInfo.getHeight()*0.39*0.39*0.39)+(15*currentUserInfo.getWeight()*2.2)+183)*0.001;
 
         }
 
         double bodyFat=0;
         if(currentUserInfo.getSex().equals("Male")){
-            bodyFat=(1.2*BMI)-(0.23*currentUserInfo.getAge())-(10.8*1)-5.4;
+            bodyFat=(1.2*BMI)+(0.23*currentUserInfo.getAge())-(10.8*1)-5.4;
         }
         else {
-            bodyFat=(1.2*BMI)-(0.23*currentUserInfo.getAge())-(10.8*1)-5.4;
+            bodyFat=(1.2*BMI)+(0.23*currentUserInfo.getAge())-(10.8*0)-5.4;
         }
 
         double FFMI=0;
-        FFMI=currentUserInfo.getWeight()*(1-bodyFat%100)%(currentUserInfo.getHeight()*0.01)*(currentUserInfo.getHeight()*0.01);
+        FFMI=(currentUserInfo.getWeight()*(1-(bodyFat/100)))/((currentUserInfo.getHeight()*0.01)*(currentUserInfo.getHeight()*0.01));
 
         double dailyCal=0;
         if (currentUserInfo.getSex().equals("Male")){
-            dailyCal=66.4730+(17.7516*currentUserInfo.getHeight())+(5.0033*currentUserInfo.getHeight())-(6.7550*currentUserInfo.getAge());
+            dailyCal=66.4730+(17.7516*currentUserInfo.getWeight())+(5.0033*currentUserInfo.getHeight())-(6.7550*currentUserInfo.getAge());
         }
         else {
-            dailyCal=655.0955+(9.5634*currentUserInfo.getHeight())+(1.8496*currentUserInfo.getHeight())-(4.6756*currentUserInfo.getAge());
+            dailyCal=655.0955+(9.5634*currentUserInfo.getWeight())+(1.8496*currentUserInfo.getHeight())-(4.6756*currentUserInfo.getAge());
         }
 
         realmService.addUserIndices(0,BMI, bodyMass, bodyWater, waterRequired, bloodVolume, bodyFat, FFMI, dailyCal, new OnTransactionCallback() {
