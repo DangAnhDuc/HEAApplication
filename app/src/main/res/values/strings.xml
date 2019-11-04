@@ -17,5 +17,26 @@
     <string name="exer_info_description">Description :</string>
     <string name="exer_info_muscles">Muscles Affect :</string>
     <string name="todo">TODO</string>
+    <string name="msg_loading">Loading…</string>
+    <string name="msg_request_enter_info">You have to input your detail for this function!</string>
+    <string name="title_input_water">Input water amount</string>
+    <string name="msg_save_info_success">Save information successfully!</string>
+    <string name="msg_create_account">Creating Account…</string>
+    <string name="msg_username_policy">Name must be at least 3 characters!</string>
+    <string name="msg_password_policy">Password must be at least 6 characters!</string>
+    <string name="msg_invalid_email">Invalid email address!</string>
+    <string name="msg_signup_success">Sign Up Successfully!</string>
+    <string name="msg_signup_failed">Sign Up Failed!</string>
+    <string name="title_workout">WORKOUT</string>
+    <string name="title_health_summary">DASHBOARD</string>
+    <string name="title_health_infomation">HEALTH INFORMATION</string>
+    <string name="des_workout">Take care your health with  most useful and effective workout plans</string>
+    <string name="des_health_summary">Keep your eyes on health tracking by log and reminder your activities</string>
+    <string name="des_health_info">Provide information about environment and food for your healthy life</string>
+    <string name="msg_authenticating">Authenticating...</string>
+    <string name="msg_login_success">Login Successfully!</string>
+    <string name="msg_login_failed">Login Failed!</string>
+    <string name="msg_press_to_exit">Press once again to exit!</string>
+    <string name="msg_signout_success">Sign out successfully!</string>
 
 </resources>

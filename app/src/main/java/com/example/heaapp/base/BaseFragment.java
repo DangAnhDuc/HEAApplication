@@ -1,18 +1,11 @@
 package com.example.heaapp.base;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.example.heaapp.R;
+import androidx.fragment.app.Fragment;
 
 public abstract  class BaseFragment extends Fragment {
 

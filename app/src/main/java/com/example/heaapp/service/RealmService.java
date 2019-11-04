@@ -1,16 +1,13 @@
 package com.example.heaapp.service;
 
 import com.example.heaapp.callback.OnTransactionCallback;
+import com.example.heaapp.model.user_information.CurrentUserIndices;
 import com.example.heaapp.model.user_information.CurrentUserInfo;
 import com.example.heaapp.model.user_information.DailySummary;
 import com.example.heaapp.ultis.Common;
 
-import java.util.Calendar;
-import java.util.Date;
-
 import io.realm.Realm;
 import io.realm.Realm.Transaction;
-import io.realm.Realm.Transaction.Callback;
 import io.realm.RealmResults;
 
 public class RealmService {
@@ -108,4 +105,39 @@ public class RealmService {
     });
     }
 
+    //add user indices
+    public void addUserIndices(long id,double BMI,double bodyMass,double bodyWater, double waterRequired,double bloodVolume,double bodyFat,
+                               double FFMI,double dailyCal,OnTransactionCallback onTransactionCallback ){
+        mRealm.executeTransactionAsync(new Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                RealmResults<CurrentUserIndices> realmResults = realm.where(CurrentUserIndices.class)
+                        .equalTo("id", 0)
+                        .findAll();
+                realmResults.setValue("id", id);
+                realmResults.setValue("BMI", BMI);
+                realmResults.setValue("bodyMass", bodyMass);
+                realmResults.setValue("bodyWater", bodyWater);
+                realmResults.setValue("waterRequired", waterRequired);
+                realmResults.setValue("bloodVolume", bloodVolume);
+                realmResults.setValue("bodyFat", bodyFat);
+                realmResults.setValue("FFMI", FFMI);
+                realmResults.setValue("dailyCal", dailyCal);
+            }
+        }, new Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+                if (onTransactionCallback != null) {
+                    onTransactionCallback.onTransactionSuccess();
+                }
+            }
+        }, new Transaction.OnError() {
+            @Override
+            public void onError(Throwable error) {
+                if(onTransactionCallback!=null){
+                    onTransactionCallback.onTransactionError((Exception) error);
+                }
+            }
+        });
+    }
 }

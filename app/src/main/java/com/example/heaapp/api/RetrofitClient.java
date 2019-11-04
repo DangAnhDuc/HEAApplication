@@ -1,10 +1,7 @@
 package com.example.heaapp.api;
 
-import com.example.heaapp.model.workout.ListExercise;
-
 import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Observable;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;

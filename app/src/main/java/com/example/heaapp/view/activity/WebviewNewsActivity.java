@@ -41,12 +41,7 @@ public class WebviewNewsActivity extends AppCompatActivity implements GeckoSessi
         pageProgress.getIndeterminateDrawable().setColorFilter(Color.parseColor("#0e9577"), PorterDuff.Mode.MULTIPLY);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> finish());
 
         //create gecko session
         Bundle extras = getIntent().getExtras();

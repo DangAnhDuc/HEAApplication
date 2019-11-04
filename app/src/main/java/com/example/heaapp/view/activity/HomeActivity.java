@@ -51,7 +51,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     private ActionBarDrawerToggle mDrawerToggle;
 
     HomePresenterImpl homePresenter;
-    FirebaseAuth firebaseAuth;
     private boolean doubleBackToExitPressedOnce = false;
 
     @Override
@@ -64,10 +63,9 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         Objects.requireNonNull(getSupportActionBar()).setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        firebaseAuth = FirebaseAuth.getInstance();
         initView();
-        RealmService realmService=RealmService.getInstance();
-        homePresenter = new HomePresenterImpl(realmService,firebaseAuth, this);
+        RealmService realmService = RealmService.getInstance();
+        homePresenter = new HomePresenterImpl(realmService, this);
         homePresenter.attachView(this);
         homePresenter.getCurrentUser();
     }
@@ -95,16 +93,16 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
                 int position = tab.getPosition();
                 switch (position) {
                     case 0:
-                        tabTitle.setText("Workout");
+                        tabTitle.setText(getString(R.string.title_workout));
                         break;
                     case 1:
-                        tabTitle.setText("Dashboard");
+                        tabTitle.setText(getString(R.string.title_health_summary));
                         break;
                     case 2:
-                        tabTitle.setText("Health Infor");
+                        tabTitle.setText(getString(R.string.title_health_infomation));
                         break;
                     default:
-                        tabTitle.setText("Health sum");
+                        tabTitle.setText(getString(R.string.title_health_summary));
                         break;
                 }
             }
@@ -124,20 +122,17 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         sideBarLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
 
-        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()){
-                    case R.id.side_bar_logout:
-                        homePresenter.signOut();
-                        ultis.showMessage(getContext(),"Sign out successfully!");
-                        break;
-                    case  R.id.side_bar_info_user:
-                        ultis.setIntent(getContext(),UserInfoActivity.class);
-                        break;
-                }
-                return true;
+        navView.setNavigationItemSelectedListener(menuItem -> {
+            switch (menuItem.getItemId()) {
+                case R.id.side_bar_logout:
+                    homePresenter.signOut();
+                    ultis.showMessage(getContext(), getString(R.string.msg_signout_success));
+                    break;
+                case R.id.side_bar_info_user:
+                    ultis.setIntent(getContext(), UserInfoActivity.class);
+                    break;
             }
+            return true;
         });
     }
 
@@ -202,7 +197,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
             return;
         }
         this.doubleBackToExitPressedOnce = true;
-        ultis.showMessage(this, "Press once again to exit!");
+        ultis.showMessage(this, getString(R.string.msg_press_to_exit));
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

@@ -20,7 +20,6 @@ import com.example.heaapp.adapter.ListExerciseAdapter;
 import com.example.heaapp.model.workout.ItemExercise;
 import com.example.heaapp.presenter.ExerciseWorkoutPresenter;
 import com.example.heaapp.presenter.ExerciseWorkoutPresenterImpl;
-import com.example.heaapp.ultis.ultis;
 
 import java.util.Collections;
 import java.util.List;
@@ -89,10 +88,10 @@ public class ExerciseWorkoutActivity extends AppCompatActivity implements Exerci
         recyclerViewList.setAdapter(listExerciseAdapter);
         listExerciseAdapter.notifyDataSetChanged();
         listExerciseAdapter.setOnItemListener(listExercise -> {
-            Intent intent = new Intent(this,ExerciseInfoActivity.class);
-            intent.putExtra("name",listExercise.getName());
-            Log.d("Error",listExercise.getName());
-            intent.putExtra("description",listExercise.getDescription());
+            Intent intent = new Intent(this, ExerciseInfoActivity.class);
+            intent.putExtra("name", listExercise.getName());
+            Log.d("Error", listExercise.getName());
+            intent.putExtra("description", listExercise.getDescription());
             intent.putExtra("muscles", String.valueOf(listExercise.getMuscles()));
             startActivity(intent);
         });
@@ -115,6 +114,7 @@ public class ExerciseWorkoutActivity extends AppCompatActivity implements Exerci
                 listExerciseAdapter.notifyDataSetChanged();
                 return false;
             }
+
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 
