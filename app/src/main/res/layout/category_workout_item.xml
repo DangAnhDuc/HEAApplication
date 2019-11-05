@@ -1,37 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/list_item"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="20dp"
     android:layout_margin="8dp"
     android:orientation="vertical">
 
-    <LinearLayout
+    <ImageView
+        android:background="@drawable/border_category"
+        android:id="@+id/category_workout_img"
+        android:layout_width="match_parent"
+        android:layout_height="226sp"
+        android:src="@drawable/leg"
+        android:scaleType="fitXY"
+        android:visibility="visible"/>
+
+    <TextView
+        android:id="@+id/category_workout_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/category_workout_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="10dp"/>
-
-        <ImageView
-            android:id="@+id/category_workout_img"
-            android:layout_width="match_parent"
-            android:layout_height="226dp"
-            android:layout_weight="10"
-            android:src="@drawable/leg" />
-
-
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+        android:layout_marginLeft="10dp"
+        android:textSize="30sp"
+        android:textColor="#fff"
+        android:textAlignment="gravity"
+        android:textStyle="bold" />
+</RelativeLayout>
