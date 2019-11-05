@@ -19,7 +19,7 @@ public class Protein {
     private Double perPortion;
     @SerializedName("per_day")
     @Expose
-    private Integer perDay;
+    private Double perDay;
 
     public NameTranslations__ getNameTranslations() {
         return nameTranslations;
@@ -53,11 +53,11 @@ public class Protein {
         this.perPortion = perPortion;
     }
 
-    public Integer getPerDay() {
+    public Double getPerDay() {
         return perDay;
     }
 
-    public void setPerDay(Integer perDay) {
+    public void setPerDay(Double perDay) {
         this.perDay = perDay;
     }
 

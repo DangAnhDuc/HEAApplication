@@ -13,13 +13,13 @@ public class Carbohydrates {
     private String unit;
     @SerializedName("per_hundred")
     @Expose
-    private Integer perHundred;
+    private Double perHundred;
     @SerializedName("per_portion")
     @Expose
     private Double perPortion;
     @SerializedName("per_day")
     @Expose
-    private Integer perDay;
+    private Double perDay;
 
     public NameTranslations_____ getNameTranslations() {
         return nameTranslations;
@@ -37,11 +37,11 @@ public class Carbohydrates {
         this.unit = unit;
     }
 
-    public Integer getPerHundred() {
+    public Double getPerHundred() {
         return perHundred;
     }
 
-    public void setPerHundred(Integer perHundred) {
+    public void setPerHundred(Double perHundred) {
         this.perHundred = perHundred;
     }
 
@@ -53,11 +53,11 @@ public class Carbohydrates {
         this.perPortion = perPortion;
     }
 
-    public Integer getPerDay() {
+    public Double getPerDay() {
         return perDay;
     }
 
-    public void setPerDay(Integer perDay) {
+    public void setPerDay(Double perDay) {
         this.perDay = perDay;
     }
 

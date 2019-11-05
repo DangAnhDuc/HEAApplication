@@ -40,5 +40,6 @@
     <string name="msg_signout_success">Sign out successfully!</string>
     <string name="msg_emai_pw_empty">Email and password can\'t be empty</string>
     <string name="msg_all_field_empty">All fields must not be empty!</string>
+    <string name="add_custom_food">Add your custom food here!</string>
 
 </resources>

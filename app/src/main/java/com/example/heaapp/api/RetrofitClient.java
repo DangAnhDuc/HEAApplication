@@ -1,8 +1,12 @@
 package com.example.heaapp.api;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -16,6 +20,9 @@ public class RetrofitClient {
     private static Retrofit retrofitWeather=null;
 
     private static Retrofit retrofitExercise = null;
+
+    private static Retrofit retrofitFoot=null;
+
 
     private final static OkHttpClient okHttpClient = new OkHttpClient.Builder()
             .readTimeout(60, TimeUnit.SECONDS)
@@ -72,4 +79,25 @@ public class RetrofitClient {
         return retrofitExercise;
     }
 
+    private final static OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+            Request newRequest  = chain.request().newBuilder()
+                    .addHeader("Authorization", "Bearer " + "021fbcbdbd816b8748da0edb772c4d0a")
+                    .build();
+            return chain.proceed(newRequest);
+        }
+    }).build();
+
+    public static Retrofit getRetrofitFood(String baseUrl) {
+        if (retrofitFoot == null) {
+            retrofitFoot = new retrofit2.Retrofit.Builder()
+                    .baseUrl(baseUrl)
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(client)
+                    .build();
+        }
+        return retrofitFoot;
+    }
 }

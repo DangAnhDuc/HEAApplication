@@ -13,13 +13,13 @@ public class SaturatedFat {
     private String unit;
     @SerializedName("per_hundred")
     @Expose
-    private Integer perHundred;
+    private Double perHundred;
     @SerializedName("per_portion")
     @Expose
-    private Integer perPortion;
+    private Double perPortion;
     @SerializedName("per_day")
     @Expose
-    private Integer perDay;
+    private Double perDay;
 
     public NameTranslations______ getNameTranslations() {
         return nameTranslations;
@@ -37,27 +37,27 @@ public class SaturatedFat {
         this.unit = unit;
     }
 
-    public Integer getPerHundred() {
+    public Double getPerHundred() {
         return perHundred;
     }
 
-    public void setPerHundred(Integer perHundred) {
+    public void setPerHundred(Double perHundred) {
         this.perHundred = perHundred;
     }
 
-    public Integer getPerPortion() {
+    public Double getPerPortion() {
         return perPortion;
     }
 
-    public void setPerPortion(Integer perPortion) {
+    public void setPerPortion(Double perPortion) {
         this.perPortion = perPortion;
     }
 
-    public Integer getPerDay() {
+    public Double getPerDay() {
         return perDay;
     }
 
-    public void setPerDay(Integer perDay) {
+    public void setPerDay(Double perDay) {
         this.perDay = perDay;
     }
 

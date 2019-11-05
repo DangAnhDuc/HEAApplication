@@ -128,9 +128,7 @@ public class HealthInforFragment extends BaseFragment implements HealthInforView
         });
     }
 
-    @Override
-    public void getListNewsFailed(String message) {
-    }
+
 
     @SuppressLint("DefaultLocale")
     @Override
@@ -152,7 +150,7 @@ public class HealthInforFragment extends BaseFragment implements HealthInforView
     }
 
     @Override
-    public void getCityInfoFailed(String message) {
+    public void getLatestDataFailed(String message) {
         ultis.showMessage(getContext(), message);
     }
 
