@@ -80,6 +80,10 @@ public class ExerciseWorkoutActivity extends AppCompatActivity implements Exerci
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 
     @Override
     public void getListWorkoutSuccess(List<ItemExercise> list) {
