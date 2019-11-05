@@ -20,6 +20,7 @@ import com.example.heaapp.presenter.WorkoutPresenterImpl;
 import com.example.heaapp.view.activity.ExerciseWorkoutActivity;
 
 import java.util.List;
+import java.util.Objects;
 
 
 public class WorkoutFragment extends BaseFragment implements WorkoutView {
@@ -36,7 +37,6 @@ public class WorkoutFragment extends BaseFragment implements WorkoutView {
     @Override
     public View provideYourFragmentView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_workout, parent, false);
-
         dialog = new ProgressDialog(getContext(), R.style.AppTheme_Dark_Dialog);
 
         categoryLayout = view.findViewById(R.id.category_workout_fragment);
@@ -44,14 +44,6 @@ public class WorkoutFragment extends BaseFragment implements WorkoutView {
         workoutPresenter = new WorkoutPresenterImpl(this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         categoryLayout.setLayoutManager(layoutManager);
-
-        LinearLayout layoutWorkout = view.findViewById(R.id.layoutWorkout);
-        layoutWorkout.post(() -> workoutPresenter.getListCategoryWorkout());
-        dialog.setIndeterminate(true);
-        dialog.setMessage(getString(R.string.msg_loading));
-        dialog.setCancelable(false);
-        dialog.show();
-
         return view;
     }
 
@@ -71,4 +63,29 @@ public class WorkoutFragment extends BaseFragment implements WorkoutView {
     }
 
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (!getUserVisibleHint()) {
+            return;
+        }
+        dialog.setIndeterminate(true);
+        dialog.setMessage(getString(R.string.msg_loading));
+        dialog.setCancelable(false);
+        dialog.show();
+        workoutPresenter.getListCategoryWorkout();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && isResumed()) {
+            onStart();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 }
