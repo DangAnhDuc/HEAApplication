@@ -44,9 +44,6 @@ public class WorkoutFragment extends BaseFragment implements WorkoutView {
         workoutPresenter = new WorkoutPresenterImpl(this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         categoryLayout.setLayoutManager(layoutManager);
-
-        LinearLayout layoutWorkout = view.findViewById(R.id.layoutWorkout);
-//        layoutWorkout.post(() -> );
         return view;
     }
 
