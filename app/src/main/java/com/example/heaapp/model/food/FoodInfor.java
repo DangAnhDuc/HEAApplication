@@ -3,23 +3,22 @@ package com.example.heaapp.model.food;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 public class FoodInfor {
 
     @SerializedName("data")
     @Expose
-    private List<Information> informationList;
+    private Data data;
+
     @SerializedName("meta")
     @Expose
     private Meta meta;
 
-    public List<Information> getInformationList() {
-        return informationList;
+    public Data getData() {
+        return data;
     }
 
-    public void setData(List<Information> informationList) {
-        this.informationList = informationList;
+    public void setData(Data data) {
+        this.data = data;
     }
 
     public Meta getMeta() {

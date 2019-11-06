@@ -1,5 +1,8 @@
 package com.example.heaapp.api;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -79,6 +82,8 @@ public class RetrofitClient {
         return retrofitExercise;
     }
 
+
+
     private final static OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
         @Override
         public Response intercept(Chain chain) throws IOException {
@@ -90,11 +95,16 @@ public class RetrofitClient {
     }).build();
 
     public static Retrofit getRetrofitFood(String baseUrl) {
+
         if (retrofitFoot == null) {
+            Gson gson = new GsonBuilder()
+                    .setLenient()
+                    .create();
+
             retrofitFoot = new retrofit2.Retrofit.Builder()
                     .baseUrl(baseUrl)
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(client)
                     .build();
         }

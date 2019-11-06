@@ -10,7 +10,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.heaapp.R;
-import com.example.heaapp.model.food.Information;
+import com.example.heaapp.model.food.Data;
 import com.example.heaapp.presenter.FoodAddingPresenterImpl;
 
 import java.util.List;
@@ -56,7 +56,7 @@ public class FoodAddingActivity extends AppCompatActivity implements FoodAddingV
     }
 
     @Override
-    public void crawlDataSuccess(List<Information> informationList) {
+    public void crawlDataSuccess(List<Data> informationList) {
         Log.d("data",informationList.toString());
     }
 }

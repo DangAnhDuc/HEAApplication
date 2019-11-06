@@ -2,10 +2,11 @@ package com.example.heaapp.model.food;
 
 
 import java.util.List;
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Information {
+public class Data {
 
     @SerializedName("id")
     @Expose
