@@ -1,23 +1,25 @@
-package com.example.heaapp.model.workout;
+package com.example.heaapp.model.workout.ExerciseInfo;
 
 import java.util.List;
+
+import com.example.heaapp.model.workout.ExerciseInfo.ItemExercise;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Muscle {
+public class ListExercise {
 
     @SerializedName("count")
     @Expose
     private Integer count;
     @SerializedName("next")
     @Expose
-    private Object next;
+    private String next;
     @SerializedName("previous")
     @Expose
     private Object previous;
     @SerializedName("results")
     @Expose
-    private List<ListMuscle> results = null;
+    private List<ItemExercise> item = null;
 
     public Integer getCount() {
         return count;
@@ -27,11 +29,11 @@ public class Muscle {
         this.count = count;
     }
 
-    public Object getNext() {
+    public String getNext() {
         return next;
     }
 
-    public void setNext(Object next) {
+    public void setNext(String next) {
         this.next = next;
     }
 
@@ -43,12 +45,12 @@ public class Muscle {
         this.previous = previous;
     }
 
-    public List<ListMuscle> getResults() {
-        return results;
+    public List<ItemExercise> getResults() {
+        return item;
     }
 
-    public void setResults(List<ListMuscle> results) {
-        this.results = results;
+    public void setResults(List<ItemExercise> item) {
+        this.item = item;
     }
 
 }

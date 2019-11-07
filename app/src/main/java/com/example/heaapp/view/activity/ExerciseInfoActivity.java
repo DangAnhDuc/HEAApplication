@@ -1,7 +1,9 @@
 package com.example.heaapp.view.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -10,13 +12,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.heaapp.R;
+import com.example.heaapp.model.workout.Equipment.Result;
+import com.example.heaapp.model.workout.Muscle.ListMuscle;
+import com.example.heaapp.presenter.ExerciseInfoPresenter;
+import com.example.heaapp.presenter.ExerciseInfoPresenterImpl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ExerciseInfoActivity extends AppCompatActivity {
+public class ExerciseInfoActivity extends AppCompatActivity implements ExerciseInfoView {
 
     @BindView(R.id.exerciseInfoToolbar)
     Toolbar exerInfoToolBar;
@@ -26,6 +34,8 @@ public class ExerciseInfoActivity extends AppCompatActivity {
     TextView txtExeInfoDes;
     @BindView(R.id.exercise_info_muscle)
     TextView txtExeInfoMus;
+    @BindView(R.id.exercise_info_equipment)
+    TextView txtExeInfoEquip;
     @BindView(R.id.btnExerInfo)
     Button btnExe;
 
@@ -42,12 +52,50 @@ public class ExerciseInfoActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         exerInfoToolBar.setNavigationOnClickListener(v -> finish());
-
         Bundle bundle = getIntent().getExtras();
+        assert bundle != null;
+        ArrayList<Integer> CateID = bundle.getIntegerArrayList("muscles");
+        ArrayList<Integer> EquipID = bundle.getIntegerArrayList("equipment");
+
+        ExerciseInfoPresenter exerciseInfoPresenter = new ExerciseInfoPresenterImpl(CateID, EquipID, this);
+        exerciseInfoPresenter.getListMuscle();
+        exerciseInfoPresenter.getListEquipment();
+
         txtExeInfoName.setText(Html.fromHtml("<p>" + bundle.getString("name") + "</p>"));
         txtExeInfoDes.setText(Html.fromHtml(bundle.getString("description")));
-        txtExeInfoMus.setText(Html.fromHtml("<p>" + bundle.getString("muscles") + "</p>"));
 
         btnExe.setOnClickListener(v -> Toast.makeText(this, "This function is developing", Toast.LENGTH_SHORT).show());
+    }
+
+    @Override
+    public void getMuscleSuccess(List<ListMuscle> nameMuscle) {
+        String muscle = "";
+        for (int i = 0; i <= nameMuscle.size(); i++) {
+            Log.d("aaa", nameMuscle.get(i).getName());
+            muscle += nameMuscle.get(i).getName();
+            if (i < nameMuscle.size() - 1) {
+                muscle += ",";
+            }
+            txtExeInfoMus.setText(muscle);
+        }
+    }
+
+    @Override
+    public void getEquipSuccess(List<Result> nameEquip) {
+        String equip = "";
+        for (int i = 0; i <= nameEquip.size(); i++) {
+            Log.d("aaa", nameEquip.get(i).getName());
+            equip += nameEquip.get(i).getName();
+            if (i < nameEquip.size() - 1) {
+                equip += ",";
+            }
+            txtExeInfoEquip.setText(equip);
+        }
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
+
     }
 }

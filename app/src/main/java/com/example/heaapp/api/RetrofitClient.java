@@ -60,7 +60,6 @@ public class RetrofitClient {
     public static Retrofit getClientWeather(String baseUrl) {
         if (retrofitWeather == null) {
             retrofitWeather = new Retrofit.Builder()
-
                     .baseUrl(baseUrl)
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
