@@ -3,7 +3,9 @@ package com.example.heaapp.model.food;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Meta {
+import io.realm.RealmObject;
+
+public class Meta extends RealmObject {
 
     @SerializedName("api_version")
     @Expose

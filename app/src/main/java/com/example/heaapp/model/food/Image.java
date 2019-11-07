@@ -4,11 +4,14 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Image {
+import io.realm.RealmList;
+import io.realm.RealmObject;
+
+public class Image extends RealmObject {
 
     @SerializedName("categories")
     @Expose
-    private List<String> categories = null;
+    private RealmList<String> categories = null;
     @SerializedName("thumb")
     @Expose
     private String thumb;
@@ -22,11 +25,11 @@ public class Image {
     @Expose
     private String xlarge;
 
-    public List<String> getCategories() {
+    public RealmList<String> getCategories() {
         return categories;
     }
 
-    public void setCategories(List<String> categories) {
+    public void setCategories(RealmList<String> categories) {
         this.categories = categories;
     }
 

@@ -5,5 +5,4 @@ import com.example.heaapp.view.activity.FoodAddingView;
 
 public interface FoodAddingPresenter extends BasePresenter<FoodAddingView> {
     void crawlFoodData();
-    void disposeApi();
 }

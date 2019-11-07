@@ -3,7 +3,9 @@ package com.example.heaapp.model.food;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class OriginTranslations {
+import io.realm.RealmObject;
+
+public class OriginTranslations extends RealmObject {
 
     @SerializedName("de")
     @Expose

@@ -3,7 +3,9 @@ package com.example.heaapp.model.food;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Energy {
+import io.realm.RealmObject;
+
+public class Energy extends RealmObject {
 
     @SerializedName("name_translations")
     @Expose
@@ -13,13 +15,13 @@ public class Energy {
     private String unit;
     @SerializedName("per_hundred")
     @Expose
-    private Integer perHundred;
+    private double perHundred;
     @SerializedName("per_portion")
     @Expose
-    private Object perPortion;
+    private double perPortion;
     @SerializedName("per_day")
     @Expose
-    private Integer perDay;
+    private double perDay;
 
     public NameTranslations_________ getNameTranslations() {
         return nameTranslations;
@@ -37,27 +39,27 @@ public class Energy {
         this.unit = unit;
     }
 
-    public Integer getPerHundred() {
+    public double getPerHundred() {
         return perHundred;
     }
 
-    public void setPerHundred(Integer perHundred) {
+    public void setPerHundred(double perHundred) {
         this.perHundred = perHundred;
     }
 
-    public Object getPerPortion() {
+    public double getPerPortion() {
         return perPortion;
     }
 
-    public void setPerPortion(Object perPortion) {
+    public void setPerPortion(double perPortion) {
         this.perPortion = perPortion;
     }
 
-    public Integer getPerDay() {
+    public double getPerDay() {
         return perDay;
     }
 
-    public void setPerDay(Integer perDay) {
+    public void setPerDay(double perDay) {
         this.perDay = perDay;
     }
 

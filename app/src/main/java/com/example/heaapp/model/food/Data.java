@@ -6,8 +6,10 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Data {
+import io.realm.RealmList;
+import io.realm.RealmObject;
 
+public class Data extends RealmObject {
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -49,7 +51,7 @@ public class Data {
     private Integer alcoholByVolume;
     @SerializedName("images")
     @Expose
-    private List<Image> images = null;
+    private RealmList<Image> images = null;
     @SerializedName("nutrients")
     @Expose
     private Nutrients nutrients;
@@ -164,11 +166,11 @@ public class Data {
         this.alcoholByVolume = alcoholByVolume;
     }
 
-    public List<Image> getImages() {
+    public RealmList<Image> getImages() {
         return images;
     }
 
-    public void setImages(List<Image> images) {
+    public void setImages(RealmList<Image> images) {
         this.images = images;
     }
 

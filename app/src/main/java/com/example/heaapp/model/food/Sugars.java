@@ -2,7 +2,9 @@ package com.example.heaapp.model.food;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Sugars {
+import io.realm.RealmObject;
+
+public class Sugars extends RealmObject {
 
     @SerializedName("name_translations")
     @Expose

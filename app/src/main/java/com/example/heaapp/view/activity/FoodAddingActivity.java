@@ -7,11 +7,16 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.heaapp.R;
+import com.example.heaapp.adapter.FoodAdapter;
+import com.example.heaapp.adapter.NewsAdapter;
+import com.example.heaapp.callback.OnFoodClickListener;
 import com.example.heaapp.model.food.Data;
 import com.example.heaapp.presenter.FoodAddingPresenterImpl;
+import com.example.heaapp.service.RealmService;
 
 import java.util.List;
 
@@ -34,8 +39,11 @@ public class FoodAddingActivity extends AppCompatActivity implements FoodAddingV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_adding);
         ButterKnife.bind(this);
-
-        foodAddingPresenter=new FoodAddingPresenterImpl(this,getContext());
+        RealmService realmService=RealmService.getInstance();
+        foodAddingPresenter=new FoodAddingPresenterImpl(this,getContext(),realmService);
+        foodRecyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        foodRecyclerView.setLayoutManager(layoutManager);
         foodAddingPresenter.crawlFoodData();
     }
 
@@ -47,7 +55,6 @@ public class FoodAddingActivity extends AppCompatActivity implements FoodAddingV
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        foodAddingPresenter.disposeApi();
     }
 
     @Override
@@ -56,7 +63,11 @@ public class FoodAddingActivity extends AppCompatActivity implements FoodAddingV
     }
 
     @Override
-    public void crawlDataSuccess(List<Data> informationList) {
-        Log.d("data",informationList.toString());
+    public void crawlDataSuccess(List<Data> foodList) {
+        FoodAdapter foodAdapter = new FoodAdapter(getContext(), foodList);
+        foodRecyclerView.setAdapter(foodAdapter);
+        foodAdapter.setOnItemListener(data -> {
+
+        });
     }
 }
