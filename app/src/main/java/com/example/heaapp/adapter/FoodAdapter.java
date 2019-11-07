@@ -70,8 +70,12 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         catch (Exception e){
             holder.tv_fat.setText("No info");
         }
-
-        Glide.with(context).load(foodData.get(position).getImages().get(1).getThumb()).into(holder.img_food);
+        try {
+            Glide.with(context).load(foodData.get(position).getImages().get(1).getThumb()).into(holder.img_food);
+        }
+        catch (Exception e){
+            Glide.with(context).load(foodData.get(position).getImages().get(0).getThumb()).into(holder.img_food);
+        }
     }
 
     public void setOnItemListener(OnFoodClickListener listener) {
