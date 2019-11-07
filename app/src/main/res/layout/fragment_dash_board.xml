@@ -407,6 +407,7 @@
                         android:layout_height="wrap_content" />
 
                     <RelativeLayout
+                        android:id="@+id/layout_breakfast"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp">
@@ -470,6 +471,7 @@
                         android:layout_height="wrap_content" />
 
                     <RelativeLayout
+                        android:id="@+id/layout_launch"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp">
@@ -533,6 +535,7 @@
                         android:layout_height="wrap_content" />
 
                     <RelativeLayout
+                        android:id="@+id/layout_dinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp">
@@ -597,6 +600,7 @@
                         android:layout_height="wrap_content" />
 
                     <RelativeLayout
+                        android:id="@+id/layout_exercise"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp">

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="20dp">
+
+    <LinearLayout
+        android:id="@+id/layout_food_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="10dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/img_food"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/dinner" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/food_name"
+                android:textSize="25sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="Name"
+                android:layout_marginLeft="5dp"/>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_energy_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Energy: "
+                    android:textColor="@color/title_color"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"/>
+
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:id="@+id/tv_energy_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:lineSpacingExtra="8dp"
+                    android:text="Description"
+                    android:textSize="15sp"
+                    android:textColor="@color/content_text_color"
+                    android:layout_toRightOf="@id/tv_energy_title"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_carbs_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Carbohydrates: "
+                    android:textColor="@color/title_color"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"/>
+
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:id="@+id/tv_carbs_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:lineSpacingExtra="8dp"
+                    android:text="Description"
+                    android:textSize="15sp"
+                    android:textColor="@color/content_text_color"
+                    android:layout_toRightOf="@id/tv_carbs_title"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_protein_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Protein: "
+                    android:textColor="@color/title_color"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"/>
+
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:id="@+id/tv_protein_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:lineSpacingExtra="8dp"
+                    android:text="Description"
+                    android:textSize="15sp"
+                    android:textColor="@color/content_text_color"
+                    android:layout_toRightOf="@id/tv_protein_title"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_fat_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Fat: "
+                    android:textColor="@color/title_color"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"/>
+
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:id="@+id/tv_fat_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:lineSpacingExtra="8dp"
+                    android:text="Description"
+                    android:textSize="15sp"
+                    android:textColor="@color/content_text_color"
+                    android:layout_toRightOf="@id/tv_fat_title"/>
+            </RelativeLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
