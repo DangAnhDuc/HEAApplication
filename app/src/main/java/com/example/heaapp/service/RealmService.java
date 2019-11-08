@@ -1,6 +1,9 @@
 package com.example.heaapp.service;
 
+import android.util.Log;
+
 import com.example.heaapp.callback.OnTransactionCallback;
+import com.example.heaapp.model.food.Data;
 import com.example.heaapp.model.user_information.CurrentUserIndices;
 import com.example.heaapp.model.user_information.CurrentUserInfo;
 import com.example.heaapp.model.user_information.DailySummary;
@@ -33,6 +36,10 @@ public class RealmService {
 
     public RealmResults<DailySummary> getAllDaySummary() {
         return mRealm.where(DailySummary.class).findAll();
+    }
+
+    public RealmResults<Data> getAllFoodData(){
+        return mRealm.where(Data.class).findAll();
     }
 
     public RealmResults<CurrentUserInfo> getCurrentUser() {
@@ -132,7 +139,7 @@ public class RealmService {
 
     //init database table
     public void initDatabaseTable() {
-        mRealm.executeTransaction(realm -> {
+        mRealm.executeTransactionAsync(realm -> {
             //create database table for daily summary
             DailySummary dailySummary = realm.createObject(DailySummary.class);
             dailySummary.setId(0);
@@ -166,4 +173,34 @@ public class RealmService {
 
         });
     }
+
+//    public void addFoodTable(Data data){
+//        mRealm.executeTransactionAsync(realm -> {
+//            Data foodData = realm.createObject(Data.class);
+//            foodData.setId(data.getId());
+//            foodData.setCountry(data.getCountry());
+//            foodData.setBarcode(data.getBarcode());
+//            foodData.setNameTranslations(realm.copyToRealm(data.getNameTranslations()));
+//            foodData.setDisplayNameTranslations(realm.copyToRealm(data.getDisplayNameTranslations()));
+//            foodData.setIngredientsTranslations(realm.copyToRealm(data.getIngredientsTranslations()));
+//            foodData.setOriginTranslations(realm.copyToRealm(data.getOriginTranslations()));
+//            foodData.setStatus(data.getStatus());
+//            foodData.setQuantity(data.getQuantity());
+//            foodData.setUnit(data.getUnit());
+//            foodData.setPortionQuantity(data.getPortionQuantity());
+//            foodData.setPortionUnit(data.getPortionUnit());
+//            foodData.setAlcoholByVolume(data.getAlcoholByVolume());
+//            foodData.setImages(data.getImages());
+//            foodData.setNutrients(data.getNutrients());
+//            foodData.setCreatedAt(data.getCreatedAt());
+//            foodData.setUpdatedAt(data.getUpdatedAt());
+//
+//        }, new Transaction.OnSuccess() {
+//            @Override
+//            public void onSuccess() {
+//                Log.d("succes", "onSuccess: "+data.getId());
+//            }
+//
+//    });
+//    }
 }
