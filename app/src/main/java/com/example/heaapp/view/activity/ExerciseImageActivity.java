@@ -64,7 +64,7 @@ public class ExerciseImageActivity extends AppCompatActivity implements Exercise
                 int i = 0;
                 @Override
                 public void run() {
-                    Glide.with(getContext()).load(list.get(i).getImage()).error(R.drawable.wait).into(exeImg);
+                    Glide.with(getApplicationContext()).load(list.get(i).getImage()).error(R.drawable.wait).into(exeImg);
                     i++;
                     if(i > list.size()-1){
                         i=0;
