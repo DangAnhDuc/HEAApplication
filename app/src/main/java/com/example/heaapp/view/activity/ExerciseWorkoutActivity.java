@@ -94,8 +94,8 @@ public class ExerciseWorkoutActivity extends AppCompatActivity implements Exerci
         listExerciseAdapter.setOnItemListener(listExercise -> {
             Intent intent = new Intent(this,ExerciseInfoActivity.class);
             intent.putExtra("name",listExercise.getName());
-            Log.d("Error",listExercise.getName());
             intent.putExtra("description",listExercise.getDescription());
+            intent.putExtra("id",listExercise.getId());
             intent.putIntegerArrayListExtra("muscles", (ArrayList<Integer>) listExercise.getMuscles());
             intent.putIntegerArrayListExtra("equipment", (ArrayList<Integer>) listExercise.getEquipment());
 

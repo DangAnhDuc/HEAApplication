@@ -59,14 +59,21 @@ public class ExerciseWorkoutPresenterImpl implements ExerciseWorkoutPresenter {
         List<ItemExercise> listItem = listExercise.getResults();
         try {
             for (int i = 0; i < listItem.size() - 1; i++) {
+                if(listItem.get(i).getId() == 93){
+                    Log.d("sdadsasdasd","cate:"+listItem.get(i).getCategory()+" name:"+listItem.get(i).getName()+" lang:"+listItem.get(i).getLanguage());
+                }
                 if (listItem.get(i).getLanguage() == 2 && !TextUtils.isEmpty(listItem.get(i).getName()) && listItem.get(i).getCategory() == CateID) {
                     list.add(listItem.get(i));
-                    Log.d("test", listItem.get(i).getName() + ".." + listItem.get(i).getId() + ".." + listItem.get(i).getCategory());
+
+
                 }
             }
             exerciseView.getListWorkoutSuccess(list);
+
         } catch (Exception ex) {
             Log.d("bug", String.valueOf(ex));
         }
+
+
     }
 }

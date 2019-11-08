@@ -1,9 +1,13 @@
 package com.example.heaapp.view.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+
+import com.example.heaapp.model.workout.ExerciseImage.ExerciseImage;
+import com.example.heaapp.ultis.ultis;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,10 +57,11 @@ public class ExerciseInfoActivity extends AppCompatActivity implements ExerciseI
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         exerInfoToolBar.setNavigationOnClickListener(v -> finish());
         Bundle bundle = getIntent().getExtras();
+        int exeId;
         assert bundle != null;
         ArrayList<Integer> CateID = bundle.getIntegerArrayList("muscles");
         ArrayList<Integer> EquipID = bundle.getIntegerArrayList("equipment");
-
+        exeId= bundle.getInt("id");
         ExerciseInfoPresenter exerciseInfoPresenter = new ExerciseInfoPresenterImpl(CateID, EquipID, this);
         exerciseInfoPresenter.getListMuscle();
         exerciseInfoPresenter.getListEquipment();
@@ -64,14 +69,17 @@ public class ExerciseInfoActivity extends AppCompatActivity implements ExerciseI
         txtExeInfoName.setText(Html.fromHtml("<p>" + bundle.getString("name") + "</p>"));
         txtExeInfoDes.setText(Html.fromHtml(bundle.getString("description")));
 
-        btnExe.setOnClickListener(v -> Toast.makeText(this, "This function is developing", Toast.LENGTH_SHORT).show());
+        btnExe.setOnClickListener(v ->{
+            Intent intent = new Intent(this,ExerciseImageActivity.class);
+            intent.putExtra("exerID",exeId);
+            startActivity(intent);
+        });
     }
 
     @Override
     public void getMuscleSuccess(List<ListMuscle> nameMuscle) {
         String muscle = "";
         for (int i = 0; i <= nameMuscle.size(); i++) {
-            Log.d("aaa", nameMuscle.get(i).getName());
             muscle += nameMuscle.get(i).getName();
             if (i < nameMuscle.size() - 1) {
                 muscle += ",";
