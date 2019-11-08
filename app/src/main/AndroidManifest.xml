@@ -11,8 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".view.activity.UserInfoActivity"></activity>
-        <activity android:name=".view.activity.ExerciseInfoActivity"></activity>
+        <activity android:name=".view.activity.ExerciseImageActivity"></activity>
+        <activity android:name=".view.activity.exercise_image" />
+        <activity android:name=".view.activity.UserInfoActivity" />
+        <activity android:name=".view.activity.ExerciseInfoActivity" />
         <activity android:name=".view.activity.WebviewNewsActivity" />
         <activity android:name=".view.activity.SignUpActivity" />
         <activity android:name=".view.activity.LoginActivity" />

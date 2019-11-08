@@ -79,8 +79,6 @@ public class ExerciseInfoPresenterImpl implements ExerciseInfoPresenter {
         List<Result> listEquipment = equipment.getResults();
         for(int i = 0; i <= equipID.size() -1 ; i++){
             for(int y = 0; y<= listEquipment.size()-1 ; y++){
-                Log.d("log","equipID"+equipID.get(i));
-                Log.d("log","listEquipment"+listEquipment.get(y).getId());
                 if (equipID.get(i) == (listEquipment.get(y).getId())){
                     nameEquip.add(listEquipment.get(y));
                 }
