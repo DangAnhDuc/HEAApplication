@@ -33,15 +33,15 @@
     <string name="title_workout">Luyện Tập</string>
     <string name="title_health_summary">DASHBOARD</string>
     <string name="title_health_infomation">Tin Tức</string>
-    <string name="des_workout">Take care your health with  most useful and effective workout plans</string>
-    <string name="des_health_summary">Keep your eyes on health tracking by log and reminder your activities</string>
-    <string name="des_health_info">Provide information about environment and food for your healthy life</string>
-    <string name="msg_authenticating">Authenticating...</string>
-    <string name="msg_login_success">Login Successfully!</string>
-    <string name="msg_login_failed">Login Failed!</string>
-    <string name="msg_press_to_exit">Press once again to exit!</string>
-    <string name="msg_signout_success">Sign out successfully!</string>
-    <string name="msg_emai_pw_empty">Email and password can\'t be empty</string>
-    <string name="msg_all_field_empty">All fields must not be empty!</string>
+    <string name="des_workout">Chăm sóc sức khỏe của bạn với kế hoạch tập luyện hữu ích và hiệu quả</string>
+    <string name="des_health_summary">Theo dõi sức khỏe của bạn bằng cách ghi chú lại các hoạt động</string>
+    <string name="des_health_info">Cung cấp thông tin và môi trường và thức ăn 1 cuộc sống khỏe mạnh</string>
+    <string name="msg_authenticating">Đang xác thực...</string>
+    <string name="msg_login_success">Đăng nhập thành công!</string>
+    <string name="msg_login_failed">Đăng nhập thất bại!</string>
+    <string name="msg_press_to_exit">Nhấn 1 lần nữa để thoát!</string>
+    <string name="msg_signout_success">Đăng xuất thành công!</string>
+    <string name="msg_emai_pw_empty">Email và mật khẩu không thể để trống</string>
+    <string name="msg_all_field_empty">Tất cả thông tin phải được điền!</string>
 
 </resources>
