@@ -35,13 +35,24 @@
     <string name="des_workout">Take care your health with  most useful and effective workout plans</string>
     <string name="des_health_summary">Keep your eyes on health tracking by log and reminder your activities</string>
     <string name="des_health_info">Provide information about environment and food for your healthy life</string>
-    <string name="msg_authenticating">Authenticating...</string>
+    <string name="msg_authenticating">Authenticating…</string>
     <string name="msg_login_success">Login Successfully!</string>
     <string name="msg_login_failed">Login Failed!</string>
     <string name="msg_press_to_exit">Press once again to exit!</string>
     <string name="msg_signout_success">Sign out successfully!</string>
     <string name="msg_emai_pw_empty">Email and password can\'t be empty</string>
     <string name="msg_all_field_empty">All fields must not be empty!</string>
+    <string name="languages">Languages</string>
+    <string name="choose_lang">Chose Languages!!!</string>
+    <string name="current_weather">Current Weather</string>
+    <string name="news">News</string>
+    <string name="temperature">Temperature</string>
+    <string name="pressure">Pressure</string>
+    <string name="humidity">Humidity</string>
+    <string name="wind_speed">Wind Speed</string>
+    <string name="wind_direct">Wind Direct</string>
+    <string name="air_quality">Air Quality</string>
+
     <string name="add_custom_food">Add your custom food here!</string>
     <string name="title_sleeping">Sleeping</string>
     <string name="title_typing_writing_desk_work">Typing, Writing, Desk Work</string>

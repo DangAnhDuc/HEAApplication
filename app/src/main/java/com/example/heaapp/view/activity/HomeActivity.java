@@ -1,13 +1,18 @@
 package com.example.heaapp.view.activity;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -23,11 +28,14 @@ import com.example.heaapp.ultis.ultis;
 import com.example.heaapp.view.fragment.DashBoardFragment;
 import com.example.heaapp.view.fragment.HealthInforFragment;
 import com.example.heaapp.view.fragment.WorkoutFragment;
+import com.google.android.exoplayer2.C;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -57,6 +65,8 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        loadLocal();
 
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle("");
@@ -127,6 +137,10 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
                 case R.id.side_bar_info_user:
                     ultis.setIntent(getContext(), UserInfoActivity.class);
                     break;
+                case R.id.side_bar_lang:
+                    showMultipleLanguage();
+                    break;
+
             }
             return true;
         });
@@ -222,5 +236,53 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
             titles.add(title);
 
         }
+    }
+
+    private void showMultipleLanguage(){
+        String[] list = {"English","Tiếng Việt"};
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
+        mBuilder.setTitle(getString(R.string.choose_lang));
+        Intent i = getBaseContext().getPackageManager().getLaunchIntentForPackage(getBaseContext().getPackageName());
+        assert i != null;
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        mBuilder.setSingleChoiceItems(list,-1, (dialog, which) -> {
+            if(which==0){
+                setLocal("en");
+                recreate();
+                finish();
+                startActivity(i);
+            }
+            if(which==1){
+                setLocal("vi");
+                recreate();
+                finish();
+                startActivity(i);
+            }
+            dialog.dismiss();
+
+        });
+        AlertDialog dialog = mBuilder.create();
+        dialog.show();
+    }
+
+    private void setLocal(String local){
+        Locale locale = new Locale(local);
+        Locale.setDefault(locale);
+        Configuration configuration = new Configuration();
+        configuration.locale = locale;
+        getBaseContext().getResources().updateConfiguration(configuration,getBaseContext().getResources().getDisplayMetrics());
+        //save local in sharePreference
+        SharedPreferences.Editor editor = getSharedPreferences("Settings",MODE_PRIVATE).edit();
+        editor.putString("Lang",local);
+        editor.apply();
+    }
+
+    //load local saved in sharePreference
+    private void loadLocal(){
+        SharedPreferences sharedPreferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String lang =sharedPreferences.getString("Lang","");
+        setLocal(lang);
+
     }
 }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">HEA App</string>
+
+    <string name="hello_blank_fragment">Xin chào</string>
+    <string name="side_bar_info_user">Thông tin người dùng</string>
+    <string name="side_bar_info_app">Thông tin ứng dụng</string>
+    <string name="side_bar_logout">Đăng xuất</string>
+
+    <string name="side_bar_header_text">Tất cả cho vì sức khỏe của bạn</string>
+
+
+    <string name="toggle_open">Open</string>
+    <string name="toggle_close">Close</string>
+    <string name="text_list_exercises">Danh sách bài tập</string>
+    <string name="start_exercise">Bắt đầu</string>
+    <string name="exer_info_name">Tên :</string>
+    <string name="exer_info_description">Mô tả :</string>
+    <string name="exer_info_muscles">Cơ bắp chịu tác động :</string>
+    <string name="todo">TODO</string>
+    <string name="equipment">Trang bị :</string>
+    <string name="s_null">NULL</string>
+    <string name="msg_loading">Đang Tải…</string>
+    <string name="msg_request_enter_info">Bạn phải nhập thông tin để sử dụng chức năng này!</string>
+    <string name="title_input_water">Lượng nước đã uống</string>
+    <string name="msg_save_info_success">Lưu thông tin thành công!</string>
+    <string name="msg_create_account">Đang tạo tài khoản…</string>
+    <string name="msg_username_policy">Tên ít nhất phải 3 ký tự!</string>
+    <string name="msg_password_policy">Mật khẩu ít nhất phải 6 ký tự!</string>
+    <string name="msg_invalid_email">Email không hợp lệ!</string>
+    <string name="msg_signup_success">Đăng Ký Thành Công!</string>
+    <string name="msg_signup_failed">Đăng Ký Thất Bại!</string>
+    <string name="title_workout">Luyện Tập</string>
+    <string name="title_health_summary">DASHBOARD</string>
+    <string name="title_health_infomation">Tin Tức</string>
+    <string name="des_workout">Chăm sóc sức khỏe của bạn với kế hoạch tập luyện hữu ích và hiệu quả</string>
+    <string name="des_health_summary">Theo dõi sức khỏe của bạn bằng cách ghi chú lại các hoạt động</string>
+    <string name="des_health_info">Cung cấp thông tin và môi trường và thức ăn 1 cuộc sống khỏe mạnh</string>
+    <string name="msg_authenticating">Đang xác thực…</string>
+    <string name="msg_login_success">Đăng nhập thành công!</string>
+    <string name="msg_login_failed">Đăng nhập thất bại!</string>
+    <string name="msg_press_to_exit">Nhấn 1 lần nữa để thoát!</string>
+    <string name="msg_signout_success">Đăng xuất thành công!</string>
+    <string name="msg_emai_pw_empty">Email và mật khẩu không thể để trống</string>
+    <string name="msg_all_field_empty">Tất cả thông tin phải được điền!</string>
+    <string name="languages">Ngôn ngữ</string>
+    <string name="choose_lang">Chọn ngôn ngữ!!!</string>
+    <string name="current_weather">Thời Tiết Hiện Tại</string>
+    <string name="news">Tin Tức</string>
+    <string name="temperature">Nhiệt Độ</string>
+    <string name="pressure">Áp Suất</string>
+    <string name="humidity">Độ Ẩm</string>
+    <string name="wind_speed">Tốc Độ Gió</string>
+    <string name="wind_direct">Hướng Gió</string>
+    <string name="air_quality">Chất Lượng Không Khí</string>
+
+</resources>
