@@ -18,7 +18,7 @@
         <activity android:name=".view.activity.UserInfoActivity"></activity>
         <activity android:name=".view.activity.ExerciseInfoActivity"></activity>
         <activity android:name=".view.activity.FoodAddingActivity"></activity>
-        <activity android:name=".view.activity.ExerciseAddingActivity"></activity>
+        <activity android:name=".view.activity.ActivitiesAddingActivity"></activity>
         <activity android:name=".view.activity.WebviewNewsActivity" />
         <activity android:name=".view.activity.SignUpActivity" />
         <activity android:name=".view.activity.LoginActivity" />

@@ -104,6 +104,24 @@ public class RealmService {
         });
     }
 
+    //modify burned energy
+    public void modifyBunredEnergyAsync(long totalBurnedEnergy, OnTransactionCallback onTransactionCallback) {
+        mRealm.executeTransactionAsync(realm -> {
+            RealmResults<DailySummary> resultCurrentDate = realm.where(DailySummary.class)
+                    .equalTo("date", Common.today)
+                    .findAll();
+            resultCurrentDate.setValue("burnedCalories", totalBurnedEnergy);
+        }, () -> {
+            if (onTransactionCallback != null) {
+                onTransactionCallback.onTransactionSuccess();
+            }
+        }, error -> {
+            if (onTransactionCallback != null) {
+                onTransactionCallback.onTransactionError((Exception) error);
+            }
+        });
+    }
+
     //add user indices
     public void addUserIndices(long id, double BMI, double bodyMass, double bodyWater, double waterRequired, double bloodVolume, double bodyFat,
                                double FFMI, double dailyCal, OnTransactionCallback onTransactionCallback) {

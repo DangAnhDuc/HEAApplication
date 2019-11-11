@@ -49,7 +49,7 @@
                             android:ellipsize="end"
                             android:text="0"
                             android:textColor="@android:color/white"
-                            android:textSize="15sp"
+                            android:textSize="20sp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -121,7 +121,7 @@
                             android:ellipsize="end"
                             android:text="0"
                             android:textColor="@android:color/white"
-                            android:textSize="15sp"
+                            android:textSize="20sp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -262,7 +262,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Water"
+                        android:text="@string/title_water"
                         android:textSize="25sp" />
 
                     <TextView
@@ -386,7 +386,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Breakfast"
+                        android:text="@string/title_breakfast"
                         android:textSize="25sp" />
                 </LinearLayout>
 
@@ -424,7 +424,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/img_breakfast"
                             android:layout_centerHorizontal="true"
-                            android:text="Add your food here!" />
+                            android:text="@string/msg_add_your_food_here" />
                     </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -450,7 +450,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Launch"
+                        android:text="@string/title_launch"
                         android:textSize="25sp" />
                 </LinearLayout>
 
@@ -488,7 +488,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/img_launch"
                             android:layout_centerHorizontal="true"
-                            android:text="Add your food here!" />
+                            android:text="@string/msg_add_your_food_here" />
                     </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -514,7 +514,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Dinner"
+                        android:text="@string/title_dinner"
                         android:textSize="25sp" />
                 </LinearLayout>
 
@@ -552,7 +552,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/img_dinner"
                             android:layout_centerHorizontal="true"
-                            android:text="Add your food here!" />
+                            android:text="@string/msg_add_your_food_here" />
                     </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -579,7 +579,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Exercise"
+                        android:text="@string/title_activities"
                         android:textSize="25sp" />
                 </LinearLayout>
 
@@ -617,7 +617,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/img_exercise"
                             android:layout_centerHorizontal="true"
-                            android:text="Add your exercises here!" />
+                            android:text="@string/msg_add_your_activities_here" />
                     </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -643,7 +643,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Your body indices"
+                        android:text="@string/title_your_body_indices"
                         android:textSize="25sp" />
                 </LinearLayout>
 
