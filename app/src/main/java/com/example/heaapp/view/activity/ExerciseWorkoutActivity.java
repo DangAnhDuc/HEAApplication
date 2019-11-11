@@ -51,7 +51,7 @@ public class ExerciseWorkoutActivity extends AppCompatActivity implements Exerci
         initView();
 
         dialog.setIndeterminate(true);
-        dialog.setMessage("Loading...");
+        dialog.setMessage(getString(R.string.msg_loading));
         dialog.setCancelable(false);
         dialog.show();
     }
