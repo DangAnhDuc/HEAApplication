@@ -19,7 +19,7 @@ import com.example.heaapp.model.user_information.DailySummary;
 import com.example.heaapp.presenter.DashboardPresenterImpl;
 import com.example.heaapp.service.RealmService;
 import com.example.heaapp.ultis.ultis;
-import com.example.heaapp.view.activity.ExerciseAddingActivity;
+import com.example.heaapp.view.activity.ActivitiesAddingActivity;
 import com.example.heaapp.view.activity.FoodAddingActivity;
 import com.example.heaapp.view.activity.UserInfoActivity;
 
@@ -102,8 +102,15 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        dashboardPresenter.getDailySummary();
+    }
+
+    @Override
     public void displayDailySummary(DailySummary dailySummary) {
         tvTotalWater.setText(String.format("Total: %sml", String.valueOf(dailySummary.getWaterConsume())));
+        descKcalBurned.setText(String.valueOf(dailySummary.getBurnedCalories()));
     }
 
     @Override
@@ -138,7 +145,7 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
     }
 
 
-    @OnClick({R.id.btn_75, R.id.btn_150, R.id.btn_250, R.id.btn_330, R.id.btn_custom_water,R.id.layout_breakfast, R.id.layout_launch, R.id.layout_dinner, R.id.layout_exercise})
+    @OnClick({R.id.btn_75, R.id.btn_150, R.id.btn_250, R.id.btn_330, R.id.btn_custom_water, R.id.layout_breakfast, R.id.layout_launch, R.id.layout_dinner, R.id.layout_exercise})
     void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_75:
@@ -164,6 +171,7 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
                 builder.setPositiveButton("OK", (dialog, which) -> dashboardPresenter.addDrunkWater(Long.parseLong(input.getText().toString())));
                 builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
                 builder.show();
+                break;
             case R.id.layout_breakfast:
                 ultis.setIntent(getContext(), FoodAddingActivity.class);
                 break;
@@ -174,7 +182,7 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
                 ultis.setIntent(getContext(), FoodAddingActivity.class);
                 break;
             case R.id.layout_exercise:
-                ultis.setIntent(getContext(), ExerciseAddingActivity.class);
+                ultis.setIntent(getContext(), ActivitiesAddingActivity.class);
                 break;
         }
     }

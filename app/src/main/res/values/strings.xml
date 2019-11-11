@@ -43,5 +43,31 @@
     <string name="msg_emai_pw_empty">Email and password can\'t be empty</string>
     <string name="msg_all_field_empty">All fields must not be empty!</string>
     <string name="add_custom_food">Add your custom food here!</string>
-
+    <string name="title_sleeping">Sleeping</string>
+    <string name="title_typing_writing_desk_work">Typing, Writing, Desk Work</string>
+    <string name="title_walking_very_slow">Walking,very slow, 1.7mph</string>
+    <string name="title_walking_normal">Walking, normal, 2.5 mph</string>
+    <string name="title_walking_fast">Walking, fast, 3.4 mph</string>
+    <string name="title_running_slow">Running slow, 4 mph</string>
+    <string name="title_running_normal">Running slow, 6.7 mph</string>
+    <string name="title_running_fast">Running fast,14 mph</string>
+    <string name="title_cycling_slow">Cycling slow, 5.5 mph</string>
+    <string name="title_cycling_normal">Cycling normal, 12-13.9 mph</string>
+    <string name="title_cycling_fast">Cycling fast, 20 mph</string>
+    <string name="title_rope_jumping">Rope jumping</string>
+    <string name="title_breakfast">Breakfast</string>
+    <string name="title_water">Water</string>
+    <string name="title_launch">Launch</string>
+    <string name="msg_add_your_food_here">Add your food here!</string>
+    <string name="title_dinner">Dinner</string>
+    <string name="title_activities">Activities</string>
+    <string name="msg_add_your_activities_here">Add your activities here!</string>
+    <string name="title_your_body_indices">Your body indices</string>
+    <string name="title_calisthenics_lighteffort">Calisthenics, Light Effort</string>
+    <string name="title_calisthenics_vigorousffort">Calisthenics, Vigorous Effort</string>
+    <string name="title_gymnastics">Gymnastics General</string>
+    <string name="title_swimming">Swimming</string>
+    <string name="title_yoga">Yoga</string>
+    <string name="add_activities_success">Add activities successfully</string>
+    <string name="add_activities_fail">Add activities failed. Please fill all field!</string>
 </resources>
