@@ -53,4 +53,7 @@
     <string name="wind_direct">Wind Direct</string>
     <string name="air_quality">Air Quality</string>
 
+    <string name="add_custom_food">Add your custom food here!</string>
+
+
 </resources>

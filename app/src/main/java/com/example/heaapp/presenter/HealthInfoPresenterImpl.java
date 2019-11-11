@@ -56,7 +56,7 @@ public class HealthInfoPresenterImpl implements HealthInfoPresenter {
     }
 
     private void handleError(Throwable throwable) {
-        healthInforView.getListNewsFailed("Error"+throwable.getLocalizedMessage());
+        healthInforView.getLatestDataFailed("Error"+throwable.getLocalizedMessage());
     }
 
     private void handleResponse(News news) {
