@@ -13,9 +13,16 @@
 
     </item>
     <item
+        android:icon="@drawable/ic_multiple_languages"
+        android:id="@+id/side_bar_lang"
+        android:title="@string/languages">
+
+    </item>
+    <item
         android:icon="@drawable/ic_logout"
         android:id="@+id/side_bar_logout"
         android:title="@string/side_bar_logout">
 
     </item>
+
 </menu>
