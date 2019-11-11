@@ -2,7 +2,6 @@ package com.example.heaapp.view.activity;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -28,13 +27,11 @@ import com.example.heaapp.ultis.ultis;
 import com.example.heaapp.view.fragment.DashBoardFragment;
 import com.example.heaapp.view.fragment.HealthInforFragment;
 import com.example.heaapp.view.fragment.WorkoutFragment;
-import com.google.android.exoplayer2.C;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -139,6 +136,9 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
                     break;
                 case R.id.side_bar_lang:
                     showMultipleLanguage();
+                    break;
+                case R.id.side_bar_remider:
+                    ultis.setIntent(this, ReminderActivity.class);
                     break;
 
             }

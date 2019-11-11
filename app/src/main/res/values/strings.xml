@@ -54,6 +54,18 @@
     <string name="air_quality">Air Quality</string>
 
     <string name="add_custom_food">Add your custom food here!</string>
+    <string name="reminder_workout">Reminder Workout</string>
+    <string name="choose_day">Choose day!!</string>
+
+    <string-array name="day">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
 
 
 </resources>

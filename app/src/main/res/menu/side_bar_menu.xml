@@ -13,6 +13,12 @@
 
     </item>
     <item
+        android:icon="@drawable/ic_reminder"
+        android:id="@+id/side_bar_remider"
+        android:title="@string/reminder_workout">
+
+    </item>
+    <item
         android:icon="@drawable/ic_multiple_languages"
         android:id="@+id/side_bar_lang"
         android:title="@string/languages">
