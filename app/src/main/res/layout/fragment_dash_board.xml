@@ -82,12 +82,12 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:layout_marginTop="30dp"
+                                android:layout_marginTop="40dp"
                                 android:drawablePadding="10dp"
                                 android:ellipsize="end"
                                 android:text="0"
                                 android:textColor="@android:color/white"
-                                android:textSize="30sp"
+                                android:textSize="35sp"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -169,9 +169,9 @@
                             android:layout_below="@+id/title_carbs"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="5dp"
-                            android:text="0g left"
+                            android:text="0g"
                             android:textColor="@android:color/white"
-                            android:textSize="10sp" />
+                            android:textSize="15sp" />
 
                     </RelativeLayout>
 
@@ -201,9 +201,9 @@
                             android:layout_below="@+id/title_protein"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="5dp"
-                            android:text="0g left"
+                            android:text="0g"
                             android:textColor="@android:color/white"
-                            android:textSize="10sp" />
+                            android:textSize="15sp" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -232,9 +232,9 @@
                             android:layout_below="@+id/title_fat"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="5dp"
-                            android:text="0g left"
+                            android:text="0g"
                             android:textColor="@android:color/white"
-                            android:textSize="10sp" />
+                            android:textSize="15sp" />
                     </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>

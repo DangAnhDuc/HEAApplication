@@ -122,6 +122,24 @@ public class RealmService {
         });
     }
 
+    //modify needed energy
+    public void modifyNeededEnergyAsync(long neededCalories, OnTransactionCallback onTransactionCallback) {
+        mRealm.executeTransactionAsync(realm -> {
+            RealmResults<DailySummary> resultCurrentDate = realm.where(DailySummary.class)
+                    .equalTo("date", Common.today)
+                    .findAll();
+            resultCurrentDate.setValue("neededCalories", neededCalories);
+        }, () -> {
+            if (onTransactionCallback != null) {
+                onTransactionCallback.onTransactionSuccess();
+            }
+        }, error -> {
+            if (onTransactionCallback != null) {
+                onTransactionCallback.onTransactionError((Exception) error);
+            }
+        });
+    }
+
     //add user indices
     public void addUserIndices(long id, double BMI, double bodyMass, double bodyWater, double waterRequired, double bloodVolume, double bodyFat,
                                double FFMI, double dailyCal, OnTransactionCallback onTransactionCallback) {
@@ -156,7 +174,7 @@ public class RealmService {
     }
 
     //init database table
-    public void initDatabaseTable() {
+    public void initDatabaseTable(OnTransactionCallback onTransactionCallback) {
         mRealm.executeTransactionAsync(realm -> {
             //create database table for daily summary
             DailySummary dailySummary = realm.createObject(DailySummary.class);
@@ -165,6 +183,10 @@ public class RealmService {
             dailySummary.setWaterConsume(0);
             dailySummary.setEatenCalories(0);
             dailySummary.setBurnedCalories(0);
+            dailySummary.setNeededCalories(0);
+            dailySummary.setEatenCarbs(0);
+            dailySummary.setEatenProtein(0);
+            dailySummary.setEateaFat(0);
 
             //create database table for current user
             CurrentUserInfo currentUserInfo = realm.createObject(CurrentUserInfo.class);
@@ -188,8 +210,21 @@ public class RealmService {
             currentUserIndices.setBodyFat(0);
             currentUserIndices.setFFMI(0);
             currentUserIndices.setDailyCal(0);
-
-        });
+        }, new Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+                if (onTransactionCallback != null) {
+                    onTransactionCallback.onTransactionSuccess();
+                }
+            }
+        }, new Transaction.OnError() {
+            @Override
+            public void onError(Throwable error) {
+                if (onTransactionCallback != null) {
+                    onTransactionCallback.onTransactionError((Exception) error);
+                }
+            }
+    });
     }
 
 //    public void addFoodTable(Data data){
