@@ -111,6 +111,11 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
     public void displayDailySummary(DailySummary dailySummary) {
         tvTotalWater.setText(String.format("Total: %sml", String.valueOf(dailySummary.getWaterConsume())));
         descKcalBurned.setText(String.valueOf(dailySummary.getBurnedCalories()));
+        descKcalEaten.setText(String.valueOf(dailySummary.getEatenCalories()));
+        descKcalLeft.setText(String.valueOf(dailySummary.getNeededCalories()));
+        desCarbs.setText(String.format("%sg", String.valueOf(dailySummary.getEatenCarbs())));
+        desProtein.setText(String.format("%sg", String.valueOf(dailySummary.getEatenProtein())));
+        desFat.setText(String.format("%sg", String.valueOf(dailySummary.getEateaFat())));
     }
 
     @Override
