@@ -37,11 +37,11 @@ public class ActivitiesAddingPresenterImpl implements ActivitiesAddingPresenter,
                               String gymnasticMns, String walkingSlowMns, String walkingNormalMns, String walkingFastMns, String runningSlowMns
             , String runningNormalMns, String runningFastMns, String cyclingSlowMns, String cyclingNormalMns,
                               String cyclingFastMns, String ropeJumpingMns, String swimmingMns, String yogaMns) {
-        RealmResults<DailySummary> resultCurrentDate = realm.where(DailySummary.class)
-                .equalTo("date", Common.today)
-                .findAll();
+
         try {
-            double totalEnergyBurned = resultCurrentDate.get(0).getBurnedCalories();
+            double totalEnergyBurned = realmService.getCurrentDate().get(0).getBurnedCalories();
+            double totalneededCalories = realmService.getCurrentDate().get(0).getNeededCalories();
+
             RealmResults<CurrentUserInfo> realmResults = realmService.getCurrentUser();
             currentUserInfo = realmResults.get(0);
             double sleepingBurnedEnergy;
@@ -95,10 +95,13 @@ public class ActivitiesAddingPresenterImpl implements ActivitiesAddingPresenter,
             double yogaBurnedEnergy;
             yogaBurnedEnergy = calculateBurnedEnergy(8.8, yogaMns);
 
+            totalneededCalories=totalneededCalories+sleepingBurnedEnergy + deskworkBurnedEnergy + calisthenicLightBurnedEnergy + calisthenicVigoroustBurnedEnergy
+                    + gymnasticstBurnedEnergy + walkingSlowBurnedEnergy + walkingNormalBurnedEnergy + walkingFastBurnedEnergy + runningSlowBurnedEnergy + runningNormalBurnedEnergy + runningFastBurnedEnergy
+                    + cyclingSlowBurnedEnergy + cyclingNormalBurnedEnergy + cyclingFastBurnedEnergy + jumpingRopeBurnedEnergy + swimmingBurnedEnergy + yogaBurnedEnergy;
             totalEnergyBurned = totalEnergyBurned + sleepingBurnedEnergy + deskworkBurnedEnergy + calisthenicLightBurnedEnergy + calisthenicVigoroustBurnedEnergy
                     + gymnasticstBurnedEnergy + walkingSlowBurnedEnergy + walkingNormalBurnedEnergy + walkingFastBurnedEnergy + runningSlowBurnedEnergy + runningNormalBurnedEnergy + runningFastBurnedEnergy
                     + cyclingSlowBurnedEnergy + cyclingNormalBurnedEnergy + cyclingFastBurnedEnergy + jumpingRopeBurnedEnergy + swimmingBurnedEnergy + yogaBurnedEnergy;
-            realmService.modifyBunredEnergyAsync((Double.valueOf(totalEnergyBurned)).longValue(), this);
+            realmService.modifyBurnedEnergyAsync((Double.valueOf(totalEnergyBurned)).longValue(),(Double.valueOf(totalneededCalories)).longValue(), this);
         }
         catch (Exception e){
             activitiesAddingView.addActivitiesFailed();

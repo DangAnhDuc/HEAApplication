@@ -51,7 +51,7 @@ public class HomePresenterImpl implements HomePresenter {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         CurrentUserInfo currentUserInfo= dataSnapshot.getValue(CurrentUserInfo.class);
                         if(currentUserInfo!=null) {
-                            realmService.modifyUserInforAsync(currentUserInfo.getAge(), currentUserInfo.getSex(), currentUserInfo.getWeight(), currentUserInfo.getHeight(), currentUserInfo.getWaist(), currentUserInfo.getHip(), currentUserInfo.getChest(), new OnTransactionCallback() {
+                            realmService.modifyUserInfoAsync(currentUserInfo.getAge(), currentUserInfo.getSex(), currentUserInfo.getWeight(), currentUserInfo.getHeight(), currentUserInfo.getWaist(), currentUserInfo.getHip(), currentUserInfo.getChest(), new OnTransactionCallback() {
                                 @Override
                                 public void onTransactionSuccess() {
 

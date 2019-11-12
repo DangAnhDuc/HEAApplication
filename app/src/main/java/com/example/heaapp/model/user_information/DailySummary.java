@@ -15,12 +15,12 @@ public class DailySummary extends RealmObject {
     private long neededCalories;
     private long eatenCarbs;
     private long eatenProtein;
-    private long eateaFat;
+    private long eatenFat;
 
     public DailySummary() {
     }
 
-    public DailySummary(long id, String date, long waterConsume, long eatenCalories, long burnedCalories, long neededCalories, long eatenCarbs, long eatenProtein, long eateaFat) {
+    public DailySummary(long id, String date, long waterConsume, long eatenCalories, long burnedCalories, long neededCalories, long eatenCarbs, long eatenProtein, long eatenFat) {
         this.id = id;
         this.date = date;
         this.waterConsume = waterConsume;
@@ -29,7 +29,7 @@ public class DailySummary extends RealmObject {
         this.neededCalories = neededCalories;
         this.eatenCarbs = eatenCarbs;
         this.eatenProtein = eatenProtein;
-        this.eateaFat = eateaFat;
+        this.eatenFat = eatenFat;
     }
 
     public String getDate() {
@@ -96,11 +96,11 @@ public class DailySummary extends RealmObject {
         this.eatenProtein = eatenProtein;
     }
 
-    public long getEateaFat() {
-        return eateaFat;
+    public long getEatenFat() {
+        return eatenFat;
     }
 
-    public void setEateaFat(long eateaFat) {
-        this.eateaFat = eateaFat;
+    public void setEatenFat(long eateaFat) {
+        this.eatenFat = eateaFat;
     }
 }

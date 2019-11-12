@@ -8,4 +8,7 @@ import java.util.List;
 public interface FoodAddingView extends BaseView {
     void crawlDataFailed(String message);
     void crawlDataSuccess(List<Data> foodList);
+    void addFoodSuccessfully();
+    void addFoodFailed();
+
 }
