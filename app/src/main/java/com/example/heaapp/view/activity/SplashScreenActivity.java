@@ -38,7 +38,6 @@ public class SplashScreenActivity extends AppCompatActivity implements SpashScre
         RealmService realmService= RealmService.getInstance();
         splashScreenPresenter= new SplashScreenPresenterImpl(realmService,this);
         splashScreenPresenter.firstTimeInit();
-        splashScreenPresenter.dailyInit();
         splashScreenPresenter.getFoodList();
 
         Thread timer = new Thread() {

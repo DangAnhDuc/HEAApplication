@@ -55,4 +55,9 @@
 
 
 
+    <style name="HintTextStyle" parent="TextAppearance.Design.Hint">
+        <item name="android:textSize">15sp</item>
+        <item name="android:colorAccent">@color/colorPrimaryDark</item>
+    </style>
+
 </resources>

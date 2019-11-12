@@ -134,7 +134,17 @@ public class UserInfoPresenterImpl implements UserInfoPresenter {
         realmService.addUserIndices(0, BMI, bodyMass, bodyWater, waterRequired, bloodVolume, bodyFat, FFMI, dailyCal, new OnTransactionCallback() {
             @Override
             public void onTransactionSuccess() {
+                realmService.modifyNeededEnergyAsync(Double.valueOf(dailyCal).longValue(), new OnTransactionCallback() {
+                    @Override
+                    public void onTransactionSuccess() {
 
+                    }
+
+                    @Override
+                    public void onTransactionError(Exception e) {
+
+                    }
+                });
             }
 
             @Override
