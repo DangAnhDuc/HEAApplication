@@ -54,4 +54,17 @@
     <string name="wind_direct">Hướng Gió</string>
     <string name="air_quality">Chất Lượng Không Khí</string>
 
+    <string name="add_custom_food">Thêm đồ ăn của bạn ở đây!</string>
+    <string name="reminder_workout">Nhắc nhở tập luyện</string>
+    <string name="choose_day">Chọn Ngày!!</string>
+
+    <string-array name="day">
+        <item>Thứ 2</item>
+        <item>Thứ 3</item>
+        <item>Thứ 4</item>
+        <item>Thứ 5</item>
+        <item>Thứ 6</item>
+        <item>Thứ 7</item>
+        <item>Chủ Nhật</item>
+    </string-array>
 </resources>
