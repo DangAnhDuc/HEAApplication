@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    app:cardCornerRadius="20dp">
+    app:cardCornerRadius="15dp">
 
     <LinearLayout
         android:id="@+id/layout_food_container"
@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/food_name"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:textColor="@color/colorPrimaryDark"
                 android:text="Name"
                 android:layout_marginLeft="5dp"/>
@@ -43,7 +43,7 @@
                     android:id="@+id/tv_energy_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_marginBottom="5dp"
                     android:text="Energy: "
                     android:textColor="@color/title_color"
@@ -72,7 +72,7 @@
                     android:id="@+id/tv_carbs_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_marginBottom="5dp"
                     android:text="Carbohydrates: "
                     android:textColor="@color/title_color"
@@ -101,7 +101,7 @@
                     android:id="@+id/tv_protein_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_marginBottom="5dp"
                     android:text="Protein: "
                     android:textColor="@color/title_color"
@@ -130,7 +130,7 @@
                     android:id="@+id/tv_fat_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_marginBottom="5dp"
                     android:text="Fat: "
                     android:textColor="@color/title_color"
