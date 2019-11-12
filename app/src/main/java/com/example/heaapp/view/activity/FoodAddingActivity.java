@@ -28,6 +28,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class FoodAddingActivity extends AppCompatActivity implements FoodAddingView {
 
@@ -52,6 +53,7 @@ public class FoodAddingActivity extends AppCompatActivity implements FoodAddingV
     @BindView(R.id.edt_foodFat)
     EditText edtFoodFat;
 
+    String foodTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,8 @@ public class FoodAddingActivity extends AppCompatActivity implements FoodAddingV
         foodAddingPresenter = new FoodAddingPresenterImpl(this, getContext(), realmService);
         foodRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        Bundle extras = getIntent().getExtras();
+        foodTime = extras.getString("FoodTime");
         foodRecyclerView.setLayoutManager(layoutManager);
         toggleButton = findViewById(R.id.toggleButton);
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
@@ -108,21 +112,37 @@ public class FoodAddingActivity extends AppCompatActivity implements FoodAddingV
 
     @Override
     public void crawlDataSuccess(List<Data> foodList) {
+        FoodAdapter foodAdapter = new FoodAdapter(getContext(), foodList);
+        foodRecyclerView.setAdapter(foodAdapter);
         MySwipeHelper swipeHelper = new MySwipeHelper(this, foodRecyclerView, 200) {
             @Override
-            protected void instantiateMyButton(RecyclerView.ViewHolder viewHolder, List<MySwipeHelper.MyButton> buffer) {
+            protected void instantiateMyButton(RecyclerView.ViewHolder viewHolder, List<MyButton> buffer) {
                 buffer.add(new MyButton(FoodAddingActivity.this,
                         "ADD", 30, 0, Color.parseColor("#0E9577"),
                         new MyButtonClickListener() {
                             @Override
                             public void onClick(int pos) {
-                                ultis.showMessage(getContext(), "add clicked");
+                                foodAddingPresenter.addDishes(foodList.get(pos), foodTime);
                             }
                         }));
             }
         };
-        FoodAdapter foodAdapter = new FoodAdapter(getContext(), foodList);
-        foodRecyclerView.setAdapter(foodAdapter);
 
+    }
+
+    @Override
+    public void addFoodSuccessfully() {
+        ultis.showMessage(getContext(), getString(R.string.add_food_success));
+    }
+
+    @Override
+    public void addFoodFailed() {
+        ultis.showMessage(getContext(), getString(R.string.add_food_fail));
+    }
+
+    @OnClick(R.id.btn_addFood)
+    public void onViewClicked() {
+        foodAddingPresenter.addDishesCustom(foodTime,edtFoodName.getText().toString(),edtFoodEnergy.getText().toString(),
+                edtFoodCarbs.getText().toString(),edtFoodProtein.getText().toString(),edtFoodFat.getText().toString());
     }
 }

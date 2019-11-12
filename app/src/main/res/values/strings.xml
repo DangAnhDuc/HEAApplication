@@ -95,4 +95,6 @@
     <string name="title_yoga">Yoga</string>
     <string name="add_activities_success">Add activities successfully</string>
     <string name="add_activities_fail">Add activities failed. Please fill all field!</string>
+    <string name="add_food_success">Add food successfully</string>
+    <string name="add_food_fail">Add food failed!</string>
 </resources>

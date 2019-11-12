@@ -3,6 +3,7 @@ package com.example.heaapp.ultis;
 import android.annotation.SuppressLint;
 
 import com.example.heaapp.model.food.Data;
+import com.example.heaapp.model.food.Dishes;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,5 +20,11 @@ public class Common {
     public static String name;
 
     public static List<Data> foodList= new ArrayList<>();
+
+    public static List<Dishes> breakfastDishes= new ArrayList<>();
+
+    public static List<Dishes> launchDishes= new ArrayList<>();
+
+    public static List<Dishes> dinnerDishes= new ArrayList<>();
 
 }

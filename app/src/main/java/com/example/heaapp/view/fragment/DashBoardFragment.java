@@ -1,5 +1,6 @@
 package com.example.heaapp.view.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -115,7 +116,7 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
         descKcalLeft.setText(String.valueOf(dailySummary.getNeededCalories()));
         desCarbs.setText(String.format("%sg", String.valueOf(dailySummary.getEatenCarbs())));
         desProtein.setText(String.format("%sg", String.valueOf(dailySummary.getEatenProtein())));
-        desFat.setText(String.format("%sg", String.valueOf(dailySummary.getEateaFat())));
+        desFat.setText(String.format("%sg", String.valueOf(dailySummary.getEatenFat())));
     }
 
     @Override
@@ -178,13 +179,19 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
                 builder.show();
                 break;
             case R.id.layout_breakfast:
-                ultis.setIntent(getContext(), FoodAddingActivity.class);
+                Intent intentBreakfast= new Intent(getContext(), FoodAddingActivity.class);
+                intentBreakfast.putExtra("FoodTime","Breakfast");
+                startActivity(intentBreakfast);
                 break;
             case R.id.layout_launch:
-                ultis.setIntent(getContext(), FoodAddingActivity.class);
+                Intent intentLaunch= new Intent(getContext(), FoodAddingActivity.class);
+                intentLaunch.putExtra("FoodTime","Launch");
+                startActivity(intentLaunch);
                 break;
             case R.id.layout_dinner:
-                ultis.setIntent(getContext(), FoodAddingActivity.class);
+                Intent intentDinner= new Intent(getContext(), FoodAddingActivity.class);
+                intentDinner.putExtra("FoodTime","Dinner");
+                startActivity(intentDinner);
                 break;
             case R.id.layout_exercise:
                 ultis.setIntent(getContext(), ActivitiesAddingActivity.class);

@@ -57,7 +57,7 @@ public class UserInfoPresenterImpl implements UserInfoPresenter {
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    realmService.modifyUserInforAsync(Integer.parseInt(age), sex, Long.parseLong(weight), Long.parseLong(height), Long.parseLong(waist), Long.parseLong(hip), Long.parseLong(chest), new OnTransactionCallback() {
+                    realmService.modifyUserInfoAsync(Integer.parseInt(age), sex, Long.parseLong(weight), Long.parseLong(height), Long.parseLong(waist), Long.parseLong(hip), Long.parseLong(chest), new OnTransactionCallback() {
                         @Override
                         public void onTransactionSuccess() {
                             saveUserInfoStatusPref();

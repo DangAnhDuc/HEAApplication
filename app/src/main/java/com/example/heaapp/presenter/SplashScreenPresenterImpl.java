@@ -106,8 +106,12 @@ public class SplashScreenPresenterImpl implements SplashScreenPresenter, OnTrans
             dailySummary.setNeededCalories(Double.valueOf(dailyCal).longValue());
             dailySummary.setEatenCarbs(0);
             dailySummary.setEatenProtein(0);
-            dailySummary.setEateaFat(0);
+            dailySummary.setEatenFat(0);
             realm.commitTransaction();
+
+            Common.breakfastDishes.clear();
+            Common.launchDishes.clear();
+            Common.dinnerDishes.clear();
         }
     }
 

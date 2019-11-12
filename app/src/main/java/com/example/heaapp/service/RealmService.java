@@ -75,7 +75,7 @@ public class RealmService {
     }
 
     //modify user information
-    public void modifyUserInforAsync(int age, String sex, long weight, long height, long waist, long hip, long chest, OnTransactionCallback onTransactionCallback) {
+    public void modifyUserInfoAsync(int age, String sex, long weight, long height, long waist, long hip, long chest, OnTransactionCallback onTransactionCallback) {
         mRealm.executeTransactionAsync(realm -> {
             RealmResults<CurrentUserInfo> resultCurrentUser = realm.where(CurrentUserInfo.class)
                     .equalTo("id", 0)
@@ -104,13 +104,16 @@ public class RealmService {
         });
     }
 
+
     //modify burned energy
-    public void modifyBunredEnergyAsync(long totalBurnedEnergy, OnTransactionCallback onTransactionCallback) {
+    public void modifyBurnedEnergyAsync(long totalBurnedEnergy, long totalneededCalories,OnTransactionCallback onTransactionCallback) {
         mRealm.executeTransactionAsync(realm -> {
             RealmResults<DailySummary> resultCurrentDate = realm.where(DailySummary.class)
                     .equalTo("date", Common.today)
                     .findAll();
             resultCurrentDate.setValue("burnedCalories", totalBurnedEnergy);
+            resultCurrentDate.setValue("neededCalories", totalneededCalories);
+
         }, () -> {
             if (onTransactionCallback != null) {
                 onTransactionCallback.onTransactionSuccess();
@@ -129,6 +132,29 @@ public class RealmService {
                     .equalTo("date", Common.today)
                     .findAll();
             resultCurrentDate.setValue("neededCalories", neededCalories);
+        }, () -> {
+            if (onTransactionCallback != null) {
+                onTransactionCallback.onTransactionSuccess();
+            }
+        }, error -> {
+            if (onTransactionCallback != null) {
+                onTransactionCallback.onTransactionError((Exception) error);
+            }
+        });
+    }
+
+    //update nutrition
+    public void updateNutrition(long neededCalories,long totalEnergy,long totalCarbs,long totalProtein,long totalFat, OnTransactionCallback onTransactionCallback) {
+        mRealm.executeTransactionAsync(realm -> {
+            RealmResults<DailySummary> resultCurrentDate = realm.where(DailySummary.class)
+                    .equalTo("date", Common.today)
+                    .findAll();
+            resultCurrentDate.setValue("neededCalories", neededCalories);
+            resultCurrentDate.setValue("eatenCalories", totalEnergy);
+            resultCurrentDate.setValue("eatenCarbs", totalCarbs);
+            resultCurrentDate.setValue("eatenProtein", totalProtein);
+            resultCurrentDate.setValue("eatenFat", totalFat);
+
         }, () -> {
             if (onTransactionCallback != null) {
                 onTransactionCallback.onTransactionSuccess();
@@ -186,7 +212,7 @@ public class RealmService {
             dailySummary.setNeededCalories(0);
             dailySummary.setEatenCarbs(0);
             dailySummary.setEatenProtein(0);
-            dailySummary.setEateaFat(0);
+            dailySummary.setEatenFat(0);
 
             //create database table for current user
             CurrentUserInfo currentUserInfo = realm.createObject(CurrentUserInfo.class);
