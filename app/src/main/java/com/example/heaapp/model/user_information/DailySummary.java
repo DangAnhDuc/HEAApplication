@@ -1,8 +1,11 @@
 package com.example.heaapp.model.user_information;
 
+import com.example.heaapp.model.food.Dishes;
+
 import java.util.Date;
 
 import io.realm.Realm;
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -16,11 +19,14 @@ public class DailySummary extends RealmObject {
     private long eatenCarbs;
     private long eatenProtein;
     private long eatenFat;
+    private RealmList<Dishes> breakfastDishes;
+    private RealmList<Dishes> launchDishes;
+    private RealmList<Dishes> dinnerDishes;
 
     public DailySummary() {
     }
 
-    public DailySummary(long id, String date, long waterConsume, long eatenCalories, long burnedCalories, long neededCalories, long eatenCarbs, long eatenProtein, long eatenFat) {
+    public DailySummary(long id, String date, long waterConsume, long eatenCalories, long burnedCalories, long neededCalories, long eatenCarbs, long eatenProtein, long eatenFat, RealmList<Dishes> breakfastDishes, RealmList<Dishes> launchDishes, RealmList<Dishes> dinnerDishes) {
         this.id = id;
         this.date = date;
         this.waterConsume = waterConsume;
@@ -30,6 +36,9 @@ public class DailySummary extends RealmObject {
         this.eatenCarbs = eatenCarbs;
         this.eatenProtein = eatenProtein;
         this.eatenFat = eatenFat;
+        this.breakfastDishes = breakfastDishes;
+        this.launchDishes = launchDishes;
+        this.dinnerDishes = dinnerDishes;
     }
 
     public String getDate() {
@@ -100,7 +109,31 @@ public class DailySummary extends RealmObject {
         return eatenFat;
     }
 
-    public void setEatenFat(long eateaFat) {
-        this.eatenFat = eateaFat;
+    public void setEatenFat(long eatenFat) {
+        this.eatenFat = eatenFat;
+    }
+
+    public RealmList<Dishes> getBreakfastDishes() {
+        return breakfastDishes;
+    }
+
+    public void setBreakfastDishes(RealmList<Dishes> breakfastDishes) {
+        this.breakfastDishes = breakfastDishes;
+    }
+
+    public RealmList<Dishes> getLaunchDishes() {
+        return launchDishes;
+    }
+
+    public void setLaunchDishes(RealmList<Dishes> launchDishes) {
+        this.launchDishes = launchDishes;
+    }
+
+    public RealmList<Dishes> getDinnerDishes() {
+        return dinnerDishes;
+    }
+
+    public void setDinnerDishes(RealmList<Dishes> dinnerDishes) {
+        this.dinnerDishes = dinnerDishes;
     }
 }

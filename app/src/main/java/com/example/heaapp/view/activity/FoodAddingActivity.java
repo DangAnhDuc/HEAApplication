@@ -64,9 +64,9 @@ public class FoodAddingActivity extends AppCompatActivity implements FoodAddingV
         foodAddingPresenter = new FoodAddingPresenterImpl(this, getContext(), realmService);
         foodRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        foodRecyclerView.setLayoutManager(layoutManager);
         Bundle extras = getIntent().getExtras();
         foodTime = extras.getString("FoodTime");
-        foodRecyclerView.setLayoutManager(layoutManager);
         toggleButton = findViewById(R.id.toggleButton);
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         toggleButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -142,7 +142,7 @@ public class FoodAddingActivity extends AppCompatActivity implements FoodAddingV
 
     @OnClick(R.id.btn_addFood)
     public void onViewClicked() {
-        foodAddingPresenter.addDishesCustom(foodTime,edtFoodName.getText().toString(),edtFoodEnergy.getText().toString(),
-                edtFoodCarbs.getText().toString(),edtFoodProtein.getText().toString(),edtFoodFat.getText().toString());
+        foodAddingPresenter.addDishesCustom(foodTime, edtFoodName.getText().toString(), edtFoodEnergy.getText().toString(),
+                edtFoodCarbs.getText().toString(), edtFoodProtein.getText().toString(), edtFoodFat.getText().toString());
     }
 }

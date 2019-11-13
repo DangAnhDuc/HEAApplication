@@ -12,8 +12,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.heaapp.R;
+import com.example.heaapp.adapter.DishesAdapter;
 import com.example.heaapp.base.BaseFragment;
 import com.example.heaapp.model.user_information.CurrentUserIndices;
 import com.example.heaapp.model.user_information.DailySummary;
@@ -73,6 +76,15 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
     TextView tvFfmi;
     @BindView(R.id.tv_dailyCal)
     TextView tvDailyCal;
+    @BindView(R.id.rcview_breakfast)
+    RecyclerView rcviewBreakfast;
+    @BindView(R.id.rcview_launch)
+    RecyclerView rcviewLaunch;
+    @BindView(R.id.rcview_dinner)
+    RecyclerView rcviewDinner;
+    @BindView(R.id.rcview_activities)
+    RecyclerView rcviewActivities;
+
     private DashboardPresenterImpl dashboardPresenter;
     private Unbinder unbinder;
 
@@ -90,6 +102,21 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
         dashboardPresenter = new DashboardPresenterImpl(getContext(), this, realmService);
         dashboardPresenter.getDailySummary();
         dashboardPresenter.getCurrentUserIndices();
+        rcviewBreakfast.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManagerBf = new LinearLayoutManager(getContext());
+        rcviewBreakfast.setLayoutManager(layoutManagerBf);
+
+        rcviewLaunch.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManagerLn = new LinearLayoutManager(getContext());
+        rcviewLaunch.setLayoutManager(layoutManagerLn);
+
+        rcviewDinner.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManagerDn = new LinearLayoutManager(getContext());
+        rcviewDinner.setLayoutManager(layoutManagerDn);
+
+        rcviewActivities.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManagerEx = new LinearLayoutManager(getContext());
+        rcviewActivities.setLayoutManager(layoutManagerEx);
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -117,11 +144,19 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
         desCarbs.setText(String.format("%sg", String.valueOf(dailySummary.getEatenCarbs())));
         desProtein.setText(String.format("%sg", String.valueOf(dailySummary.getEatenProtein())));
         desFat.setText(String.format("%sg", String.valueOf(dailySummary.getEatenFat())));
+        DishesAdapter dishesAdapterBf = new DishesAdapter(getContext(), dailySummary.getBreakfastDishes());
+        DishesAdapter dishesAdapterLn = new DishesAdapter(getContext(), dailySummary.getLaunchDishes());
+        DishesAdapter dishesAdapterDn = new DishesAdapter(getContext(), dailySummary.getDinnerDishes());
+
+        rcviewBreakfast.setAdapter(dishesAdapterBf);
+        rcviewLaunch.setAdapter(dishesAdapterLn);
+        rcviewDinner.setAdapter(dishesAdapterDn);
     }
 
     @Override
-    public void updateWaterAmount(String waterAmount) {
+    public void addDrunkWaterSuccessfully(String waterAmount) {
         tvTotalWater.setText(String.format("Total: %sml", waterAmount));
+
     }
 
     @Override
@@ -150,21 +185,26 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
         tvDailyCal.setText(String.format("%s kCal", format.format(currentUserIndices.getDailyCal())));
     }
 
+    @Override
+    public void addDrunkWaterFailed() {
+            ultis.showMessage(getContext(),getString(R.string.msg_input_water_amount));
+    }
+
 
     @OnClick({R.id.btn_75, R.id.btn_150, R.id.btn_250, R.id.btn_330, R.id.btn_custom_water, R.id.layout_breakfast, R.id.layout_launch, R.id.layout_dinner, R.id.layout_exercise})
     void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_75:
-                dashboardPresenter.addDrunkWater(75);
+                dashboardPresenter.addDrunkWater("75");
                 break;
             case R.id.btn_150:
-                dashboardPresenter.addDrunkWater(150);
+                dashboardPresenter.addDrunkWater("150");
                 break;
             case R.id.btn_250:
-                dashboardPresenter.addDrunkWater(250);
+                dashboardPresenter.addDrunkWater("250");
                 break;
             case R.id.btn_330:
-                dashboardPresenter.addDrunkWater(330);
+                dashboardPresenter.addDrunkWater("330");
                 break;
             case R.id.btn_custom_water:
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.AlertDialogTheme);
@@ -174,23 +214,23 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
                 input.setInputType(InputType.TYPE_CLASS_NUMBER);
                 builder.setView(input);
 
-                builder.setPositiveButton("OK", (dialog, which) -> dashboardPresenter.addDrunkWater(Long.parseLong(input.getText().toString())));
+                builder.setPositiveButton("OK", (dialog, which) -> dashboardPresenter.addDrunkWater(input.getText().toString()));
                 builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
                 builder.show();
                 break;
             case R.id.layout_breakfast:
-                Intent intentBreakfast= new Intent(getContext(), FoodAddingActivity.class);
-                intentBreakfast.putExtra("FoodTime","Breakfast");
+                Intent intentBreakfast = new Intent(getContext(), FoodAddingActivity.class);
+                intentBreakfast.putExtra("FoodTime", "Breakfast");
                 startActivity(intentBreakfast);
                 break;
             case R.id.layout_launch:
-                Intent intentLaunch= new Intent(getContext(), FoodAddingActivity.class);
-                intentLaunch.putExtra("FoodTime","Launch");
+                Intent intentLaunch = new Intent(getContext(), FoodAddingActivity.class);
+                intentLaunch.putExtra("FoodTime", "Launch");
                 startActivity(intentLaunch);
                 break;
             case R.id.layout_dinner:
-                Intent intentDinner= new Intent(getContext(), FoodAddingActivity.class);
-                intentDinner.putExtra("FoodTime","Dinner");
+                Intent intentDinner = new Intent(getContext(), FoodAddingActivity.class);
+                intentDinner.putExtra("FoodTime", "Dinner");
                 startActivity(intentDinner);
                 break;
             case R.id.layout_exercise:

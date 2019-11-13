@@ -20,11 +20,4 @@ public class Common {
     public static String name;
 
     public static List<Data> foodList= new ArrayList<>();
-
-    public static List<Dishes> breakfastDishes= new ArrayList<>();
-
-    public static List<Dishes> launchDishes= new ArrayList<>();
-
-    public static List<Dishes> dinnerDishes= new ArrayList<>();
-
 }
