@@ -6,6 +6,7 @@ import com.example.heaapp.api.ApiUtils;
 import com.example.heaapp.api.FoodApiServices;
 import com.example.heaapp.callback.OnTransactionCallback;
 import com.example.heaapp.model.food.Data;
+import com.example.heaapp.model.food.Dishes;
 import com.example.heaapp.model.food.FoodInfor;
 import com.example.heaapp.model.user_information.DailySummary;
 import com.example.heaapp.service.RealmService;
@@ -22,6 +23,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import io.realm.Realm;
+import io.realm.RealmList;
 import io.realm.RealmResults;
 
 public class SplashScreenPresenterImpl implements SplashScreenPresenter, OnTransactionCallback {
@@ -95,6 +97,10 @@ public class SplashScreenPresenterImpl implements SplashScreenPresenter, OnTrans
             dailyCal = 655.0955 + (9.5634 * realmService.getCurrentUser().get(0).getWeight()) + (1.8496 * realmService.getCurrentUser().get(0).getHeight()) - (4.6756 * realmService.getCurrentUser().get(0).getAge());
         }
         RealmResults<DailySummary> realmResults = realm.where(DailySummary.class).equalTo("date", Common.today).findAll();
+        RealmList<Dishes> breakfastDishes= new RealmList<>();
+        RealmList<Dishes> launchDishes= new RealmList<>();
+        RealmList<Dishes> dinnerDishes= new RealmList<>();
+
         if (realmResults.size() == 0) {
             realm.beginTransaction();
             DailySummary dailySummary = realm.createObject(DailySummary.class);
@@ -107,11 +113,10 @@ public class SplashScreenPresenterImpl implements SplashScreenPresenter, OnTrans
             dailySummary.setEatenCarbs(0);
             dailySummary.setEatenProtein(0);
             dailySummary.setEatenFat(0);
+            dailySummary.setBreakfastDishes(breakfastDishes);
+            dailySummary.setLaunchDishes(launchDishes);
+            dailySummary.setDinnerDishes(dinnerDishes);
             realm.commitTransaction();
-
-            Common.breakfastDishes.clear();
-            Common.launchDishes.clear();
-            Common.dinnerDishes.clear();
         }
     }
 

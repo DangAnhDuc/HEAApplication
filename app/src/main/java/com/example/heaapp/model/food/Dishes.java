@@ -1,6 +1,8 @@
 package com.example.heaapp.model.food;
 
-public class Dishes {
+import io.realm.RealmObject;
+
+public class Dishes extends RealmObject {
     private String name;
     private long energy;
     private long carbs;
@@ -14,7 +16,7 @@ public class Dishes {
         this.protein = protein;
         this.fat = fat;
     }
-
+    
     public Dishes() {
     }
 

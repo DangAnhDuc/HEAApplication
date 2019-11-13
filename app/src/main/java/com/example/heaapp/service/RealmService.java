@@ -4,15 +4,18 @@ import android.util.Log;
 
 import com.example.heaapp.callback.OnTransactionCallback;
 import com.example.heaapp.model.food.Data;
+import com.example.heaapp.model.food.Dishes;
 import com.example.heaapp.model.user_information.CurrentUserIndices;
 import com.example.heaapp.model.user_information.CurrentUserInfo;
 import com.example.heaapp.model.user_information.DailySummary;
+import com.example.heaapp.presenter.FoodAddingPresenterImpl;
 import com.example.heaapp.ultis.Common;
 
 import java.util.concurrent.atomic.AtomicLong;
 
 import io.realm.Realm;
 import io.realm.Realm.Transaction;
+import io.realm.RealmList;
 import io.realm.RealmResults;
 
 public class RealmService {
@@ -38,22 +41,20 @@ public class RealmService {
         return mRealm.where(DailySummary.class).findAll();
     }
 
-    public RealmResults<Data> getAllFoodData(){
+    public RealmResults<Data> getAllFoodData() {
         return mRealm.where(Data.class).findAll();
     }
 
     public RealmResults<CurrentUserInfo> getCurrentUser() {
-        RealmResults<CurrentUserInfo> resultCurrentUser = mRealm.where(CurrentUserInfo.class)
+        return mRealm.where(CurrentUserInfo.class)
                 .equalTo("id", 0)
                 .findAll();
-        return resultCurrentUser;
     }
 
     public RealmResults<DailySummary> getCurrentDate() {
-        RealmResults<DailySummary> resultCurrentDate = mRealm.where(DailySummary.class)
+        return mRealm.where(DailySummary.class)
                 .equalTo("date", Common.today)
                 .findAll();
-        return resultCurrentDate;
     }
 
     //modify drunk water
@@ -87,26 +88,20 @@ public class RealmService {
             resultCurrentUser.setValue("waist", waist);
             resultCurrentUser.setValue("hip", hip);
             resultCurrentUser.setValue("chest", chest);
-        }, new Transaction.OnSuccess() {
-            @Override
-            public void onSuccess() {
-                if (onTransactionCallback != null) {
-                    onTransactionCallback.onTransactionSuccess();
-                }
+        }, () -> {
+            if (onTransactionCallback != null) {
+                onTransactionCallback.onTransactionSuccess();
             }
-        }, new Transaction.OnError() {
-            @Override
-            public void onError(Throwable error) {
-                if (onTransactionCallback != null) {
-                    onTransactionCallback.onTransactionError((Exception) error);
-                }
+        }, error -> {
+            if (onTransactionCallback != null) {
+                onTransactionCallback.onTransactionError((Exception) error);
             }
         });
     }
 
 
     //modify burned energy
-    public void modifyBurnedEnergyAsync(long totalBurnedEnergy, long totalneededCalories,OnTransactionCallback onTransactionCallback) {
+    public void modifyBurnedEnergyAsync(long totalBurnedEnergy, long totalneededCalories, OnTransactionCallback onTransactionCallback) {
         mRealm.executeTransactionAsync(realm -> {
             RealmResults<DailySummary> resultCurrentDate = realm.where(DailySummary.class)
                     .equalTo("date", Common.today)
@@ -144,17 +139,91 @@ public class RealmService {
     }
 
     //update nutrition
-    public void updateNutrition(long neededCalories,long totalEnergy,long totalCarbs,long totalProtein,long totalFat, OnTransactionCallback onTransactionCallback) {
+    public void updateNutrition(long neededCalories, long totalEnergy, long totalCarbs, long totalProtein, long totalFat,
+                                String foodTime, String name, long energy, long carbs, long protein, long fat, OnTransactionCallback onTransactionCallback) {
         mRealm.executeTransactionAsync(realm -> {
             RealmResults<DailySummary> resultCurrentDate = realm.where(DailySummary.class)
                     .equalTo("date", Common.today)
                     .findAll();
+
+            Dishes dishes = realm.createObject(Dishes.class);
+            dishes.setName(name);
+            dishes.setEnergy(energy);
+            dishes.setCarbs(carbs);
+            dishes.setProtein(protein);
+            dishes.setFat(fat);
+            switch (foodTime) {
+                case "Breakfast":
+                    resultCurrentDate.get(0).getBreakfastDishes().add(dishes);
+                    break;
+                case "Launch":
+                    resultCurrentDate.get(0).getLaunchDishes().add(dishes);
+                    break;
+                case "Dinner":
+                    resultCurrentDate.get(0).getDinnerDishes().add(dishes);
+                    break;
+            }
+            realm.copyToRealmOrUpdate(resultCurrentDate);
+
+
             resultCurrentDate.setValue("neededCalories", neededCalories);
             resultCurrentDate.setValue("eatenCalories", totalEnergy);
             resultCurrentDate.setValue("eatenCarbs", totalCarbs);
             resultCurrentDate.setValue("eatenProtein", totalProtein);
             resultCurrentDate.setValue("eatenFat", totalFat);
 
+        }, () -> {
+            if (onTransactionCallback != null) {
+                onTransactionCallback.onTransactionSuccess();
+            }
+        }, error -> {
+            if (onTransactionCallback != null) {
+                onTransactionCallback.onTransactionError((Exception) error);
+            }
+        });
+    }
+
+    public void updateBreakfastDishes(RealmList<Dishes> dishes, OnTransactionCallback onTransactionCallback) {
+        mRealm.executeTransactionAsync(realm -> {
+            RealmResults<DailySummary> resultCurrentDate = realm.where(DailySummary.class)
+                    .equalTo("date", Common.today)
+                    .findAll();
+            resultCurrentDate.setValue("breakfastDishes", dishes);
+        }, () -> {
+            if (onTransactionCallback != null) {
+                onTransactionCallback.onTransactionSuccess();
+            }
+        }, error -> {
+            if (onTransactionCallback != null) {
+                onTransactionCallback.onTransactionError((Exception) error);
+            }
+        });
+    }
+
+    public void updateLaunchDishes(RealmList<Dishes> dishes, OnTransactionCallback onTransactionCallback) {
+        mRealm.executeTransactionAsync(realm -> {
+            RealmResults<DailySummary> resultCurrentDate = realm.where(DailySummary.class)
+                    .equalTo("date", Common.today)
+                    .findAll();
+            resultCurrentDate.setValue("launchDishes", dishes);
+        }, () -> {
+            if (onTransactionCallback != null) {
+                onTransactionCallback.onTransactionSuccess();
+            }
+        }, error -> {
+            if (onTransactionCallback != null) {
+                onTransactionCallback.onTransactionError((Exception) error);
+            }
+        });
+    }
+
+
+    public void updateDinnerDishes(RealmList<Dishes> dishes, OnTransactionCallback onTransactionCallback) {
+        mRealm.executeTransactionAsync(realm -> {
+            RealmResults<DailySummary> resultCurrentDate = realm.where(DailySummary.class)
+                    .equalTo("date", Common.today)
+                    .findAll();
+            resultCurrentDate.setValue("dinnerDishes", dishes);
         }, () -> {
             if (onTransactionCallback != null) {
                 onTransactionCallback.onTransactionSuccess();
@@ -250,8 +319,9 @@ public class RealmService {
                     onTransactionCallback.onTransactionError((Exception) error);
                 }
             }
-    });
+        });
     }
+
 
 //    public void addFoodTable(Data data){
 //        mRealm.executeTransactionAsync(realm -> {

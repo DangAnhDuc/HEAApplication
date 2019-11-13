@@ -267,11 +267,11 @@
 
                     <TextView
                         android:id="@+id/tv_total_water"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentRight="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Total: 0ml"/>
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:text="Total: 0ml" />
                 </RelativeLayout>
 
                 <View
@@ -395,40 +395,39 @@
                     android:layout_height="1dp"
                     android:background="@android:color/darker_gray" />
 
-                <LinearLayout
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcview_breakfast"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray" />
+
+                <RelativeLayout
+                    android:id="@+id/layout_breakfast"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:orientation="vertical"
-                    android:weightSum="5">
+                    android:layout_marginTop="10dp">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:id="@+id/img_breakfast"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/breakfast" />
 
-                    <RelativeLayout
-                        android:id="@+id/layout_breakfast"
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp">
-
-                        <ImageView
-                            android:id="@+id/img_breakfast"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_centerHorizontal="true"
-                            android:src="@drawable/breakfast" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/img_breakfast"
-                            android:layout_centerHorizontal="true"
-                            android:text="@string/msg_add_your_food_here" />
-                    </RelativeLayout>
-                </LinearLayout>
+                        android:layout_below="@+id/img_breakfast"
+                        android:layout_centerHorizontal="true"
+                        android:text="@string/msg_add_your_food_here" />
+                </RelativeLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -459,40 +458,39 @@
                     android:layout_height="1dp"
                     android:background="@android:color/darker_gray" />
 
-                <LinearLayout
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcview_launch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray" />
+
+                <RelativeLayout
+                    android:id="@+id/layout_launch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:orientation="vertical"
-                    android:weightSum="5">
+                    android:layout_marginTop="10dp">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:id="@+id/img_launch"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/launch" />
 
-                    <RelativeLayout
-                        android:id="@+id/layout_launch"
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp">
-
-                        <ImageView
-                            android:id="@+id/img_launch"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_centerHorizontal="true"
-                            android:src="@drawable/launch" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/img_launch"
-                            android:layout_centerHorizontal="true"
-                            android:text="@string/msg_add_your_food_here" />
-                    </RelativeLayout>
-                </LinearLayout>
+                        android:layout_below="@+id/img_launch"
+                        android:layout_centerHorizontal="true"
+                        android:text="@string/msg_add_your_food_here" />
+                </RelativeLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -523,38 +521,36 @@
                     android:layout_height="1dp"
                     android:background="@android:color/darker_gray" />
 
-                <LinearLayout
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcview_dinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray" />
+
+                <RelativeLayout
+                    android:id="@+id/layout_dinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:orientation="vertical"
-                    android:weightSum="5">
+                    android:layout_marginTop="10dp">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:id="@+id/img_dinner"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/dinner" />
 
-                    <RelativeLayout
-                        android:id="@+id/layout_dinner"
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp">
-
-                        <ImageView
-                            android:id="@+id/img_dinner"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_centerHorizontal="true"
-                            android:src="@drawable/dinner" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/img_dinner"
-                            android:layout_centerHorizontal="true"
-                            android:text="@string/msg_add_your_food_here" />
-                    </RelativeLayout>
-                </LinearLayout>
+                        android:layout_below="@+id/img_dinner"
+                        android:layout_centerHorizontal="true"
+                        android:text="@string/msg_add_your_food_here" />
+                </RelativeLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -588,40 +584,39 @@
                     android:layout_height="1dp"
                     android:background="@android:color/darker_gray" />
 
-                <LinearLayout
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcview_activities"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray" />
+
+                <RelativeLayout
+                    android:id="@+id/layout_exercise"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:orientation="vertical"
-                    android:weightSum="5">
+                    android:layout_marginTop="10dp">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:id="@+id/img_exercise"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/sports" />
 
-                    <RelativeLayout
-                        android:id="@+id/layout_exercise"
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp">
-
-                        <ImageView
-                            android:id="@+id/img_exercise"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_centerHorizontal="true"
-                            android:src="@drawable/sports" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/img_exercise"
-                            android:layout_centerHorizontal="true"
-                            android:text="@string/msg_add_your_activities_here" />
-                    </RelativeLayout>
-                </LinearLayout>
+                        android:layout_below="@+id/img_exercise"
+                        android:layout_centerHorizontal="true"
+                        android:text="@string/msg_add_your_activities_here" />
+                </RelativeLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -656,13 +651,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:orientation="vertical"
-                    >
+                    android:orientation="vertical">
+
                     <RelativeLayout
-                        android:elevation="8dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        >
+                        android:elevation="8dp">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -673,18 +667,18 @@
 
                         <TextView
                             android:id="@+id/tv_bmi"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginRight="15dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0"/>
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginRight="15dp"
+                            android:text="0" />
                     </RelativeLayout>
+
                     <RelativeLayout
-                        android:elevation="8dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        >
+                        android:elevation="8dp">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -695,19 +689,18 @@
 
                         <TextView
                             android:id="@+id/tv_leanbodymass"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginRight="15dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0"/>
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginRight="15dp"
+                            android:text="0" />
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:elevation="8dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        >
+                        android:elevation="8dp">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -718,18 +711,18 @@
 
                         <TextView
                             android:id="@+id/tv_bodywater"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginRight="15dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0"/>
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginRight="15dp"
+                            android:text="0" />
                     </RelativeLayout>
+
                     <RelativeLayout
-                        android:elevation="8dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        >
+                        android:elevation="8dp">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -740,19 +733,18 @@
 
                         <TextView
                             android:id="@+id/tv_waterreq"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginRight="15dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0"/>
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginRight="15dp"
+                            android:text="0" />
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:elevation="8dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        >
+                        android:elevation="8dp">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -763,18 +755,18 @@
 
                         <TextView
                             android:id="@+id/tv_bloodVol"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginRight="15dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0"/>
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginRight="15dp"
+                            android:text="0" />
                     </RelativeLayout>
+
                     <RelativeLayout
-                        android:elevation="8dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        >
+                        android:elevation="8dp">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -794,10 +786,9 @@
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:elevation="8dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        >
+                        android:elevation="8dp">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -808,19 +799,18 @@
 
                         <TextView
                             android:id="@+id/tv_ffmi"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginRight="15dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0"/>
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginRight="15dp"
+                            android:text="0" />
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:elevation="8dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        >
+                        android:elevation="8dp">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -831,12 +821,12 @@
 
                         <TextView
                             android:id="@+id/tv_dailyCal"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginRight="15dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0"/>
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginRight="15dp"
+                            android:text="0" />
                     </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>

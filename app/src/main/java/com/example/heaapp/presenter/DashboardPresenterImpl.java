@@ -43,10 +43,17 @@ public class DashboardPresenterImpl implements DashboardPresenter, OnTransaction
     }
 
     @Override
-    public void addDrunkWater(long waterAmount) {
+    public void addDrunkWater(String waterAmount) {
+        long drunkAmount=0;
+        try {
+            drunkAmount=Long.parseLong(waterAmount);
+        }
+        catch (Exception e){
+            dashboardView.addDrunkWaterFailed();
+        }
         RealmResults<DailySummary> realmResults=mRealmService.getCurrentDate();
         long totalWaterAmount = realmResults.get(0).getWaterConsume();
-        totalWaterAmount = totalWaterAmount +waterAmount;
+        totalWaterAmount = totalWaterAmount +drunkAmount;
         mRealmService.modifyWaterAsync(totalWaterAmount,this);
     }
 
@@ -67,12 +74,12 @@ public class DashboardPresenterImpl implements DashboardPresenter, OnTransaction
     @Override
     public void onTransactionSuccess() {
         RealmResults<DailySummary> realmResults=mRealmService.getCurrentDate();
-        dashboardView.updateWaterAmount(Long.toString(realmResults.get(0).getWaterConsume()));
+        dashboardView.addDrunkWaterSuccessfully(Long.toString(realmResults.get(0).getWaterConsume()));
     }
 
     @Override
     public void onTransactionError(Exception e) {
-
+        dashboardView.addDrunkWaterFailed();
     }
 
 
