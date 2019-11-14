@@ -1,6 +1,7 @@
 package com.example.heaapp.model.user_information;
 
 import com.example.heaapp.model.food.Dishes;
+import com.example.heaapp.model.workout.Activities;
 
 import java.util.Date;
 
@@ -22,11 +23,11 @@ public class DailySummary extends RealmObject {
     private RealmList<Dishes> breakfastDishes;
     private RealmList<Dishes> launchDishes;
     private RealmList<Dishes> dinnerDishes;
-
+    private RealmList<Activities> activities;
     public DailySummary() {
     }
 
-    public DailySummary(long id, String date, long waterConsume, long eatenCalories, long burnedCalories, long neededCalories, long eatenCarbs, long eatenProtein, long eatenFat, RealmList<Dishes> breakfastDishes, RealmList<Dishes> launchDishes, RealmList<Dishes> dinnerDishes) {
+    public DailySummary(long id, String date, long waterConsume, long eatenCalories, long burnedCalories, long neededCalories, long eatenCarbs, long eatenProtein, long eatenFat, RealmList<Dishes> breakfastDishes, RealmList<Dishes> launchDishes, RealmList<Dishes> dinnerDishes, RealmList<Activities> activities) {
         this.id = id;
         this.date = date;
         this.waterConsume = waterConsume;
@@ -39,6 +40,7 @@ public class DailySummary extends RealmObject {
         this.breakfastDishes = breakfastDishes;
         this.launchDishes = launchDishes;
         this.dinnerDishes = dinnerDishes;
+        this.activities = activities;
     }
 
     public String getDate() {
@@ -135,5 +137,13 @@ public class DailySummary extends RealmObject {
 
     public void setDinnerDishes(RealmList<Dishes> dinnerDishes) {
         this.dinnerDishes = dinnerDishes;
+    }
+
+    public RealmList<Activities> getActivities() {
+        return activities;
+    }
+
+    public void setActivities(RealmList<Activities> activities) {
+        this.activities = activities;
     }
 }

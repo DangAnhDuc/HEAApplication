@@ -1,20 +1,28 @@
 package com.example.heaapp.presenter;
 
+import android.content.Context;
+
+import com.example.heaapp.R;
 import com.example.heaapp.callback.OnTransactionCallback;
 import com.example.heaapp.model.user_information.CurrentUserInfo;
-import com.example.heaapp.model.user_information.DailySummary;
 import com.example.heaapp.service.RealmService;
-import com.example.heaapp.ultis.Common;
 import com.example.heaapp.view.activity.ActivitiesAddingView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class ActivitiesAddingPresenterImpl implements ActivitiesAddingPresenter, OnTransactionCallback {
+public class ActivitiesAddingPresenterImpl implements ActivitiesAddingPresenter {
     private ActivitiesAddingView activitiesAddingView;
     private RealmService realmService;
     private Realm realm = Realm.getDefaultInstance();
     private CurrentUserInfo currentUserInfo;
+    private List<String> activitiesListMns= new ArrayList<>();
+    private List<Double> METs=new ArrayList<Double>();
+    private List<String> activitiesName=new ArrayList<String>();
 
     public ActivitiesAddingPresenterImpl(ActivitiesAddingView activitiesAddingView, RealmService realmService) {
         this.activitiesAddingView = activitiesAddingView;
@@ -32,94 +40,62 @@ public class ActivitiesAddingPresenterImpl implements ActivitiesAddingPresenter,
     }
 
 
-    @Override
-    public void addActivities(String sleepingMns, String deskWorkMns, String calisthenicsLightMns, String calisthenicsVigorousMns,
-                              String gymnasticMns, String walkingSlowMns, String walkingNormalMns, String walkingFastMns, String runningSlowMns
-            , String runningNormalMns, String runningFastMns, String cyclingSlowMns, String cyclingNormalMns,
-                              String cyclingFastMns, String ropeJumpingMns, String swimmingMns, String yogaMns) {
+    public void addActivities() {
+        double totalEnergyBurned = realmService.getCurrentDate().get(0).getBurnedCalories();
+        double totalneededCalories = realmService.getCurrentDate().get(0).getNeededCalories();
+        RealmResults<CurrentUserInfo> realmResults = realmService.getCurrentUser();
+        currentUserInfo = realmResults.get(0);
+        for (int i=0;i<activitiesListMns.size();i++){
+            try {
+                double burnedEnergy= calculateBurnedEnergy(METs.get(i),activitiesListMns.get(i));
+                totalneededCalories= totalneededCalories+burnedEnergy;
+                totalEnergyBurned=totalEnergyBurned+burnedEnergy;
+                int finalI = i;
+                realmService.modifyBurnedEnergyAsync((Double.valueOf(totalEnergyBurned)).longValue(), (Double.valueOf(totalneededCalories)).longValue(), new OnTransactionCallback() {
+                    @Override
+                    public void onTransactionSuccess() {
+                        realmService.addActivities(activitiesName.get(finalI),activitiesListMns.get(finalI),Double.valueOf(burnedEnergy).longValue());
+                        activitiesAddingView.addActivitiesSuccess();
+                    }
 
-        try {
-            double totalEnergyBurned = realmService.getCurrentDate().get(0).getBurnedCalories();
-            double totalneededCalories = realmService.getCurrentDate().get(0).getNeededCalories();
+                    @Override
+                    public void onTransactionError(Exception e) {
 
-            RealmResults<CurrentUserInfo> realmResults = realmService.getCurrentUser();
-            currentUserInfo = realmResults.get(0);
-            double sleepingBurnedEnergy;
-            sleepingBurnedEnergy = calculateBurnedEnergy(0.95, sleepingMns);
-
-            double deskworkBurnedEnergy;
-            deskworkBurnedEnergy = calculateBurnedEnergy(1.5, deskWorkMns);
-
-            double calisthenicLightBurnedEnergy;
-            calisthenicLightBurnedEnergy = calculateBurnedEnergy(3.8, calisthenicsLightMns);
-
-            double calisthenicVigoroustBurnedEnergy;
-            calisthenicVigoroustBurnedEnergy = calculateBurnedEnergy(8, calisthenicsVigorousMns);
-
-            double gymnasticstBurnedEnergy;
-            gymnasticstBurnedEnergy = calculateBurnedEnergy(3.8, gymnasticMns);
-
-            double walkingSlowBurnedEnergy;
-            walkingSlowBurnedEnergy = calculateBurnedEnergy(2, walkingSlowMns);
-
-            double walkingNormalBurnedEnergy;
-            walkingNormalBurnedEnergy = calculateBurnedEnergy(3.3, walkingNormalMns);
-
-            double walkingFastBurnedEnergy;
-            walkingFastBurnedEnergy = calculateBurnedEnergy(4.3, walkingFastMns);
-
-            double runningSlowBurnedEnergy;
-            runningSlowBurnedEnergy = calculateBurnedEnergy(5, runningSlowMns);
-
-            double runningNormalBurnedEnergy;
-            runningNormalBurnedEnergy = calculateBurnedEnergy(10.5, runningNormalMns);
-
-            double runningFastBurnedEnergy;
-            runningFastBurnedEnergy = calculateBurnedEnergy(23, runningFastMns);
-
-            double cyclingSlowBurnedEnergy;
-            cyclingSlowBurnedEnergy = calculateBurnedEnergy(3.5, cyclingSlowMns);
-
-            double cyclingNormalBurnedEnergy;
-            cyclingNormalBurnedEnergy = calculateBurnedEnergy(8, cyclingNormalMns);
-
-            double cyclingFastBurnedEnergy;
-            cyclingFastBurnedEnergy = calculateBurnedEnergy(15.8, cyclingFastMns);
-
-            double jumpingRopeBurnedEnergy;
-            jumpingRopeBurnedEnergy = calculateBurnedEnergy(8.8, ropeJumpingMns);
-
-            double swimmingBurnedEnergy;
-            swimmingBurnedEnergy = calculateBurnedEnergy(9.5, swimmingMns);
-
-            double yogaBurnedEnergy;
-            yogaBurnedEnergy = calculateBurnedEnergy(8.8, yogaMns);
-
-            totalneededCalories=totalneededCalories+sleepingBurnedEnergy + deskworkBurnedEnergy + calisthenicLightBurnedEnergy + calisthenicVigoroustBurnedEnergy
-                    + gymnasticstBurnedEnergy + walkingSlowBurnedEnergy + walkingNormalBurnedEnergy + walkingFastBurnedEnergy + runningSlowBurnedEnergy + runningNormalBurnedEnergy + runningFastBurnedEnergy
-                    + cyclingSlowBurnedEnergy + cyclingNormalBurnedEnergy + cyclingFastBurnedEnergy + jumpingRopeBurnedEnergy + swimmingBurnedEnergy + yogaBurnedEnergy;
-            totalEnergyBurned = totalEnergyBurned + sleepingBurnedEnergy + deskworkBurnedEnergy + calisthenicLightBurnedEnergy + calisthenicVigoroustBurnedEnergy
-                    + gymnasticstBurnedEnergy + walkingSlowBurnedEnergy + walkingNormalBurnedEnergy + walkingFastBurnedEnergy + runningSlowBurnedEnergy + runningNormalBurnedEnergy + runningFastBurnedEnergy
-                    + cyclingSlowBurnedEnergy + cyclingNormalBurnedEnergy + cyclingFastBurnedEnergy + jumpingRopeBurnedEnergy + swimmingBurnedEnergy + yogaBurnedEnergy;
-            realmService.modifyBurnedEnergyAsync((Double.valueOf(totalEnergyBurned)).longValue(),(Double.valueOf(totalneededCalories)).longValue(), this);
-        }
-        catch (Exception e){
-            activitiesAddingView.addActivitiesFailed();
+                    }
+                });
+            }
+            catch (Exception e){
+            }
         }
     }
+
+    @Override
+    public void addActivitiesListMns(String sleepingMns, String deskWorkMns, String calisthenicsLightMns, String calisthenicsVigorousMns,
+                                      String gymnasticMns, String walkingSlowMns, String walkingNormalMns, String walkingFastMns, String runningSlowMns
+            , String runningNormalMns, String runningFastMns, String cyclingSlowMns, String cyclingNormalMns,
+                                      String cyclingFastMns, String ropeJumpingMns, String swimmingMns, String yogaMns) {
+        String[] arrayActivitiesMns={sleepingMns,  deskWorkMns,  calisthenicsLightMns,  calisthenicsVigorousMns,
+                 gymnasticMns,  walkingSlowMns,  walkingNormalMns,  walkingFastMns,  runningSlowMns
+                ,  runningNormalMns,  runningFastMns,  cyclingSlowMns,  cyclingNormalMns,
+                 cyclingFastMns,  ropeJumpingMns,  swimmingMns,  yogaMns};
+        activitiesListMns= Arrays.asList(arrayActivitiesMns);
+
+        Double[] arrayMET = {0.95,1.5,3.8,8.0,3.8,2.0,3.3,4.3,5.0,10.5,23.0,3.5,8.0,15.8,8.8,9.5,8.8};
+        METs= Arrays.asList(arrayMET);
+
+        String[] arrayActivitiesName= {"Sleeping","Desk Work","Calisthenics, Light effort", "Calisthenics, Vigorous effort",
+                "Gymnastics","Walking slow","Walking moderate","Walking fast","Running Slow","Running moderate","Running fast","Cycling slow",
+                "Cycling moderate","Cycling fast","Rope Jumping","Swimming","Yoga"};
+        activitiesName=Arrays.asList(arrayActivitiesName);
+
+        addActivities();
+    }
+
 
     private double calculateBurnedEnergy(double MET, String timePeriod) {
         double burnedEnergy = ((MET * currentUserInfo.getWeight() * 3.5) / 200) * (Integer.parseInt(timePeriod));
         return burnedEnergy;
     }
 
-    @Override
-    public void onTransactionSuccess() {
-        activitiesAddingView.addActivitiesSuccess();
-    }
 
-    @Override
-    public void onTransactionError(Exception e) {
-
-    }
 }

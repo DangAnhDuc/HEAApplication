@@ -73,7 +73,7 @@ public class ActivitiesAddingActivity extends AppCompatActivity implements Activ
 
     @OnClick(R.id.btn_addActivities)
     public void onViewClicked() {
-        activitiesAddingPresenter.addActivities(edtSleepingMinutes.getText().toString(), edtDeskworkMinutes.getText().toString(), edtCalisthenicsLightMinutes.getText().toString()
+        activitiesAddingPresenter.addActivitiesListMns(edtSleepingMinutes.getText().toString(), edtDeskworkMinutes.getText().toString(), edtCalisthenicsLightMinutes.getText().toString()
                 , edtCalisthenicsVigorousMinutes.getText().toString(), edtGymnasticsMinutes.getText().toString(), edtWalkingSlowMinutes.getText().toString(), edtWalkingNormalMinutes.getText().toString(), edtWalkingFastMinutes.getText().toString(),
                 edtRunningSlowMinutes.getText().toString(), edtRunningNormalMinutes.getText().toString(), edtRunningFastMinutes.getText().toString(), edtCyclingSlowMinutes.getText().toString()
                 , edtCyclingNormalMinutes.getText().toString(), edtCyclingFastMinutes.getText().toString(), edtRopeJumpingMinutes.getText().toString(), edtSwimmingMinutes.getText().toString(),
