@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.heaapp.R;
+import com.example.heaapp.adapter.ActivitiesAdapter;
 import com.example.heaapp.adapter.DishesAdapter;
 import com.example.heaapp.base.BaseFragment;
 import com.example.heaapp.model.user_information.CurrentUserIndices;
@@ -117,6 +118,7 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
         rcviewActivities.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManagerEx = new LinearLayoutManager(getContext());
         rcviewActivities.setLayoutManager(layoutManagerEx);
+
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -147,10 +149,12 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
         DishesAdapter dishesAdapterBf = new DishesAdapter(getContext(), dailySummary.getBreakfastDishes());
         DishesAdapter dishesAdapterLn = new DishesAdapter(getContext(), dailySummary.getLaunchDishes());
         DishesAdapter dishesAdapterDn = new DishesAdapter(getContext(), dailySummary.getDinnerDishes());
+        ActivitiesAdapter activitiesAdapter = new ActivitiesAdapter(getContext(), dailySummary.getActivities());
 
         rcviewBreakfast.setAdapter(dishesAdapterBf);
         rcviewLaunch.setAdapter(dishesAdapterLn);
         rcviewDinner.setAdapter(dishesAdapterDn);
+        rcviewActivities.setAdapter(activitiesAdapter);
     }
 
     @Override
