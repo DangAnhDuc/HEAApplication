@@ -1,15 +1,22 @@
 package com.example.heaapp.presenter;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+
 import com.example.heaapp.api.ApiUtils;
 import com.example.heaapp.api.FoodApiServices;
 import com.example.heaapp.callback.OnTransactionCallback;
 import com.example.heaapp.model.food.Dishes;
 import com.example.heaapp.model.food.FoodInfor;
 import com.example.heaapp.model.user_information.DailySummary;
+import com.example.heaapp.receiver.AlarmReceiver;
 import com.example.heaapp.service.RealmService;
 import com.example.heaapp.ultis.Common;
 import com.example.heaapp.view.activity.SpashScreenView;
 
+import java.util.Calendar;
 import java.util.concurrent.atomic.AtomicLong;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -20,6 +27,8 @@ import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmResults;
 
+import static android.content.Context.ALARM_SERVICE;
+
 public class SplashScreenPresenterImpl implements SplashScreenPresenter, OnTransactionCallback {
 
     private RealmService realmService;
@@ -27,10 +36,12 @@ public class SplashScreenPresenterImpl implements SplashScreenPresenter, OnTrans
     private static AtomicLong dailySummaryPrimaryKey;
     private Realm realm = Realm.getDefaultInstance();
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private Context context;
 
-    public SplashScreenPresenterImpl(RealmService realmService, SpashScreenView spashScreenView) {
+    public SplashScreenPresenterImpl(RealmService realmService, SpashScreenView spashScreenView, Context context) {
         this.realmService = realmService;
         this.spashScreenView = spashScreenView;
+        this.context=context;
     }
 
     @Override
@@ -53,7 +64,16 @@ public class SplashScreenPresenterImpl implements SplashScreenPresenter, OnTrans
             dailySummaryPrimaryKey = new AtomicLong(realm.where(DailySummary.class).findAll().size());
             RealmResults<DailySummary> realmResults = realm.where(DailySummary.class).equalTo("id", 0).findAll();
             realmResults.deleteAllFromRealm();
+            AlarmManager alarmManager= (AlarmManager) context.getSystemService(ALARM_SERVICE);
+            Intent notificationIntent = new Intent(context, AlarmReceiver.class);
+            PendingIntent broadcast = PendingIntent.getBroadcast(context, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
+            calendar.set(Calendar.HOUR_OF_DAY, 15);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY, broadcast);
         }
     }
 
