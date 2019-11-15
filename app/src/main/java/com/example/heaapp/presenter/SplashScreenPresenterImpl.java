@@ -1,21 +1,15 @@
 package com.example.heaapp.presenter;
 
-import android.util.Log;
-
 import com.example.heaapp.api.ApiUtils;
 import com.example.heaapp.api.FoodApiServices;
 import com.example.heaapp.callback.OnTransactionCallback;
-import com.example.heaapp.model.food.Data;
 import com.example.heaapp.model.food.Dishes;
 import com.example.heaapp.model.food.FoodInfor;
 import com.example.heaapp.model.user_information.DailySummary;
 import com.example.heaapp.service.RealmService;
 import com.example.heaapp.ultis.Common;
 import com.example.heaapp.view.activity.SpashScreenView;
-import com.google.android.exoplayer2.C;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -32,7 +26,7 @@ public class SplashScreenPresenterImpl implements SplashScreenPresenter, OnTrans
     private SpashScreenView spashScreenView;
     private static AtomicLong dailySummaryPrimaryKey;
     private Realm realm = Realm.getDefaultInstance();
-    private CompositeDisposable compositeDisposable=new CompositeDisposable();
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     public SplashScreenPresenterImpl(RealmService realmService, SpashScreenView spashScreenView) {
         this.realmService = realmService;
@@ -64,7 +58,7 @@ public class SplashScreenPresenterImpl implements SplashScreenPresenter, OnTrans
     }
 
     @Override
-    public void getFoodList(){
+    public void getFoodList() {
         FoodApiServices foodApiServices = ApiUtils.getFoodApiServices();
         Disposable disposableFood;
         for (int idFood = 1000; idFood <= 1100; idFood++) {
@@ -75,6 +69,7 @@ public class SplashScreenPresenterImpl implements SplashScreenPresenter, OnTrans
             compositeDisposable.add(disposableFood);
         }
     }
+
     private void handleSuccess() {
 
     }
@@ -97,9 +92,9 @@ public class SplashScreenPresenterImpl implements SplashScreenPresenter, OnTrans
             dailyCal = 655.0955 + (9.5634 * realmService.getCurrentUser().get(0).getWeight()) + (1.8496 * realmService.getCurrentUser().get(0).getHeight()) - (4.6756 * realmService.getCurrentUser().get(0).getAge());
         }
         RealmResults<DailySummary> realmResults = realm.where(DailySummary.class).equalTo("date", Common.today).findAll();
-        RealmList<Dishes> breakfastDishes= new RealmList<>();
-        RealmList<Dishes> launchDishes= new RealmList<>();
-        RealmList<Dishes> dinnerDishes= new RealmList<>();
+        RealmList<Dishes> breakfastDishes = new RealmList<>();
+        RealmList<Dishes> launchDishes = new RealmList<>();
+        RealmList<Dishes> dinnerDishes = new RealmList<>();
 
         if (realmResults.size() == 0) {
             realm.beginTransaction();

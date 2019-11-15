@@ -67,6 +67,25 @@
         <item>Sunday</item>
     </string-array>
 
+    <string-array name="activitiesName">
+        <item>Sleeping</item>
+        <item>Desk Work</item>
+        <item>Calisthenics,Light effort</item>
+        <item>Calisthenics,Vigorous effort</item>
+        <item>Gymnastics</item>
+        <item>Walking slow</item>
+        <item>Walking moderate</item>
+        <item>Walking fast</item>
+        <item>Running Slow</item>
+        <item>Running moderate</item>
+        <item>Running fast</item>
+        <item>Cycling slow</item>
+        <item>Cycling moderate</item>
+        <item>Cycling fast</item>
+        <item>Rope Jumping</item>
+        <item>Swimming</item>
+        <item>Yoga</item>
+    </string-array>
 
     <string name="title_sleeping">Sleeping</string>
     <string name="title_typing_writing_desk_work">Typing, Writing, Desk Work</string>
@@ -98,4 +117,36 @@
     <string name="add_food_success">Add food successfully</string>
     <string name="add_food_fail">Add food failed!</string>
     <string name="msg_input_water_amount">Please input amount of water!</string>
+    <string name="daily_calories">Daily Calories</string>
+    <string name="ffmi">FFMI</string>
+    <string name="body_fat">Body Fat</string>
+    <string name="blood_volume">Blood Volume</string>
+    <string name="water_requirement">Water Requirement</string>
+    <string name="body_water">Body Water</string>
+    <string name="lean_body_mass">Lean Body Mass</string>
+    <string name="bmi">BMI</string>
+
+    <string name="eaten">Eaten</string>
+    <string name="kcal_left">kCal Left</string>
+    <string name="burned">Burned</string>
+    <string name="carbs">Carbs</string>
+    <string name="protein">Protein</string>
+    <string name="fat">Fat</string>
+    <string name="food_name">Food name</string>
+    <string name="energy_kcal">Energy(kCal)</string>
+    <string name="carbohydrates_g">Carbohydrates(g)</string>
+    <string name="protein_g">Protein(g)</string>
+    <string name="fat_g">Fat(g)</string>
+    <string name="add_food">Add food!</string>
+    <string name="title_time_mns">Time(Mns)</string>
+    <string name="kcal">kCal</string>
+    <string name="back">Back</string>
+    <string name="activities_name">Activities Name</string>
+    <string name="_75ml">75ml</string>
+    <string name="_150ml">150ml</string>
+    <string name="_250ml">250ml</string>
+    <string name="_330ml">330ml</string>
+    <string name="custom">Custom</string>
+    <string name="minutes">Minutes</string>
+    <string name="add_activities">Add activities!</string>
 </resources>

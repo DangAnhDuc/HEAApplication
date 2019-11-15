@@ -40,11 +40,12 @@ public class DishesAdapter extends RecyclerView.Adapter<DishesAdapter.ViewHolder
         return dishesList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         TextView tv_name;
-        public ViewHolder(@NonNull View itemView) {
+
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tv_name= itemView.findViewById(R.id.tv_food_name);
+            tv_name = itemView.findViewById(R.id.tv_food_name);
         }
     }
 }

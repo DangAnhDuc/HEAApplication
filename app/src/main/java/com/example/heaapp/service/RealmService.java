@@ -184,7 +184,7 @@ public class RealmService {
         });
     }
 
-    public void addActivities(String name, String time, long burnedEnergy){
+    public void addActivities(String name, String time, long burnedEnergy) {
         mRealm.executeTransactionAsync(realm -> {
             RealmResults<DailySummary> resultCurrentDate = realm.where(DailySummary.class)
                     .equalTo("date", Common.today)

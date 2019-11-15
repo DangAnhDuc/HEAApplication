@@ -4,14 +4,11 @@ import android.content.Context;
 
 import com.example.heaapp.callback.OnTransactionCallback;
 import com.example.heaapp.model.food.Data;
-import com.example.heaapp.model.food.Dishes;
 import com.example.heaapp.service.RealmService;
 import com.example.heaapp.ultis.Common;
 import com.example.heaapp.view.activity.FoodAddingView;
 
 import java.util.List;
-
-import io.realm.Realm;
 
 public class FoodAddingPresenterImpl implements FoodAddingPresenter, OnTransactionCallback {
     private FoodAddingView foodAddingView;

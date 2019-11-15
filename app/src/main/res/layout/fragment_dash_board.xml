@@ -31,7 +31,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
                     android:orientation="horizontal"
-                    android:weightSum="6">
+                    android:weightSum="6"
+                    android:baselineAligned="false">
 
                     <RelativeLayout
                         android:layout_width="0dp"
@@ -59,7 +60,7 @@
                             android:layout_below="@id/desc_kcal_eaten"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="5dp"
-                            android:text="Eaten"
+                            android:text="@string/eaten"
                             android:textColor="@android:color/white"
                             android:textSize="15sp" />
 
@@ -94,10 +95,9 @@
                                 android:id="@+id/title_kcal_left"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@id/desc_kcal_left"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="5dp"
-                                android:text="kCal Left"
+                                android:text="@string/kcal_left"
                                 android:textColor="@android:color/white"
                                 android:textSize="15sp" />
 
@@ -131,7 +131,7 @@
                             android:layout_below="@id/desc_kcal_burned"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="5dp"
-                            android:text="Burned"
+                            android:text="@string/burned"
                             android:textColor="@android:color/white"
                             android:textSize="15sp" />
                     </RelativeLayout>
@@ -157,7 +157,7 @@
                             android:layout_marginTop="10dp"
                             android:drawablePadding="10dp"
                             android:ellipsize="end"
-                            android:text="Carbs"
+                            android:text="@string/carbs"
                             android:textColor="@android:color/white"
                             android:textSize="15sp"
                             android:textStyle="bold" />
@@ -189,7 +189,7 @@
                             android:layout_marginTop="10dp"
                             android:drawablePadding="10dp"
                             android:ellipsize="end"
-                            android:text="Protein"
+                            android:text="@string/protein"
                             android:textColor="@android:color/white"
                             android:textSize="15sp"
                             android:textStyle="bold" />
@@ -220,7 +220,7 @@
                             android:layout_marginTop="10dp"
                             android:drawablePadding="10dp"
                             android:ellipsize="end"
-                            android:text="Fat"
+                            android:text="@string/fat"
                             android:textColor="@android:color/white"
                             android:textSize="15sp"
                             android:textStyle="bold" />
@@ -295,7 +295,7 @@
                             android:layout_width="55dp"
                             android:layout_height="80dp"
                             android:background="@drawable/cup_button_background"
-                            android:text="75ml"
+                            android:text="@string/_75ml"
                             android:textColor="@android:color/white"
                             android:textSize="8sp" />
                     </RelativeLayout>
@@ -310,7 +310,7 @@
                             android:layout_width="55dp"
                             android:layout_height="80dp"
                             android:background="@drawable/cup_button_background"
-                            android:text="150ml"
+                            android:text="@string/_150ml"
                             android:textColor="@android:color/white"
                             android:textSize="8sp" />
                     </RelativeLayout>
@@ -325,7 +325,7 @@
                             android:layout_width="55dp"
                             android:layout_height="80dp"
                             android:background="@drawable/cup_button_background"
-                            android:text="250ml"
+                            android:text="@string/_250ml"
                             android:textColor="@android:color/white"
                             android:textSize="8sp" />
                     </RelativeLayout>
@@ -341,7 +341,7 @@
                             android:layout_height="80dp"
                             android:layout_centerHorizontal="true"
                             android:background="@drawable/cup_button_background"
-                            android:text="330ml"
+                            android:text="@string/_330ml"
                             android:textColor="@android:color/white"
                             android:textSize="8sp" />
                     </RelativeLayout>
@@ -357,7 +357,7 @@
                             android:layout_height="80dp"
                             android:layout_centerHorizontal="true"
                             android:background="@drawable/cup_button_background"
-                            android:text="Custom"
+                            android:text="@string/custom"
                             android:textColor="@android:color/white"
                             android:textSize="8sp" />
                     </RelativeLayout>
@@ -583,7 +583,31 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@android:color/darker_gray" />
-
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="6"
+                        android:text="@string/activities_name"
+                        android:layout_marginLeft="15dp"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/title_time_mns"
+                        android:textAlignment="center"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/kcal"
+                        android:textAlignment="center"/>
+                </LinearLayout>
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcview_activities"
                     android:layout_width="match_parent"
@@ -662,7 +686,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
-                            android:text="BMI"
+                            android:text="@string/bmi"
                             android:textSize="15sp" />
 
                         <TextView
@@ -684,7 +708,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
-                            android:text="Lean Body Mass"
+                            android:text="@string/lean_body_mass"
                             android:textSize="15sp" />
 
                         <TextView
@@ -706,7 +730,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
-                            android:text="Body Water"
+                            android:text="@string/body_water"
                             android:textSize="15sp" />
 
                         <TextView
@@ -728,7 +752,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
-                            android:text="Water Requirement"
+                            android:text="@string/water_requirement"
                             android:textSize="15sp" />
 
                         <TextView
@@ -750,7 +774,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
-                            android:text="Blood Volume"
+                            android:text="@string/blood_volume"
                             android:textSize="15sp" />
 
                         <TextView
@@ -772,7 +796,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
-                            android:text="Body Fat"
+                            android:text="@string/body_fat"
                             android:textSize="15sp" />
 
                         <TextView
@@ -794,7 +818,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
-                            android:text="FFMI"
+                            android:text="@string/ffmi"
                             android:textSize="15sp" />
 
                         <TextView
@@ -816,7 +840,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
-                            android:text="Daily Calories"
+                            android:text="@string/daily_calories"
                             android:textSize="15sp" />
 
                         <TextView

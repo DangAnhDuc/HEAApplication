@@ -11,22 +11,22 @@ import com.example.heaapp.view.activity.ActivitiesAddingView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
-import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class ActivitiesAddingPresenterImpl implements ActivitiesAddingPresenter {
     private ActivitiesAddingView activitiesAddingView;
     private RealmService realmService;
-    private Realm realm = Realm.getDefaultInstance();
     private CurrentUserInfo currentUserInfo;
-    private List<String> activitiesListMns= new ArrayList<>();
-    private List<Double> METs=new ArrayList<Double>();
-    private List<String> activitiesName=new ArrayList<String>();
+    private List<String> activitiesListMns = new ArrayList<>();
+    private List<Double> METs = new ArrayList<>();
+    private Context context;
 
-    public ActivitiesAddingPresenterImpl(ActivitiesAddingView activitiesAddingView, RealmService realmService) {
+    public ActivitiesAddingPresenterImpl(ActivitiesAddingView activitiesAddingView, RealmService realmService, Context context) {
         this.activitiesAddingView = activitiesAddingView;
         this.realmService = realmService;
+        this.context = context;
     }
 
     @Override
@@ -40,21 +40,21 @@ public class ActivitiesAddingPresenterImpl implements ActivitiesAddingPresenter 
     }
 
 
-    public void addActivities() {
-        double totalEnergyBurned = realmService.getCurrentDate().get(0).getBurnedCalories();
-        double totalneededCalories = realmService.getCurrentDate().get(0).getNeededCalories();
+    private void addActivities() {
+        double totalEnergyBurned = Objects.requireNonNull(realmService.getCurrentDate().get(0)).getBurnedCalories();
+        double totalneededCalories = Objects.requireNonNull(realmService.getCurrentDate().get(0)).getNeededCalories();
         RealmResults<CurrentUserInfo> realmResults = realmService.getCurrentUser();
         currentUserInfo = realmResults.get(0);
-        for (int i=0;i<activitiesListMns.size();i++){
+        for (int i = 0; i < activitiesListMns.size(); i++) {
             try {
-                double burnedEnergy= calculateBurnedEnergy(METs.get(i),activitiesListMns.get(i));
-                totalneededCalories= totalneededCalories+burnedEnergy;
-                totalEnergyBurned=totalEnergyBurned+burnedEnergy;
+                double burnedEnergy = calculateBurnedEnergy(METs.get(i), activitiesListMns.get(i));
+                totalneededCalories = totalneededCalories + burnedEnergy;
+                totalEnergyBurned = totalEnergyBurned + burnedEnergy;
                 int finalI = i;
                 realmService.modifyBurnedEnergyAsync((Double.valueOf(totalEnergyBurned)).longValue(), (Double.valueOf(totalneededCalories)).longValue(), new OnTransactionCallback() {
                     @Override
                     public void onTransactionSuccess() {
-                        realmService.addActivities(activitiesName.get(finalI),activitiesListMns.get(finalI),Double.valueOf(burnedEnergy).longValue());
+                        realmService.addActivities(context.getResources().getStringArray(R.array.activitiesName)[finalI], activitiesListMns.get(finalI), Double.valueOf(burnedEnergy).longValue());
                         activitiesAddingView.addActivitiesSuccess();
                     }
 
@@ -63,38 +63,30 @@ public class ActivitiesAddingPresenterImpl implements ActivitiesAddingPresenter 
 
                     }
                 });
-            }
-            catch (Exception e){
+            } catch (Exception ignored) {
             }
         }
     }
 
     @Override
     public void addActivitiesListMns(String sleepingMns, String deskWorkMns, String calisthenicsLightMns, String calisthenicsVigorousMns,
-                                      String gymnasticMns, String walkingSlowMns, String walkingNormalMns, String walkingFastMns, String runningSlowMns
+                                     String gymnasticMns, String walkingSlowMns, String walkingNormalMns, String walkingFastMns, String runningSlowMns
             , String runningNormalMns, String runningFastMns, String cyclingSlowMns, String cyclingNormalMns,
-                                      String cyclingFastMns, String ropeJumpingMns, String swimmingMns, String yogaMns) {
-        String[] arrayActivitiesMns={sleepingMns,  deskWorkMns,  calisthenicsLightMns,  calisthenicsVigorousMns,
-                 gymnasticMns,  walkingSlowMns,  walkingNormalMns,  walkingFastMns,  runningSlowMns
-                ,  runningNormalMns,  runningFastMns,  cyclingSlowMns,  cyclingNormalMns,
-                 cyclingFastMns,  ropeJumpingMns,  swimmingMns,  yogaMns};
-        activitiesListMns= Arrays.asList(arrayActivitiesMns);
+                                     String cyclingFastMns, String ropeJumpingMns, String swimmingMns, String yogaMns) {
+        String[] arrayActivitiesMns = {sleepingMns, deskWorkMns, calisthenicsLightMns, calisthenicsVigorousMns,
+                gymnasticMns, walkingSlowMns, walkingNormalMns, walkingFastMns, runningSlowMns
+                , runningNormalMns, runningFastMns, cyclingSlowMns, cyclingNormalMns,
+                cyclingFastMns, ropeJumpingMns, swimmingMns, yogaMns};
+        activitiesListMns = Arrays.asList(arrayActivitiesMns);
 
-        Double[] arrayMET = {0.95,1.5,3.8,8.0,3.8,2.0,3.3,4.3,5.0,10.5,23.0,3.5,8.0,15.8,8.8,9.5,8.8};
-        METs= Arrays.asList(arrayMET);
-
-        String[] arrayActivitiesName= {"Sleeping","Desk Work","Calisthenics, Light effort", "Calisthenics, Vigorous effort",
-                "Gymnastics","Walking slow","Walking moderate","Walking fast","Running Slow","Running moderate","Running fast","Cycling slow",
-                "Cycling moderate","Cycling fast","Rope Jumping","Swimming","Yoga"};
-        activitiesName=Arrays.asList(arrayActivitiesName);
-
+        Double[] arrayMET = {0.95, 1.5, 3.8, 8.0, 3.8, 2.0, 3.3, 4.3, 5.0, 10.5, 23.0, 3.5, 8.0, 15.8, 8.8, 9.5, 8.8};
+        METs = Arrays.asList(arrayMET);
         addActivities();
     }
 
 
     private double calculateBurnedEnergy(double MET, String timePeriod) {
-        double burnedEnergy = ((MET * currentUserInfo.getWeight() * 3.5) / 200) * (Integer.parseInt(timePeriod));
-        return burnedEnergy;
+        return ((MET * currentUserInfo.getWeight() * 3.5) / 200) * (Integer.parseInt(timePeriod));
     }
 
 

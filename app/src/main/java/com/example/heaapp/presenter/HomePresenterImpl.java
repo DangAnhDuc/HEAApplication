@@ -21,14 +21,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 
 public class HomePresenterImpl implements HomePresenter {
-    private FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
+    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private HomeView homeView;
     private FirebaseAuth.AuthStateListener authListener;
     private Context context;
     private DatabaseReference databaseReference;
     private RealmService realmService;
 
-    public HomePresenterImpl(RealmService realmService , final Context context) {
+    public HomePresenterImpl(RealmService realmService, final Context context) {
         this.context = context;
         this.realmService = realmService;
         //check user signout
@@ -49,22 +49,21 @@ public class HomePresenterImpl implements HomePresenter {
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        CurrentUserInfo currentUserInfo= dataSnapshot.getValue(CurrentUserInfo.class);
-                        if(currentUserInfo!=null) {
-                            realmService.modifyUserInfoAsync(currentUserInfo.getAge(), currentUserInfo.getSex(), currentUserInfo.getWeight(), currentUserInfo.getHeight(), currentUserInfo.getWaist(), currentUserInfo.getHip(), currentUserInfo.getChest(), new OnTransactionCallback() {
-                                @Override
-                                public void onTransactionSuccess() {
+                    CurrentUserInfo currentUserInfo = dataSnapshot.getValue(CurrentUserInfo.class);
+                    if (currentUserInfo != null) {
+                        realmService.modifyUserInfoAsync(currentUserInfo.getAge(), currentUserInfo.getSex(), currentUserInfo.getWeight(), currentUserInfo.getHeight(), currentUserInfo.getWaist(), currentUserInfo.getHip(), currentUserInfo.getChest(), new OnTransactionCallback() {
+                            @Override
+                            public void onTransactionSuccess() {
 
-                                }
+                            }
 
-                                @Override
-                                public void onTransactionError(Exception e) {
+                            @Override
+                            public void onTransactionError(Exception e) {
 
-                                }
-                            });
+                            }
+                        });
 
-                        }
-                        else {
+                    } else {
                         databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseAuth.getCurrentUser().getUid()).child("remote");
                         HashMap<String, CurrentUserInfo> userInfoHashMap = new HashMap<>();
                         userInfoHashMap.put("userBodyInfo", new CurrentUserInfo(0, 0, 0, 0, "Male", 0, 0, 0));

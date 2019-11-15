@@ -14,16 +14,17 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class WorkoutPresenterImpl implements WorkoutPresenter{
+public class WorkoutPresenterImpl implements WorkoutPresenter {
     private WorkoutView workoutView;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
+
     public WorkoutPresenterImpl(WorkoutView view) {
         this.workoutView = view;
     }
 
     @Override
     public void getListCategoryWorkout() {
-        WorkoutApiService workoutApiService= ApiUtils.getWorkoutApiService();
+        WorkoutApiService workoutApiService = ApiUtils.getWorkoutApiService();
         Disposable disposable = workoutApiService.getCategory()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -41,7 +42,7 @@ public class WorkoutPresenterImpl implements WorkoutPresenter{
         workoutView = null;
     }
 
-    private void handleReponse(Exercisecategory exercisecategory){
+    private void handleReponse(Exercisecategory exercisecategory) {
         List<Results> listCategory = exercisecategory.getResults();
         workoutView.getListWorkoutSuccess(listCategory);
     }

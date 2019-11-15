@@ -22,6 +22,7 @@ public class ListExerciseAdapter extends Adapter<ListExerciseAdapter.ViewHolder>
     private Context context;
     private ListExerciseListener listener;
     private List<ItemExercise> list;
+
     public ListExerciseAdapter(Context context, List<ItemExercise> list) {
         this.context = context;
         this.list = list;
@@ -30,17 +31,17 @@ public class ListExerciseAdapter extends Adapter<ListExerciseAdapter.ViewHolder>
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(context).inflate(R.layout.list_exercise_item,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.list_exercise_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ListExerciseAdapter.ViewHolder holder, int position) {
-        holder.viewBind(list.get(position),listener);
+        holder.viewBind(list.get(position), listener);
         holder.exerciseName.setText(list.get(position).getName());
     }
 
-    public void setOnItemListener(ListExerciseListener onItemListener){
+    public void setOnItemListener(ListExerciseListener onItemListener) {
         this.listener = onItemListener;
     }
 
@@ -49,14 +50,15 @@ public class ListExerciseAdapter extends Adapter<ListExerciseAdapter.ViewHolder>
         return list.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
         private TextView exerciseName;
-        public ViewHolder(@NonNull View itemView) {
+
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
             exerciseName = itemView.findViewById(R.id.exercise_workout_name);
         }
 
-        public void viewBind(ItemExercise item, ListExerciseListener listener){
+        void viewBind(ItemExercise item, ListExerciseListener listener) {
             itemView.setOnClickListener(v -> listener.onItemListener(item));
         }
     }
