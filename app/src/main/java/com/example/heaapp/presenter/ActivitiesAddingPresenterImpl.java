@@ -22,11 +22,13 @@ public class ActivitiesAddingPresenterImpl implements ActivitiesAddingPresenter 
     private CurrentUserInfo currentUserInfo;
     private List<String> activitiesListMns= new ArrayList<>();
     private List<Double> METs=new ArrayList<Double>();
+    private Context context;
     private List<String> activitiesName=new ArrayList<String>();
 
-    public ActivitiesAddingPresenterImpl(ActivitiesAddingView activitiesAddingView, RealmService realmService) {
+    public ActivitiesAddingPresenterImpl(ActivitiesAddingView activitiesAddingView, RealmService realmService,Context context) {
         this.activitiesAddingView = activitiesAddingView;
         this.realmService = realmService;
+        this.context=context;
     }
 
     @Override
@@ -54,7 +56,7 @@ public class ActivitiesAddingPresenterImpl implements ActivitiesAddingPresenter 
                 realmService.modifyBurnedEnergyAsync((Double.valueOf(totalEnergyBurned)).longValue(), (Double.valueOf(totalneededCalories)).longValue(), new OnTransactionCallback() {
                     @Override
                     public void onTransactionSuccess() {
-                        realmService.addActivities(activitiesName.get(finalI),activitiesListMns.get(finalI),Double.valueOf(burnedEnergy).longValue());
+                        realmService.addActivities(context.getResources().getStringArray(R.array.activitiesName)[finalI],activitiesListMns.get(finalI),Double.valueOf(burnedEnergy).longValue());
                         activitiesAddingView.addActivitiesSuccess();
                     }
 
@@ -82,12 +84,6 @@ public class ActivitiesAddingPresenterImpl implements ActivitiesAddingPresenter 
 
         Double[] arrayMET = {0.95,1.5,3.8,8.0,3.8,2.0,3.3,4.3,5.0,10.5,23.0,3.5,8.0,15.8,8.8,9.5,8.8};
         METs= Arrays.asList(arrayMET);
-
-        String[] arrayActivitiesName= {"Sleeping","Desk Work","Calisthenics, Light effort", "Calisthenics, Vigorous effort",
-                "Gymnastics","Walking slow","Walking moderate","Walking fast","Running Slow","Running moderate","Running fast","Cycling slow",
-                "Cycling moderate","Cycling fast","Rope Jumping","Swimming","Yoga"};
-        activitiesName=Arrays.asList(arrayActivitiesName);
-
         addActivities();
     }
 

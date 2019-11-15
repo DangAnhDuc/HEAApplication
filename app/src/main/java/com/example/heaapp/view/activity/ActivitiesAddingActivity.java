@@ -63,7 +63,7 @@ public class ActivitiesAddingActivity extends AppCompatActivity implements Activ
         setContentView(R.layout.activity_activities_adding);
         ButterKnife.bind(this);
         RealmService realmService = RealmService.getInstance();
-        activitiesAddingPresenter = new ActivitiesAddingPresenterImpl(this, realmService);
+        activitiesAddingPresenter = new ActivitiesAddingPresenterImpl(this, realmService,getContext());
     }
 
     @Override

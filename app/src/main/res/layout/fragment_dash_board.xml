@@ -662,7 +662,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
-                            android:text="BMI"
+                            android:text="@string/bmi"
                             android:textSize="15sp" />
 
                         <TextView
@@ -684,7 +684,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
-                            android:text="Lean Body Mass"
+                            android:text="@string/lean_body_mass"
                             android:textSize="15sp" />
 
                         <TextView
@@ -706,7 +706,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
-                            android:text="Body Water"
+                            android:text="@string/body_water"
                             android:textSize="15sp" />
 
                         <TextView
@@ -728,7 +728,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
-                            android:text="Water Requirement"
+                            android:text="@string/water_requirement"
                             android:textSize="15sp" />
 
                         <TextView
@@ -750,7 +750,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
-                            android:text="Blood Volume"
+                            android:text="@string/blood_volume"
                             android:textSize="15sp" />
 
                         <TextView
@@ -772,7 +772,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
-                            android:text="Body Fat"
+                            android:text="@string/body_fat"
                             android:textSize="15sp" />
 
                         <TextView
@@ -794,7 +794,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
-                            android:text="FFMI"
+                            android:text="@string/ffmi"
                             android:textSize="15sp" />
 
                         <TextView
@@ -816,7 +816,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
-                            android:text="Daily Calories"
+                            android:text="@string/daily_calories"
                             android:textSize="15sp" />
 
                         <TextView

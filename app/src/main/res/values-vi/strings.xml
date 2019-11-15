@@ -67,4 +67,65 @@
         <item>Thứ 7</item>
         <item>Chủ Nhật</item>
     </string-array>
+
+    <string-array name="activitiesName">
+        <item>Ngủ</item>
+        <item>Việc văn phòng</item>
+        <item>Thể dục thể hình cường độ thấp</item>
+        <item>Thể dục thể hình cường độ cao</item>
+        <item>Gym</item>
+        <item>Đi bộ chậm</item>
+        <item>Đi bộ trung bình</item>
+        <item>Đi bộ nhanh</item>
+        <item>Chạy chậm</item>
+        <item>Chạy tốc độ trung bình</item>
+        <item>Chạy nhanh</item>
+        <item>Đạp xe chậm</item>
+        <item>Đạp xe trung bình</item>
+        <item>Đạp xe nhanh</item>
+        <item>Nhảy dây</item>
+        <item>Bơi lội</item>
+        <item>Yoga</item>
+    </string-array>
+
+    <string name="title_sleeping">Ngủ</string>
+    <string name="title_typing_writing_desk_work">Việc văn phòng</string>
+    <string name="title_walking_very_slow">Đi bộ chậm 1.7mph</string>
+    <string name="title_walking_normal">Đi bộ trung bình 2.5 mph</string>
+    <string name="title_walking_fast">Đi bộ nhanh 3.4 mph</string>
+    <string name="title_running_slow">Chạy chậm 4 mph</string>
+    <string name="title_running_normal">Chạy tốc độ trung bình 6.7 mph</string>
+    <string name="title_running_fast">Chạy nhanh 14 mph</string>
+    <string name="title_cycling_slow">Đạp xe chậm 5.5 mph</string>
+    <string name="title_cycling_normal">Đạp xe trung bình 12-13.9 mph</string>
+    <string name="title_cycling_fast">Đạp xe nhanh 20 mph</string>
+    <string name="title_rope_jumping">Nhảy dây</string>
+    <string name="title_breakfast">Bữa sáng</string>
+    <string name="title_water">Nước uống</string>
+    <string name="title_launch">Bữa trưa</string>
+    <string name="msg_add_your_food_here">Thêm thức ăn ở đây!</string>
+    <string name="title_dinner">Bữa tối</string>
+    <string name="title_activities">Hoạt động</string>
+    <string name="msg_add_your_activities_here">Thêm hoạt động ở đây!</string>
+    <string name="title_your_body_indices">Chỉ số cơ thể bạn</string>
+    <string name="title_calisthenics_lighteffort">Thể dục thể hình cường độ thấp</string>
+    <string name="title_calisthenics_vigorousffort">Thể dục thể hình cường độ cao</string>
+    <string name="title_gymnastics">Gym</string>
+    <string name="title_swimming">Bơi lội</string>
+    <string name="title_yoga">Yoga</string>
+    <string name="add_activities_success">Thêm hoạt động thành công</string>
+    <string name="add_activities_fail">Thêm hoạt động thất bại. Xin thử lại sau!</string>
+    <string name="add_food_success">Thêm thức ăn thành công!</string>
+    <string name="add_food_fail">Thêm thức ăn thất bại!</string>
+    <string name="msg_input_water_amount">Hãy nhập lượng nước!</string>
+
+    <string name="daily_calories">Năng lượng cần hằng ngày</string>
+    <string name="ffmi">FFMI</string>
+    <string name="body_fat">Lượng mỡ</string>
+    <string name="blood_volume">Áp lực máu</string>
+    <string name="water_requirement">Lượng nước cần thiết hằng ngày</string>
+    <string name="body_water">Lượng nước trong cơ thể</string>
+    <string name="lean_body_mass">Lean Body Mass</string>
+    <string name="bmi">BMI</string>
+
 </resources>

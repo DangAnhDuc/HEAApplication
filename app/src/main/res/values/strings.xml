@@ -67,6 +67,25 @@
         <item>Sunday</item>
     </string-array>
 
+    <string-array name="activitiesName">
+        <item>Sleeping</item>
+        <item>Desk Work</item>
+        <item>Calisthenics,Light effort</item>
+        <item>Calisthenics,Vigorous effort</item>
+        <item>Gymnastics</item>
+        <item>Walking slow</item>
+        <item>Walking moderate</item>
+        <item>Walking fast</item>
+        <item>Running Slow</item>
+        <item>Running moderate</item>
+        <item>Running fast</item>
+        <item>Cycling slow</item>
+        <item>Cycling moderate</item>
+        <item>Cycling fast</item>
+        <item>Rope Jumping</item>
+        <item>Swimming</item>
+        <item>Yoga</item>
+    </string-array>
 
     <string name="title_sleeping">Sleeping</string>
     <string name="title_typing_writing_desk_work">Typing, Writing, Desk Work</string>
@@ -98,4 +117,12 @@
     <string name="add_food_success">Add food successfully</string>
     <string name="add_food_fail">Add food failed!</string>
     <string name="msg_input_water_amount">Please input amount of water!</string>
+    <string name="daily_calories">Daily Calories</string>
+    <string name="ffmi">FFMI</string>
+    <string name="body_fat">Body Fat</string>
+    <string name="blood_volume">Blood Volume</string>
+    <string name="water_requirement">Water Requirement</string>
+    <string name="body_water">Body Water</string>
+    <string name="lean_body_mass">Lean Body Mass</string>
+    <string name="bmi">BMI</string>
 </resources>
