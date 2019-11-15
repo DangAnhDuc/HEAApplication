@@ -238,22 +238,22 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         }
     }
 
-    private void showMultipleLanguage(){
-        String[] list = {"English","Tiếng Việt"};
+    private void showMultipleLanguage() {
+        String[] list = {"English", "Tiếng Việt"};
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
         mBuilder.setTitle(getString(R.string.choose_lang));
         Intent i = getBaseContext().getPackageManager().getLaunchIntentForPackage(getBaseContext().getPackageName());
         assert i != null;
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        mBuilder.setSingleChoiceItems(list,-1, (dialog, which) -> {
-            if(which==0){
+        mBuilder.setSingleChoiceItems(list, -1, (dialog, which) -> {
+            if (which == 0) {
                 setLocal("en");
                 recreate();
                 finish();
                 startActivity(i);
             }
-            if(which==1){
+            if (which == 1) {
                 setLocal("vi");
                 recreate();
                 finish();
@@ -266,22 +266,22 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         dialog.show();
     }
 
-    private void setLocal(String local){
+    private void setLocal(String local) {
         Locale locale = new Locale(local);
         Locale.setDefault(locale);
         Configuration configuration = new Configuration();
         configuration.locale = locale;
-        getBaseContext().getResources().updateConfiguration(configuration,getBaseContext().getResources().getDisplayMetrics());
+        getBaseContext().getResources().updateConfiguration(configuration, getBaseContext().getResources().getDisplayMetrics());
         //save local in sharePreference
-        SharedPreferences.Editor editor = getSharedPreferences("Settings",MODE_PRIVATE).edit();
-        editor.putString("Lang",local);
+        SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
+        editor.putString("Lang", local);
         editor.apply();
     }
 
     //load local saved in sharePreference
-    private void loadLocal(){
+    private void loadLocal() {
         SharedPreferences sharedPreferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
-        String lang =sharedPreferences.getString("Lang","");
+        String lang = sharedPreferences.getString("Lang", "");
         setLocal(lang);
 
     }

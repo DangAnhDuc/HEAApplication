@@ -39,7 +39,7 @@ public class CategoryWorkoutAdapter extends Adapter<CategoryWorkoutAdapter.ViewH
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.viewBind(listResults.get(position), listener);
         holder.categoryName.setText(listResults.get(position).getName());
-        setImageView(position,holder);
+        setImageView(position, holder);
     }
 
     public void setOnItemListener(WorkoutListener workoutListener) {
@@ -51,21 +51,22 @@ public class CategoryWorkoutAdapter extends Adapter<CategoryWorkoutAdapter.ViewH
         return listResults.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         private TextView categoryName;
         private ImageView categoryImg;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
             categoryName = itemView.findViewById(R.id.category_workout_name);
             categoryImg = itemView.findViewById(R.id.category_workout_img);
         }
 
-        public void viewBind(Results results, WorkoutListener lis) {
+        void viewBind(Results results, WorkoutListener lis) {
             itemView.setOnClickListener(v -> lis.OnItemClick(results));
         }
     }
-    private void setImageView(int pos,ViewHolder view){
+
+    private void setImageView(int pos, ViewHolder view) {
         switch (pos) {
             case 0:
                 view.categoryImg.setImageResource(R.drawable.abs);

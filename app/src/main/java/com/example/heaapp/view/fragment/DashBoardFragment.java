@@ -191,7 +191,7 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
 
     @Override
     public void addDrunkWaterFailed() {
-            ultis.showMessage(getContext(),getString(R.string.msg_input_water_amount));
+        ultis.showMessage(getContext(), getString(R.string.msg_input_water_amount));
     }
 
 

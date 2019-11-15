@@ -4,13 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
 
-import androidx.annotation.NonNull;
-
 import com.example.heaapp.R;
 import com.example.heaapp.view.activity.SignUpView;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -25,7 +20,7 @@ public class SignUpPresenterImpl implements SignUpPresenter {
     private Context context;
 
     public SignUpPresenterImpl(Context context) {
-        this.context=context;
+        this.context = context;
     }
 
     @Override

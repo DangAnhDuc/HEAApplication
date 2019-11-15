@@ -16,45 +16,44 @@ public class DashboardPresenterImpl implements DashboardPresenter, OnTransaction
     private DashboardView dashboardView;
     private Context context;
     private final RealmService mRealmService;
-    private Realm realm= Realm.getDefaultInstance();
+    private Realm realm = Realm.getDefaultInstance();
 
-    public DashboardPresenterImpl(Context context,DashboardView dashboardView, RealmService mRealmService) {
+    public DashboardPresenterImpl(Context context, DashboardView dashboardView, RealmService mRealmService) {
         this.dashboardView = dashboardView;
         this.mRealmService = mRealmService;
-        this.context=context;
+        this.context = context;
     }
 
     @Override
     public void attachView(DashboardView view) {
-        dashboardView=view;
+        dashboardView = view;
     }
 
     @Override
     public void detachView() {
-        dashboardView=null;
+        dashboardView = null;
     }
 
 
     //get all information of each day
     @Override
     public void getDailySummary() {
-        RealmResults<DailySummary> realmResults=mRealmService.getCurrentDate();
+        RealmResults<DailySummary> realmResults = mRealmService.getCurrentDate();
         dashboardView.displayDailySummary(realmResults.get(0));
     }
 
     @Override
     public void addDrunkWater(String waterAmount) {
-        long drunkAmount=0;
+        long drunkAmount = 0;
         try {
-            drunkAmount=Long.parseLong(waterAmount);
-        }
-        catch (Exception e){
+            drunkAmount = Long.parseLong(waterAmount);
+        } catch (Exception e) {
             dashboardView.addDrunkWaterFailed();
         }
-        RealmResults<DailySummary> realmResults=mRealmService.getCurrentDate();
+        RealmResults<DailySummary> realmResults = mRealmService.getCurrentDate();
         long totalWaterAmount = realmResults.get(0).getWaterConsume();
-        totalWaterAmount = totalWaterAmount +drunkAmount;
-        mRealmService.modifyWaterAsync(totalWaterAmount,this);
+        totalWaterAmount = totalWaterAmount + drunkAmount;
+        mRealmService.modifyWaterAsync(totalWaterAmount, this);
     }
 
     @Override
@@ -73,7 +72,7 @@ public class DashboardPresenterImpl implements DashboardPresenter, OnTransaction
 
     @Override
     public void onTransactionSuccess() {
-        RealmResults<DailySummary> realmResults=mRealmService.getCurrentDate();
+        RealmResults<DailySummary> realmResults = mRealmService.getCurrentDate();
         dashboardView.addDrunkWaterSuccessfully(Long.toString(realmResults.get(0).getWaterConsume()));
     }
 

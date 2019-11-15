@@ -25,6 +25,7 @@ public class SplashScreenActivity extends AppCompatActivity implements SpashScre
     @BindView(R.id.txtSplash)
     TextView txtSplash;
     SplashScreenPresenterImpl splashScreenPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +36,8 @@ public class SplashScreenActivity extends AppCompatActivity implements SpashScre
         txtSplash.setAnimation(splashanimation);
         //init database
         Realm.init(getApplicationContext());
-        RealmService realmService= RealmService.getInstance();
-        splashScreenPresenter= new SplashScreenPresenterImpl(realmService,this);
+        RealmService realmService = RealmService.getInstance();
+        splashScreenPresenter = new SplashScreenPresenterImpl(realmService, this);
         splashScreenPresenter.firstTimeInit();
         splashScreenPresenter.getFoodList();
 

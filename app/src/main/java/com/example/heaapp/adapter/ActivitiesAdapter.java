@@ -33,8 +33,8 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.tv_name.setText(activitiesList.get(position).getName());
-        holder.tv_time.setText(String.format("in %s minutes", activitiesList.get(position).getTime()));
-        holder.tv_burnedEnergy.setText(String.format("burned %skCal", activitiesList.get(position).getEnergy()));
+        holder.tv_time.setText(activitiesList.get(position).getTime());
+        holder.tv_burnedEnergy.setText(String.valueOf(activitiesList.get(position).getEnergy()));
     }
 
     @Override
@@ -42,13 +42,14 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.Vi
         return activitiesList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tv_name,tv_time,tv_burnedEnergy;
-        public ViewHolder(@NonNull View itemView) {
+    class ViewHolder extends RecyclerView.ViewHolder {
+        TextView tv_name, tv_time, tv_burnedEnergy;
+
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tv_name= itemView.findViewById(R.id.tv_activities_name);
-            tv_time= itemView.findViewById(R.id.tv_activities_time);
-            tv_burnedEnergy= itemView.findViewById(R.id.tv_activities_burnedEnergy);
+            tv_name = itemView.findViewById(R.id.tv_activities_name);
+            tv_time = itemView.findViewById(R.id.tv_activities_time);
+            tv_burnedEnergy = itemView.findViewById(R.id.tv_activities_burnedEnergy);
 
         }
     }

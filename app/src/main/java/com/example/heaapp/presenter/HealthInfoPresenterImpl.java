@@ -18,7 +18,7 @@ import io.reactivex.schedulers.Schedulers;
 public class HealthInfoPresenterImpl implements HealthInfoPresenter {
 
     private HealthInforView healthInforView;
-    private CompositeDisposable compositeDisposable=new CompositeDisposable();
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     public HealthInfoPresenterImpl(HealthInforView healthInforView) {
         this.healthInforView = healthInforView;
@@ -27,14 +27,14 @@ public class HealthInfoPresenterImpl implements HealthInfoPresenter {
     //get latest news and weather data
     @Override
     public void getLatestData() {
-        NewsApiServices newsApiServices= ApiUtils.getNewsApiService();
-        Disposable disposableNews= newsApiServices.getNews()
+        NewsApiServices newsApiServices = ApiUtils.getNewsApiService();
+        Disposable disposableNews = newsApiServices.getNews()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::handleResponse, this::handleError, this::handleSuccess);
 
-        WeatherApiServices weatherApiServices= ApiUtils.getWeatherApiService();
-        Disposable disposableWeather= weatherApiServices.getHCMObs()
+        WeatherApiServices weatherApiServices = ApiUtils.getWeatherApiService();
+        Disposable disposableWeather = weatherApiServices.getHCMObs()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::handleResponse, this::handleError, this::handleSuccess);
@@ -56,7 +56,7 @@ public class HealthInfoPresenterImpl implements HealthInfoPresenter {
     }
 
     private void handleError(Throwable throwable) {
-        healthInforView.getLatestDataFailed("Error"+throwable.getLocalizedMessage());
+        healthInforView.getLatestDataFailed("Error" + throwable.getLocalizedMessage());
     }
 
     private void handleResponse(News news) {
@@ -67,11 +67,11 @@ public class HealthInfoPresenterImpl implements HealthInfoPresenter {
 
     @Override
     public void attachView(HealthInforView view) {
-        healthInforView=view;
+        healthInforView = view;
     }
 
     @Override
     public void detachView() {
-        healthInforView=null;
+        healthInforView = null;
     }
 }

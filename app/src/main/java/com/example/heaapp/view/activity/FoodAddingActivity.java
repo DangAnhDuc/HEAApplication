@@ -11,13 +11,13 @@ import android.widget.ToggleButton;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.heaapp.Helper.MySwipeHelper;
 import com.example.heaapp.R;
 import com.example.heaapp.adapter.FoodAdapter;
-import com.example.heaapp.callback.MyButtonClickListener;
 import com.example.heaapp.model.food.Data;
 import com.example.heaapp.presenter.FoodAddingPresenterImpl;
 import com.example.heaapp.service.RealmService;
@@ -25,6 +25,7 @@ import com.example.heaapp.ultis.ultis;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,18 +55,28 @@ public class FoodAddingActivity extends AppCompatActivity implements FoodAddingV
     EditText edtFoodFat;
 
     String foodTime;
+    @BindView(R.id.foodAddingToolbar)
+    Toolbar foodAddingToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_adding);
         ButterKnife.bind(this);
+
+        //set toolbar
+        setSupportActionBar(foodAddingToolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        foodAddingToolbar.setNavigationOnClickListener(v -> finish());
+
         RealmService realmService = RealmService.getInstance();
         foodAddingPresenter = new FoodAddingPresenterImpl(this, getContext(), realmService);
         foodRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         foodRecyclerView.setLayoutManager(layoutManager);
         Bundle extras = getIntent().getExtras();
+        assert extras != null;
         foodTime = extras.getString("FoodTime");
         toggleButton = findViewById(R.id.toggleButton);
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
@@ -119,12 +130,7 @@ public class FoodAddingActivity extends AppCompatActivity implements FoodAddingV
             protected void instantiateMyButton(RecyclerView.ViewHolder viewHolder, List<MyButton> buffer) {
                 buffer.add(new MyButton(FoodAddingActivity.this,
                         "ADD", 30, 0, Color.parseColor("#0E9577"),
-                        new MyButtonClickListener() {
-                            @Override
-                            public void onClick(int pos) {
-                                foodAddingPresenter.addDishes(foodList.get(pos), foodTime);
-                            }
-                        }));
+                        pos -> foodAddingPresenter.addDishes(foodList.get(pos), foodTime)));
             }
         };
 

@@ -129,7 +129,6 @@ public class HealthInforFragment extends BaseFragment implements HealthInforView
     }
 
 
-
     @SuppressLint("DefaultLocale")
     @Override
     public void getCityInfoSuccess(CityInfor cityInfor) {

@@ -6,11 +6,14 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.heaapp.R;
 import com.example.heaapp.presenter.ActivitiesAddingPresenterImpl;
 import com.example.heaapp.service.RealmService;
 import com.example.heaapp.ultis.ultis;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,14 +59,22 @@ public class ActivitiesAddingActivity extends AppCompatActivity implements Activ
     EditText edtSwimmingMinutes;
     @BindView(R.id.edt_yoga_minutes)
     EditText edtYogaMinutes;
+    @BindView(R.id.activitiesAddingToolbar)
+    Toolbar activitiesAddingToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activities_adding);
         ButterKnife.bind(this);
+        //set toolbar
+        setSupportActionBar(activitiesAddingToolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        activitiesAddingToolbar.setNavigationOnClickListener(v -> finish());
+
         RealmService realmService = RealmService.getInstance();
-        activitiesAddingPresenter = new ActivitiesAddingPresenterImpl(this, realmService,getContext());
+        activitiesAddingPresenter = new ActivitiesAddingPresenterImpl(this, realmService, getContext());
     }
 
     @Override
@@ -82,12 +93,12 @@ public class ActivitiesAddingActivity extends AppCompatActivity implements Activ
 
     @Override
     public void addActivitiesSuccess() {
-        ultis.setIntent(getContext(),HomeActivity.class);
-        ultis.showMessage(getContext(),getString(R.string.add_activities_success));
+        ultis.setIntent(getContext(), HomeActivity.class);
+        ultis.showMessage(getContext(), getString(R.string.add_activities_success));
     }
 
     @Override
     public void addActivitiesFailed() {
-        ultis.showMessage(getContext(),getString(R.string.add_activities_fail));
+        ultis.showMessage(getContext(), getString(R.string.add_activities_fail));
     }
 }

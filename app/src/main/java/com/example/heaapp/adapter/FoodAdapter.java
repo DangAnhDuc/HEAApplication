@@ -75,7 +75,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         return foodData.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         TextView tv_name, tv_energy, tv_carbs, tv_fat, tv_protein;
         ImageView img_food;
         LinearLayout container;

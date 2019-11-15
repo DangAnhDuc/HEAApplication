@@ -5,12 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
-
-import com.example.heaapp.model.workout.ExerciseImage.ExerciseImage;
-import com.example.heaapp.ultis.ultis;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -61,7 +57,7 @@ public class ExerciseInfoActivity extends AppCompatActivity implements ExerciseI
         assert bundle != null;
         ArrayList<Integer> CateID = bundle.getIntegerArrayList("muscles");
         ArrayList<Integer> EquipID = bundle.getIntegerArrayList("equipment");
-        exeId= bundle.getInt("id");
+        exeId = bundle.getInt("id");
         ExerciseInfoPresenter exerciseInfoPresenter = new ExerciseInfoPresenterImpl(CateID, EquipID, this);
         exerciseInfoPresenter.getListMuscle();
         exerciseInfoPresenter.getListEquipment();
@@ -69,9 +65,9 @@ public class ExerciseInfoActivity extends AppCompatActivity implements ExerciseI
         txtExeInfoName.setText(Html.fromHtml("<p>" + bundle.getString("name") + "</p>"));
         txtExeInfoDes.setText(Html.fromHtml(bundle.getString("description")));
 
-        btnExe.setOnClickListener(v ->{
-            Intent intent = new Intent(this,ExerciseImageActivity.class);
-            intent.putExtra("exerID",exeId);
+        btnExe.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ExerciseImageActivity.class);
+            intent.putExtra("exerID", exeId);
             startActivity(intent);
         });
     }

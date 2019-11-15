@@ -125,7 +125,35 @@
     <string name="blood_volume">Áp lực máu</string>
     <string name="water_requirement">Lượng nước cần thiết hằng ngày</string>
     <string name="body_water">Lượng nước trong cơ thể</string>
-    <string name="lean_body_mass">Lean Body Mass</string>
+    <string name="lean_body_mass">Lượng thịt</string>
     <string name="bmi">BMI</string>
 
+    <string name="eaten">Tiêu thụ</string>
+    <string name="kcal_left">kCal còn lại</string>
+    <string name="burned">Đốt cháy</string>
+    <string name="carbs">Tinh bột</string>
+    <string name="protein">Protein</string>
+    <string name="fat">Chất béo</string>
+
+
+    <string name="food_name">Tên thức ăn</string>
+    <string name="energy_kcal">Năng lượng(kCal)</string>
+    <string name="carbohydrates_g">Tinh bột(g)</string>
+    <string name="protein_g">Protein(g)</string>
+    <string name="fat_g">Chất béo(g)</string>
+    <string name="add_food">Thêm thức ăn!</string>
+
+    <string name="title_time_mns">Thời gian(Phút)</string>
+    <string name="kcal">kCal</string>
+    <string name="back">Quay lại</string>
+    <string name="activities_name">Tên hoạt động</string>
+
+    <string name="_75ml">75ml</string>
+    <string name="_150ml">150ml</string>
+    <string name="_250ml">250ml</string>
+    <string name="_330ml">330ml</string>
+    <string name="custom">Tùy chỉnh</string>
+
+    <string name="minutes">Phút</string>
+    <string name="add_activities">Thêm hoạt động!</string>
 </resources>
