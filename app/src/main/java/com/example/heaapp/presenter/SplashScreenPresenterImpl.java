@@ -1,5 +1,10 @@
 package com.example.heaapp.presenter;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+
 import com.example.heaapp.api.ApiUtils;
 import com.example.heaapp.api.FoodApiServices;
 import com.example.heaapp.callback.OnTransactionCallback;
@@ -10,6 +15,7 @@ import com.example.heaapp.service.RealmService;
 import com.example.heaapp.ultis.Common;
 import com.example.heaapp.view.activity.SpashScreenView;
 
+import java.util.Locale;
 import java.util.concurrent.atomic.AtomicLong;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -27,8 +33,10 @@ public class SplashScreenPresenterImpl implements SplashScreenPresenter, OnTrans
     private static AtomicLong dailySummaryPrimaryKey;
     private Realm realm = Realm.getDefaultInstance();
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private Context context;
 
-    public SplashScreenPresenterImpl(RealmService realmService, SpashScreenView spashScreenView) {
+    public SplashScreenPresenterImpl(Context context,RealmService realmService, SpashScreenView spashScreenView) {
+        this.context= context;
         this.realmService = realmService;
         this.spashScreenView = spashScreenView;
     }
@@ -68,6 +76,22 @@ public class SplashScreenPresenterImpl implements SplashScreenPresenter, OnTrans
                     .subscribe(this::handleResponse, this::handleError, this::handleSuccess);
             compositeDisposable.add(disposableFood);
         }
+    }
+
+    @Override
+    public void setlang() {
+        Locale locale = new Locale(getShareFrefLang());
+        Locale.setDefault(locale);
+        Configuration configuration = new Configuration();
+        configuration.locale = locale;
+        context.getResources().updateConfiguration(configuration, context.getResources().getDisplayMetrics());
+    }
+
+    private String getShareFrefLang(){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String sysLang = Locale.getDefault().getLanguage();
+        String lang = sharedPreferences.getString("Lang", sysLang);
+        return lang;
     }
 
     private void handleSuccess() {

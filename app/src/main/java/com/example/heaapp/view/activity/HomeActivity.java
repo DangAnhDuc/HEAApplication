@@ -32,6 +32,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -57,13 +58,13 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     HomePresenterImpl homePresenter;
     private boolean doubleBackToExitPressedOnce = false;
 
+    private int flagLang ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
-        loadLocal();
 
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle("");
@@ -239,22 +240,32 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     }
 
     private void showMultipleLanguage() {
-        String[] list = {"English", "Tiếng Việt"};
-        AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
+        String[] listLang = getResources().getStringArray(R.array.lang);
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(this,R.style.TimePicker);
         mBuilder.setTitle(getString(R.string.choose_lang));
         Intent i = getBaseContext().getPackageManager().getLaunchIntentForPackage(getBaseContext().getPackageName());
         assert i != null;
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        mBuilder.setSingleChoiceItems(list, -1, (dialog, which) -> {
+        mBuilder.setSingleChoiceItems(listLang, getShareFrefFlagLang(), (dialog, which) -> {
             if (which == 0) {
-                setLocal("en");
+                flagLang = 0;
+                saveShareFrefLang("en",flagLang);
                 recreate();
                 finish();
                 startActivity(i);
             }
             if (which == 1) {
-                setLocal("vi");
+                flagLang = 1;
+                saveShareFrefLang("vi",flagLang);
+                recreate();
+                finish();
+                startActivity(i);
+            }
+            if (which == 2) {
+                flagLang = 2;
+                String sysLang = Locale.getDefault().getDisplayLanguage();
+                saveShareFrefLang(sysLang,flagLang);
                 recreate();
                 finish();
                 startActivity(i);
@@ -266,23 +277,17 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         dialog.show();
     }
 
-    private void setLocal(String local) {
-        Locale locale = new Locale(local);
-        Locale.setDefault(locale);
-        Configuration configuration = new Configuration();
-        configuration.locale = locale;
-        getBaseContext().getResources().updateConfiguration(configuration, getBaseContext().getResources().getDisplayMetrics());
-        //save local in sharePreference
+    private void saveShareFrefLang(String lang,int flag){
         SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
-        editor.putString("Lang", local);
+        editor.putString("Lang", lang);
+        editor.putInt("FlagLang",flag);
         editor.apply();
     }
 
-    //load local saved in sharePreference
-    private void loadLocal() {
-        SharedPreferences sharedPreferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
-        String lang = sharedPreferences.getString("Lang", "");
-        setLocal(lang);
 
+    private int getShareFrefFlagLang(){
+        SharedPreferences sharedPreferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        int flag = sharedPreferences.getInt("FlagLang", 2);
+        return flag;
     }
 }

@@ -37,9 +37,10 @@ public class SplashScreenActivity extends AppCompatActivity implements SpashScre
         //init database
         Realm.init(getApplicationContext());
         RealmService realmService = RealmService.getInstance();
-        splashScreenPresenter = new SplashScreenPresenterImpl(realmService, this);
+        splashScreenPresenter = new SplashScreenPresenterImpl(getContext(),realmService, this);
         splashScreenPresenter.firstTimeInit();
         splashScreenPresenter.getFoodList();
+        splashScreenPresenter.setlang();
 
         Thread timer = new Thread() {
             public void run() {
@@ -60,4 +61,5 @@ public class SplashScreenActivity extends AppCompatActivity implements SpashScre
     public Context getContext() {
         return this;
     }
+
 }
