@@ -7,4 +7,5 @@ public interface SplashScreenPresenter extends BasePresenter<SpashScreenView> {
     void firstTimeInit();
     void dailyInit();
     void getFoodList();
+    void setlang();
 }
