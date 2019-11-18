@@ -88,6 +88,13 @@
         <item>Yoga</item>
     </string-array>
 
+
+    <string-array name="lang">
+        <item>Tiếng Anh</item>
+        <item>Tiếng Việt</item>
+        <item>Mặc Định Hệ Thống</item>
+    </string-array>
+
     <string name="title_sleeping">Ngủ</string>
     <string name="title_typing_writing_desk_work">Việc văn phòng</string>
     <string name="title_walking_very_slow">Đi bộ chậm 1.7mph</string>

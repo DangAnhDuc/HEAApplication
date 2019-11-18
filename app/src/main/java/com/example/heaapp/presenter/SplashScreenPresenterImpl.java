@@ -4,6 +4,10 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 
 import com.example.heaapp.api.ApiUtils;
 import com.example.heaapp.api.FoodApiServices;
@@ -18,6 +22,7 @@ import com.example.heaapp.view.activity.SpashScreenView;
 
 import java.util.Calendar;
 import java.util.Objects;
+import java.util.Locale;
 import java.util.concurrent.atomic.AtomicLong;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -85,6 +90,22 @@ public class SplashScreenPresenterImpl implements SplashScreenPresenter, OnTrans
                     .subscribe(this::handleResponse, this::handleError, this::handleSuccess);
             compositeDisposable.add(disposableFood);
         }
+    }
+
+    @Override
+    public void setlang() {
+        Locale locale = new Locale(getShareFrefLang());
+        Locale.setDefault(locale);
+        Configuration configuration = new Configuration();
+        configuration.locale = locale;
+        context.getResources().updateConfiguration(configuration, context.getResources().getDisplayMetrics());
+    }
+
+    private String getShareFrefLang(){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String sysLang = Locale.getDefault().getLanguage();
+        String lang = sharedPreferences.getString("Lang", sysLang);
+        return lang;
     }
 
     private void handleSuccess() {

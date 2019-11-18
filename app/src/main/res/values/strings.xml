@@ -43,7 +43,7 @@
     <string name="msg_emai_pw_empty">Email and password can\'t be empty</string>
     <string name="msg_all_field_empty">All fields must not be empty!</string>
     <string name="languages">Languages</string>
-    <string name="choose_lang">Chose Languages!!!</string>
+    <string name="choose_lang">Select Languages!!!</string>
     <string name="current_weather">Current Weather</string>
     <string name="news">News</string>
     <string name="temperature">Temperature</string>
@@ -85,6 +85,12 @@
         <item>Rope Jumping</item>
         <item>Swimming</item>
         <item>Yoga</item>
+    </string-array>
+
+    <string-array name="lang">
+        <item>English</item>
+        <item>Vietnamese</item>
+        <item>System Default</item>
     </string-array>
 
     <string name="title_sleeping">Sleeping</string>
