@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,7 +19,6 @@ import com.example.heaapp.presenter.WorkoutPresenterImpl;
 import com.example.heaapp.view.activity.ExerciseWorkoutActivity;
 
 import java.util.List;
-import java.util.Objects;
 
 
 public class WorkoutFragment extends BaseFragment implements WorkoutView {

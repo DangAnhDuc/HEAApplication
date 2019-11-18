@@ -1,6 +1,8 @@
 package com.example.heaapp.view.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -11,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -215,6 +218,7 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
                 builder.setTitle(getString(R.string.title_input_water));
 
                 final EditText input = new EditText(getContext());
+                input.setTextColor(Color.WHITE);
                 input.setInputType(InputType.TYPE_CLASS_NUMBER);
                 builder.setView(input);
 
@@ -249,4 +253,9 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
         unbinder.unbind();
     }
 
+    @Nullable
+    @Override
+    public Context getContext() {
+        return super.getContext();
+    }
 }

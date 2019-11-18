@@ -9,6 +9,8 @@ import com.example.heaapp.model.user_information.DailySummary;
 import com.example.heaapp.service.RealmService;
 import com.example.heaapp.view.fragment.DashboardView;
 
+import java.util.Objects;
+
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -51,7 +53,7 @@ public class DashboardPresenterImpl implements DashboardPresenter, OnTransaction
             dashboardView.addDrunkWaterFailed();
         }
         RealmResults<DailySummary> realmResults = mRealmService.getCurrentDate();
-        long totalWaterAmount = realmResults.get(0).getWaterConsume();
+        long totalWaterAmount = Objects.requireNonNull(realmResults.get(0)).getWaterConsume();
         totalWaterAmount = totalWaterAmount + drunkAmount;
         mRealmService.modifyWaterAsync(totalWaterAmount, this);
     }
@@ -73,7 +75,8 @@ public class DashboardPresenterImpl implements DashboardPresenter, OnTransaction
     @Override
     public void onTransactionSuccess() {
         RealmResults<DailySummary> realmResults = mRealmService.getCurrentDate();
-        dashboardView.addDrunkWaterSuccessfully(Long.toString(realmResults.get(0).getWaterConsume()));
+        assert realmResults.get(0) != null;
+        dashboardView.addDrunkWaterSuccessfully(Long.toString(Objects.requireNonNull(realmResults.get(0)).getWaterConsume()));
     }
 
     @Override

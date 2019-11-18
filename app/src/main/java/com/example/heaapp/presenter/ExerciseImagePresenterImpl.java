@@ -15,7 +15,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class ExerciseImagePresenterImpl implements ExerciseImagePresenter {
-    private List<Result> results,resultsAfterCompare = new ArrayList<>();
+    private List<Result> resultsAfterCompare = new ArrayList<>();
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private ExerciseImageView imageView;
     private int exeID;
@@ -49,8 +49,8 @@ public class ExerciseImagePresenterImpl implements ExerciseImagePresenter {
     }
 
     private void handleReponse(ExerciseImage exerciseImage){
-        results = exerciseImage.getResults();
-        for(int i = 0 ; i<results.size()-1;i++){
+        List<Result> results = exerciseImage.getResults();
+        for(int i = 0; i< results.size()-1; i++){
             if(results.get(i).getExercise()==26){
                 resultsAfterCompare.add(results.get(i));
             }

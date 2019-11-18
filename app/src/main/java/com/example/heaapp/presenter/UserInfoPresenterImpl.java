@@ -17,6 +17,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Objects;
+
 import io.realm.RealmResults;
 
 public class UserInfoPresenterImpl implements UserInfoPresenter {
@@ -46,7 +48,7 @@ public class UserInfoPresenterImpl implements UserInfoPresenter {
                 || TextUtils.isEmpty(hip) || TextUtils.isEmpty(chest)) {
             userInfoView.displayErrorMessage("All field must be enter");
         } else {
-            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseAuth.getCurrentUser().getUid()).child("remote").child("userBodyInfo");
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid()).child("remote").child("userBodyInfo");
             databaseReference.child("age").setValue(Integer.parseInt(age));
             databaseReference.child("sex").setValue(sex);
             databaseReference.child("weight").setValue(Long.parseLong(weight));
@@ -80,9 +82,11 @@ public class UserInfoPresenterImpl implements UserInfoPresenter {
         }
     }
 
+
     private void calculateBodyIndices() {
         RealmResults<CurrentUserInfo> realmResults = realmService.getCurrentUser();
         CurrentUserInfo currentUserInfo = realmResults.get(0);
+        assert currentUserInfo != null;
         double BMI = currentUserInfo.getWeight() / ((currentUserInfo.getHeight() * 0.01) * (currentUserInfo.getHeight() * 0.01));
         double bodyMass;
         if (currentUserInfo.getSex().equals("Male")) {

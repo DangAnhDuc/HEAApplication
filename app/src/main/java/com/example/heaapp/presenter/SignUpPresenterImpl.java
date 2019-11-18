@@ -44,6 +44,7 @@ public class SignUpPresenterImpl implements SignUpPresenter {
                             signUpView.signUpError();
                         } else {
                             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                            assert firebaseUser != null;
                             String userId = firebaseUser.getUid();
 
                             databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
