@@ -16,7 +16,6 @@ import com.example.heaapp.callback.WorkoutListener;
 import com.example.heaapp.model.workout.Category.Results;
 
 import java.util.List;
-import java.util.Objects;
 
 public class CategoryWorkoutAdapter extends Adapter<CategoryWorkoutAdapter.ViewHolder> {
     private Context context;
@@ -51,21 +50,6 @@ public class CategoryWorkoutAdapter extends Adapter<CategoryWorkoutAdapter.ViewH
         return listResults.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView categoryName;
-        private ImageView categoryImg;
-
-        ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            categoryName = itemView.findViewById(R.id.category_workout_name);
-            categoryImg = itemView.findViewById(R.id.category_workout_img);
-        }
-
-        void viewBind(Results results, WorkoutListener lis) {
-            itemView.setOnClickListener(v -> lis.OnItemClick(results));
-        }
-    }
-
     private void setImageView(int pos, ViewHolder view) {
         switch (pos) {
             case 0:
@@ -89,6 +73,21 @@ public class CategoryWorkoutAdapter extends Adapter<CategoryWorkoutAdapter.ViewH
             case 6:
                 view.categoryImg.setImageResource(R.drawable.shoulder);
                 break;
+        }
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder {
+        private TextView categoryName;
+        private ImageView categoryImg;
+
+        ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            categoryName = itemView.findViewById(R.id.category_workout_name);
+            categoryImg = itemView.findViewById(R.id.category_workout_img);
+        }
+
+        void viewBind(Results results, WorkoutListener lis) {
+            itemView.setOnClickListener(v -> lis.OnItemClick(results));
         }
     }
 }

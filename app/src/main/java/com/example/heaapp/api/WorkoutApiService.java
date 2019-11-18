@@ -1,13 +1,11 @@
 package com.example.heaapp.api;
 
 
-
 import com.example.heaapp.model.workout.Category.Exercisecategory;
 import com.example.heaapp.model.workout.Equipment.Equipment;
 import com.example.heaapp.model.workout.ExerciseImage.ExerciseImage;
 import com.example.heaapp.model.workout.ExerciseInfo.ListExercise;
 import com.example.heaapp.model.workout.Muscle.Muscle;
-
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;

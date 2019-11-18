@@ -4,8 +4,6 @@ import com.example.heaapp.base.BasePresenter;
 import com.example.heaapp.model.food.Data;
 import com.example.heaapp.view.activity.FoodAddingView;
 
-import java.util.List;
-
 public interface FoodAddingPresenter extends BasePresenter<FoodAddingView> {
     void crawlFoodData();
     void addDishes(Data data, String foodTime);

@@ -9,16 +9,15 @@ import com.example.heaapp.ultis.Common;
 import com.example.heaapp.view.activity.FoodAddingView;
 
 import java.util.List;
+import java.util.Objects;
 
 public class FoodAddingPresenterImpl implements FoodAddingPresenter, OnTransactionCallback {
     private FoodAddingView foodAddingView;
-    private Context context;
     private RealmService realmService;
     private String foodTime;
 
     public FoodAddingPresenterImpl(FoodAddingView foodAddingView, Context context, RealmService realmService) {
         this.foodAddingView = foodAddingView;
-        this.context = context;
         this.realmService = realmService;
     }
 
@@ -78,11 +77,11 @@ public class FoodAddingPresenterImpl implements FoodAddingPresenter, OnTransacti
     }
 
     private void updateNutrition(String name, long energy, long carbs, long protein, long fat) {
-        double totalNeededCalories = realmService.getCurrentDate().get(0).getNeededCalories();
-        double totalCaloriesEaten = realmService.getCurrentDate().get(0).getEatenCalories();
-        double totalCarbsEaten = realmService.getCurrentDate().get(0).getEatenCarbs();
-        double totalProteinEaten = realmService.getCurrentDate().get(0).getEatenProtein();
-        double totalFatEaten = realmService.getCurrentDate().get(0).getEatenFat();
+        double totalNeededCalories = Objects.requireNonNull(realmService.getCurrentDate().get(0)).getNeededCalories();
+        double totalCaloriesEaten = Objects.requireNonNull(realmService.getCurrentDate().get(0)).getEatenCalories();
+        double totalCarbsEaten = Objects.requireNonNull(realmService.getCurrentDate().get(0)).getEatenCarbs();
+        double totalProteinEaten = Objects.requireNonNull(realmService.getCurrentDate().get(0)).getEatenProtein();
+        double totalFatEaten = Objects.requireNonNull(realmService.getCurrentDate().get(0)).getEatenFat();
 
         totalCaloriesEaten = totalCaloriesEaten + energy;
         totalNeededCalories = totalNeededCalories - energy;

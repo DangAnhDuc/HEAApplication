@@ -17,6 +17,7 @@ import com.example.heaapp.ultis.Common;
 import com.example.heaapp.view.activity.SpashScreenView;
 
 import java.util.Calendar;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -32,32 +33,28 @@ import static android.content.Context.ALARM_SERVICE;
 public class SplashScreenPresenterImpl implements SplashScreenPresenter, OnTransactionCallback {
 
     private RealmService realmService;
-    private SpashScreenView spashScreenView;
     private static AtomicLong dailySummaryPrimaryKey;
     private Realm realm = Realm.getDefaultInstance();
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private Context context;
 
-    public SplashScreenPresenterImpl(RealmService realmService, SpashScreenView spashScreenView, Context context) {
+    public SplashScreenPresenterImpl(RealmService realmService, Context context) {
         this.realmService = realmService;
-        this.spashScreenView = spashScreenView;
         this.context=context;
     }
 
     @Override
     public void attachView(SpashScreenView view) {
-        spashScreenView = view;
     }
 
     @Override
     public void detachView() {
-        spashScreenView = null;
     }
 
     @Override
     public void firstTimeInit() {
         try {
-            dailySummaryPrimaryKey = new AtomicLong(realm.where(DailySummary.class).max("id").longValue() + 1);
+            dailySummaryPrimaryKey = new AtomicLong(Objects.requireNonNull(realm.where(DailySummary.class).max("id")).longValue() + 1);
             dailyInit();
         } catch (Exception e) {
             realmService.initDatabaseTable(this);
@@ -70,9 +67,9 @@ public class SplashScreenPresenterImpl implements SplashScreenPresenter, OnTrans
 
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(System.currentTimeMillis());
-            calendar.set(Calendar.HOUR_OF_DAY, 15);
-            calendar.set(Calendar.MINUTE, 0);
-            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.HOUR_OF_DAY, 23);
+            calendar.set(Calendar.MINUTE, 59);
+            calendar.set(Calendar.SECOND, 30);
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY, broadcast);
         }
     }
@@ -106,10 +103,10 @@ public class SplashScreenPresenterImpl implements SplashScreenPresenter, OnTrans
     public void dailyInit() {
         //Daily check
         double dailyCal;
-        if (realmService.getCurrentUser().get(0).getSex().equals("Male")) {
-            dailyCal = 66.4730 + (17.7516 * realmService.getCurrentUser().get(0).getWeight()) + (5.0033 * realmService.getCurrentUser().get(0).getHeight()) - (6.7550 * realmService.getCurrentUser().get(0).getAge());
+        if (Objects.requireNonNull(realmService.getCurrentUser().get(0)).getSex().equals("Male")) {
+            dailyCal = 66.4730 + (17.7516 * Objects.requireNonNull(realmService.getCurrentUser().get(0)).getWeight()) + (5.0033 * Objects.requireNonNull(realmService.getCurrentUser().get(0)).getHeight()) - (6.7550 * Objects.requireNonNull(realmService.getCurrentUser().get(0)).getAge());
         } else {
-            dailyCal = 655.0955 + (9.5634 * realmService.getCurrentUser().get(0).getWeight()) + (1.8496 * realmService.getCurrentUser().get(0).getHeight()) - (4.6756 * realmService.getCurrentUser().get(0).getAge());
+            dailyCal = 655.0955 + (9.5634 * Objects.requireNonNull(realmService.getCurrentUser().get(0)).getWeight()) + (1.8496 * Objects.requireNonNull(realmService.getCurrentUser().get(0)).getHeight()) - (4.6756 * Objects.requireNonNull(realmService.getCurrentUser().get(0)).getAge());
         }
         RealmResults<DailySummary> realmResults = realm.where(DailySummary.class).equalTo("date", Common.today).findAll();
         RealmList<Dishes> breakfastDishes = new RealmList<>();

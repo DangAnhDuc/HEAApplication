@@ -37,7 +37,7 @@ public class SplashScreenActivity extends AppCompatActivity implements SpashScre
         //init database
         Realm.init(getApplicationContext());
         RealmService realmService = RealmService.getInstance();
-        splashScreenPresenter = new SplashScreenPresenterImpl(realmService, this,getContext());
+        splashScreenPresenter = new SplashScreenPresenterImpl(realmService, getContext());
         splashScreenPresenter.firstTimeInit();
         splashScreenPresenter.getFoodList();
 

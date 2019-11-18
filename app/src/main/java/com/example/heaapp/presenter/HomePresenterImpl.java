@@ -24,12 +24,10 @@ public class HomePresenterImpl implements HomePresenter {
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private HomeView homeView;
     private FirebaseAuth.AuthStateListener authListener;
-    private Context context;
     private DatabaseReference databaseReference;
     private RealmService realmService;
 
     public HomePresenterImpl(RealmService realmService, final Context context) {
-        this.context = context;
         this.realmService = realmService;
         //check user signout
         authListener = firebaseAuth -> {

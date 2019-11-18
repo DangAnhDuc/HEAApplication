@@ -149,4 +149,5 @@
     <string name="custom">Custom</string>
     <string name="minutes">Minutes</string>
     <string name="add_activities">Add activities!</string>
+    <string name="msg_daily_noti">That all for today! Good night and be ready for new day!</string>
 </resources>

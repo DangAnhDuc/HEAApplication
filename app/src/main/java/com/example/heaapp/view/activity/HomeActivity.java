@@ -1,8 +1,6 @@
 package com.example.heaapp.view.activity;
 
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -24,7 +22,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.heaapp.R;
 import com.example.heaapp.presenter.HomePresenterImpl;
-import com.example.heaapp.receiver.AlarmReceiver;
 import com.example.heaapp.service.RealmService;
 import com.example.heaapp.ultis.ultis;
 import com.example.heaapp.view.fragment.DashBoardFragment;
@@ -35,7 +32,6 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Locale;
 import java.util.Objects;
 

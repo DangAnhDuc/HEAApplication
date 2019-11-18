@@ -16,6 +16,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Objects;
+
 public class LoginPresenterImpl implements LoginPresenter {
 
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -47,7 +49,7 @@ public class LoginPresenterImpl implements LoginPresenter {
                             loginView.loginError();
                         } else {
                             loginView.loginSuccess();
-                            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
                             databaseReference.child("username").addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

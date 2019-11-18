@@ -15,6 +15,7 @@ import com.example.heaapp.presenter.ExerciseImagePresenter;
 import com.example.heaapp.presenter.ExerciseImagePresenterImpl;
 
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,7 +39,7 @@ public class ExerciseImageActivity extends AppCompatActivity implements Exercise
 
     private void initView() {
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         toolbar.setNavigationOnClickListener(v -> finish());
 

@@ -11,13 +11,17 @@ import android.content.Intent;
 import android.os.Build;
 
 import com.example.heaapp.R;
-import com.example.heaapp.view.activity.HomeActivity;
+import com.example.heaapp.service.RealmService;
 import com.example.heaapp.view.activity.SplashScreenActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import static android.app.NotificationManager.IMPORTANCE_DEFAULT;
 
 public class AlarmReceiver extends BroadcastReceiver {
     private static final String CHANNEL_ID = "com.singhajit.notificationDemo.channelId";
+    private RealmService realmService= RealmService.getInstance();
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -31,8 +35,8 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         Notification.Builder builder = new Notification.Builder(context);
 
-        Notification notification = builder.setContentTitle("Demo App Notification")
-                .setContentText("New Notification From Demo App..")
+        Notification notification = builder.setContentTitle("HEAApp Notification")
+                .setContentText(context.getString(R.string.msg_daily_noti))
                 .setTicker("New Message Alert!")
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setAutoCancel(true)
@@ -52,7 +56,18 @@ public class AlarmReceiver extends BroadcastReceiver {
             );
             notificationManager.createNotificationChannel(channel);
         }
-
         notificationManager.notify(0, notification);
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseAuth.getCurrentUser().getUid()).child("remote").child("dailySummary").child(realmService.getCurrentDate().get(0).getDate());
+        databaseReference.child("id").setValue(realmService.getCurrentDate().get(0).getId());
+        databaseReference.child("date").setValue(realmService.getCurrentDate().get(0).getDate());
+        databaseReference.child("waterConsume").setValue(realmService.getCurrentDate().get(0).getWaterConsume());
+        databaseReference.child("eatenCalories").setValue(realmService.getCurrentDate().get(0).getEatenCalories());
+        databaseReference.child("burnedCalories").setValue(realmService.getCurrentDate().get(0).getBurnedCalories());
+        databaseReference.child("neededCalories").setValue(realmService.getCurrentDate().get(0).getNeededCalories());
+        databaseReference.child("eatenCarbs").setValue(realmService.getCurrentDate().get(0).getEatenCarbs());
+        databaseReference.child("eatenProtein").setValue(realmService.getCurrentDate().get(0).getEatenProtein());
+        databaseReference.child("eatenFat").setValue(realmService.getCurrentDate().get(0).getEatenFat());
+
     }
 }

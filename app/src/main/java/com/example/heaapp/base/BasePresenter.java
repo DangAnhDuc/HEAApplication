@@ -1,6 +1,7 @@
 package com.example.heaapp.base;
 
-public interface BasePresenter<V extends BaseView>  {
+public interface BasePresenter<V extends BaseView> {
     void attachView(V view);
+
     void detachView();
 }

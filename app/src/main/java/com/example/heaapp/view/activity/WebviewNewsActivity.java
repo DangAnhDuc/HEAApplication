@@ -46,6 +46,7 @@ public class WebviewNewsActivity extends AppCompatActivity implements WebviewNew
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(v -> finish());
         Bundle extras = getIntent().getExtras();
+        assert extras != null;
         url = extras.getString("URL");
         domain = extras.getString("Domain");
 
