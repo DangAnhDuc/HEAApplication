@@ -1,22 +1,39 @@
 package com.example.heaapp.presenter;
 
+import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.text.TextUtils;
+import android.webkit.MimeTypeMap;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import com.example.heaapp.callback.OnTransactionCallback;
 import com.example.heaapp.model.user_information.CurrentUserInfo;
+import com.example.heaapp.model.user_information.User;
 import com.example.heaapp.service.RealmService;
+import com.example.heaapp.ultis.ultis;
 import com.example.heaapp.view.activity.UserInfoView;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+import com.google.firebase.storage.UploadTask;
 
+import java.util.HashMap;
 import java.util.Objects;
 
 import io.realm.RealmResults;
@@ -36,7 +53,8 @@ public class UserInfoPresenterImpl implements UserInfoPresenter {
     @Override
     public void loadInfo() {
         RealmResults<CurrentUserInfo> realmResults = realmService.getCurrentUser();
-        userInfoView.displayInfo(realmResults.get(0).getAge(), realmResults.get(0).getSex(),
+        RealmResults<User> userRealmResults=realmService.getUser();
+        userInfoView.displayInfo(userRealmResults.get(0).getUsername(),userRealmResults.get(0).getImageURl(),realmResults.get(0).getAge(), realmResults.get(0).getSex(),
                 realmResults.get(0).getWeight(), realmResults.get(0).getHeight(), realmResults.get(0).getWaist(),
                 realmResults.get(0).getHip(), realmResults.get(0).getChest());
     }
@@ -168,6 +186,7 @@ public class UserInfoPresenterImpl implements UserInfoPresenter {
         editor.apply();
     }
 
+
     @Override
     public void attachView(UserInfoView view) {
         userInfoView = view;
@@ -177,6 +196,8 @@ public class UserInfoPresenterImpl implements UserInfoPresenter {
     public void detachView() {
         userInfoView = null;
     }
+
+
 
 
 }

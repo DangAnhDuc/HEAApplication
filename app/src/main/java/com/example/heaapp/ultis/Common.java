@@ -15,8 +15,5 @@ public class Common {
     @SuppressLint("SimpleDateFormat")
     public static String today=new SimpleDateFormat("yyyyMMdd").format(new Date());
 
-    //Save the username;
-    public static String name;
-
     public static List<Data> foodList= new ArrayList<>();
 }

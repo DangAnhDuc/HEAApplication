@@ -25,6 +25,7 @@
             android:textStyle="italic" />
 
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_user_ava"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center_horizontal"
