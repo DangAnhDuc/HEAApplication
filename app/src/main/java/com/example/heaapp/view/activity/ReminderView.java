@@ -6,5 +6,5 @@ import com.example.heaapp.model.reminder.TimeReminder;
 import java.util.List;
 
 public interface ReminderView extends BaseView {
-    void addListSuccess(List<TimeReminder> list);
+    void addListSuccess();
 }

@@ -11,16 +11,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.heaapp.R;
 import com.example.heaapp.model.reminder.TimeReminder;
+import com.example.heaapp.view.activity.ReminderView;
 
 import java.util.List;
 
 public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHolder> {
     private Context context;
     private List<TimeReminder> list;
+    private int hour,min;
+    ReminderView view;
+    TimeReminder timeReminder = new TimeReminder();
 
-    public ReminderAdapter(Context context, List<TimeReminder> list) {
+    public ReminderAdapter(Context context, int hour,int min) {
         this.context = context;
-        this.list = list;
+        this.hour = hour;
+        this.min =  min;
     }
 
     @NonNull
@@ -32,13 +37,13 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.txtTime.setText((list.get(position).getHour()+":"+list.get(position).getMinute()));
+        holder.txtTime.setText(timeReminder.getHour());
 //        holder.txtDate.setText(String.valueOf(list.get(position).getDayList()));
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -46,7 +51,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txtTime = itemView.findViewById(R.id.txt_time_reminder);
-            txtDate = itemView.findViewById(R.id.txt_day_reminder);
+//            txtDate = itemView.findViewById(R.id.txt_day_reminder);
         }
     }
 }

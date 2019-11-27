@@ -4,5 +4,5 @@ import com.example.heaapp.base.BasePresenter;
 import com.example.heaapp.view.activity.ReminderView;
 
 public interface ReminderPresenter extends BasePresenter<ReminderView> {
-    void addListReminder();
+    void addListReminder(int hour,int min);
 }

@@ -14,9 +14,8 @@ public class ReminderPresenterImpl implements ReminderPresenter{
     }
 
     @Override
-    public void addListReminder() {
-        List<TimeReminder> list = new ArrayList<>();
-        reminderView.addListSuccess(list);
+    public void addListReminder(int hour,int min) {
+        reminderView.addListSuccess();
     }
 
     @Override
