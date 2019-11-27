@@ -264,7 +264,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
             }
             if (which == 2) {
                 flagLang = 2;
-                String sysLang = Locale.getDefault().getDisplayLanguage();
+                String sysLang = Locale.getDefault().getLanguage();
                 saveShareFrefLang(sysLang,flagLang);
                 recreate();
                 finish();
