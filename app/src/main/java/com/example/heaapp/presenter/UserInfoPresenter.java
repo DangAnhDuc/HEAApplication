@@ -1,5 +1,7 @@
 package com.example.heaapp.presenter;
 
+import android.net.Uri;
+
 import com.example.heaapp.base.BasePresenter;
 import com.example.heaapp.view.activity.UserInfoView;
 

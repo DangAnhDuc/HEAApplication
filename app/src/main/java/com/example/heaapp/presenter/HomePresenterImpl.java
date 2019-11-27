@@ -24,7 +24,8 @@ public class HomePresenterImpl implements HomePresenter {
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private HomeView homeView;
     private FirebaseAuth.AuthStateListener authListener;
-    private DatabaseReference databaseReference;
+    private DatabaseReference userInforDatabaseReference;
+    private DatabaseReference userDatabaseReference;
     private RealmService realmService;
 
     public HomePresenterImpl(RealmService realmService, final Context context) {
@@ -43,8 +44,8 @@ public class HomePresenterImpl implements HomePresenter {
         if (firebaseAuth.getCurrentUser() != null) {
             homeView.setUser(firebaseAuth.getCurrentUser());
 
-            databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseAuth.getCurrentUser().getUid()).child("remote").child("userBodyInfo");
-            databaseReference.addValueEventListener(new ValueEventListener() {
+            userInforDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseAuth.getCurrentUser().getUid()).child("remote").child("userBodyInfo");
+            userInforDatabaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     CurrentUserInfo currentUserInfo = dataSnapshot.getValue(CurrentUserInfo.class);
@@ -62,11 +63,35 @@ public class HomePresenterImpl implements HomePresenter {
                         });
 
                     } else {
-                        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseAuth.getCurrentUser().getUid()).child("remote");
+                        userInforDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseAuth.getCurrentUser().getUid()).child("remote");
                         HashMap<String, CurrentUserInfo> userInfoHashMap = new HashMap<>();
                         userInfoHashMap.put("userBodyInfo", new CurrentUserInfo(0, 0, 0, 0, "Male", 0, 0, 0));
-                        databaseReference.setValue(userInfoHashMap);
+                        userInforDatabaseReference.setValue(userInfoHashMap);
                     }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+            userDatabaseReference= FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseAuth.getCurrentUser().getUid());
+            userDatabaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    realmService.updateUser(dataSnapshot.child("username").getValue(String.class), dataSnapshot.child("imageURL").getValue(String.class), new OnTransactionCallback() {
+                        @Override
+                        public void onTransactionSuccess() {
+
+                        }
+
+                        @Override
+                        public void onTransactionError(Exception e) {
+
+                        }
+                    });
+
                 }
 
                 @Override

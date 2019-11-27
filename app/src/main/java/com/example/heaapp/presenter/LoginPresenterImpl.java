@@ -7,6 +7,9 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 
 import com.example.heaapp.R;
+import com.example.heaapp.callback.OnTransactionCallback;
+import com.example.heaapp.model.user_information.User;
+import com.example.heaapp.service.RealmService;
 import com.example.heaapp.ultis.Common;
 import com.example.heaapp.view.activity.LoginView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
-public class LoginPresenterImpl implements LoginPresenter {
+public class LoginPresenterImpl implements LoginPresenter, OnTransactionCallback {
 
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private LoginView loginView;
@@ -49,17 +52,6 @@ public class LoginPresenterImpl implements LoginPresenter {
                             loginView.loginError();
                         } else {
                             loginView.loginSuccess();
-                            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
-                            databaseReference.child("username").addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                }
-                            });
                         }
                     });
         }
@@ -83,5 +75,15 @@ public class LoginPresenterImpl implements LoginPresenter {
     @Override
     public void detachView() {
         loginView = null;
+    }
+
+    @Override
+    public void onTransactionSuccess() {
+
+    }
+
+    @Override
+    public void onTransactionError(Exception e) {
+
     }
 }

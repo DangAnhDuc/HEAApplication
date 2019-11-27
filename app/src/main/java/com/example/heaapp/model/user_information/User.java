@@ -1,6 +1,8 @@
 package com.example.heaapp.model.user_information;
 
-public class User {
+import io.realm.RealmObject;
+
+public class User extends RealmObject {
     String userId;
     String username;
     String imageURl;
