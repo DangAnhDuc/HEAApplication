@@ -72,12 +72,10 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
     @Override
     public void setProgressVisibility(boolean visibility) {
         if (visibility) {
-            btnSignup.setEnabled(false);
             progressDialog.setIndeterminate(true);
             progressDialog.setMessage(getString(R.string.msg_create_account));
             progressDialog.show();
         } else {
-            btnSignup.setEnabled(true);
             progressDialog.dismiss();
         }
     }
@@ -116,5 +114,10 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
     @Override
     public Context getContext() {
         return this;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

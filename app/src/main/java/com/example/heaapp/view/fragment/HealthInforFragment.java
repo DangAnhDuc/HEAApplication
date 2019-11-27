@@ -55,7 +55,6 @@ public class HealthInforFragment extends BaseFragment implements HealthInforView
     @BindView(R.id.tv_timestamp)
     TextView tvTimestamp;
     private HealthInfoPresenterImpl healthInforPresenter;
-    private ProgressDialog progressDialog;
     private Unbinder unbinder;
 
     @Override
@@ -74,8 +73,6 @@ public class HealthInforFragment extends BaseFragment implements HealthInforView
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         newRecylcerview.setLayoutManager(layoutManager);
 
-        progressDialog = new ProgressDialog(getContext(), R.style.AppTheme_Dark_Dialog);
-
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setColorSchemeColors(R.color.colorPrimary, R.color.colorPrimaryDark);
         return view;
@@ -87,9 +84,7 @@ public class HealthInforFragment extends BaseFragment implements HealthInforView
         if (!getUserVisibleHint()) {
             return;
         }
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage(getString(R.string.msg_loading));
-        progressDialog.show();
+        swipeRefreshLayout.setRefreshing(true);
         healthInforPresenter.getLatestData();
     }
 
@@ -116,7 +111,6 @@ public class HealthInforFragment extends BaseFragment implements HealthInforView
 
     @Override
     public void getListNewsSuccess(List<Article> articles) {
-        progressDialog.dismiss();
         swipeRefreshLayout.setRefreshing(false);
         NewsAdapter newsAdapter = new NewsAdapter(getContext(), articles);
         newRecylcerview.setAdapter(newsAdapter);
@@ -132,7 +126,6 @@ public class HealthInforFragment extends BaseFragment implements HealthInforView
     @SuppressLint("DefaultLocale")
     @Override
     public void getCityInfoSuccess(CityInfor cityInfor) {
-        progressDialog.dismiss();
         descTemp.setText(String.format("%d °C", cityInfor.getData().getCurrent().getWeather().getTp()));
         descPressure.setText(String.format("%d hPa", cityInfor.getData().getCurrent().getWeather().getPr()));
         descHumidity.setText(String.format("%d %%", cityInfor.getData().getCurrent().getWeather().getHu()));
