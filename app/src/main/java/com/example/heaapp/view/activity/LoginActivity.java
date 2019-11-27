@@ -79,13 +79,11 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     @Override
     public void setProgressVisibility(boolean visibility) {
         if (visibility) {
-            btnLogin.setEnabled(false);
             progressDialog.setIndeterminate(true);
             progressDialog.setMessage(getString(R.string.msg_authenticating));
             progressDialog.show();
         } else {
             progressDialog.dismiss();
-            btnLogin.setEnabled(true);
 
         }
     }

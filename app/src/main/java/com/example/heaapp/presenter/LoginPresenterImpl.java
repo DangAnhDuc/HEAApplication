@@ -53,7 +53,6 @@ public class LoginPresenterImpl implements LoginPresenter {
                             databaseReference.child("username").addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    Common.name = dataSnapshot.getValue(String.class);
                                 }
 
                                 @Override
