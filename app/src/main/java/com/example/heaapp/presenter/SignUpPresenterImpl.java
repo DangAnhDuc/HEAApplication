@@ -52,7 +52,7 @@ public class SignUpPresenterImpl implements SignUpPresenter {
                             HashMap<String, String> hashMap = new HashMap<>();
                             hashMap.put("id", userId);
                             hashMap.put("username", name);
-                            hashMap.put("imageURl", "default_ava");
+                            hashMap.put("imageURL", "default_ava");
 
                             databaseReference.setValue(hashMap).addOnCompleteListener(task1 -> {
                                 if (task1.isSuccessful()) {

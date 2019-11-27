@@ -8,6 +8,7 @@ import com.example.heaapp.model.food.Dishes;
 import com.example.heaapp.model.user_information.CurrentUserIndices;
 import com.example.heaapp.model.user_information.CurrentUserInfo;
 import com.example.heaapp.model.user_information.DailySummary;
+import com.example.heaapp.model.user_information.User;
 import com.example.heaapp.model.workout.Activities;
 import com.example.heaapp.ultis.Common;
 
@@ -37,6 +38,12 @@ public class RealmService {
     public RealmResults<CurrentUserInfo> getCurrentUser() {
         return mRealm.where(CurrentUserInfo.class)
                 .equalTo("id", 0)
+                .findAll();
+    }
+
+    public RealmResults<User> getUser(){
+        return mRealm.where(User.class)
+                .equalTo("userId","0")
                 .findAll();
     }
 
@@ -252,6 +259,30 @@ public class RealmService {
             currentUserIndices.setBodyFat(0);
             currentUserIndices.setFFMI(0);
             currentUserIndices.setDailyCal(0);
+
+            //create table for user
+            User user = realm.createObject(User.class);
+            user.setUsername("Sample");
+            user.setImageURl("default");
+            user.setUserId(String.valueOf(0));
+        }, () -> {
+            if (onTransactionCallback != null) {
+                onTransactionCallback.onTransactionSuccess();
+            }
+        }, error -> {
+            if (onTransactionCallback != null) {
+                onTransactionCallback.onTransactionError((Exception) error);
+            }
+        });
+    }
+
+    public void updateUser(String name,String imageURL,OnTransactionCallback onTransactionCallback) {
+        mRealm.executeTransactionAsync(realm -> {
+            RealmResults<User> realmResults = realm.where(User.class)
+                    .equalTo("userId", "0")
+                    .findAll();
+            realmResults.setValue("username",name);
+            realmResults.setValue("imageURl",imageURL);
         }, () -> {
             if (onTransactionCallback != null) {
                 onTransactionCallback.onTransactionSuccess();
