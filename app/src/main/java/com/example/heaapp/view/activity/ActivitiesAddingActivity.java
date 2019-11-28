@@ -59,19 +59,13 @@ public class ActivitiesAddingActivity extends AppCompatActivity implements Activ
     EditText edtSwimmingMinutes;
     @BindView(R.id.edt_yoga_minutes)
     EditText edtYogaMinutes;
-    @BindView(R.id.activitiesAddingToolbar)
-    Toolbar activitiesAddingToolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activities_adding);
         ButterKnife.bind(this);
-        //set toolbar
-        setSupportActionBar(activitiesAddingToolbar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        activitiesAddingToolbar.setNavigationOnClickListener(v -> finish());
 
         RealmService realmService = RealmService.getInstance();
         activitiesAddingPresenter = new ActivitiesAddingPresenterImpl(this, realmService, getContext());

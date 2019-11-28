@@ -70,8 +70,8 @@
     <string-array name="activitiesName">
         <item>Sleeping</item>
         <item>Desk Work</item>
-        <item>Calisthenics,Light effort</item>
-        <item>Calisthenics,Vigorous effort</item>
+        <item>Light Calisthenics</item>
+        <item>Vigorous Calisthenics</item>
         <item>Gymnastics</item>
         <item>Walking slow</item>
         <item>Walking moderate</item>
