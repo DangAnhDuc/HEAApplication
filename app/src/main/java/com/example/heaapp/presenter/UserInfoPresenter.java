@@ -9,4 +9,5 @@ public interface UserInfoPresenter extends BasePresenter<UserInfoView> {
     void loadInfo();
     void saveInfo(String age, String sex,String weight,String height, String waist, String hip, String chest);
     void saveUserInfoStatusPref();
+    void uploadImageFromGallery();
 }

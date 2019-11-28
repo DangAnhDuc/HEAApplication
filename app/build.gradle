@@ -87,4 +87,7 @@ dependencies {
 
     //Gecko webview
     implementation "org.mozilla.geckoview:geckoview-${geckoview_channel}:${geckoview_version}"
+
+    //Dialog
+    implementation 'com.github.d-max:spots-dialog:1.1@aar'
 }

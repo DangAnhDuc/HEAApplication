@@ -1,6 +1,6 @@
 package com.example.heaapp.view.activity;
 
-import android.app.ProgressDialog;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +17,7 @@ import com.example.heaapp.ultis.ultis;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dmax.dialog.SpotsDialog;
 
 public class LoginActivity extends AppCompatActivity implements LoginView {
 
@@ -30,7 +31,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     TextView linkSignup;
 
     LoginPresenterImpl loginPresenter;
-    ProgressDialog progressDialog;
+    AlertDialog progressDialog;
     private boolean doubleBackToExitPressedOnce = false;
 
     @Override
@@ -46,7 +47,10 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         linkSignup.setOnClickListener(v -> ultis.setIntent(LoginActivity.this, SignUpActivity.class));
 
         btnLogin.setOnClickListener(v -> loginPresenter.login(edtEmail.getText().toString().trim(), edtPassword.getText().toString().trim()));
-        progressDialog = new ProgressDialog(LoginActivity.this, R.style.AppTheme_Dark_Dialog);
+        progressDialog = new SpotsDialog.Builder()
+                .setContext(this)
+                .setTheme(R.style.SpotsDialog)
+                .setCancelable(false).build();
 
         edtPassword.setOnKeyListener((v, keyCode, event) -> {
             if (event.getAction() == KeyEvent.ACTION_DOWN) {
@@ -79,7 +83,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     @Override
     public void setProgressVisibility(boolean visibility) {
         if (visibility) {
-            progressDialog.setIndeterminate(true);
             progressDialog.setMessage(getString(R.string.msg_authenticating));
             progressDialog.show();
         } else {

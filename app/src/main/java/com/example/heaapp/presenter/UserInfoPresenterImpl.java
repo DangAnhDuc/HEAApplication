@@ -1,14 +1,9 @@
 package com.example.heaapp.presenter;
 
-import android.app.ProgressDialog;
-import android.content.ContentResolver;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.text.TextUtils;
-import android.webkit.MimeTypeMap;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -16,12 +11,9 @@ import com.example.heaapp.callback.OnTransactionCallback;
 import com.example.heaapp.model.user_information.CurrentUserInfo;
 import com.example.heaapp.model.user_information.User;
 import com.example.heaapp.service.RealmService;
+import com.example.heaapp.ultis.Common;
 import com.example.heaapp.ultis.ultis;
 import com.example.heaapp.view.activity.UserInfoView;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,10 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.StorageTask;
-import com.google.firebase.storage.UploadTask;
 
-import java.util.HashMap;
 import java.util.Objects;
 
 import io.realm.RealmResults;
@@ -43,11 +32,16 @@ public class UserInfoPresenterImpl implements UserInfoPresenter {
     private UserInfoView userInfoView;
     private Context context;
     private final RealmService realmService;
+    private DatabaseReference databaseReference;
+    private FirebaseAuth firebaseAuth;
+    private StorageReference storageReference;
 
     public UserInfoPresenterImpl(UserInfoView userInfoView, Context context, RealmService realmService) {
         this.userInfoView = userInfoView;
         this.context = context;
         this.realmService = realmService;
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseStorage.getInstance().getReference("upload").child(firebaseAuth.getCurrentUser().getUid());
     }
 
     @Override
@@ -184,6 +178,38 @@ public class UserInfoPresenterImpl implements UserInfoPresenter {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("isEntered", true);
         editor.apply();
+    }
+
+    @Override
+    public void uploadImageFromGallery() {
+
+        if (Common.userImageUri != null) {
+            final StorageReference fileReference = storageReference.child(System.currentTimeMillis() +
+                    "." + ultis.getFileExtension(Common.userImageUri, context));
+
+            Common.uploadUserImageTask = fileReference.putFile(Common.userImageUri);
+            Common.uploadUserImageTask.continueWithTask(task -> {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+                return fileReference.getDownloadUrl();
+            }).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Uri downloadUri = task.getResult();
+                    String imageUri = downloadUri.toString();
+                    databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseAuth.getCurrentUser().getUid());
+                    databaseReference.child("imageURL").setValue(imageUri);
+
+                    userInfoView.updateUserImage(imageUri);
+                } else {
+                    userInfoView.displayUploadFailed();
+                }
+            }).addOnFailureListener(e -> {
+                userInfoView.displayUploadError(e.getMessage());
+            });
+        } else {
+            userInfoView.displayNoImageSelected();
+        }
     }
 
 

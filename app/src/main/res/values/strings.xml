@@ -156,4 +156,8 @@
     <string name="minutes">Minutes</string>
     <string name="add_activities">Add activities!</string>
     <string name="msg_daily_noti">That all for today! Good night and be ready for new day!</string>
+    <string name="uploading">Uploading</string>
+    <string name="msg_upload_failed">Upload failed!</string>
+    <string name="msg_no_image_selected">No image selected!</string>
+    <string name="msg_upload_in_progress">Upload in progress</string>
 </resources>
