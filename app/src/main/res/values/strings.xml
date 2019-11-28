@@ -160,4 +160,5 @@
     <string name="msg_upload_failed">Upload failed!</string>
     <string name="msg_no_image_selected">No image selected!</string>
     <string name="msg_upload_in_progress">Upload in progress</string>
+    <string name="time_duration">Time duration(Mns)</string>
 </resources>

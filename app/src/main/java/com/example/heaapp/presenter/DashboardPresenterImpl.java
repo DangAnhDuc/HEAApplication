@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import com.example.heaapp.callback.OnTransactionCallback;
 import com.example.heaapp.model.user_information.CurrentUserIndices;
+import com.example.heaapp.model.user_information.CurrentUserInfo;
 import com.example.heaapp.model.user_information.DailySummary;
 import com.example.heaapp.service.RealmService;
 import com.example.heaapp.view.fragment.DashboardView;
@@ -19,6 +20,7 @@ public class DashboardPresenterImpl implements DashboardPresenter, OnTransaction
     private Context context;
     private final RealmService mRealmService;
     private Realm realm = Realm.getDefaultInstance();
+    private CurrentUserInfo currentUserInfo;
 
     public DashboardPresenterImpl(Context context, DashboardView dashboardView, RealmService mRealmService) {
         this.dashboardView = dashboardView;
@@ -84,5 +86,10 @@ public class DashboardPresenterImpl implements DashboardPresenter, OnTransaction
         dashboardView.addDrunkWaterFailed();
     }
 
-
+    @Override
+    public double calculateBurnedEnergy(double MET, String timePeriod) {
+        RealmResults<CurrentUserInfo> realmResults = mRealmService.getCurrentUser();
+        currentUserInfo = realmResults.get(0);
+        return ((MET * currentUserInfo.getWeight() * 3.5) / 200) * (Integer.parseInt(timePeriod));
+    }
 }

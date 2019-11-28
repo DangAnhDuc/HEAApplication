@@ -1,17 +1,23 @@
 package com.example.heaapp.view.fragment;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -21,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.heaapp.R;
 import com.example.heaapp.adapter.ActivitiesAdapter;
 import com.example.heaapp.adapter.DishesAdapter;
+import com.example.heaapp.adapter.SpinnerAdapter;
 import com.example.heaapp.base.BaseFragment;
 import com.example.heaapp.model.user_information.CurrentUserIndices;
 import com.example.heaapp.model.user_information.DailySummary;
@@ -30,8 +37,12 @@ import com.example.heaapp.ultis.ultis;
 import com.example.heaapp.view.activity.ActivitiesAddingActivity;
 import com.example.heaapp.view.activity.FoodAddingActivity;
 import com.example.heaapp.view.activity.UserInfoActivity;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,7 +50,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 
-public class DashBoardFragment extends BaseFragment implements DashboardView {
+public class DashBoardFragment extends BaseFragment implements DashboardView, AdapterView.OnItemClickListener {
     @BindView(R.id.desc_kcal_eaten)
     TextView descKcalEaten;
     @BindView(R.id.desc_kcal_left)
@@ -91,6 +102,14 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
 
     private DashboardPresenterImpl dashboardPresenter;
     private Unbinder unbinder;
+    int icons[] = {R.drawable.sleeping, R.drawable.deskwork, R.drawable.callisthenics, R.drawable.callisthenics,
+            R.drawable.gymastics, R.drawable.walking,R.drawable.walking,R.drawable.walking,R.drawable.running,R.drawable.running,
+            R.drawable.running,R.drawable.bicycle,R.drawable.bicycle,R.drawable.bicycle,R.drawable.jumping,
+            R.drawable.swimming,R.drawable.yoga};
+    private int activityPosition=0;
+    private List<Double> METs = new ArrayList<>();
+    private long burnedEnergy;
+
 
     @Override
     public BaseFragment provideYourFragment() {
@@ -242,7 +261,38 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
                 startActivity(intentDinner);
                 break;
             case R.id.layout_exercise:
-                ultis.setIntent(getContext(), ActivitiesAddingActivity.class);
+                Double[] arrayMET = {0.95, 1.5, 3.8, 8.0, 3.8, 2.0, 3.3, 4.3, 5.0, 10.5, 23.0, 3.5, 8.0, 15.8, 8.8, 9.5, 8.8};
+                METs = Arrays.asList(arrayMET);
+                final Dialog dialog= new Dialog(getContext(),R.style.AlertDialogTheme);
+                dialog.setContentView(R.layout.activity_custom_dialog);
+                dialog.setTitle("Add activity!");
+
+                Spinner spinner= dialog.findViewById(R.id.activity_spinner);
+                EditText edtTimeDuration= dialog.findViewById(R.id.edt_activity_duration);
+                TextView tvAcitityEnergy= dialog.findViewById(R.id.tv_activities_burnedEnergy);
+                Button btnAddActivity= dialog.findViewById(R.id.btn_addActivity);
+
+                SpinnerAdapter spinnerAdapter=new SpinnerAdapter(getContext(),icons,getContext().getResources().getStringArray(R.array.activitiesName));
+                spinner.setAdapter(spinnerAdapter);
+                dialog.show();
+
+                edtTimeDuration.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        burnedEnergy=Double.valueOf(dashboardPresenter.calculateBurnedEnergy(METs.get(activityPosition), edtTimeDuration.getText().toString())).longValue();
+                        tvAcitityEnergy.setText((int) burnedEnergy);
+                    }
+                });
                 break;
         }
     }
@@ -258,4 +308,10 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
     public Context getContext() {
         return super.getContext();
     }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        activityPosition= position;
+    }
+
 }
