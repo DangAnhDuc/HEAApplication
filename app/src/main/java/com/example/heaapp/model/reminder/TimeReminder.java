@@ -8,10 +8,10 @@ import io.realm.RealmList;
 import io.realm.RealmModel;
 import io.realm.RealmObject;
 
-public class TimeReminder  {
+public class TimeReminder extends RealmObject {
     private int hour;
     private int minute;
-    private List<String> dayList ;
+    private RealmList<String> dayList ;
     private boolean isChecked;
 
     public TimeReminder(){}
@@ -25,7 +25,7 @@ public class TimeReminder  {
         return minute;
     }
 
-    public List<String> getDayList() {
+    public RealmList<String> getDayList() {
         return dayList;
     }
 
@@ -41,7 +41,7 @@ public class TimeReminder  {
         this.minute = minute;
     }
 
-    public void setDayList(List<String> dayList) {
+    public void setDayList(RealmList<String> dayList) {
         this.dayList = dayList;
     }
 

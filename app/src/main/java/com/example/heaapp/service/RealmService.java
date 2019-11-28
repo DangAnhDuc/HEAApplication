@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import com.example.heaapp.callback.OnTransactionCallback;
 import com.example.heaapp.model.food.Data;
 import com.example.heaapp.model.food.Dishes;
+import com.example.heaapp.model.reminder.TimeReminder;
 import com.example.heaapp.model.user_information.CurrentUserIndices;
 import com.example.heaapp.model.user_information.CurrentUserInfo;
 import com.example.heaapp.model.user_information.DailySummary;
@@ -13,6 +14,7 @@ import com.example.heaapp.ultis.Common;
 
 import io.realm.Realm;
 import io.realm.Realm.Transaction;
+import io.realm.RealmList;
 import io.realm.RealmResults;
 
 public class RealmService {
@@ -37,6 +39,11 @@ public class RealmService {
     public RealmResults<CurrentUserInfo> getCurrentUser() {
         return mRealm.where(CurrentUserInfo.class)
                 .equalTo("id", 0)
+                .findAll();
+    }
+
+    public RealmResults<TimeReminder> getReminder() {
+        return mRealm.where(TimeReminder.class)
                 .findAll();
     }
 
@@ -203,6 +210,23 @@ public class RealmService {
             realmResults.setValue("bodyFat", bodyFat);
             realmResults.setValue("FFMI", FFMI);
             realmResults.setValue("dailyCal", dailyCal);
+        }, () -> {
+            if (onTransactionCallback != null) {
+                onTransactionCallback.onTransactionSuccess();
+            }
+        }, error -> {
+            if (onTransactionCallback != null) {
+                onTransactionCallback.onTransactionError((Exception) error);
+            }
+        });
+    }
+
+    public void addReminder(int hour, int min, RealmList<String> listDay, OnTransactionCallback onTransactionCallback){
+        mRealm.executeTransactionAsync(realm -> {
+                    RealmResults<TimeReminder> realmResults = realm.where(TimeReminder.class).findAll();
+            realmResults.setValue("hour", hour);
+            realmResults.setValue("minute", min);
+            realmResults.setValue("dayList", listDay);
         }, () -> {
             if (onTransactionCallback != null) {
                 onTransactionCallback.onTransactionSuccess();

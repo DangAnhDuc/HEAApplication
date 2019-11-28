@@ -17,10 +17,9 @@ import com.example.heaapp.adapter.ReminderAdapter;
 import com.example.heaapp.model.reminder.TimeReminder;
 import com.example.heaapp.presenter.ReminderPresenter;
 import com.example.heaapp.presenter.ReminderPresenterImpl;
-import com.google.android.gms.common.util.ArrayUtils;
+import com.example.heaapp.service.RealmService;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -40,9 +39,9 @@ public class ReminderActivity extends AppCompatActivity implements ReminderView 
 
     List<TimeReminder> listTime = new ArrayList<>();
     TimePickerDialog timePickerDialog;
-    TimeReminder timeReminder;
     private int hour,min;
     private String[] dayList;
+    private RealmService service;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,17 +50,21 @@ public class ReminderActivity extends AppCompatActivity implements ReminderView 
         ButterKnife.bind(this);
 
         initView();
-//        ReminderPresenter presenter = new ReminderPresenterImpl(this);
+
 //        presenter.addListReminder(hour,min);
     }
 
     private void initView() {
-
+        //toolbar
         setSupportActionBar(reminderToolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setTitle("Reminder");
         reminderToolbar.setNavigationOnClickListener(v -> finish());
+
+
+        //realmService
+        service = RealmService.getInstance();
 
         btnAdd.setOnClickListener(v ->
                 dialogAddTimeReminder()
@@ -81,13 +84,12 @@ public class ReminderActivity extends AppCompatActivity implements ReminderView 
     }
 
     private void dialogAddDayReminder() {
-        List<String> listDay = new ArrayList<>();
+        RealmList<String> listDay= new RealmList<>();
         ReminderAdapter adapter = new ReminderAdapter(getContext(), listTime);
         adapter.notifyDataSetChanged();
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerViewReminder.setLayoutManager(layoutManager);
         recyclerViewReminder.setAdapter(adapter);
-        timeReminder = new TimeReminder();
         boolean[] num = {false,false,false,false,false,false,false};
 //        boolean[] num = {true,true,true,true,true,true,true};
         String[] listAllDay = getResources().getStringArray(R.array.day);
@@ -99,10 +101,8 @@ public class ReminderActivity extends AppCompatActivity implements ReminderView 
                 listDay.add(a);
             }
         }).setPositiveButton(android.R.string.ok, (dialog, which) -> {
-            timeReminder.setDayList(listDay);
-            timeReminder.setHour(hour);
-            timeReminder.setMinute(min);
-            listTime.add(timeReminder);
+            callPresenterReminder(hour,min,listDay);
+//            listTime.add(timeReminder);
             adapter.notifyDataSetChanged();
         }).setNegativeButton(android.R.string.no, null);
         AlertDialog dialog = mBuilder.create();
@@ -111,10 +111,12 @@ public class ReminderActivity extends AppCompatActivity implements ReminderView 
         dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
     }
 
-    @Override
-    public void addListSuccess() {
-
+    private void callPresenterReminder(int hour,int min,RealmList<String> listDay){
+        ReminderPresenter presenter = new ReminderPresenterImpl(this,service);
+        presenter.saveDataReminder(hour,min,listDay);
+        presenter.loadDataReminder();
     }
+
 
 
     @Override
@@ -122,17 +124,9 @@ public class ReminderActivity extends AppCompatActivity implements ReminderView 
         return this;
     }
 
-//    private void sortDayList(List<String> listBefore,List<String> listAfter){
-//        listAfter = new ArrayList<>();
-//        int a = listBefore.get(1);
-//        int temp;
-//        for (int i = 1; i < listBefore.size(); i++) {
-//            for (int j = i; j > 0; j--) {
-//                if (1 < 2) {
-//                    temp = array[j];
-//                    array[j] = array[j - 1];
-//                    array[j - 1] = temp;
-//                }
-//            }
-//    }
+
+    @Override
+    public void LoadListDay(int hour, int min, RealmList<String> list) {
+
+    }
 }
