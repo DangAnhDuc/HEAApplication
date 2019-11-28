@@ -13,10 +13,6 @@ public class ReminderPresenterImpl implements ReminderPresenter{
         this.reminderView = reminderView;
     }
 
-    @Override
-    public void addListReminder(int hour,int min) {
-        reminderView.addListSuccess();
-    }
 
     @Override
     public void attachView(ReminderView view) {
@@ -29,4 +25,8 @@ public class ReminderPresenterImpl implements ReminderPresenter{
     }
 
 
+    @Override
+    public void saveDataReminder(int hour, int min) {
+
+    }
 }

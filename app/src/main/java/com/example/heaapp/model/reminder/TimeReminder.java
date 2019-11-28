@@ -2,15 +2,16 @@ package com.example.heaapp.model.reminder;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.realm.RealmList;
 import io.realm.RealmModel;
 import io.realm.RealmObject;
 
-public class TimeReminder extends RealmObject {
+public class TimeReminder  {
     private int hour;
     private int minute;
-    private RealmList<String> dayList ;
+    private List<String> dayList ;
     private boolean isChecked;
 
     public TimeReminder(){}
@@ -24,7 +25,7 @@ public class TimeReminder extends RealmObject {
         return minute;
     }
 
-    public RealmList<String> getDayList() {
+    public List<String> getDayList() {
         return dayList;
     }
 
@@ -40,7 +41,7 @@ public class TimeReminder extends RealmObject {
         this.minute = minute;
     }
 
-    public void setDayList(RealmList<String> dayList) {
+    public void setDayList(List<String> dayList) {
         this.dayList = dayList;
     }
 

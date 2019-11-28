@@ -1,6 +1,7 @@
 package com.example.heaapp.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import com.example.heaapp.R;
 import com.example.heaapp.model.reminder.TimeReminder;
 import com.example.heaapp.view.activity.ReminderView;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHolder> {
@@ -22,10 +24,9 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
     ReminderView view;
     TimeReminder timeReminder = new TimeReminder();
 
-    public ReminderAdapter(Context context, int hour,int min) {
+    public ReminderAdapter(Context context,List<TimeReminder> list) {
         this.context = context;
-        this.hour = hour;
-        this.min =  min;
+        this.list = list;
     }
 
     @NonNull
@@ -37,13 +38,17 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.txtTime.setText(timeReminder.getHour());
-//        holder.txtDate.setText(String.valueOf(list.get(position).getDayList()));
+        TimeReminder time = list.get(position);
+        String testListDay = String.valueOf(list.get(position).getDayList());
+        testListDay = testListDay.replace(String.valueOf('['), "");
+        testListDay = testListDay.replace(String.valueOf(']'), "");
+        holder.txtTime.setText(time.getHour()+":"+time.getMinute());
+        holder.txtDate.setText(testListDay);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return list.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -51,7 +56,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txtTime = itemView.findViewById(R.id.txt_time_reminder);
-//            txtDate = itemView.findViewById(R.id.txt_day_reminder);
+            txtDate = itemView.findViewById(R.id.txt_day_reminder);
         }
     }
 }
