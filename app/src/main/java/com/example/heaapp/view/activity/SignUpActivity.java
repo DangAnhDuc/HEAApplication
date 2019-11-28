@@ -1,6 +1,6 @@
 package com.example.heaapp.view.activity;
 
-import android.app.ProgressDialog;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -16,6 +16,7 @@ import com.example.heaapp.ultis.ultis;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dmax.dialog.SpotsDialog;
 
 public class SignUpActivity extends AppCompatActivity implements SignUpView {
 
@@ -31,7 +32,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
     TextView linkLogin;
 
     SignUpPresenterImpl signUpPresenter;
-    ProgressDialog progressDialog;
+    AlertDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,11 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
         signUpPresenter.attachView(this);
 
         btnSignup.setOnClickListener(v -> signUpPresenter.signUp(edtName.getText().toString().trim(), edtEmail.getText().toString().trim(), edtPassword.getText().toString().trim()));
-        progressDialog = new ProgressDialog(SignUpActivity.this, R.style.AppTheme_Dark_Dialog);
+        progressDialog = new SpotsDialog.Builder()
+                .setMessage(getString(R.string.msg_create_account))
+                .setContext(this)
+                .setTheme(R.style.SpotsDialog)
+                .setCancelable(false).build();
 
         edtPassword.setOnKeyListener((v, keyCode, event) -> {
             if (event.getAction() == KeyEvent.ACTION_DOWN) {
@@ -72,7 +77,6 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
     @Override
     public void setProgressVisibility(boolean visibility) {
         if (visibility) {
-            progressDialog.setIndeterminate(true);
             progressDialog.setMessage(getString(R.string.msg_create_account));
             progressDialog.show();
         } else {

@@ -1,17 +1,13 @@
 package com.example.heaapp.view.activity;
 
-import android.app.ProgressDialog;
-import android.content.ContentResolver;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.webkit.MimeTypeMap;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -20,24 +16,15 @@ import com.bumptech.glide.Glide;
 import com.example.heaapp.R;
 import com.example.heaapp.presenter.UserInfoPresenterImpl;
 import com.example.heaapp.service.RealmService;
+import com.example.heaapp.ultis.Common;
 import com.example.heaapp.ultis.ultis;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.StorageTask;
-import com.google.firebase.storage.UploadTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import dmax.dialog.SpotsDialog;
 
 public class UserInfoActivity extends AppCompatActivity implements UserInfoView {
 
@@ -68,14 +55,8 @@ public class UserInfoActivity extends AppCompatActivity implements UserInfoView 
     RadioButton radioF;
     @BindView(R.id.img_user_ava)
     CircleImageView imgUserAva;
+    private AlertDialog progressDialog;
     private static final int IMAGE_REQUEST=1;
-    private Uri imageUri;
-    private StorageTask<UploadTask.TaskSnapshot> uploadTask;
-    private DatabaseReference databaseReference;
-    private FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
-    private StorageReference storageReference= FirebaseStorage.getInstance().getReference("upload");
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,19 +66,18 @@ public class UserInfoActivity extends AppCompatActivity implements UserInfoView 
 
         RealmService realmService = RealmService.getInstance();
         userInfoPresenter = new UserInfoPresenterImpl(this, getContext(), realmService);
-
+        progressDialog = new SpotsDialog.Builder()
+                .setContext(this)
+                .setMessage(getString(R.string.uploading))
+                .setTheme(R.style.SpotsDialog)
+                .setCancelable(false).build();
+        userInfoPresenter.loadInfo();
         btnSaveInfo.setOnClickListener(v -> {
             int selectedId = radioSexGrp.getCheckedRadioButtonId();
             radioButton = findViewById(selectedId);
             userInfoPresenter.saveInfo(edtAge.getText().toString(), radioButton.getText().toString(), edtWeight.getText().toString(),
                     edtHeight.getText().toString(), edtWaist.getText().toString(), edtHip.getText().toString(), edtChest.getText().toString());
         });
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        userInfoPresenter.loadInfo();
     }
 
     @Override
@@ -142,6 +122,29 @@ public class UserInfoActivity extends AppCompatActivity implements UserInfoView 
     }
 
     @Override
+    public void updateUserImage(String imageUri) {
+        Glide.with(getContext()).load(imageUri).into(imgUserAva);
+        progressDialog.dismiss();
+    }
+
+    @Override
+    public void displayUploadFailed() {
+        ultis.showMessage(getContext(), getString(R.string.msg_upload_failed));
+    }
+
+    @Override
+    public void displayUploadError(String message) {
+        ultis.showMessage(getContext(), message);
+        progressDialog.dismiss();
+    }
+
+    @Override
+    public void displayNoImageSelected() {
+        ultis.showMessage(getContext(), getString(R.string.msg_no_image_selected));
+
+    }
+
+    @Override
     public Context getContext() {
         return this;
     }
@@ -158,59 +161,14 @@ public class UserInfoActivity extends AppCompatActivity implements UserInfoView 
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode== IMAGE_REQUEST&& resultCode==RESULT_OK && data!=null && data.getData()!=null) {
-
-            imageUri = data.getData();
-
-            if (uploadTask != null && uploadTask.isInProgress()) {
-                ultis.showMessage(getContext(), "Upload in progress");
+            Common.userImageUri = data.getData();
+            if (Common.uploadUserImageTask != null && Common.uploadUserImageTask.isInProgress()) {
+                ultis.showMessage(getContext(), getString(R.string.msg_upload_in_progress));
             } else {
-                uploadImageFromGallery();
+                userInfoPresenter.uploadImageFromGallery();
+                progressDialog.show();
             }
         }
     }
 
-    private void uploadImageFromGallery() {
-        final ProgressDialog progressDialog= new ProgressDialog(getContext(), R.style.AppTheme_Dark_Dialog);
-        progressDialog.setMessage("Uploading");
-        progressDialog.show();
-
-        if(imageUri!=null){
-            final StorageReference fileReference=storageReference.child(System.currentTimeMillis()+
-                    "."+ getFileExtension(imageUri));
-
-            uploadTask =fileReference.putFile(imageUri);
-            uploadTask.continueWithTask(task -> {
-                if (!task.isSuccessful()){
-                    throw  task.getException();
-                }
-                return fileReference.getDownloadUrl();
-            }).addOnCompleteListener(task -> {
-                if (task.isSuccessful()){
-                    Uri downloadUri=task.getResult();
-                    String mUri= downloadUri.toString();
-                    databaseReference= FirebaseDatabase.getInstance().getReference("Users").child(firebaseAuth.getCurrentUser().getUid());
-                    databaseReference.child("imageURL").setValue(mUri);
-                    Glide.with(getContext()).load(mUri).into(imgUserAva);
-                    progressDialog.dismiss();
-
-                }
-                else {
-                    ultis.showMessage(getContext(),"Upload failed!");
-                }
-
-            }).addOnFailureListener(e -> {
-                ultis.showMessage(getContext(),e.getMessage());
-                progressDialog.dismiss();
-            });
-        }
-        else {
-            ultis.showMessage(getContext(),"No image selected!");
-        }
-    }
-
-    public String getFileExtension(Uri uri){
-        ContentResolver contentResolver= getContext().getContentResolver();
-        MimeTypeMap mimeTypeMap=MimeTypeMap.getSingleton();
-        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
-    }
 }

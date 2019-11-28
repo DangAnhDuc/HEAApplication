@@ -1,6 +1,6 @@
 package com.example.heaapp.view.fragment;
 
-import android.app.ProgressDialog;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,11 +20,13 @@ import com.example.heaapp.view.activity.ExerciseWorkoutActivity;
 
 import java.util.List;
 
+import dmax.dialog.SpotsDialog;
+
 
 public class WorkoutFragment extends BaseFragment implements WorkoutView {
     private RecyclerView categoryLayout;
     private WorkoutPresenter workoutPresenter;
-    private ProgressDialog dialog;
+    private AlertDialog dialog;
 
 
     @Override
@@ -35,7 +37,10 @@ public class WorkoutFragment extends BaseFragment implements WorkoutView {
     @Override
     public View provideYourFragmentView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_workout, parent, false);
-        dialog = new ProgressDialog(getContext(), R.style.AppTheme_Dark_Dialog);
+        dialog = new SpotsDialog.Builder()
+                .setContext(getContext())
+                .setTheme(R.style.SpotsDialog)
+                .setCancelable(false).build();
 
         categoryLayout = view.findViewById(R.id.category_workout_fragment);
         categoryLayout.setHasFixedSize(true);
@@ -67,9 +72,6 @@ public class WorkoutFragment extends BaseFragment implements WorkoutView {
         if (!getUserVisibleHint()) {
             return;
         }
-        dialog.setIndeterminate(true);
-        dialog.setMessage(getString(R.string.msg_loading));
-        dialog.setCancelable(false);
         dialog.show();
         workoutPresenter.getListCategoryWorkout();
     }

@@ -163,4 +163,10 @@
 
     <string name="minutes">Phút</string>
     <string name="add_activities">Thêm hoạt động!</string>
+
+    <string name="msg_daily_noti">That all for today! Good night and be ready for new day!</string>
+    <string name="uploading">Tải lên</string>
+    <string name="msg_upload_failed">Tải lên thất bại!</string>
+    <string name="msg_no_image_selected">Không có ảnh nào được chọn!</string>
+    <string name="msg_upload_in_progress">Đang tải lên</string>
 </resources>

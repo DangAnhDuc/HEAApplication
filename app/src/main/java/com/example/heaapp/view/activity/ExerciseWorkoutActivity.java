@@ -1,5 +1,6 @@
 package com.example.heaapp.view.activity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -27,6 +28,7 @@ import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dmax.dialog.SpotsDialog;
 
 public class ExerciseWorkoutActivity extends AppCompatActivity implements ExerciseWorkoutView {
     @BindView(R.id.exerciseToolbar)
@@ -40,7 +42,7 @@ public class ExerciseWorkoutActivity extends AppCompatActivity implements Exerci
     private ExerciseWorkoutPresenter exerciseWorkoutPresenter;
     private List<ItemExercise> listExercise;
     private int categoryID;
-    ProgressDialog dialog;
+    AlertDialog dialog;
     ListExerciseAdapter listExerciseAdapter;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +51,11 @@ public class ExerciseWorkoutActivity extends AppCompatActivity implements Exerci
         ButterKnife.bind(this);
         initView();
 
-        dialog.setIndeterminate(true);
-        dialog.setMessage(getString(R.string.msg_loading));
-        dialog.setCancelable(false);
+        dialog = new SpotsDialog.Builder()
+                .setContext(this)
+                .setMessage(getString(R.string.msg_loading))
+                .setTheme(R.style.SpotsDialog)
+                .setCancelable(false).build();
         dialog.show();
     }
 

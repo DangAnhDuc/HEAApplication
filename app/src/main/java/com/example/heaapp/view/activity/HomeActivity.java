@@ -192,6 +192,11 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     }
 
     @Override
+    public void setIntentToLogin() {
+        ultis.setIntent(getContext(), LoginActivity.class);
+    }
+
+    @Override
     public Context getContext() {
         return this;
     }
