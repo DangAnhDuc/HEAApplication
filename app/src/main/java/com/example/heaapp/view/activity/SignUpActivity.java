@@ -51,6 +51,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
 
         btnSignup.setOnClickListener(v -> signUpPresenter.signUp(edtName.getText().toString().trim(), edtEmail.getText().toString().trim(), edtPassword.getText().toString().trim()));
         progressDialog = new SpotsDialog.Builder()
+                .setMessage(getString(R.string.msg_create_account))
                 .setContext(this)
                 .setTheme(R.style.SpotsDialog)
                 .setCancelable(false).build();

@@ -7,9 +7,7 @@ import androidx.annotation.NonNull;
 import com.example.heaapp.callback.OnTransactionCallback;
 import com.example.heaapp.model.user_information.CurrentUserInfo;
 import com.example.heaapp.service.RealmService;
-import com.example.heaapp.ultis.ultis;
 import com.example.heaapp.view.activity.HomeView;
-import com.example.heaapp.view.activity.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -34,7 +32,7 @@ public class HomePresenterImpl implements HomePresenter {
         authListener = firebaseAuth -> {
             FirebaseUser user = firebaseAuth.getCurrentUser();
             if (user == null) {
-                ultis.setIntent(context, LoginActivity.class);
+                homeView.setIntentToLogin();
             }
         };
     }

@@ -41,7 +41,7 @@ public class UserInfoPresenterImpl implements UserInfoPresenter {
         this.context = context;
         this.realmService = realmService;
         firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseStorage.getInstance().getReference("upload").child(firebaseAuth.getCurrentUser().getUid());
+        storageReference = FirebaseStorage.getInstance().getReference("upload").child(firebaseAuth.getCurrentUser().getUid());
     }
 
     @Override

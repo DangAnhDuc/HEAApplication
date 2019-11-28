@@ -166,6 +166,7 @@ public class UserInfoActivity extends AppCompatActivity implements UserInfoView 
                 ultis.showMessage(getContext(), getString(R.string.msg_upload_in_progress));
             } else {
                 userInfoPresenter.uploadImageFromGallery();
+                progressDialog.show();
             }
         }
     }

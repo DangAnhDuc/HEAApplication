@@ -48,6 +48,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
         btnLogin.setOnClickListener(v -> loginPresenter.login(edtEmail.getText().toString().trim(), edtPassword.getText().toString().trim()));
         progressDialog = new SpotsDialog.Builder()
+                .setMessage(getString(R.string.msg_authenticating))
                 .setContext(this)
                 .setTheme(R.style.SpotsDialog)
                 .setCancelable(false).build();
