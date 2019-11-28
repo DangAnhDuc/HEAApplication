@@ -95,8 +95,8 @@ public class UserInfoActivity extends AppCompatActivity implements UserInfoView 
     public void displayInfo(String name,String imgURL, int age, String sex, long weight, long height, long waist, long hip, long chest) {
         edtName.setEnabled(false);
         edtName.setText(name);
-        if(imgURL.equals("default")){
-            Glide.with(getContext()).load(R.drawable.default_ava).into(imgUserAva);
+        if(imgURL.equals("default_ava")){
+            imgUserAva.setImageResource(R.drawable.default_ava);
         }
         else {
             Glide.with(getContext()).load(imgURL).into(imgUserAva);
