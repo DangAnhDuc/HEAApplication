@@ -1,5 +1,7 @@
 package com.example.heaapp.presenter;
 
+import android.util.Log;
+
 import com.example.heaapp.callback.OnTransactionCallback;
 import com.example.heaapp.model.reminder.TimeReminder;
 import com.example.heaapp.service.RealmService;
@@ -53,5 +55,6 @@ public class ReminderPresenterImpl implements ReminderPresenter{
         for(int i = 0 ; i< realmResults.size(); i ++){
             reminderView.LoadListDay(realmResults.get(i).getHour(),realmResults.get(i).getHour(),realmResults.get(i).getDayList());
         }
+
     }
 }

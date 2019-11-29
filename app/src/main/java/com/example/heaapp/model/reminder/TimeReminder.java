@@ -9,10 +9,10 @@ import io.realm.RealmModel;
 import io.realm.RealmObject;
 
 public class TimeReminder extends RealmObject {
-    private int hour;
-    private int minute;
-    private RealmList<String> dayList ;
-    private boolean isChecked;
+    int hour;
+    int minute;
+    RealmList<String> dayList ;
+    boolean isChecked;
 
     public TimeReminder(){}
 

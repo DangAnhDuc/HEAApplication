@@ -238,6 +238,16 @@ public class RealmService {
         });
     }
 
+    public void createTableReminder(OnTransactionCallback onTransactionCallback){
+       mRealm.executeTransactionAsync(realm -> realm.createObject(TimeReminder.class), () -> {
+           if (onTransactionCallback != null) {
+               onTransactionCallback.onTransactionSuccess();
+           }
+       }, error -> {
+           if (onTransactionCallback != null)
+               onTransactionCallback.onTransactionError((Exception) error);
+       });
+    }
 
     //init database table
     public void initDatabaseTable(OnTransactionCallback onTransactionCallback) {
@@ -276,6 +286,8 @@ public class RealmService {
             currentUserIndices.setBodyFat(0);
             currentUserIndices.setFFMI(0);
             currentUserIndices.setDailyCal(0);
+
+
         }, () -> {
             if (onTransactionCallback != null) {
                 onTransactionCallback.onTransactionSuccess();

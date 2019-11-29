@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.heaapp.R;
 import com.example.heaapp.adapter.ReminderAdapter;
+import com.example.heaapp.callback.OnTransactionCallback;
 import com.example.heaapp.model.reminder.TimeReminder;
 import com.example.heaapp.presenter.ReminderPresenter;
 import com.example.heaapp.presenter.ReminderPresenterImpl;
@@ -28,6 +29,7 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.RealmList;
+import io.realm.RealmResults;
 
 public class ReminderActivity extends AppCompatActivity implements ReminderView {
     @BindView(R.id.btn_add_reminder)
@@ -36,12 +38,10 @@ public class ReminderActivity extends AppCompatActivity implements ReminderView 
     RecyclerView recyclerViewReminder;
     @BindView(R.id.reminderToolbar)
     Toolbar reminderToolbar;
-
-    List<TimeReminder> listTime = new ArrayList<>();
     TimePickerDialog timePickerDialog;
     private int hour,min;
-    private String[] dayList;
     private RealmService service;
+    ReminderAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +64,7 @@ public class ReminderActivity extends AppCompatActivity implements ReminderView 
 
 
         //realmService
-        service = RealmService.getInstance();
+
 
         btnAdd.setOnClickListener(v ->
                 dialogAddTimeReminder()
@@ -85,8 +85,6 @@ public class ReminderActivity extends AppCompatActivity implements ReminderView 
 
     private void dialogAddDayReminder() {
         RealmList<String> listDay= new RealmList<>();
-        ReminderAdapter adapter = new ReminderAdapter(getContext(), listTime);
-        adapter.notifyDataSetChanged();
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerViewReminder.setLayoutManager(layoutManager);
         recyclerViewReminder.setAdapter(adapter);
@@ -102,7 +100,6 @@ public class ReminderActivity extends AppCompatActivity implements ReminderView 
             }
         }).setPositiveButton(android.R.string.ok, (dialog, which) -> {
             callPresenterReminder(hour,min,listDay);
-//            listTime.add(timeReminder);
             adapter.notifyDataSetChanged();
         }).setNegativeButton(android.R.string.no, null);
         AlertDialog dialog = mBuilder.create();
@@ -112,6 +109,18 @@ public class ReminderActivity extends AppCompatActivity implements ReminderView 
     }
 
     private void callPresenterReminder(int hour,int min,RealmList<String> listDay){
+        service = RealmService.getInstance();
+        service.createTableReminder(new OnTransactionCallback() {
+            @Override
+            public void onTransactionSuccess() {
+
+            }
+
+            @Override
+            public void onTransactionError(Exception e) {
+
+            }
+        });
         ReminderPresenter presenter = new ReminderPresenterImpl(this,service);
         presenter.saveDataReminder(hour,min,listDay);
         presenter.loadDataReminder();
@@ -127,6 +136,13 @@ public class ReminderActivity extends AppCompatActivity implements ReminderView 
 
     @Override
     public void LoadListDay(int hour, int min, RealmList<String> list) {
-
+        List<Integer> listHour = new RealmList<>();
+        listHour.add(hour);
+        List<Integer> listMin = new RealmList<>();
+        listMin.add(min);
+        Log.d("info","hour: "+hour);
+        Log.d("info","min: "+min);
+        Log.d("info","day: "+list);
+        adapter = new ReminderAdapter(getContext(),listHour,listMin,list);
     }
 }

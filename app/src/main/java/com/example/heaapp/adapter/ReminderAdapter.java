@@ -17,16 +17,21 @@ import com.example.heaapp.view.activity.ReminderView;
 import java.util.Arrays;
 import java.util.List;
 
+import io.realm.RealmList;
+
 public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHolder> {
     private Context context;
-    private List<TimeReminder> list;
-    private int hour,min;
+    private RealmList<String> list;
+    private List<Integer> hour,min;
+    List<TimeReminder> listTime;
     ReminderView view;
     TimeReminder timeReminder = new TimeReminder();
 
-    public ReminderAdapter(Context context,List<TimeReminder> list) {
+    public ReminderAdapter(Context context, List<Integer> hour, List<Integer> min, RealmList listDay) {
         this.context = context;
-        this.list = list;
+        this.hour = hour;
+        this.min = min;
+        this.list = listDay;
     }
 
     @NonNull
@@ -38,11 +43,10 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        TimeReminder time = list.get(position);
-        String testListDay = String.valueOf(list.get(position).getDayList());
+        String testListDay = String.valueOf(listTime.get(position).getDayList());
         testListDay = testListDay.replace(String.valueOf('['), "");
         testListDay = testListDay.replace(String.valueOf(']'), "");
-        holder.txtTime.setText(time.getHour()+":"+time.getMinute());
+        holder.txtTime.setText(listTime.get(position).getHour()+":"+listTime.get(position).getMinute());
         holder.txtDate.setText(testListDay);
     }
 
