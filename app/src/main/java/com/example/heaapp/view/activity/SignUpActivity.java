@@ -32,7 +32,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
     TextView linkLogin;
 
     SignUpPresenterImpl signUpPresenter;
-    AlertDialog progressDialog;
+    AlertDialog signUpProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +50,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
         signUpPresenter.attachView(this);
 
         btnSignup.setOnClickListener(v -> signUpPresenter.signUp(edtName.getText().toString().trim(), edtEmail.getText().toString().trim(), edtPassword.getText().toString().trim()));
-        progressDialog = new SpotsDialog.Builder()
+        signUpProgressDialog = new SpotsDialog.Builder()
                 .setMessage(getString(R.string.msg_create_account))
                 .setContext(this)
                 .setTheme(R.style.SpotsDialog)
@@ -77,10 +77,10 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
     @Override
     public void setProgressVisibility(boolean visibility) {
         if (visibility) {
-            progressDialog.setMessage(getString(R.string.msg_create_account));
-            progressDialog.show();
+            signUpProgressDialog.setMessage(getString(R.string.msg_create_account));
+            signUpProgressDialog.show();
         } else {
-            progressDialog.dismiss();
+            signUpProgressDialog.dismiss();
         }
     }
 

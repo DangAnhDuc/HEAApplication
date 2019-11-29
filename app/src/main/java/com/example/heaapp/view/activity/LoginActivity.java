@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     TextView linkSignup;
 
     LoginPresenterImpl loginPresenter;
-    AlertDialog progressDialog;
+    AlertDialog loginProgressDialog;
     private boolean doubleBackToExitPressedOnce = false;
 
     @Override
@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         linkSignup.setOnClickListener(v -> ultis.setIntent(LoginActivity.this, SignUpActivity.class));
 
         btnLogin.setOnClickListener(v -> loginPresenter.login(edtEmail.getText().toString().trim(), edtPassword.getText().toString().trim()));
-        progressDialog = new SpotsDialog.Builder()
+        loginProgressDialog = new SpotsDialog.Builder()
                 .setMessage(getString(R.string.msg_authenticating))
                 .setContext(this)
                 .setTheme(R.style.SpotsDialog)
@@ -84,10 +84,10 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     @Override
     public void setProgressVisibility(boolean visibility) {
         if (visibility) {
-            progressDialog.setMessage(getString(R.string.msg_authenticating));
-            progressDialog.show();
+            loginProgressDialog.setMessage(getString(R.string.msg_authenticating));
+            loginProgressDialog.show();
         } else {
-            progressDialog.dismiss();
+            loginProgressDialog.dismiss();
 
         }
     }

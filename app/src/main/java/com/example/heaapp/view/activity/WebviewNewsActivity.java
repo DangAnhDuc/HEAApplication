@@ -33,7 +33,7 @@ public class WebviewNewsActivity extends AppCompatActivity implements WebviewNew
     GeckoView geckoview;
 
     WebviewNewsPresenterImpl webviewNewsPresenter;
-    String url, domain;
+    String newUrl, newDomain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,18 +47,18 @@ public class WebviewNewsActivity extends AppCompatActivity implements WebviewNew
         toolbar.setNavigationOnClickListener(v -> finish());
         Bundle extras = getIntent().getExtras();
         assert extras != null;
-        url = extras.getString("URL");
-        domain = extras.getString("Domain");
+        newUrl = extras.getString("URL");
+        newDomain = extras.getString("Domain");
 
         webviewNewsPresenter = new WebviewNewsPresenterImpl(this, getContext());
-        webviewNewsPresenter.initWebview(url);
+        webviewNewsPresenter.initWebview(newUrl);
     }
 
 
     @Override
     public void setupSession(GeckoSession geckoSession) {
         geckoview.setSession(geckoSession);
-        locationView.setText(domain);
+        locationView.setText(newDomain);
     }
 
     @Override

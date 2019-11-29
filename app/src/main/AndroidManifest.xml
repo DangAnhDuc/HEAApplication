@@ -25,7 +25,7 @@
         </receiver>
         <activity android:name=".view.activity.ReminderActivity"/>
         <activity android:name=".view.activity.ExerciseImageActivity" />
-        <activity android:name=".view.activity.UserInfoActivity" />
+        <activity android:name=".view.activity.CurrentUserDetailActivity" />
         <activity android:name=".view.activity.ExerciseInfoActivity" />
         <activity android:name=".view.activity.FoodAddingActivity" />
         <activity android:name=".view.activity.WebviewNewsActivity" />

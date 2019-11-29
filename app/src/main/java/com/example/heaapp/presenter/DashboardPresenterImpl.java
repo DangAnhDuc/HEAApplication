@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.heaapp.callback.OnTransactionCallback;
+import com.example.heaapp.model.user_information.CurrentUserDetail;
 import com.example.heaapp.model.user_information.CurrentUserIndices;
-import com.example.heaapp.model.user_information.CurrentUserInfo;
 import com.example.heaapp.model.user_information.DailySummary;
 import com.example.heaapp.service.RealmService;
 import com.example.heaapp.view.fragment.DashboardView;
@@ -87,9 +87,9 @@ public class DashboardPresenterImpl implements DashboardPresenter, OnTransaction
 
     @Override
     public double calculateBurnedEnergy(double MET, String timePeriod) {
-        RealmResults<CurrentUserInfo> realmResults = realmService.getCurrentUser();
-        CurrentUserInfo currentUserInfo = realmResults.get(0);
-        return ((MET * currentUserInfo.getWeight() * 3.5) / 200) * (Integer.parseInt(timePeriod));
+        RealmResults<CurrentUserDetail> realmResults = realmService.getCurrentUser();
+        CurrentUserDetail currentUserDetail = realmResults.get(0);
+        return ((MET * currentUserDetail.getWeight() * 3.5) / 200) * (Integer.parseInt(timePeriod));
     }
 
     @Override
