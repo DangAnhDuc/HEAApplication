@@ -82,13 +82,13 @@ public class CurrentUserDetailActivity extends AppCompatActivity implements Curr
 
     @Override
     public void onSaveInfoSuccess() {
-        ultis.showMessage(getContext(), getString(R.string.msg_save_info_success));
+        ultis.showSuccessMessage(getContext(), getString(R.string.msg_save_info_success));
         ultis.setIntent(getContext(), HomeActivity.class);
     }
 
     @Override
     public void onSaveInfoFail(String error) {
-        ultis.showMessage(getContext(), error);
+        ultis.showErrorMessage(getContext(), error);
     }
 
     @Override
@@ -118,7 +118,7 @@ public class CurrentUserDetailActivity extends AppCompatActivity implements Curr
 
     @Override
     public void displayErrorMessage(String message) {
-        ultis.showMessage(getContext(), message);
+        ultis.showErrorMessage(getContext(), message);
     }
 
     @Override
@@ -129,18 +129,18 @@ public class CurrentUserDetailActivity extends AppCompatActivity implements Curr
 
     @Override
     public void displayUploadFailed() {
-        ultis.showMessage(getContext(), getString(R.string.msg_upload_failed));
+        ultis.showErrorMessage(getContext(), getString(R.string.msg_upload_failed));
     }
 
     @Override
     public void displayUploadError(String message) {
-        ultis.showMessage(getContext(), message);
+        ultis.showErrorMessage(getContext(), message);
         changeImageProgressDialog.dismiss();
     }
 
     @Override
     public void displayNoImageSelected() {
-        ultis.showMessage(getContext(), getString(R.string.msg_no_image_selected));
+        ultis.showSuccessMessage(getContext(), getString(R.string.msg_no_image_selected));
 
     }
 
@@ -163,7 +163,7 @@ public class CurrentUserDetailActivity extends AppCompatActivity implements Curr
         if(requestCode== IMAGE_REQUEST&& resultCode==RESULT_OK && data!=null && data.getData()!=null) {
             Common.userImageUri = data.getData();
             if (Common.uploadUserImageTask != null && Common.uploadUserImageTask.isInProgress()) {
-                ultis.showMessage(getContext(), getString(R.string.msg_upload_in_progress));
+                ultis.showConfusingMessage(getContext(), getString(R.string.msg_upload_in_progress));
             } else {
                 userInfoPresenter.uploadImageFromGallery();
                 changeImageProgressDialog.show();

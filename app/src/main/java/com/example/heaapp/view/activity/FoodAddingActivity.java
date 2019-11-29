@@ -138,12 +138,12 @@ public class FoodAddingActivity extends AppCompatActivity implements FoodAddingV
 
     @Override
     public void addFoodSuccessfully() {
-        ultis.showMessage(getContext(), getString(R.string.add_food_success));
+        ultis.showSuccessMessage(getContext(), getString(R.string.add_food_success));
     }
 
     @Override
     public void addFoodFailed() {
-        ultis.showMessage(getContext(), getString(R.string.add_food_fail));
+        ultis.showErrorMessage(getContext(), getString(R.string.add_food_fail));
     }
 
     @OnClick(R.id.btn_addFood)
