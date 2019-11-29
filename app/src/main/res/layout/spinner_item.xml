@@ -10,7 +10,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:padding="5dp"
-        android:src="@drawable/excercise" /><!--Make sure image is present in Drawable folder-->
+        android:src="@drawable/excercise" />
 
     <TextView
         android:id="@+id/activity_name"

@@ -17,7 +17,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -34,10 +33,8 @@ import com.example.heaapp.model.user_information.DailySummary;
 import com.example.heaapp.presenter.DashboardPresenterImpl;
 import com.example.heaapp.service.RealmService;
 import com.example.heaapp.ultis.ultis;
-import com.example.heaapp.view.activity.ActivitiesAddingActivity;
 import com.example.heaapp.view.activity.FoodAddingActivity;
 import com.example.heaapp.view.activity.UserInfoActivity;
-import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -50,7 +47,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 
-public class DashBoardFragment extends BaseFragment implements DashboardView, AdapterView.OnItemClickListener {
+public class DashBoardFragment extends BaseFragment implements DashboardView {
     @BindView(R.id.desc_kcal_eaten)
     TextView descKcalEaten;
     @BindView(R.id.desc_kcal_left)
@@ -102,13 +99,14 @@ public class DashBoardFragment extends BaseFragment implements DashboardView, Ad
 
     private DashboardPresenterImpl dashboardPresenter;
     private Unbinder unbinder;
-    int icons[] = {R.drawable.sleeping, R.drawable.deskwork, R.drawable.callisthenics, R.drawable.callisthenics,
-            R.drawable.gymastics, R.drawable.walking,R.drawable.walking,R.drawable.walking,R.drawable.running,R.drawable.running,
-            R.drawable.running,R.drawable.bicycle,R.drawable.bicycle,R.drawable.bicycle,R.drawable.jumping,
-            R.drawable.swimming,R.drawable.yoga};
+    private int[] icons = {R.drawable.sleeping, R.drawable.deskwork, R.drawable.callisthenics, R.drawable.callisthenics,
+            R.drawable.gymastics, R.drawable.walking, R.drawable.walking, R.drawable.walking, R.drawable.running, R.drawable.running,
+            R.drawable.running, R.drawable.bicycle, R.drawable.bicycle, R.drawable.bicycle, R.drawable.jumping,
+            R.drawable.swimming, R.drawable.yoga};
     private int activityPosition=0;
     private List<Double> METs = new ArrayList<>();
-    private long burnedEnergy;
+    private long burnedEnergy = 0;
+    private Dialog addActivityDialog;
 
 
     @Override
@@ -182,7 +180,6 @@ public class DashBoardFragment extends BaseFragment implements DashboardView, Ad
     @Override
     public void addDrunkWaterSuccessfully(String waterAmount) {
         tvTotalWater.setText(String.format("Total: %sml", waterAmount));
-
     }
 
     @Override
@@ -214,6 +211,19 @@ public class DashBoardFragment extends BaseFragment implements DashboardView, Ad
     @Override
     public void addDrunkWaterFailed() {
         ultis.showMessage(getContext(), getString(R.string.msg_input_water_amount));
+    }
+
+    @Override
+    public void addActivitiesSuccess() {
+        ultis.showMessage(getContext(), getString(R.string.add_activities_success));
+        addActivityDialog.dismiss();
+        dashboardPresenter.getDailySummary();
+    }
+
+    @Override
+    public void addActivitiesFailed() {
+        ultis.showMessage(getContext(), getString(R.string.add_activities_fail));
+        addActivityDialog.dismiss();
     }
 
 
@@ -263,19 +273,36 @@ public class DashBoardFragment extends BaseFragment implements DashboardView, Ad
             case R.id.layout_exercise:
                 Double[] arrayMET = {0.95, 1.5, 3.8, 8.0, 3.8, 2.0, 3.3, 4.3, 5.0, 10.5, 23.0, 3.5, 8.0, 15.8, 8.8, 9.5, 8.8};
                 METs = Arrays.asList(arrayMET);
-                final Dialog dialog= new Dialog(getContext(),R.style.AlertDialogTheme);
-                dialog.setContentView(R.layout.activity_custom_dialog);
-                dialog.setTitle("Add activity!");
+                addActivityDialog = new Dialog(getContext(), R.style.AlertDialogTheme);
+                addActivityDialog.setContentView(R.layout.activity_custom_dialog);
+                addActivityDialog.setTitle("Add activity!");
 
-                Spinner spinner= dialog.findViewById(R.id.activity_spinner);
-                EditText edtTimeDuration= dialog.findViewById(R.id.edt_activity_duration);
-                TextView tvAcitityEnergy= dialog.findViewById(R.id.tv_activities_burnedEnergy);
-                Button btnAddActivity= dialog.findViewById(R.id.btn_addActivity);
+                Spinner spinner = addActivityDialog.findViewById(R.id.activity_spinner);
+                TextView tvAcitityEnergy = addActivityDialog.findViewById(R.id.activity_burned_energy);
+                EditText edtTimeDuration = addActivityDialog.findViewById(R.id.edt_activity_duration);
+                Button btnAddActivity = addActivityDialog.findViewById(R.id.btn_addActivity);
+
+                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        activityPosition = position;
+                        try {
+                            burnedEnergy = Double.valueOf(dashboardPresenter.calculateBurnedEnergy(METs.get(activityPosition), edtTimeDuration.getText().toString())).longValue();
+                            tvAcitityEnergy.setText(String.format("Total: %dkCal", burnedEnergy));
+                        } catch (Exception e) {
+                            tvAcitityEnergy.setText(getString(R.string.default_activity_burned_energy));
+                        }
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+
 
                 SpinnerAdapter spinnerAdapter=new SpinnerAdapter(getContext(),icons,getContext().getResources().getStringArray(R.array.activitiesName));
                 spinner.setAdapter(spinnerAdapter);
-                dialog.show();
-
                 edtTimeDuration.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -284,15 +311,28 @@ public class DashBoardFragment extends BaseFragment implements DashboardView, Ad
 
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
-
                     }
 
                     @Override
                     public void afterTextChanged(Editable s) {
-                        burnedEnergy=Double.valueOf(dashboardPresenter.calculateBurnedEnergy(METs.get(activityPosition), edtTimeDuration.getText().toString())).longValue();
-                        tvAcitityEnergy.setText((int) burnedEnergy);
+                        try {
+                            burnedEnergy = Double.valueOf(dashboardPresenter.calculateBurnedEnergy(METs.get(activityPosition), edtTimeDuration.getText().toString())).longValue();
+                            tvAcitityEnergy.setText(String.format("Total: %dkCal", burnedEnergy));
+                        } catch (Exception e) {
+                            tvAcitityEnergy.setText(getString(R.string.default_activity_burned_energy));
+                        }
+
                     }
                 });
+                btnAddActivity.setOnClickListener(v -> {
+                    if (burnedEnergy != 0) {
+                        dashboardPresenter.addActivity(getContext().getResources().getStringArray(R.array.activitiesName)[activityPosition],
+                                edtTimeDuration.getText().toString(), burnedEnergy);
+                    } else {
+                        ultis.showMessage(getContext(), getString(R.string.msg_input_valid_time));
+                    }
+                });
+                addActivityDialog.show();
                 break;
         }
     }
@@ -307,11 +347,6 @@ public class DashBoardFragment extends BaseFragment implements DashboardView, Ad
     @Override
     public Context getContext() {
         return super.getContext();
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        activityPosition= position;
     }
 
 }

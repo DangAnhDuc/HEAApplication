@@ -10,4 +10,8 @@ public interface DashboardView extends BaseView {
     void isUserInfoEntered(boolean isEntered);
     void displayCurrentUserIndices(CurrentUserIndices currentUserIndices);
     void addDrunkWaterFailed();
+
+    void addActivitiesSuccess();
+
+    void addActivitiesFailed();
 }

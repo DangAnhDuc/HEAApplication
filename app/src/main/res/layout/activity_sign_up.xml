@@ -91,7 +91,7 @@
             android:layout_marginBottom="24dp"
             android:background="@drawable/btn_white_style"
             android:padding="12dp"
-            android:text="Create Account"
+            android:text="@string/create_account"
             android:textColor="@color/colorPrimaryDark" />
 
         <TextView
@@ -100,8 +100,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:gravity="center"
-            android:text="Already a member? Login"
-            android:textSize="16dip" />
+            android:text="@string/msg_already_a_member_login"
+            android:textSize="16sp" />
 
 
     </LinearLayout>

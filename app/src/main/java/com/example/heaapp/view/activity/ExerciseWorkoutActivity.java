@@ -41,7 +41,6 @@ public class ExerciseWorkoutActivity extends AppCompatActivity implements Exerci
     LinearLayout linearLayoutExercise;
     private ExerciseWorkoutPresenter exerciseWorkoutPresenter;
     private List<ItemExercise> listExercise;
-    private int categoryID;
     AlertDialog dialog;
     ListExerciseAdapter listExerciseAdapter;
 
@@ -72,7 +71,7 @@ public class ExerciseWorkoutActivity extends AppCompatActivity implements Exerci
         //set Text for Exercise Title
         Bundle bundle = getIntent().getExtras();
         exeText.setText(bundle.getString("CategoryName"));
-        categoryID = bundle.getInt("CategoryID");
+        int categoryID = bundle.getInt("CategoryID");
         recyclerViewList.setHasFixedSize(true);
         exerciseWorkoutPresenter = new ExerciseWorkoutPresenterImpl(categoryID, this);
 

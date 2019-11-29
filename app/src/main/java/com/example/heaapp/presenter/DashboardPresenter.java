@@ -9,4 +9,5 @@ public interface DashboardPresenter extends BasePresenter<DashboardView> {
     void getUserInfoStatus();
     void getCurrentUserIndices();
     double calculateBurnedEnergy(double MET, String timePeriod);
+    void addActivity(String activityName, String time, long burnedEnergy);
 }

@@ -169,4 +169,25 @@
     <string name="msg_upload_failed">Tải lên thất bại!</string>
     <string name="msg_no_image_selected">Không có ảnh nào được chọn!</string>
     <string name="msg_upload_in_progress">Đang tải lên</string>
+
+    <string name="time_duration">Thời gian(Phút)</string>
+    <string name="default_activity_burned_energy">Tổng: 0kCal</string>
+    <string name="msg_input_valid_time">Điền số phút thích hợp!</string>
+    <string name="msg_no_account_yet_create_one">Bạn chưa có tài khoản? Hãy đăng kí</string>
+    <string name="get_started">Bắt đầu</string>
+    <string name="skip">Bỏ qua</string>
+    <string name="create_account">Tạo tài khoản</string>
+    <string name="msg_already_a_member_login">Bạn đã là thành viên? Đăng nhập</string>
+    <string name="msg_welcome_to_life_care">Chào mừng bạn đến với Life-care</string>
+    <string name="male">Nam</string>
+    <string name="female">Nữ</string>
+    <string name="save">Lưu</string>
+    <string name="chest_in_cm">Ngực(cm)</string>
+    <string name="hip_in_cm">Eo(cm)</string>
+    <string name="waist_in_cm">Hông(cm)</string>
+    <string name="height_in_cm">Chiều cao(cm)</string>
+    <string name="weigh_in_kg">Cân nặng(kg)</string>
+    <string name="age">Tuổi</string>
+    <string name="name">Tên</string>
+    <string name="your_detail">Thông tin của bạn</string>
 </resources>
