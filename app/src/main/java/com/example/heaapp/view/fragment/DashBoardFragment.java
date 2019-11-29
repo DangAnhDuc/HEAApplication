@@ -210,19 +210,19 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
 
     @Override
     public void addDrunkWaterFailed() {
-        ultis.showMessage(getContext(), getString(R.string.msg_input_water_amount));
+        ultis.showErrorMessage(getContext(), getString(R.string.msg_input_water_amount));
     }
 
     @Override
     public void addActivitiesSuccess() {
-        ultis.showMessage(getContext(), getString(R.string.add_activities_success));
+        ultis.showSuccessMessage(getContext(), getString(R.string.add_activities_success));
         addActivityDialog.dismiss();
         dashboardPresenter.getDailySummary();
     }
 
     @Override
     public void addActivitiesFailed() {
-        ultis.showMessage(getContext(), getString(R.string.add_activities_fail));
+        ultis.showErrorMessage(getContext(), getString(R.string.add_activities_fail));
         addActivityDialog.dismiss();
     }
 
@@ -329,7 +329,7 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
                         dashboardPresenter.addActivity(getContext().getResources().getStringArray(R.array.activitiesName)[activityPosition],
                                 edtActivityTimeDuration.getText().toString(), activityBurnedEnergy);
                     } else {
-                        ultis.showMessage(getContext(), getString(R.string.msg_input_valid_time));
+                        ultis.showErrorMessage(getContext(), getString(R.string.msg_input_valid_time));
                     }
                 });
                 addActivityDialog.show();

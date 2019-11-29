@@ -101,18 +101,18 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
 
     @Override
     public void showValidationError(String message) {
-        ultis.showMessage(this, message);
+        ultis.showErrorMessage(this, message);
     }
 
     @Override
     public void signUpSuccess() {
-        ultis.showMessage(this, getString(R.string.msg_signup_success));
+        ultis.showSuccessMessage(this, getString(R.string.msg_signup_success));
         ultis.setIntent(this, LoginActivity.class);
     }
 
     @Override
     public void signUpError() {
-        ultis.showMessage(this, getString(R.string.msg_signup_failed));
+        ultis.showErrorMessage(this, getString(R.string.msg_signup_failed));
     }
 
     @Override

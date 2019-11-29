@@ -142,7 +142,7 @@ public class HealthInfoFragment extends BaseFragment implements HealthInforView,
 
     @Override
     public void getLatestDataFailed(String message) {
-        ultis.showMessage(getContext(), message);
+        ultis.showErrorMessage(getContext(), message);
     }
 
 

@@ -128,7 +128,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
             switch (menuItem.getItemId()) {
                 case R.id.side_bar_logout:
                     homePresenter.signOut();
-                    ultis.showMessage(getContext(), getString(R.string.msg_signout_success));
+                    ultis.showSuccessMessage(getContext(), getString(R.string.msg_signout_success));
                     break;
                 case R.id.side_bar_info_user:
                     ultis.setIntent(getContext(), CurrentUserDetailActivity.class);
@@ -209,7 +209,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
             return;
         }
         this.doubleBackToExitPressedOnce = true;
-        ultis.showMessage(this, getString(R.string.msg_press_to_exit));
+        ultis.showWarningMessage(this, getString(R.string.msg_press_to_exit));
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

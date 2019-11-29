@@ -94,18 +94,18 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public void showValidationError(String message) {
-        ultis.showMessage(this, message);
+        ultis.showErrorMessage(this, message);
     }
 
     @Override
     public void loginSuccess() {
-        ultis.showMessage(this, getString(R.string.msg_login_success));
+        ultis.showSuccessMessage(this, getString(R.string.msg_login_success));
         ultis.setIntent(this, HomeActivity.class);
     }
 
     @Override
     public void loginError() {
-        ultis.showMessage(this, getString(R.string.msg_login_failed));
+        ultis.showErrorMessage(this, getString(R.string.msg_login_failed));
     }
 
     @Override
@@ -131,7 +131,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
             return;
         }
         this.doubleBackToExitPressedOnce = true;
-        ultis.showMessage(this, getString(R.string.msg_press_to_exit));
+        ultis.showWarningMessage(this, getString(R.string.msg_press_to_exit));
     }
 
 }
