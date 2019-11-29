@@ -24,7 +24,7 @@ import com.example.heaapp.presenter.HomePresenterImpl;
 import com.example.heaapp.service.RealmService;
 import com.example.heaapp.ultis.ultis;
 import com.example.heaapp.view.fragment.DashBoardFragment;
-import com.example.heaapp.view.fragment.HealthInforFragment;
+import com.example.heaapp.view.fragment.HealthInfoFragment;
 import com.example.heaapp.view.fragment.WorkoutFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
@@ -80,7 +80,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPagerAdapter.addFragments(new WorkoutFragment(), getString(R.string.title_workout));
         viewPagerAdapter.addFragments(new DashBoardFragment(), getString(R.string.title_health_summary));
-        viewPagerAdapter.addFragments(new HealthInforFragment(), getString(R.string.title_health_infomation));
+        viewPagerAdapter.addFragments(new HealthInfoFragment(), getString(R.string.title_health_infomation));
 
 
         viewPager.setAdapter(viewPagerAdapter);
@@ -131,7 +131,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
                     ultis.showMessage(getContext(), getString(R.string.msg_signout_success));
                     break;
                 case R.id.side_bar_info_user:
-                    ultis.setIntent(getContext(), UserInfoActivity.class);
+                    ultis.setIntent(getContext(), CurrentUserDetailActivity.class);
                     break;
                 case R.id.side_bar_lang:
                     showMultipleLanguage();

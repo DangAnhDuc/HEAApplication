@@ -5,7 +5,7 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 
 import com.example.heaapp.callback.OnTransactionCallback;
-import com.example.heaapp.model.user_information.CurrentUserInfo;
+import com.example.heaapp.model.user_information.CurrentUserDetail;
 import com.example.heaapp.service.RealmService;
 import com.example.heaapp.view.activity.HomeView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,9 +46,9 @@ public class HomePresenterImpl implements HomePresenter {
             userInforDatabaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    CurrentUserInfo currentUserInfo = dataSnapshot.getValue(CurrentUserInfo.class);
-                    if (currentUserInfo != null) {
-                        realmService.modifyUserInfoAsync(currentUserInfo.getAge(), currentUserInfo.getSex(), currentUserInfo.getWeight(), currentUserInfo.getHeight(), currentUserInfo.getWaist(), currentUserInfo.getHip(), currentUserInfo.getChest(), new OnTransactionCallback() {
+                    CurrentUserDetail currentUserDetail = dataSnapshot.getValue(CurrentUserDetail.class);
+                    if (currentUserDetail != null) {
+                        realmService.modifyUserInfoAsync(currentUserDetail.getAge(), currentUserDetail.getSex(), currentUserDetail.getWeight(), currentUserDetail.getHeight(), currentUserDetail.getWaist(), currentUserDetail.getHip(), currentUserDetail.getChest(), new OnTransactionCallback() {
                             @Override
                             public void onTransactionSuccess() {
 
@@ -62,8 +62,8 @@ public class HomePresenterImpl implements HomePresenter {
 
                     } else {
                         userInforDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseAuth.getCurrentUser().getUid()).child("remote");
-                        HashMap<String, CurrentUserInfo> userInfoHashMap = new HashMap<>();
-                        userInfoHashMap.put("userBodyInfo", new CurrentUserInfo(0, 0, 0, 0, "Male", 0, 0, 0));
+                        HashMap<String, CurrentUserDetail> userInfoHashMap = new HashMap<>();
+                        userInfoHashMap.put("userBodyInfo", new CurrentUserDetail(0, 0, 0, 0, "Male", 0, 0, 0));
                         userInforDatabaseReference.setValue(userInfoHashMap);
                     }
                 }

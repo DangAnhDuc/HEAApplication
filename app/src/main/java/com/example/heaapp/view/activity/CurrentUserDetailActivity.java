@@ -14,7 +14,7 @@ import androidx.appcompat.widget.AppCompatButton;
 
 import com.bumptech.glide.Glide;
 import com.example.heaapp.R;
-import com.example.heaapp.presenter.UserInfoPresenterImpl;
+import com.example.heaapp.presenter.CurrentUserDetailPresenterImpl;
 import com.example.heaapp.service.RealmService;
 import com.example.heaapp.ultis.Common;
 import com.example.heaapp.ultis.ultis;
@@ -26,7 +26,7 @@ import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import dmax.dialog.SpotsDialog;
 
-public class UserInfoActivity extends AppCompatActivity implements UserInfoView {
+public class CurrentUserDetailActivity extends AppCompatActivity implements CurrentUserDetailView {
 
     @BindView(R.id.edt_name)
     EditText edtName;
@@ -48,14 +48,14 @@ public class UserInfoActivity extends AppCompatActivity implements UserInfoView 
     AppCompatButton btnSaveInfo;
 
     RadioButton radioButton;
-    UserInfoPresenterImpl userInfoPresenter;
+    CurrentUserDetailPresenterImpl userInfoPresenter;
     @BindView(R.id.radioM)
     RadioButton radioM;
     @BindView(R.id.radioF)
     RadioButton radioF;
     @BindView(R.id.img_user_ava)
     CircleImageView imgUserAva;
-    private AlertDialog progressDialog;
+    private AlertDialog changeImageProgressDialog;
     private static final int IMAGE_REQUEST=1;
 
     @Override
@@ -65,8 +65,8 @@ public class UserInfoActivity extends AppCompatActivity implements UserInfoView 
         ButterKnife.bind(this);
 
         RealmService realmService = RealmService.getInstance();
-        userInfoPresenter = new UserInfoPresenterImpl(this, getContext(), realmService);
-        progressDialog = new SpotsDialog.Builder()
+        userInfoPresenter = new CurrentUserDetailPresenterImpl(this, getContext(), realmService);
+        changeImageProgressDialog = new SpotsDialog.Builder()
                 .setContext(this)
                 .setMessage(getString(R.string.uploading))
                 .setTheme(R.style.SpotsDialog)
@@ -124,7 +124,7 @@ public class UserInfoActivity extends AppCompatActivity implements UserInfoView 
     @Override
     public void updateUserImage(String imageUri) {
         Glide.with(getContext()).load(imageUri).into(imgUserAva);
-        progressDialog.dismiss();
+        changeImageProgressDialog.dismiss();
     }
 
     @Override
@@ -135,7 +135,7 @@ public class UserInfoActivity extends AppCompatActivity implements UserInfoView 
     @Override
     public void displayUploadError(String message) {
         ultis.showMessage(getContext(), message);
-        progressDialog.dismiss();
+        changeImageProgressDialog.dismiss();
     }
 
     @Override
@@ -166,7 +166,7 @@ public class UserInfoActivity extends AppCompatActivity implements UserInfoView 
                 ultis.showMessage(getContext(), getString(R.string.msg_upload_in_progress));
             } else {
                 userInfoPresenter.uploadImageFromGallery();
-                progressDialog.show();
+                changeImageProgressDialog.show();
             }
         }
     }

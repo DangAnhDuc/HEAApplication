@@ -33,8 +33,8 @@ import com.example.heaapp.model.user_information.DailySummary;
 import com.example.heaapp.presenter.DashboardPresenterImpl;
 import com.example.heaapp.service.RealmService;
 import com.example.heaapp.ultis.ultis;
+import com.example.heaapp.view.activity.CurrentUserDetailActivity;
 import com.example.heaapp.view.activity.FoodAddingActivity;
-import com.example.heaapp.view.activity.UserInfoActivity;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -105,7 +105,7 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
             R.drawable.swimming, R.drawable.yoga};
     private int activityPosition=0;
     private List<Double> METs = new ArrayList<>();
-    private long burnedEnergy = 0;
+    private long activityBurnedEnergy = 0;
     private Dialog addActivityDialog;
 
 
@@ -188,7 +188,7 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
         if (!isEntered) {
             builder.setTitle(getString(R.string.msg_request_enter_info));
             builder.setCancelable(false);
-            builder.setPositiveButton("OK", (dialog, which) -> ultis.setIntent(getContext(), UserInfoActivity.class));
+            builder.setPositiveButton("OK", (dialog, which) -> ultis.setIntent(getContext(), CurrentUserDetailActivity.class));
             builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
@@ -277,20 +277,20 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
                 addActivityDialog.setContentView(R.layout.activity_custom_dialog);
                 addActivityDialog.setTitle("Add activity!");
 
-                Spinner spinner = addActivityDialog.findViewById(R.id.activity_spinner);
-                TextView tvAcitityEnergy = addActivityDialog.findViewById(R.id.activity_burned_energy);
-                EditText edtTimeDuration = addActivityDialog.findViewById(R.id.edt_activity_duration);
+                Spinner activitySpinner = addActivityDialog.findViewById(R.id.activity_spinner);
+                TextView tvActivityEnergy = addActivityDialog.findViewById(R.id.activity_burned_energy);
+                EditText edtActivityTimeDuration = addActivityDialog.findViewById(R.id.edt_activity_duration);
                 Button btnAddActivity = addActivityDialog.findViewById(R.id.btn_addActivity);
 
-                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                activitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         activityPosition = position;
                         try {
-                            burnedEnergy = Double.valueOf(dashboardPresenter.calculateBurnedEnergy(METs.get(activityPosition), edtTimeDuration.getText().toString())).longValue();
-                            tvAcitityEnergy.setText(String.format("Total: %dkCal", burnedEnergy));
+                            activityBurnedEnergy = Double.valueOf(dashboardPresenter.calculateBurnedEnergy(METs.get(activityPosition), edtActivityTimeDuration.getText().toString())).longValue();
+                            tvActivityEnergy.setText(String.format("Total: %dkCal", activityBurnedEnergy));
                         } catch (Exception e) {
-                            tvAcitityEnergy.setText(getString(R.string.default_activity_burned_energy));
+                            tvActivityEnergy.setText(getString(R.string.default_activity_burned_energy));
                         }
                     }
 
@@ -302,8 +302,8 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
 
 
                 SpinnerAdapter spinnerAdapter=new SpinnerAdapter(getContext(),icons,getContext().getResources().getStringArray(R.array.activitiesName));
-                spinner.setAdapter(spinnerAdapter);
-                edtTimeDuration.addTextChangedListener(new TextWatcher() {
+                activitySpinner.setAdapter(spinnerAdapter);
+                edtActivityTimeDuration.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -316,18 +316,18 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
                     @Override
                     public void afterTextChanged(Editable s) {
                         try {
-                            burnedEnergy = Double.valueOf(dashboardPresenter.calculateBurnedEnergy(METs.get(activityPosition), edtTimeDuration.getText().toString())).longValue();
-                            tvAcitityEnergy.setText(String.format("Total: %dkCal", burnedEnergy));
+                            activityBurnedEnergy = Double.valueOf(dashboardPresenter.calculateBurnedEnergy(METs.get(activityPosition), edtActivityTimeDuration.getText().toString())).longValue();
+                            tvActivityEnergy.setText(String.format("Total: %dkCal", activityBurnedEnergy));
                         } catch (Exception e) {
-                            tvAcitityEnergy.setText(getString(R.string.default_activity_burned_energy));
+                            tvActivityEnergy.setText(getString(R.string.default_activity_burned_energy));
                         }
 
                     }
                 });
                 btnAddActivity.setOnClickListener(v -> {
-                    if (burnedEnergy != 0) {
+                    if (activityBurnedEnergy != 0) {
                         dashboardPresenter.addActivity(getContext().getResources().getStringArray(R.array.activitiesName)[activityPosition],
-                                edtTimeDuration.getText().toString(), burnedEnergy);
+                                edtActivityTimeDuration.getText().toString(), activityBurnedEnergy);
                     } else {
                         ultis.showMessage(getContext(), getString(R.string.msg_input_valid_time));
                     }

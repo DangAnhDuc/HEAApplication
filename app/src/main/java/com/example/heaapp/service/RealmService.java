@@ -1,19 +1,15 @@
 package com.example.heaapp.service;
 
-import androidx.annotation.NonNull;
-
 import com.example.heaapp.callback.OnTransactionCallback;
-import com.example.heaapp.model.food.Data;
 import com.example.heaapp.model.food.Dishes;
+import com.example.heaapp.model.user_information.CurrentUserDetail;
 import com.example.heaapp.model.user_information.CurrentUserIndices;
-import com.example.heaapp.model.user_information.CurrentUserInfo;
 import com.example.heaapp.model.user_information.DailySummary;
 import com.example.heaapp.model.user_information.User;
 import com.example.heaapp.model.workout.Activities;
 import com.example.heaapp.ultis.Common;
 
 import io.realm.Realm;
-import io.realm.Realm.Transaction;
 import io.realm.RealmResults;
 
 public class RealmService {
@@ -35,8 +31,8 @@ public class RealmService {
         mRealm.close();
     }
 
-    public RealmResults<CurrentUserInfo> getCurrentUser() {
-        return mRealm.where(CurrentUserInfo.class)
+    public RealmResults<CurrentUserDetail> getCurrentUser() {
+        return mRealm.where(CurrentUserDetail.class)
                 .equalTo("id", 0)
                 .findAll();
     }
@@ -74,7 +70,7 @@ public class RealmService {
     //modify user information
     public void modifyUserInfoAsync(int age, String sex, long weight, long height, long waist, long hip, long chest, OnTransactionCallback onTransactionCallback) {
         mRealm.executeTransactionAsync(realm -> {
-            RealmResults<CurrentUserInfo> resultCurrentUser = realm.where(CurrentUserInfo.class)
+            RealmResults<CurrentUserDetail> resultCurrentUser = realm.where(CurrentUserDetail.class)
                     .equalTo("id", 0)
                     .findAll();
             resultCurrentUser.setValue("age", age);
@@ -238,15 +234,15 @@ public class RealmService {
             dailySummary.setEatenFat(0);
 
             //create database table for current user
-            CurrentUserInfo currentUserInfo = realm.createObject(CurrentUserInfo.class);
-            currentUserInfo.setId(0);
-            currentUserInfo.setAge(0);
-            currentUserInfo.setSex("Male");
-            currentUserInfo.setWeight(0);
-            currentUserInfo.setHeight(0);
-            currentUserInfo.setWaist(0);
-            currentUserInfo.setHip(0);
-            currentUserInfo.setChest(0);
+            CurrentUserDetail currentUserDetail = realm.createObject(CurrentUserDetail.class);
+            currentUserDetail.setId(0);
+            currentUserDetail.setAge(0);
+            currentUserDetail.setSex("Male");
+            currentUserDetail.setWeight(0);
+            currentUserDetail.setHeight(0);
+            currentUserDetail.setWaist(0);
+            currentUserDetail.setHip(0);
+            currentUserDetail.setChest(0);
 
             //create table for current user indices
             CurrentUserIndices currentUserIndices = realm.createObject(CurrentUserIndices.class);

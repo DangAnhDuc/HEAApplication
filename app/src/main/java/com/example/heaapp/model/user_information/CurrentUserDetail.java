@@ -3,7 +3,7 @@ package com.example.heaapp.model.user_information;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public class CurrentUserInfo extends RealmObject {
+public class CurrentUserDetail extends RealmObject {
     private long id;
     private long weight;
     private long height;
@@ -13,10 +13,10 @@ public class CurrentUserInfo extends RealmObject {
     private long hip;
     private long chest;
 
-    public CurrentUserInfo() {
+    public CurrentUserDetail() {
     }
 
-    public CurrentUserInfo(long id, long weight, long height, int age, String sex, long waist, long hip, long chest) {
+    public CurrentUserDetail(long id, long weight, long height, int age, String sex, long waist, long hip, long chest) {
         this.id = id;
         this.weight = weight;
         this.height = height;

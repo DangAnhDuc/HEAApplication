@@ -1,7 +1,6 @@
 package com.example.heaapp.view.fragment;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -31,7 +30,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 
-public class HealthInforFragment extends BaseFragment implements HealthInforView, SwipeRefreshLayout.OnRefreshListener {
+public class HealthInfoFragment extends BaseFragment implements HealthInforView, SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.weather_status)
     ImageView weatherStatus;
     @BindView(R.id.desc_temp)
@@ -54,12 +53,12 @@ public class HealthInforFragment extends BaseFragment implements HealthInforView
     TextView tvLocation;
     @BindView(R.id.tv_timestamp)
     TextView tvTimestamp;
-    private HealthInfoPresenterImpl healthInforPresenter;
+    private HealthInfoPresenterImpl healthInfoPresenter;
     private Unbinder unbinder;
 
     @Override
     public BaseFragment provideYourFragment() {
-        return new HealthInforFragment();
+        return new HealthInfoFragment();
     }
 
     @SuppressLint("ResourceAsColor")
@@ -68,7 +67,7 @@ public class HealthInforFragment extends BaseFragment implements HealthInforView
         View view = inflater.inflate(R.layout.fragment_health_infor, parent, false);
 
         unbinder = ButterKnife.bind(this, view);
-        healthInforPresenter = new HealthInfoPresenterImpl(this);
+        healthInfoPresenter = new HealthInfoPresenterImpl(this);
         newRecylcerview.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         newRecylcerview.setLayoutManager(layoutManager);
@@ -85,7 +84,7 @@ public class HealthInforFragment extends BaseFragment implements HealthInforView
             return;
         }
         swipeRefreshLayout.setRefreshing(true);
-        healthInforPresenter.getLatestData();
+        healthInfoPresenter.getLatestData();
     }
 
     @Override
@@ -105,7 +104,7 @@ public class HealthInforFragment extends BaseFragment implements HealthInforView
     @Override
     public void onDestroy() {
         super.onDestroy();
-        healthInforPresenter.disposeApi();
+        healthInfoPresenter.disposeApi();
         unbinder.unbind();
     }
 
@@ -149,6 +148,6 @@ public class HealthInforFragment extends BaseFragment implements HealthInforView
 
     @Override
     public void onRefresh() {
-        healthInforPresenter.getLatestData();
+        healthInfoPresenter.getLatestData();
     }
 }
