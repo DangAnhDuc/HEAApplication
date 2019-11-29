@@ -1,16 +1,21 @@
 package com.example.heaapp.view.fragment;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -21,17 +26,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.heaapp.R;
 import com.example.heaapp.adapter.ActivitiesAdapter;
 import com.example.heaapp.adapter.DishesAdapter;
+import com.example.heaapp.adapter.SpinnerAdapter;
 import com.example.heaapp.base.BaseFragment;
 import com.example.heaapp.model.user_information.CurrentUserIndices;
 import com.example.heaapp.model.user_information.DailySummary;
 import com.example.heaapp.presenter.DashboardPresenterImpl;
 import com.example.heaapp.service.RealmService;
 import com.example.heaapp.ultis.ultis;
-import com.example.heaapp.view.activity.ActivitiesAddingActivity;
 import com.example.heaapp.view.activity.FoodAddingActivity;
 import com.example.heaapp.view.activity.UserInfoActivity;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -91,6 +99,15 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
 
     private DashboardPresenterImpl dashboardPresenter;
     private Unbinder unbinder;
+    private int[] icons = {R.drawable.sleeping, R.drawable.deskwork, R.drawable.callisthenics, R.drawable.callisthenics,
+            R.drawable.gymastics, R.drawable.walking, R.drawable.walking, R.drawable.walking, R.drawable.running, R.drawable.running,
+            R.drawable.running, R.drawable.bicycle, R.drawable.bicycle, R.drawable.bicycle, R.drawable.jumping,
+            R.drawable.swimming, R.drawable.yoga};
+    private int activityPosition=0;
+    private List<Double> METs = new ArrayList<>();
+    private long burnedEnergy = 0;
+    private Dialog addActivityDialog;
+
 
     @Override
     public BaseFragment provideYourFragment() {
@@ -163,7 +180,6 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
     @Override
     public void addDrunkWaterSuccessfully(String waterAmount) {
         tvTotalWater.setText(String.format("Total: %sml", waterAmount));
-
     }
 
     @Override
@@ -195,6 +211,19 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
     @Override
     public void addDrunkWaterFailed() {
         ultis.showMessage(getContext(), getString(R.string.msg_input_water_amount));
+    }
+
+    @Override
+    public void addActivitiesSuccess() {
+        ultis.showMessage(getContext(), getString(R.string.add_activities_success));
+        addActivityDialog.dismiss();
+        dashboardPresenter.getDailySummary();
+    }
+
+    @Override
+    public void addActivitiesFailed() {
+        ultis.showMessage(getContext(), getString(R.string.add_activities_fail));
+        addActivityDialog.dismiss();
     }
 
 
@@ -242,7 +271,68 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
                 startActivity(intentDinner);
                 break;
             case R.id.layout_exercise:
-                ultis.setIntent(getContext(), ActivitiesAddingActivity.class);
+                Double[] arrayMET = {0.95, 1.5, 3.8, 8.0, 3.8, 2.0, 3.3, 4.3, 5.0, 10.5, 23.0, 3.5, 8.0, 15.8, 8.8, 9.5, 8.8};
+                METs = Arrays.asList(arrayMET);
+                addActivityDialog = new Dialog(getContext(), R.style.AlertDialogTheme);
+                addActivityDialog.setContentView(R.layout.activity_custom_dialog);
+                addActivityDialog.setTitle("Add activity!");
+
+                Spinner spinner = addActivityDialog.findViewById(R.id.activity_spinner);
+                TextView tvAcitityEnergy = addActivityDialog.findViewById(R.id.activity_burned_energy);
+                EditText edtTimeDuration = addActivityDialog.findViewById(R.id.edt_activity_duration);
+                Button btnAddActivity = addActivityDialog.findViewById(R.id.btn_addActivity);
+
+                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        activityPosition = position;
+                        try {
+                            burnedEnergy = Double.valueOf(dashboardPresenter.calculateBurnedEnergy(METs.get(activityPosition), edtTimeDuration.getText().toString())).longValue();
+                            tvAcitityEnergy.setText(String.format("Total: %dkCal", burnedEnergy));
+                        } catch (Exception e) {
+                            tvAcitityEnergy.setText(getString(R.string.default_activity_burned_energy));
+                        }
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+
+
+                SpinnerAdapter spinnerAdapter=new SpinnerAdapter(getContext(),icons,getContext().getResources().getStringArray(R.array.activitiesName));
+                spinner.setAdapter(spinnerAdapter);
+                edtTimeDuration.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        try {
+                            burnedEnergy = Double.valueOf(dashboardPresenter.calculateBurnedEnergy(METs.get(activityPosition), edtTimeDuration.getText().toString())).longValue();
+                            tvAcitityEnergy.setText(String.format("Total: %dkCal", burnedEnergy));
+                        } catch (Exception e) {
+                            tvAcitityEnergy.setText(getString(R.string.default_activity_burned_energy));
+                        }
+
+                    }
+                });
+                btnAddActivity.setOnClickListener(v -> {
+                    if (burnedEnergy != 0) {
+                        dashboardPresenter.addActivity(getContext().getResources().getStringArray(R.array.activitiesName)[activityPosition],
+                                edtTimeDuration.getText().toString(), burnedEnergy);
+                    } else {
+                        ultis.showMessage(getContext(), getString(R.string.msg_input_valid_time));
+                    }
+                });
+                addActivityDialog.show();
                 break;
         }
     }
@@ -258,4 +348,5 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
     public Context getContext() {
         return super.getContext();
     }
+
 }
