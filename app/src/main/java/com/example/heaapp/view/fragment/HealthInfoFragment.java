@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
 import com.example.heaapp.R;
 import com.example.heaapp.adapter.NewsAdapter;
 import com.example.heaapp.base.BaseFragment;
@@ -52,7 +53,7 @@ public class HealthInfoFragment extends BaseFragment implements HealthInforView,
     @BindView(R.id.desc_airquality)
     TextView descAirquality;
     @BindView(R.id.new_recylcerview)
-    RecyclerView newRecylcerview;
+    ShimmerRecyclerView newRecylcerview;
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.tv_location)
@@ -74,9 +75,7 @@ public class HealthInfoFragment extends BaseFragment implements HealthInforView,
 
         unbinder = ButterKnife.bind(this, view);
         healthInfoPresenter = new HealthInfoPresenterImpl(this, getContext());
-        newRecylcerview.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-        newRecylcerview.setLayoutManager(layoutManager);
+        newRecylcerview.showShimmerAdapter();
         try {
             displayWeatherInfo();
         } catch (Exception e) {
