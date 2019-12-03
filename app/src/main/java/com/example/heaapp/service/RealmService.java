@@ -1,5 +1,7 @@
 package com.example.heaapp.service;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.example.heaapp.callback.OnTransactionCallback;
@@ -223,10 +225,10 @@ public class RealmService {
 
     public void addReminder(int hour, int min, RealmList<String> listDay, OnTransactionCallback onTransactionCallback){
         mRealm.executeTransactionAsync(realm -> {
-                    RealmResults<TimeReminder> realmResults = realm.where(TimeReminder.class).findAll();
-            realmResults.setValue("hour", hour);
-            realmResults.setValue("minute", min);
-            realmResults.setValue("dayList", listDay);
+            TimeReminder timeReminder = realm.createObject(TimeReminder.class);
+            timeReminder.setHour(hour);
+            timeReminder.setMinute(min);
+            timeReminder.setDayList(listDay);
         }, () -> {
             if (onTransactionCallback != null) {
                 onTransactionCallback.onTransactionSuccess();
