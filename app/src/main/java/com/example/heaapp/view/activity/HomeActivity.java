@@ -138,6 +138,9 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
                 case R.id.side_bar_remider:
                     ultis.setIntent(this, ReminderActivity.class);
                     break;
+                case R.id.side_bar_health_report:
+                    ultis.setIntent(this,HealthReport.class);
+                    break;
 
             }
             return true;
