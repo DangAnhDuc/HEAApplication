@@ -99,4 +99,7 @@ dependencies {
 
     //Dexter
     implementation 'com.karumi:dexter:5.0.0'
+
+    //ShimmerRecclerView
+    implementation 'com.github.sharish:ShimmerRecyclerView:v1.3'
 }

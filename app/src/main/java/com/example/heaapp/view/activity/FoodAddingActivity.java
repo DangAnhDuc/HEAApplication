@@ -15,6 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
 import com.example.heaapp.Helper.MySwipeHelper;
 import com.example.heaapp.R;
 import com.example.heaapp.adapter.FoodAdapter;
