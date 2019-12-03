@@ -190,4 +190,6 @@
     <string name="age">Tuổi</string>
     <string name="name">Tên</string>
     <string name="your_detail">Thông tin của bạn</string>
+    <string name="msg_permission_denied">Quyền truy cập bị từ chối</string>
+
 </resources>
