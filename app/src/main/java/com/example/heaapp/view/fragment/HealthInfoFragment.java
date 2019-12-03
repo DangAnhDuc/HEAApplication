@@ -1,7 +1,10 @@
 package com.example.heaapp.view.fragment;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -28,6 +32,8 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class HealthInfoFragment extends BaseFragment implements HealthInforView, SwipeRefreshLayout.OnRefreshListener {
@@ -67,38 +73,41 @@ public class HealthInfoFragment extends BaseFragment implements HealthInforView,
         View view = inflater.inflate(R.layout.fragment_health_infor, parent, false);
 
         unbinder = ButterKnife.bind(this, view);
-        healthInfoPresenter = new HealthInfoPresenterImpl(this);
+        healthInfoPresenter = new HealthInfoPresenterImpl(this, getContext());
         newRecylcerview.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         newRecylcerview.setLayoutManager(layoutManager);
-
+        try {
+            displayWeatherInfo();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setColorSchemeColors(R.color.colorPrimary, R.color.colorPrimaryDark);
         return view;
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        if (!getUserVisibleHint()) {
-            return;
-        }
-        swipeRefreshLayout.setRefreshing(true);
-        healthInfoPresenter.getLatestData();
-    }
-
-    @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && isResumed()) {
-            onStart();
+            onResume();
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
+        if (!getUserVisibleHint()) {
+            return;
+        }
+        swipeRefreshLayout.setRefreshing(true);
+        healthInfoPresenter.permissionRequest();
     }
 
     @Override
@@ -125,20 +134,42 @@ public class HealthInfoFragment extends BaseFragment implements HealthInforView,
     @SuppressLint("DefaultLocale")
     @Override
     public void getCityInfoSuccess(CityInfor cityInfor) {
-        descTemp.setText(String.format("%d °C", cityInfor.getData().getCurrent().getWeather().getTp()));
-        descPressure.setText(String.format("%d hPa", cityInfor.getData().getCurrent().getWeather().getPr()));
-        descHumidity.setText(String.format("%d %%", cityInfor.getData().getCurrent().getWeather().getHu()));
-        descWindspeed.setText(String.format("%s m/s", cityInfor.getData().getCurrent().getWeather().getWs()));
-        descWinddirect.setText(String.format("%d°", cityInfor.getData().getCurrent().getWeather().getWd()));
-        descAirquality.setText(String.format("%d AQI", cityInfor.getData().getCurrent().getPollution().getAqius()));
-
-        int id = Objects.requireNonNull(getContext()).getResources().getIdentifier("ic" + cityInfor.getData().getCurrent().getWeather().getIc(), "drawable", getContext().getPackageName());
-        weatherStatus.setImageResource(id);
-        tvLocation.setText(String.format("%s,%s", cityInfor.getData().getCity(), cityInfor.getData().getCountry()));
-        tvTimestamp.setText(cityInfor.getData().getCurrent().getWeather().getTs().substring(0, 10));
-
-
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("weatherPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("temperature", cityInfor.getData().getCurrent().getWeather().getTp().toString());
+        editor.putString("pressure", cityInfor.getData().getCurrent().getWeather().getPr().toString());
+        editor.putString("humidity", cityInfor.getData().getCurrent().getWeather().getHu().toString());
+        editor.putString("windspeed", cityInfor.getData().getCurrent().getWeather().getWs().toString());
+        editor.putString("winddirection", cityInfor.getData().getCurrent().getWeather().getWd().toString());
+        editor.putString("airquality", cityInfor.getData().getCurrent().getPollution().getAqius().toString());
+        editor.putString("icon", cityInfor.getData().getCurrent().getWeather().getIc());
+        editor.putString("city", cityInfor.getData().getCity());
+        editor.putString("country", cityInfor.getData().getCountry());
+        editor.putString("timestamp", cityInfor.getData().getCurrent().getWeather().getTs().substring(0, 10));
+        editor.apply();
+        displayWeatherInfo();
     }
+
+    private void displayWeatherInfo() {
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("weatherPrefs", MODE_PRIVATE);
+        descTemp.setText(String.format("%s °C", sharedPreferences.getString("temperature", "N/a")));
+        descPressure.setText(String.format("%s hPa", sharedPreferences.getString("pressure", "N/a")));
+        descHumidity.setText(String.format("%s %%", sharedPreferences.getString("humidity", "N/a")));
+        descWindspeed.setText(String.format("%s m/s", sharedPreferences.getString("windspeed", "N/a")));
+        descWinddirect.setText(String.format("%s°", sharedPreferences.getString("winddirection", "N/a")));
+        descAirquality.setText(String.format("%s AQI", sharedPreferences.getString("airquality", "N/a")));
+        int id = Objects.requireNonNull(getContext()).getResources().getIdentifier("ic" + sharedPreferences.getString("icon", "Na"), "drawable", getContext().getPackageName());
+        weatherStatus.setImageResource(id);
+        tvLocation.setText(String.format("%s,%s", sharedPreferences.getString("city", "N/a"), sharedPreferences.getString("country", "N/a")));
+        tvTimestamp.setText(sharedPreferences.getString("timestamp", "N/a"));
+    }
+
+    @Override
+    public void permissionDenied() {
+        swipeRefreshLayout.setRefreshing(false);
+        ultis.showWarningMessage(getContext(), "Please allow location permission!");
+    }
+
 
     @Override
     public void getLatestDataFailed(String message) {
@@ -148,6 +179,11 @@ public class HealthInfoFragment extends BaseFragment implements HealthInforView,
 
     @Override
     public void onRefresh() {
-        healthInfoPresenter.getLatestData();
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
+                ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            permissionDenied();
+        } else {
+            healthInfoPresenter.setLocation();
+        }
     }
 }

@@ -35,7 +35,7 @@ public class SplashScreenActivity extends AppCompatActivity implements SpashScre
         imgSplash.setAnimation(splashanimation);
         txtSplash.setAnimation(splashanimation);
         //init database
-        Realm.init(getApplicationContext());
+//        Realm.init(getApplicationContext());
         RealmService realmService = RealmService.getInstance();
         splashScreenPresenter = new SplashScreenPresenterImpl(realmService, getContext());
         splashScreenPresenter.firstTimeInit();

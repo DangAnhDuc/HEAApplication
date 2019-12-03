@@ -67,7 +67,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         initView();
         RealmService realmService = RealmService.getInstance();
         homePresenter = new HomePresenterImpl(realmService, this);
@@ -193,6 +192,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     public void setIntentToLogin() {
         ultis.setIntent(getContext(), LoginActivity.class);
     }
+
 
     @Override
     public Context getContext() {

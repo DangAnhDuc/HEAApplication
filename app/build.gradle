@@ -45,17 +45,17 @@ dependencies {
 
 
     // Firebase
-    implementation 'com.google.firebase:firebase-auth:19.2.0'
-    implementation 'com.google.firebase:firebase-database:19.2.0'
-    implementation 'com.google.firebase:firebase-storage:19.1.0'
+    implementation 'com.google.firebase:firebase-auth:17.0.0'
+    implementation 'com.google.firebase:firebase-database:17.0.0'
+    implementation 'com.google.firebase:firebase-storage:17.0.0'
 
     // Retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.6.1'
-    implementation 'com.squareup.okhttp3:okhttp:3.12.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
 
     // JSON Parsing
     implementation 'com.google.code.gson:gson:2.8.5'
-    implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
 
     //butter knife
     implementation 'com.jakewharton:butterknife:10.2.0'
@@ -93,4 +93,10 @@ dependencies {
 
     //Toast
     implementation 'com.github.Shashank02051997:FancyToast-Android:0.1.6'
+
+    //Play services
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
+
+    //Dexter
+    implementation 'com.karumi:dexter:5.0.0'
 }

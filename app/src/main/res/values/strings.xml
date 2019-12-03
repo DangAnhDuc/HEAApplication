@@ -160,7 +160,7 @@
     <string name="msg_upload_failed">Upload failed!</string>
     <string name="msg_no_image_selected">No image selected!</string>
     <string name="msg_upload_in_progress">Upload in progress</string>
-    <string name="time_duration">Time duration(Mns)</string>
+    <string name="time_duration">Duration(Mns)</string>
     <string name="default_activity_burned_energy">Total: 0kCal</string>
     <string name="msg_input_valid_time">Please input valid time!</string>
     <string name="msg_no_account_yet_create_one">No account yet? Create one</string>
@@ -180,4 +180,6 @@
     <string name="age">Age</string>
     <string name="name">Name</string>
     <string name="your_detail">Your Detail</string>
+    <string name="msg_permission_denied">Permission Denied</string>
+    <string name="not_available">N/A</string>
 </resources>
