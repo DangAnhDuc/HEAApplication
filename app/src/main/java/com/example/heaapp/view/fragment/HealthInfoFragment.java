@@ -167,6 +167,12 @@ public class HealthInfoFragment extends BaseFragment implements HealthInforView,
         ultis.showWarningMessage(getContext(), "Please allow location permission!");
     }
 
+    @Override
+    public void locationDisable() {
+        swipeRefreshLayout.setRefreshing(false);
+        ultis.showWarningMessage(getContext(),"Please enable GPS!");
+    }
+
 
     @Override
     public void getLatestDataFailed(String message) {

@@ -4,9 +4,6 @@ import com.example.heaapp.model.user_information.DailySummary;
 import com.example.heaapp.service.RealmService;
 import com.example.heaapp.view.activity.HealthReportView;
 import com.github.mikephil.charting.charts.PieChart;
-
-import java.util.ArrayList;
-
 import io.realm.RealmResults;
 
 public class HealthReportPresenterImpl implements HealthReportPresenter {
@@ -23,6 +20,19 @@ public class HealthReportPresenterImpl implements HealthReportPresenter {
         this.realmService=realmService;
     }
 
+
+    @Override
+    public void getDailySummaryData() {
+        RealmResults<DailySummary> realmResults = realmService.getCurrentDate();
+        float[] yEnergyData= {realmResults.get(0).getEatenCalories(),realmResults.get(0).getBurnedCalories()};
+        String[] xEnergyData = {"Energy Eaten", "Energy Burned"};
+        healthReportView.createPieChart(energyPieChart,yEnergyData,xEnergyData);
+
+        float[] yNutritionData= {realmResults.get(0).getEatenCarbs(),realmResults.get(0).getEatenFat(),realmResults.get(0).getEatenProtein()};
+        String[] xNutritionData = {"Carbohydrate", "Fat","Protein"};
+        healthReportView.createPieChart(nutritionPieChart,yNutritionData,xNutritionData);
+    }
+
     @Override
     public void attachView(HealthReportView view) {
         healthReportView=view;
@@ -33,19 +43,4 @@ public class HealthReportPresenterImpl implements HealthReportPresenter {
         healthReportView=null;
     }
 
-    @Override
-    public void getEnergyDataset() {
-        RealmResults<DailySummary> realmResults = realmService.getCurrentDate();
-        float[] yData= {realmResults.get(0).getEatenCalories(),realmResults.get(0).getBurnedCalories()};
-        String[] xData = {"Energy Eaten", "Energy Burned"};
-        healthReportView.createPieChart(energyPieChart,yData,xData);
-    }
-
-    @Override
-    public void getNutritionDataset() {
-        RealmResults<DailySummary> realmResults = realmService.getCurrentDate();
-        float[] yData= {realmResults.get(0).getEatenCarbs(),realmResults.get(0).getEatenFat(),realmResults.get(0).getEatenProtein()};
-        String[] xData = {"Carbohydrate", "Fat","Protein"};
-        healthReportView.createPieChart(nutritionPieChart,yData,xData);
-    }
 }

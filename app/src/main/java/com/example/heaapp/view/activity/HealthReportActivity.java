@@ -53,10 +53,9 @@ public class HealthReportActivity extends AppCompatActivity implements HealthRep
         RealmService realmService = RealmService.getInstance();
         setupPieChart(energyPieChart,"Energy");
         setupPieChart(nutritionPieChart,"Nutrition");
-
+        setupCombinedChart();
         healthReportPresenter = new HealthReportPresenterImpl(this, energyPieChart, nutritionPieChart, realmService);
-        healthReportPresenter.getEnergyDataset();
-        healthReportPresenter.getNutritionDataset();
+        healthReportPresenter.getDailySummaryData();
     }
 
     private void setupCombinedChart() {
@@ -154,23 +153,6 @@ public class HealthReportActivity extends AppCompatActivity implements HealthRep
         pieChart.getDescription().setEnabled(false);
     }
 
-
-
-    @Override
-    public void onValueSelected(Entry e, Highlight h) {
-
-    }
-
-    @Override
-    public void onNothingSelected() {
-
-    }
-
-    @Override
-    public Context getContext() {
-        return this;
-    }
-
     @Override
     public void createPieChart(PieChart pieChart, float[] yData, String[] xData) {
         ArrayList<PieEntry> yEntrys = new ArrayList<>();
@@ -207,4 +189,20 @@ public class HealthReportActivity extends AppCompatActivity implements HealthRep
         pieChart.animateY(1000);
         pieChart.invalidate();
     }
+
+    @Override
+    public void onValueSelected(Entry e, Highlight h) {
+
+    }
+
+    @Override
+    public void onNothingSelected() {
+
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
+    }
+
 }
