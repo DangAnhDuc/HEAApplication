@@ -18,4 +18,11 @@
     <color name="card_background">#f6f6f6</color>
     <color name="title_color">#2eb872</color>
     <color name="content_text_color">#999da4</color>
+
+
+    <color name="pie_char_color_1">#2eb872</color>
+    <color name="pie_char_color_2">#18a3fe</color>
+    <color name="pie_char_color_3">#eb7070</color>
+    <color name="pie_char_color_4">#fec771</color>
+
 </resources>

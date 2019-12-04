@@ -19,7 +19,7 @@
 
     </item>
     <item
-        android:icon="@drawable/ic_reminder"
+        android:icon="@drawable/ic_description_black_24dp"
         android:id="@+id/side_bar_health_report"
         android:title="@string/health_report">
 
