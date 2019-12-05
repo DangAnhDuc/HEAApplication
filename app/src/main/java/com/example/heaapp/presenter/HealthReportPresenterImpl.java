@@ -4,6 +4,9 @@ import com.example.heaapp.model.user_information.DailySummary;
 import com.example.heaapp.service.RealmService;
 import com.example.heaapp.view.activity.HealthReportView;
 import com.github.mikephil.charting.charts.PieChart;
+
+import java.util.ArrayList;
+
 import io.realm.RealmResults;
 
 public class HealthReportPresenterImpl implements HealthReportPresenter {
@@ -31,6 +34,39 @@ public class HealthReportPresenterImpl implements HealthReportPresenter {
         float[] yNutritionData= {realmResults.get(0).getEatenCarbs(),realmResults.get(0).getEatenFat(),realmResults.get(0).getEatenProtein()};
         String[] xNutritionData = {"Carbohydrate", "Fat","Protein"};
         healthReportView.createPieChart(nutritionPieChart,yNutritionData,xNutritionData);
+    }
+
+
+    @Override
+    public ArrayList<Long> getMonthlyBurnedEnergy(int numberOfDaysInCurrentMonth) {
+        RealmResults<DailySummary> realmResults = realmService.getCurrentMonth();
+        ArrayList<Long> burnedEnergyInMonth = new ArrayList<>();
+        for (int i = 1; i <= numberOfDaysInCurrentMonth; i++) {
+            burnedEnergyInMonth.add((long) 0);
+        }
+        for (int i = 0; i < realmResults.size(); i++) {
+            try {
+                burnedEnergyInMonth.set(Integer.parseInt(realmResults.get(i).getDate()) - 1, realmResults.get(i).getBurnedCalories());
+            } catch (Exception ignored) {
+            }
+        }
+        return burnedEnergyInMonth;
+    }
+
+    @Override
+    public ArrayList<Long> getMonthlyEatenEnergy(int numberOfDaysInCurrentMonth) {
+        RealmResults<DailySummary> realmResults = realmService.getCurrentMonth();
+        ArrayList<Long> eatenEnergyInMonth = new ArrayList<>();
+        for (int i = 1; i <= numberOfDaysInCurrentMonth; i++) {
+            eatenEnergyInMonth.add((long) 0);
+        }
+        for (int i = 0; i < realmResults.size(); i++) {
+            try {
+                eatenEnergyInMonth.set(Integer.parseInt(realmResults.get(i).getDate()) - 1, realmResults.get(i).getEatenCalories());
+            } catch (Exception ignored) {
+            }
+        }
+        return eatenEnergyInMonth;
     }
 
     @Override

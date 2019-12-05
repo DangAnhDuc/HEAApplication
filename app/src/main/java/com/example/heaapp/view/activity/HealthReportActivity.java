@@ -5,17 +5,16 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.heaapp.R;
 import com.example.heaapp.presenter.HealthReportPresenterImpl;
 import com.example.heaapp.service.RealmService;
-import com.github.mikephil.charting.charts.CombinedChart;
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.data.DataSet;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -23,18 +22,17 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HealthReportActivity extends AppCompatActivity implements HealthReportView, OnChartValueSelectedListener {
+public class HealthReportActivity extends AppCompatActivity implements HealthReportView {
 
 
     @BindView(R.id.energy_pie_chart)
@@ -43,28 +41,42 @@ public class HealthReportActivity extends AppCompatActivity implements HealthRep
     PieChart nutritionPieChart;
     HealthReportPresenterImpl healthReportPresenter;
     @BindView(R.id.combinedChart)
-    CombinedChart combinedChart;
+    LineChart combinedChart;
+    @BindView(R.id.healthReportToolbar)
+    Toolbar healthReportToolbar;
+    private int numberOfDaysInCurrentMonth;
+    private ArrayList<Long> eatenEnergyInMonth;
+    private ArrayList<Long> burnedEnergyInMonth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health_report);
         ButterKnife.bind(this);
+
+        setSupportActionBar(healthReportToolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        healthReportToolbar.setNavigationOnClickListener(v -> finish());
+
+        Calendar calendar = Calendar.getInstance();
+        numberOfDaysInCurrentMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+
         RealmService realmService = RealmService.getInstance();
-        setupPieChart(energyPieChart,"Energy");
-        setupPieChart(nutritionPieChart,"Nutrition");
-        setupCombinedChart();
         healthReportPresenter = new HealthReportPresenterImpl(this, energyPieChart, nutritionPieChart, realmService);
+
+        setupPieChart(energyPieChart, "Energy");
+        setupPieChart(nutritionPieChart, "Nutrition");
+        eatenEnergyInMonth = healthReportPresenter.getMonthlyEatenEnergy(numberOfDaysInCurrentMonth);
+        burnedEnergyInMonth = healthReportPresenter.getMonthlyBurnedEnergy(numberOfDaysInCurrentMonth);
+        setupCombinedChart();
         healthReportPresenter.getDailySummaryData();
     }
 
     private void setupCombinedChart() {
         combinedChart.getDescription().setEnabled(false);
         combinedChart.setBackgroundColor(Color.WHITE);
-        combinedChart.setDrawGridBackground(false);
-        combinedChart.setDrawBarShadow(false);
-        combinedChart.setHighlightFullBarEnabled(false);
-        combinedChart.setOnChartValueSelectedListener(this);
+        combinedChart.setDrawGridBackground(true);
 
         YAxis rightAxis = combinedChart.getAxisRight();
         rightAxis.setDrawGridLines(false);
@@ -74,68 +86,76 @@ public class HealthReportActivity extends AppCompatActivity implements HealthRep
         leftAxis.setDrawGridLines(false);
         leftAxis.setAxisMinimum(0f);
 
+
         final List<String> xLabel = new ArrayList<>();
-        xLabel.add("Jan");
-        xLabel.add("Feb");
-        xLabel.add("Mar");
-        xLabel.add("Apr");
-        xLabel.add("May");
-        xLabel.add("Jun");
-        xLabel.add("Jul");
-        xLabel.add("Aug");
-        xLabel.add("Sep");
-        xLabel.add("Oct");
-        xLabel.add("Nov");
-        xLabel.add("Dec");
+        for (int i = 1; i <= numberOfDaysInCurrentMonth; i++) {
+            xLabel.add(String.valueOf(i));
+        }
 
         XAxis xAxis = combinedChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setAxisMinimum(0f);
         xAxis.setGranularity(1f);
-        xAxis.setValueFormatter(new IAxisValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, AxisBase axis) {
-                return xLabel.get((int) value % xLabel.size());
-            }
-        });
+        xAxis.setValueFormatter((value, axis) -> xLabel.get((int) value));
 
-        CombinedData data = new CombinedData();
-        LineData lineDatas = new LineData();
-        lineDatas.addDataSet((ILineDataSet) dataChart());
+        LineData lineData = new LineData();
+        lineData.addDataSet((ILineDataSet) generateEatenEnergyLineData());
+        lineData.addDataSet((ILineDataSet) generateBurnedEnergyLineData());
 
-        data.setData(lineDatas);
 
-        xAxis.setAxisMaximum(data.getXMax() + 0.25f);
-
-        combinedChart.setData(data);
+        xAxis.setAxisMaximum(lineData.getXMax() + 0.25f);
+        combinedChart.setData(lineData);
         combinedChart.invalidate();
     }
 
-    private static DataSet dataChart() {
-
+    private DataSet generateEatenEnergyLineData() {
         LineData d = new LineData();
-        int[] data = new int[] { 1, 2, 2, 1, 1, 1, 2, 1, 1, 2, 1, 9 };
 
-        ArrayList<Entry> entries = new ArrayList<Entry>();
+        ArrayList<Entry> eatenEnergyEntries = new ArrayList<>();
 
-        for (int index = 0; index < 12; index++) {
-            entries.add(new Entry(index, data[index]));
+        for (int index = 0; index < eatenEnergyInMonth.size(); index++) {
+            eatenEnergyEntries.add(new Entry(index, eatenEnergyInMonth.get(index)));
         }
 
-        LineDataSet set = new LineDataSet(entries, "Request Ots approved");
-        set.setColor(Color.GREEN);
-        set.setLineWidth(2.5f);
-        set.setCircleColor(Color.GREEN);
-        set.setCircleRadius(5f);
-        set.setFillColor(Color.GREEN);
-        set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-        set.setDrawValues(true);
-        set.setValueTextSize(10f);
-        set.setValueTextColor(Color.GREEN);
 
+        LineDataSet set = new LineDataSet(eatenEnergyEntries, "Daily Eaten Energy");
+        set.setColor(getResources().getColor(R.color.pie_char_color_3));
+        set.setLineWidth(2f);
+
+        set.setCircleColor(getResources().getColor(R.color.pie_char_color_3));
+        set.setCircleHoleRadius(3f);
+        set.setCircleRadius(5f);
+
+        set.setFillColor(getResources().getColor(R.color.pie_char_color_3));
+        set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        set.setDrawValues(false);
         set.setAxisDependency(YAxis.AxisDependency.LEFT);
         d.addDataSet(set);
+        return set;
+    }
 
+    private DataSet generateBurnedEnergyLineData() {
+        LineData d = new LineData();
+
+        ArrayList<Entry> burnedEnergyEntries = new ArrayList<>();
+
+        for (int index = 0; index < burnedEnergyInMonth.size(); index++) {
+            burnedEnergyEntries.add(new Entry(index, burnedEnergyInMonth.get(index)));
+        }
+
+        LineDataSet set = new LineDataSet(burnedEnergyEntries, "Daily Burned Energy");
+        set.setColor(getResources().getColor(R.color.pie_char_color_4));
+        set.setLineWidth(2f);
+
+        set.setCircleColor(getResources().getColor(R.color.pie_char_color_4));
+        set.setCircleHoleRadius(3f);
+        set.setCircleRadius(5f);
+
+        set.setFillColor(getResources().getColor(R.color.pie_char_color_4));
+        set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        set.setDrawValues(false);
+        set.setAxisDependency(YAxis.AxisDependency.LEFT);
+        d.addDataSet(set);
         return set;
     }
 
@@ -156,13 +176,9 @@ public class HealthReportActivity extends AppCompatActivity implements HealthRep
     @Override
     public void createPieChart(PieChart pieChart, float[] yData, String[] xData) {
         ArrayList<PieEntry> yEntrys = new ArrayList<>();
-        ArrayList<String> xEntrys = new ArrayList<>();
 
         for (int i = 0; i < yData.length; i++) {
             yEntrys.add(new PieEntry(yData[i], xData[i]));
-        }
-        for (int i = 0; i < xData.length; i++) {
-            xEntrys.add(xData[i]);
         }
 
         PieDataSet pieDataSet = new PieDataSet(yEntrys, "");
@@ -186,18 +202,8 @@ public class HealthReportActivity extends AppCompatActivity implements HealthRep
 
         PieData pieData = new PieData(pieDataSet);
         pieChart.setData(pieData);
-        pieChart.animateY(1000);
+        pieChart.animateXY(1000, 1000);
         pieChart.invalidate();
-    }
-
-    @Override
-    public void onValueSelected(Entry e, Highlight h) {
-
-    }
-
-    @Override
-    public void onNothingSelected() {
-
     }
 
     @Override
