@@ -56,11 +56,14 @@ public class AlarmReceiver extends BroadcastReceiver {
             );
             notificationManager.createNotificationChannel(channel);
         }
+        String timeStamp = String.format("%s%s%s", realmService.getCurrentDate().get(0).getYear(), realmService.getCurrentDate().get(0).getMonth(), realmService.getCurrentDate().get(0).getDate());
         notificationManager.notify(0, notification);
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseAuth.getCurrentUser().getUid()).child("remote").child("dailySummary").child(realmService.getCurrentDate().get(0).getDate());
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseAuth.getCurrentUser().getUid()).child("remote").child("dailySummary").child(timeStamp);
         databaseReference.child("id").setValue(realmService.getCurrentDate().get(0).getId());
         databaseReference.child("date").setValue(realmService.getCurrentDate().get(0).getDate());
+        databaseReference.child("month").setValue(realmService.getCurrentDate().get(0).getMonth());
+        databaseReference.child("year").setValue(realmService.getCurrentDate().get(0).getYear());
         databaseReference.child("waterConsume").setValue(realmService.getCurrentDate().get(0).getWaterConsume());
         databaseReference.child("eatenCalories").setValue(realmService.getCurrentDate().get(0).getEatenCalories());
         databaseReference.child("burnedCalories").setValue(realmService.getCurrentDate().get(0).getBurnedCalories());
