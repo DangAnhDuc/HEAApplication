@@ -70,8 +70,8 @@
     <string-array name="activitiesName">
         <item>Sleeping</item>
         <item>Desk Work</item>
-        <item>Calisthenics,Light effort</item>
-        <item>Calisthenics,Vigorous effort</item>
+        <item>Light Calisthenics</item>
+        <item>Vigorous Calisthenics</item>
         <item>Gymnastics</item>
         <item>Walking slow</item>
         <item>Walking moderate</item>
@@ -156,4 +156,31 @@
     <string name="minutes">Minutes</string>
     <string name="add_activities">Add activities!</string>
     <string name="msg_daily_noti">That all for today! Good night and be ready for new day!</string>
+    <string name="uploading">Uploading</string>
+    <string name="msg_upload_failed">Upload failed!</string>
+    <string name="msg_no_image_selected">No image selected!</string>
+    <string name="msg_upload_in_progress">Upload in progress</string>
+    <string name="time_duration">Duration(Mns)</string>
+    <string name="default_activity_burned_energy">Total: 0kCal</string>
+    <string name="msg_input_valid_time">Please input valid time!</string>
+    <string name="msg_no_account_yet_create_one">No account yet? Create one</string>
+    <string name="get_started">Get Started</string>
+    <string name="skip">Skip</string>
+    <string name="create_account">Create Account</string>
+    <string name="msg_already_a_member_login">Already a member? Login</string>
+    <string name="msg_welcome_to_life_care">Welcome to Life-care</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="save">Save</string>
+    <string name="chest_in_cm">Chest in cm</string>
+    <string name="hip_in_cm">Hip in cm</string>
+    <string name="waist_in_cm">Waist in cm</string>
+    <string name="height_in_cm">Height in cm</string>
+    <string name="weigh_in_kg">Weigh in kg</string>
+    <string name="age">Age</string>
+    <string name="name">Name</string>
+    <string name="your_detail">Your Detail</string>
+    <string name="msg_permission_denied">Permission Denied</string>
+    <string name="not_available">N/A</string>
+    <string name="health_report">Health Report</string>
 </resources>

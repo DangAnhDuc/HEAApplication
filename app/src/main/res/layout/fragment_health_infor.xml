@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/swipe_refresh_layout"
-    tools:context=".view.fragment.HealthInforFragment">
+    tools:context=".view.fragment.HealthInfoFragment">
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -43,7 +43,7 @@
                     android:textColor="#262626"
                     android:layout_below="@id/weather_status"
                     android:layout_marginTop="10dp"
-                    android:text="Ho Chi Minh City, Vietnam"
+                    android:text="@string/not_available"
                     android:textSize="20sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -54,7 +54,7 @@
                     android:ellipsize="end"
                     android:layout_below="@id/tv_location"
                     android:layout_marginTop="10dp"
-                    android:text="2019-10-25"
+                    android:text="@string/not_available"
                     android:textSize="16sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -109,7 +109,7 @@
                                     android:drawablePadding="10dp"
                                     android:textAlignment="center"
                                     android:ellipsize="end"
-                                    android:text="28 °C"
+                                    android:text="@string/not_available"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content" />
 
@@ -148,7 +148,7 @@
                                     android:textAlignment="center"
                                     android:drawablePadding="10dp"
                                     android:ellipsize="end"
-                                    android:text="1006 hPa"
+                                    android:text="@string/not_available"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content" />
 
@@ -187,7 +187,7 @@
                                     android:textAlignment="center"
                                     android:drawablePadding="10dp"
                                     android:ellipsize="end"
-                                    android:text="94 %"
+                                    android:text="@string/not_available"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content" />
 
@@ -234,7 +234,7 @@
                                     android:drawablePadding="10dp"
                                     android:textAlignment="center"
                                     android:ellipsize="end"
-                                    android:text="2.6 m/s"
+                                    android:text="@string/not_available"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content" />
 
@@ -273,7 +273,7 @@
                                     android:drawablePadding="10dp"
                                     android:textAlignment="center"
                                     android:ellipsize="end"
-                                    android:text="313"
+                                    android:text="@string/not_available"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content" />
 
@@ -312,7 +312,7 @@
                                     android:drawablePadding="10dp"
                                     android:textAlignment="center"
                                     android:ellipsize="end"
-                                    android:text="104 AQI"
+                                    android:text="@string/not_available"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content" />
 
@@ -334,11 +334,15 @@
                     android:layout_marginLeft="15dp"/>
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
+            <com.cooltechworks.views.shimmer.ShimmerRecyclerView
                 android:layout_below="@+id/weather_container"
                 android:id="@+id/new_recylcerview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                app:shimmer_demo_child_count="10"
+                app:shimmer_demo_layout_manager_type="linear_vertical"
+                app:shimmer_demo_layout="@layout/news_item_demo"
+                />
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

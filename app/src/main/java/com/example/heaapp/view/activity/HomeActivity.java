@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -25,14 +24,13 @@ import com.example.heaapp.presenter.HomePresenterImpl;
 import com.example.heaapp.service.RealmService;
 import com.example.heaapp.ultis.ultis;
 import com.example.heaapp.view.fragment.DashBoardFragment;
-import com.example.heaapp.view.fragment.HealthInforFragment;
+import com.example.heaapp.view.fragment.HealthInfoFragment;
 import com.example.heaapp.view.fragment.WorkoutFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -69,7 +67,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         initView();
         RealmService realmService = RealmService.getInstance();
         homePresenter = new HomePresenterImpl(realmService, this);
@@ -82,7 +79,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPagerAdapter.addFragments(new WorkoutFragment(), getString(R.string.title_workout));
         viewPagerAdapter.addFragments(new DashBoardFragment(), getString(R.string.title_health_summary));
-        viewPagerAdapter.addFragments(new HealthInforFragment(), getString(R.string.title_health_infomation));
+        viewPagerAdapter.addFragments(new HealthInfoFragment(), getString(R.string.title_health_infomation));
 
 
         viewPager.setAdapter(viewPagerAdapter);
@@ -130,16 +127,19 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
             switch (menuItem.getItemId()) {
                 case R.id.side_bar_logout:
                     homePresenter.signOut();
-                    ultis.showMessage(getContext(), getString(R.string.msg_signout_success));
+                    ultis.showSuccessMessage(getContext(), getString(R.string.msg_signout_success));
                     break;
                 case R.id.side_bar_info_user:
-                    ultis.setIntent(getContext(), UserInfoActivity.class);
+                    ultis.setIntent(getContext(), CurrentUserDetailActivity.class);
                     break;
                 case R.id.side_bar_lang:
                     showMultipleLanguage();
                     break;
                 case R.id.side_bar_remider:
                     ultis.setIntent(this, ReminderActivity.class);
+                    break;
+                case R.id.side_bar_health_report:
+                    ultis.setIntent(this, HealthReportActivity.class);
                     break;
 
             }
@@ -192,6 +192,12 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     }
 
     @Override
+    public void setIntentToLogin() {
+        ultis.setIntent(getContext(), LoginActivity.class);
+    }
+
+
+    @Override
     public Context getContext() {
         return this;
     }
@@ -206,7 +212,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
             return;
         }
         this.doubleBackToExitPressedOnce = true;
-        ultis.showMessage(this, getString(R.string.msg_press_to_exit));
+        ultis.showWarningMessage(this, getString(R.string.msg_press_to_exit));
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

@@ -45,9 +45,9 @@ dependencies {
 
 
     // Firebase
-    implementation 'com.google.firebase:firebase-auth:16.0.5'
-    implementation 'com.google.firebase:firebase-database:16.0.4'
-    implementation 'com.google.firebase:firebase-storage:16.0.4'
+    implementation 'com.google.firebase:firebase-auth:17.0.0'
+    implementation 'com.google.firebase:firebase-database:17.0.0'
+    implementation 'com.google.firebase:firebase-storage:17.0.0'
 
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
@@ -77,14 +77,32 @@ dependencies {
     implementation "androidx.navigation:navigation-ui:2.1.0"
 
     //rxJava
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.1'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.9'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.1'
 
     // Recycler View
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
 
     //Gecko webview
     implementation "org.mozilla.geckoview:geckoview-${geckoview_channel}:${geckoview_version}"
+
+    //Dialog
+    implementation 'com.github.d-max:spots-dialog:1.1@aar'
+
+    //Toast
+    implementation 'com.github.Shashank02051997:FancyToast-Android:0.1.6'
+
+    //Play services
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
+
+    //Dexter
+    implementation 'com.karumi:dexter:5.0.0'
+
+    //ShimmerRecclerView
+    implementation 'com.github.sharish:ShimmerRecyclerView:v1.3'
+
+    //Chartview
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.2'
 }

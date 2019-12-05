@@ -15,6 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
 import com.example.heaapp.Helper.MySwipeHelper;
 import com.example.heaapp.R;
 import com.example.heaapp.adapter.FoodAdapter;
@@ -138,12 +139,12 @@ public class FoodAddingActivity extends AppCompatActivity implements FoodAddingV
 
     @Override
     public void addFoodSuccessfully() {
-        ultis.showMessage(getContext(), getString(R.string.add_food_success));
+        ultis.showSuccessMessage(getContext(), getString(R.string.add_food_success));
     }
 
     @Override
     public void addFoodFailed() {
-        ultis.showMessage(getContext(), getString(R.string.add_food_fail));
+        ultis.showErrorMessage(getContext(), getString(R.string.add_food_fail));
     }
 
     @OnClick(R.id.btn_addFood)

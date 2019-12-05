@@ -1,6 +1,6 @@
 package com.example.heaapp.view.activity;
 
-import android.app.ProgressDialog;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -16,6 +16,7 @@ import com.example.heaapp.ultis.ultis;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dmax.dialog.SpotsDialog;
 
 public class SignUpActivity extends AppCompatActivity implements SignUpView {
 
@@ -31,7 +32,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
     TextView linkLogin;
 
     SignUpPresenterImpl signUpPresenter;
-    ProgressDialog progressDialog;
+    AlertDialog signUpProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,11 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
         signUpPresenter.attachView(this);
 
         btnSignup.setOnClickListener(v -> signUpPresenter.signUp(edtName.getText().toString().trim(), edtEmail.getText().toString().trim(), edtPassword.getText().toString().trim()));
-        progressDialog = new ProgressDialog(SignUpActivity.this, R.style.AppTheme_Dark_Dialog);
+        signUpProgressDialog = new SpotsDialog.Builder()
+                .setMessage(getString(R.string.msg_create_account))
+                .setContext(this)
+                .setTheme(R.style.SpotsDialog)
+                .setCancelable(false).build();
 
         edtPassword.setOnKeyListener((v, keyCode, event) -> {
             if (event.getAction() == KeyEvent.ACTION_DOWN) {
@@ -72,13 +77,10 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
     @Override
     public void setProgressVisibility(boolean visibility) {
         if (visibility) {
-            btnSignup.setEnabled(false);
-            progressDialog.setIndeterminate(true);
-            progressDialog.setMessage(getString(R.string.msg_create_account));
-            progressDialog.show();
+            signUpProgressDialog.setMessage(getString(R.string.msg_create_account));
+            signUpProgressDialog.show();
         } else {
-            btnSignup.setEnabled(true);
-            progressDialog.dismiss();
+            signUpProgressDialog.dismiss();
         }
     }
 
@@ -99,22 +101,27 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
 
     @Override
     public void showValidationError(String message) {
-        ultis.showMessage(this, message);
+        ultis.showErrorMessage(this, message);
     }
 
     @Override
     public void signUpSuccess() {
-        ultis.showMessage(this, getString(R.string.msg_signup_success));
+        ultis.showSuccessMessage(this, getString(R.string.msg_signup_success));
         ultis.setIntent(this, LoginActivity.class);
     }
 
     @Override
     public void signUpError() {
-        ultis.showMessage(this, getString(R.string.msg_signup_failed));
+        ultis.showErrorMessage(this, getString(R.string.msg_signup_failed));
     }
 
     @Override
     public Context getContext() {
         return this;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

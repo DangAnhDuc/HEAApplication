@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.heaapp.callback.OnTransactionCallback;
+import com.example.heaapp.model.user_information.CurrentUserDetail;
 import com.example.heaapp.model.user_information.CurrentUserIndices;
 import com.example.heaapp.model.user_information.DailySummary;
 import com.example.heaapp.service.RealmService;
@@ -17,12 +18,12 @@ import io.realm.RealmResults;
 public class DashboardPresenterImpl implements DashboardPresenter, OnTransactionCallback {
     private DashboardView dashboardView;
     private Context context;
-    private final RealmService mRealmService;
+    private final RealmService realmService;
     private Realm realm = Realm.getDefaultInstance();
 
     public DashboardPresenterImpl(Context context, DashboardView dashboardView, RealmService mRealmService) {
         this.dashboardView = dashboardView;
-        this.mRealmService = mRealmService;
+        this.realmService = mRealmService;
         this.context = context;
     }
 
@@ -40,7 +41,7 @@ public class DashboardPresenterImpl implements DashboardPresenter, OnTransaction
     //get all information of each day
     @Override
     public void getDailySummary() {
-        RealmResults<DailySummary> realmResults = mRealmService.getCurrentDate();
+        RealmResults<DailySummary> realmResults = realmService.getCurrentDate();
         dashboardView.displayDailySummary(realmResults.get(0));
     }
 
@@ -52,10 +53,10 @@ public class DashboardPresenterImpl implements DashboardPresenter, OnTransaction
         } catch (Exception e) {
             dashboardView.addDrunkWaterFailed();
         }
-        RealmResults<DailySummary> realmResults = mRealmService.getCurrentDate();
+        RealmResults<DailySummary> realmResults = realmService.getCurrentDate();
         long totalWaterAmount = Objects.requireNonNull(realmResults.get(0)).getWaterConsume();
         totalWaterAmount = totalWaterAmount + drunkAmount;
-        mRealmService.modifyWaterAsync(totalWaterAmount, this);
+        realmService.modifyWaterAsync(totalWaterAmount, this);
     }
 
     @Override
@@ -74,7 +75,7 @@ public class DashboardPresenterImpl implements DashboardPresenter, OnTransaction
 
     @Override
     public void onTransactionSuccess() {
-        RealmResults<DailySummary> realmResults = mRealmService.getCurrentDate();
+        RealmResults<DailySummary> realmResults = realmService.getCurrentDate();
         assert realmResults.get(0) != null;
         dashboardView.addDrunkWaterSuccessfully(Long.toString(Objects.requireNonNull(realmResults.get(0)).getWaterConsume()));
     }
@@ -84,5 +85,32 @@ public class DashboardPresenterImpl implements DashboardPresenter, OnTransaction
         dashboardView.addDrunkWaterFailed();
     }
 
+    @Override
+    public double calculateBurnedEnergy(double MET, String timePeriod) {
+        RealmResults<CurrentUserDetail> realmResults = realmService.getCurrentUser();
+        CurrentUserDetail currentUserDetail = realmResults.get(0);
+        return ((MET * currentUserDetail.getWeight() * 3.5) / 200) * (Integer.parseInt(timePeriod));
+    }
 
+    @Override
+    public void addActivity(String activityName, String time, long burnedEnergy) {
+        double totalEnergyBurned = Objects.requireNonNull(realmService.getCurrentDate().get(0)).getBurnedCalories();
+        double totalneededCalories = Objects.requireNonNull(realmService.getCurrentDate().get(0)).getNeededCalories();
+
+        totalneededCalories = totalneededCalories + burnedEnergy;
+        totalEnergyBurned = totalEnergyBurned + burnedEnergy;
+        realmService.modifyBurnedEnergyAsync((Double.valueOf(totalEnergyBurned)).longValue(), (Double.valueOf(totalneededCalories)).longValue(), new OnTransactionCallback() {
+            @Override
+            public void onTransactionSuccess() {
+                realmService.addActivities(activityName, time, burnedEnergy);
+                dashboardView.addActivitiesSuccess();
+            }
+
+            @Override
+            public void onTransactionError(Exception e) {
+                dashboardView.addActivitiesFailed();
+
+            }
+        });
+    }
 }

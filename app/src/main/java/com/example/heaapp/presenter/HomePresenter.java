@@ -8,4 +8,5 @@ public interface HomePresenter extends BasePresenter<HomeView> {
     void signOut();
     void onStart();
     void onStop();
+
 }

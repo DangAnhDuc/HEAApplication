@@ -1,6 +1,6 @@
 package com.example.heaapp.view.fragment;
 
-import android.app.ProgressDialog;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
 import com.example.heaapp.R;
 import com.example.heaapp.adapter.CategoryWorkoutAdapter;
 import com.example.heaapp.base.BaseFragment;
@@ -20,12 +21,17 @@ import com.example.heaapp.view.activity.ExerciseWorkoutActivity;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+import dmax.dialog.SpotsDialog;
+
 
 public class WorkoutFragment extends BaseFragment implements WorkoutView {
-    private RecyclerView categoryLayout;
+    @BindView(R.id.category_workout_recycler)
+    ShimmerRecyclerView categoryWorkoutRecycler;
     private WorkoutPresenter workoutPresenter;
-    private ProgressDialog dialog;
-
+    private Unbinder unbinder;
 
     @Override
     public BaseFragment provideYourFragment() {
@@ -35,22 +41,17 @@ public class WorkoutFragment extends BaseFragment implements WorkoutView {
     @Override
     public View provideYourFragmentView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_workout, parent, false);
-        dialog = new ProgressDialog(getContext(), R.style.AppTheme_Dark_Dialog);
-
-        categoryLayout = view.findViewById(R.id.category_workout_fragment);
-        categoryLayout.setHasFixedSize(true);
+        unbinder = ButterKnife.bind(this, view);
         workoutPresenter = new WorkoutPresenterImpl(this);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        categoryLayout.setLayoutManager(layoutManager);
+        categoryWorkoutRecycler.showShimmerAdapter();
         return view;
     }
 
 
     @Override
     public void getListWorkoutSuccess(List<Results> results) {
-        dialog.dismiss();
         CategoryWorkoutAdapter categoryWorkoutAdapter = new CategoryWorkoutAdapter(getContext(), results);
-        categoryLayout.setAdapter(categoryWorkoutAdapter);
+        categoryWorkoutRecycler.setAdapter(categoryWorkoutAdapter);
 
         categoryWorkoutAdapter.setOnItemListener(results1 -> {
             Intent intent = new Intent(getContext(), ExerciseWorkoutActivity.class);
@@ -67,10 +68,6 @@ public class WorkoutFragment extends BaseFragment implements WorkoutView {
         if (!getUserVisibleHint()) {
             return;
         }
-        dialog.setIndeterminate(true);
-        dialog.setMessage(getString(R.string.msg_loading));
-        dialog.setCancelable(false);
-        dialog.show();
         workoutPresenter.getListCategoryWorkout();
     }
 
@@ -85,5 +82,12 @@ public class WorkoutFragment extends BaseFragment implements WorkoutView {
     @Override
     public void onResume() {
         super.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
+
     }
 }

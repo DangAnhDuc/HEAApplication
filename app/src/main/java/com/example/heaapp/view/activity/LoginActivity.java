@@ -1,6 +1,6 @@
 package com.example.heaapp.view.activity;
 
-import android.app.ProgressDialog;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +17,7 @@ import com.example.heaapp.ultis.ultis;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dmax.dialog.SpotsDialog;
 
 public class LoginActivity extends AppCompatActivity implements LoginView {
 
@@ -30,7 +31,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     TextView linkSignup;
 
     LoginPresenterImpl loginPresenter;
-    ProgressDialog progressDialog;
+    AlertDialog loginProgressDialog;
     private boolean doubleBackToExitPressedOnce = false;
 
     @Override
@@ -46,7 +47,11 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         linkSignup.setOnClickListener(v -> ultis.setIntent(LoginActivity.this, SignUpActivity.class));
 
         btnLogin.setOnClickListener(v -> loginPresenter.login(edtEmail.getText().toString().trim(), edtPassword.getText().toString().trim()));
-        progressDialog = new ProgressDialog(LoginActivity.this, R.style.AppTheme_Dark_Dialog);
+        loginProgressDialog = new SpotsDialog.Builder()
+                .setMessage(getString(R.string.msg_authenticating))
+                .setContext(this)
+                .setTheme(R.style.SpotsDialog)
+                .setCancelable(false).build();
 
         edtPassword.setOnKeyListener((v, keyCode, event) -> {
             if (event.getAction() == KeyEvent.ACTION_DOWN) {
@@ -79,31 +84,28 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     @Override
     public void setProgressVisibility(boolean visibility) {
         if (visibility) {
-            btnLogin.setEnabled(false);
-            progressDialog.setIndeterminate(true);
-            progressDialog.setMessage(getString(R.string.msg_authenticating));
-            progressDialog.show();
+            loginProgressDialog.setMessage(getString(R.string.msg_authenticating));
+            loginProgressDialog.show();
         } else {
-            progressDialog.dismiss();
-            btnLogin.setEnabled(true);
+            loginProgressDialog.dismiss();
 
         }
     }
 
     @Override
     public void showValidationError(String message) {
-        ultis.showMessage(this, message);
+        ultis.showErrorMessage(this, message);
     }
 
     @Override
     public void loginSuccess() {
-        ultis.showMessage(this, getString(R.string.msg_login_success));
+        ultis.showSuccessMessage(this, getString(R.string.msg_login_success));
         ultis.setIntent(this, HomeActivity.class);
     }
 
     @Override
     public void loginError() {
-        ultis.showMessage(this, getString(R.string.msg_login_failed));
+        ultis.showErrorMessage(this, getString(R.string.msg_login_failed));
     }
 
     @Override
@@ -129,7 +131,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
             return;
         }
         this.doubleBackToExitPressedOnce = true;
-        ultis.showMessage(this, getString(R.string.msg_press_to_exit));
+        ultis.showWarningMessage(this, getString(R.string.msg_press_to_exit));
     }
 
 }

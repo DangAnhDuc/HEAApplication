@@ -1,11 +1,10 @@
 package com.example.heaapp.presenter;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 
@@ -21,8 +20,8 @@ import com.example.heaapp.ultis.Common;
 import com.example.heaapp.view.activity.SpashScreenView;
 
 import java.util.Calendar;
-import java.util.Objects;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -129,7 +128,9 @@ public class SplashScreenPresenterImpl implements SplashScreenPresenter, OnTrans
         } else {
             dailyCal = 655.0955 + (9.5634 * Objects.requireNonNull(realmService.getCurrentUser().get(0)).getWeight()) + (1.8496 * Objects.requireNonNull(realmService.getCurrentUser().get(0)).getHeight()) - (4.6756 * Objects.requireNonNull(realmService.getCurrentUser().get(0)).getAge());
         }
-        RealmResults<DailySummary> realmResults = realm.where(DailySummary.class).equalTo("date", Common.today).findAll();
+        RealmResults<DailySummary> realmResults = realm.where(DailySummary.class).equalTo("date", Common.currentDate)
+                .equalTo("month", Common.currentMonth)
+                .equalTo("year", Common.currentYear).findAll();
         RealmList<Dishes> breakfastDishes = new RealmList<>();
         RealmList<Dishes> launchDishes = new RealmList<>();
         RealmList<Dishes> dinnerDishes = new RealmList<>();
@@ -138,7 +139,9 @@ public class SplashScreenPresenterImpl implements SplashScreenPresenter, OnTrans
             realm.beginTransaction();
             DailySummary dailySummary = realm.createObject(DailySummary.class);
             dailySummary.setId(dailySummaryPrimaryKey.getAndIncrement());
-            dailySummary.setDate(Common.today);
+            dailySummary.setDate(Common.currentDate);
+            dailySummary.setMonth(Common.currentMonth);
+            dailySummary.setYear(Common.currentYear);
             dailySummary.setWaterConsume(0);
             dailySummary.setEatenCalories(0);
             dailySummary.setBurnedCalories(0);
