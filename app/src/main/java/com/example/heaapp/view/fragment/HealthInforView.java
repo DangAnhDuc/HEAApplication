@@ -10,8 +10,6 @@ public interface HealthInforView extends BaseView {
     void getListNewsSuccess(List<Article> articles);
     void getLatestDataFailed(String message);
     void getCityInfoSuccess(CityInfor cityInfor);
-
     void permissionDenied();
-
-
+    void locationDisable();
 }

@@ -13,8 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.core.app.ActivityCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
@@ -167,6 +165,12 @@ public class HealthInfoFragment extends BaseFragment implements HealthInforView,
     public void permissionDenied() {
         swipeRefreshLayout.setRefreshing(false);
         ultis.showWarningMessage(getContext(), "Please allow location permission!");
+    }
+
+    @Override
+    public void locationDisable() {
+        swipeRefreshLayout.setRefreshing(false);
+        ultis.showWarningMessage(getContext(),"Please enable GPS!");
     }
 
 

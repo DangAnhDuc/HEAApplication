@@ -3,16 +3,14 @@ package com.example.heaapp.model.user_information;
 import com.example.heaapp.model.food.Dishes;
 import com.example.heaapp.model.workout.Activities;
 
-import java.util.Date;
-
-import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
 
 public class DailySummary extends RealmObject {
     private long id;
     private String date;
+    private String month;
+    private String year;
     private long waterConsume;
     private long eatenCalories;
     private long burnedCalories;
@@ -27,9 +25,11 @@ public class DailySummary extends RealmObject {
     public DailySummary() {
     }
 
-    public DailySummary(long id, String date, long waterConsume, long eatenCalories, long burnedCalories, long neededCalories, long eatenCarbs, long eatenProtein, long eatenFat, RealmList<Dishes> breakfastDishes, RealmList<Dishes> launchDishes, RealmList<Dishes> dinnerDishes, RealmList<Activities> activities) {
+    public DailySummary(long id, String date, String month, String year, long waterConsume, long eatenCalories, long burnedCalories, long neededCalories, long eatenCarbs, long eatenProtein, long eatenFat, RealmList<Dishes> breakfastDishes, RealmList<Dishes> launchDishes, RealmList<Dishes> dinnerDishes, RealmList<Activities> activities) {
         this.id = id;
         this.date = date;
+        this.month = month;
+        this.year = year;
         this.waterConsume = waterConsume;
         this.eatenCalories = eatenCalories;
         this.burnedCalories = burnedCalories;
@@ -145,5 +145,21 @@ public class DailySummary extends RealmObject {
 
     public void setActivities(RealmList<Activities> activities) {
         this.activities = activities;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
     }
 }

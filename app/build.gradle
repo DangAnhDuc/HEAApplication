@@ -102,4 +102,7 @@ dependencies {
 
     //ShimmerRecclerView
     implementation 'com.github.sharish:ShimmerRecyclerView:v1.3'
+
+    //Chartview
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.2'
 }

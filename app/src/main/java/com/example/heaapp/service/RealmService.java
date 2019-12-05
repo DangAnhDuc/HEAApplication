@@ -45,15 +45,25 @@ public class RealmService {
 
     public RealmResults<DailySummary> getCurrentDate() {
         return mRealm.where(DailySummary.class)
-                .equalTo("date", Common.today)
+                .equalTo("date", Common.currentDate)
+                .equalTo("month", Common.currentMonth)
+                .equalTo("year", Common.currentYear)
                 .findAll();
     }
 
+    public RealmResults<DailySummary> getCurrentMonth() {
+        return mRealm.where(DailySummary.class)
+                .equalTo("month", Common.currentMonth)
+                .equalTo("year", Common.currentYear)
+                .findAll();
+    }
     //modify drunk water
     public void modifyWaterAsync(long totalWaterAmount, OnTransactionCallback onTransactionCallback) {
         mRealm.executeTransactionAsync(realm -> {
             RealmResults<DailySummary> resultCurrentDate = realm.where(DailySummary.class)
-                    .equalTo("date", Common.today)
+                    .equalTo("date", Common.currentDate)
+                    .equalTo("month", Common.currentMonth)
+                    .equalTo("year", Common.currentYear)
                     .findAll();
             resultCurrentDate.setValue("waterConsume", totalWaterAmount);
         }, () -> {
@@ -96,7 +106,9 @@ public class RealmService {
     public void modifyBurnedEnergyAsync(long totalBurnedEnergy, long totalneededCalories, OnTransactionCallback onTransactionCallback) {
         mRealm.executeTransactionAsync(realm -> {
             RealmResults<DailySummary> resultCurrentDate = realm.where(DailySummary.class)
-                    .equalTo("date", Common.today)
+                    .equalTo("date", Common.currentDate)
+                    .equalTo("month", Common.currentMonth)
+                    .equalTo("year", Common.currentYear)
                     .findAll();
             resultCurrentDate.setValue("burnedCalories", totalBurnedEnergy);
             resultCurrentDate.setValue("neededCalories", totalneededCalories);
@@ -116,7 +128,9 @@ public class RealmService {
     public void modifyNeededEnergyAsync(long neededCalories, OnTransactionCallback onTransactionCallback) {
         mRealm.executeTransactionAsync(realm -> {
             RealmResults<DailySummary> resultCurrentDate = realm.where(DailySummary.class)
-                    .equalTo("date", Common.today)
+                    .equalTo("date", Common.currentDate)
+                    .equalTo("month", Common.currentMonth)
+                    .equalTo("year", Common.currentYear)
                     .findAll();
             resultCurrentDate.setValue("neededCalories", neededCalories);
         }, () -> {
@@ -135,7 +149,9 @@ public class RealmService {
                                 String foodTime, String name, long energy, long carbs, long protein, long fat, OnTransactionCallback onTransactionCallback) {
         mRealm.executeTransactionAsync(realm -> {
             RealmResults<DailySummary> resultCurrentDate = realm.where(DailySummary.class)
-                    .equalTo("date", Common.today)
+                    .equalTo("date", Common.currentDate)
+                    .equalTo("month", Common.currentMonth)
+                    .equalTo("year", Common.currentYear)
                     .findAll();
 
             Dishes dishes = realm.createObject(Dishes.class);
@@ -178,7 +194,9 @@ public class RealmService {
     public void addActivities(String name, String time, long burnedEnergy) {
         mRealm.executeTransactionAsync(realm -> {
             RealmResults<DailySummary> resultCurrentDate = realm.where(DailySummary.class)
-                    .equalTo("date", Common.today)
+                    .equalTo("date", Common.currentDate)
+                    .equalTo("month", Common.currentMonth)
+                    .equalTo("year", Common.currentYear)
                     .findAll();
 
             Activities activities = realm.createObject(Activities.class);
@@ -224,7 +242,9 @@ public class RealmService {
             //create database table for daily summary
             DailySummary dailySummary = realm.createObject(DailySummary.class);
             dailySummary.setId(0);
-            dailySummary.setDate(Common.today);
+            dailySummary.setDate(Common.currentDate);
+            dailySummary.setMonth(Common.currentMonth);
+            dailySummary.setYear(Common.currentYear);
             dailySummary.setWaterConsume(0);
             dailySummary.setEatenCalories(0);
             dailySummary.setBurnedCalories(0);
