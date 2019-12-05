@@ -1,15 +1,21 @@
 package com.example.heaapp.service;
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
 import com.example.heaapp.callback.OnTransactionCallback;
 import com.example.heaapp.model.food.Dishes;
+import com.example.heaapp.model.reminder.TimeReminder;
 import com.example.heaapp.model.user_information.CurrentUserDetail;
 import com.example.heaapp.model.user_information.CurrentUserIndices;
 import com.example.heaapp.model.user_information.DailySummary;
 import com.example.heaapp.model.user_information.User;
 import com.example.heaapp.model.workout.Activities;
 import com.example.heaapp.ultis.Common;
-
 import io.realm.Realm;
+import io.realm.Realm.Transaction;
+import io.realm.RealmList;
 import io.realm.RealmResults;
 
 public class RealmService {
@@ -37,6 +43,11 @@ public class RealmService {
                 .findAll();
     }
 
+    public RealmResults<TimeReminder> getReminder() {
+        return mRealm.where(TimeReminder.class)
+                     .findAll();
+    }
+  
     public RealmResults<User> getUser(){
         return mRealm.where(User.class)
                 .equalTo("userId","0")
@@ -235,7 +246,30 @@ public class RealmService {
         });
     }
 
+    public void addReminder(int hour, int min, RealmList<String> listDay, OnTransactionCallback onTransactionCallback){
+        mRealm.executeTransactionAsync(realm -> {
+            TimeReminder timeReminder = realm.createObject(TimeReminder.class);
+            timeReminder.setHour(hour);
+            timeReminder.setMinute(min);
+            timeReminder.setDayList(listDay);
+        }, () -> {
+            if (onTransactionCallback != null) {
+                onTransactionCallback.onTransactionSuccess();
+            }
+        }, error -> {
+            if (onTransactionCallback != null) {
+                onTransactionCallback.onTransactionError((Exception) error);
+            }
+        });
+    }
 
+    public void removeReminder(int pos){
+        mRealm.executeTransactionAsync(realm -> {
+            RealmResults<TimeReminder> realmResults = realm.where(TimeReminder.class)
+                    .findAll();
+            realmResults.deleteFromRealm(pos);
+        });
+    }
     //init database table
     public void initDatabaseTable(OnTransactionCallback onTransactionCallback) {
         mRealm.executeTransactionAsync(realm -> {

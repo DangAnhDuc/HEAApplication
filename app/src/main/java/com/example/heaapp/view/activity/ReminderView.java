@@ -5,6 +5,9 @@ import com.example.heaapp.model.reminder.TimeReminder;
 
 import java.util.List;
 
+import io.realm.RealmList;
+import io.realm.RealmResults;
+
 public interface ReminderView extends BaseView {
-    void addListSuccess(List<TimeReminder> list);
+    void LoadListDay(RealmResults<TimeReminder> realmResults);
 }

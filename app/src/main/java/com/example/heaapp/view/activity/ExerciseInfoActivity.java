@@ -52,6 +52,7 @@ public class ExerciseInfoActivity extends AppCompatActivity implements ExerciseI
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         exerInfoToolBar.setNavigationOnClickListener(v -> finish());
+
         Bundle bundle = getIntent().getExtras();
         int exeId;
         assert bundle != null;
@@ -88,7 +89,6 @@ public class ExerciseInfoActivity extends AppCompatActivity implements ExerciseI
     public void getEquipSuccess(List<Result> nameEquip) {
         String equip = "";
         for (int i = 0; i <= nameEquip.size(); i++) {
-            Log.d("aaa", nameEquip.get(i).getName());
             equip += nameEquip.get(i).getName();
             if (i < nameEquip.size() - 1) {
                 equip += ",";
