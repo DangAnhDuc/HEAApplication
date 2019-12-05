@@ -15,7 +15,6 @@ import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.DataSet;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -99,59 +98,33 @@ public class HealthReportActivity extends AppCompatActivity implements HealthRep
         xAxis.setValueFormatter((value, axis) -> xLabel.get((int) value));
 
         LineData lineData = new LineData();
-        lineData.addDataSet((ILineDataSet) generateEatenEnergyLineData());
-        lineData.addDataSet((ILineDataSet) generateBurnedEnergyLineData());
-
+        lineData.addDataSet((ILineDataSet) generateEnergyLineData(eatenEnergyInMonth, "Daily Eaten Energy", getResources().getColor(R.color.pie_char_color_1)));
+        lineData.addDataSet((ILineDataSet) generateEnergyLineData(burnedEnergyInMonth, "Daily Burned Energy", getResources().getColor(R.color.pie_char_color_2)));
 
         xAxis.setAxisMaximum(lineData.getXMax() + 0.25f);
         combinedChart.setData(lineData);
         combinedChart.invalidate();
     }
 
-    private DataSet generateEatenEnergyLineData() {
+    private Object generateEnergyLineData(ArrayList<Long> energyInMonth, String energyLineLabel, int color) {
         LineData d = new LineData();
 
-        ArrayList<Entry> eatenEnergyEntries = new ArrayList<>();
+        ArrayList<Entry> energyEntries = new ArrayList<>();
 
-        for (int index = 0; index < eatenEnergyInMonth.size(); index++) {
-            eatenEnergyEntries.add(new Entry(index, eatenEnergyInMonth.get(index)));
+        for (int index = 0; index < energyInMonth.size(); index++) {
+            energyEntries.add(new Entry(index, energyInMonth.get(index)));
         }
 
 
-        LineDataSet set = new LineDataSet(eatenEnergyEntries, "Daily Eaten Energy");
-        set.setColor(getResources().getColor(R.color.pie_char_color_3));
+        LineDataSet set = new LineDataSet(energyEntries, energyLineLabel);
+        set.setColor(color);
         set.setLineWidth(2f);
 
-        set.setCircleColor(getResources().getColor(R.color.pie_char_color_3));
+        set.setCircleColor(color);
         set.setCircleHoleRadius(3f);
         set.setCircleRadius(5f);
 
-        set.setFillColor(getResources().getColor(R.color.pie_char_color_3));
-        set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-        set.setDrawValues(false);
-        set.setAxisDependency(YAxis.AxisDependency.LEFT);
-        d.addDataSet(set);
-        return set;
-    }
-
-    private DataSet generateBurnedEnergyLineData() {
-        LineData d = new LineData();
-
-        ArrayList<Entry> burnedEnergyEntries = new ArrayList<>();
-
-        for (int index = 0; index < burnedEnergyInMonth.size(); index++) {
-            burnedEnergyEntries.add(new Entry(index, burnedEnergyInMonth.get(index)));
-        }
-
-        LineDataSet set = new LineDataSet(burnedEnergyEntries, "Daily Burned Energy");
-        set.setColor(getResources().getColor(R.color.pie_char_color_4));
-        set.setLineWidth(2f);
-
-        set.setCircleColor(getResources().getColor(R.color.pie_char_color_4));
-        set.setCircleHoleRadius(3f);
-        set.setCircleRadius(5f);
-
-        set.setFillColor(getResources().getColor(R.color.pie_char_color_4));
+        set.setFillColor(color);
         set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         set.setDrawValues(false);
         set.setAxisDependency(YAxis.AxisDependency.LEFT);
