@@ -240,17 +240,13 @@ public class RealmService {
         });
     }
 
-    public void createTableReminder(OnTransactionCallback onTransactionCallback){
-       mRealm.executeTransactionAsync(realm -> realm.createObject(TimeReminder.class), () -> {
-           if (onTransactionCallback != null) {
-               onTransactionCallback.onTransactionSuccess();
-           }
-       }, error -> {
-           if (onTransactionCallback != null)
-               onTransactionCallback.onTransactionError((Exception) error);
-       });
+    public void removeReminder(int pos){
+        mRealm.executeTransactionAsync(realm -> {
+            RealmResults<TimeReminder> realmResults = realm.where(TimeReminder.class)
+                    .findAll();
+            realmResults.deleteFromRealm(pos);
+        });
     }
-
     //init database table
     public void initDatabaseTable(OnTransactionCallback onTransactionCallback) {
         mRealm.executeTransactionAsync(realm -> {

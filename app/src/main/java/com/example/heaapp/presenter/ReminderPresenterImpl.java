@@ -52,8 +52,7 @@ public class ReminderPresenterImpl implements ReminderPresenter{
     @Override
     public void loadDataReminder() {
         RealmResults<TimeReminder> realmResults = service.getReminder();
-        for(int i = 0 ; i< realmResults.size(); i ++){
-//            Log.d("debug", String.valueOf(realmResults.get(i).getDayList()));
+        for(int i = 0 ; i<= realmResults.size(); i ++){
             reminderView.LoadListDay(realmResults);
         }
     }

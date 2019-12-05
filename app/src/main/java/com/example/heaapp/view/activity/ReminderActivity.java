@@ -3,7 +3,6 @@ package com.example.heaapp.view.activity;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Parcelable;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -94,17 +93,12 @@ public class ReminderActivity extends AppCompatActivity implements ReminderView 
         mBuilder.setTitle(getString(R.string.choose_day));
         mBuilder.setMultiChoiceItems(listAllDay,num , (dialog, which, isChecked) -> {
             if(isChecked ){
-                String a = listAllDay[which];
-                listDay.add(a);
+                String Day = listAllDay[which];
+                listDay.add(Day);
             }
         }).setPositiveButton(android.R.string.ok, (dialog, which) -> {
             presenter.saveDataReminder(hour,min,listDay);
-//            this.realmResults
-
-            finish();
-            overridePendingTransition(0, 0);
-            startActivity(getIntent());
-            overridePendingTransition(0, 0);
+            refreshPage();
         }).setNegativeButton(android.R.string.no, null);
         AlertDialog dialog = mBuilder.create();
         dialog.show();
@@ -113,15 +107,26 @@ public class ReminderActivity extends AppCompatActivity implements ReminderView 
     }
 
     @Override
-    public Context getContext() {
-        return this;
-    }
-
-    @Override
     public void LoadListDay(RealmResults<TimeReminder> realmResults) {
         recyclerViewReminder.setAdapter(adapter);
         this.realmResults = realmResults;
-        adapter = new ReminderAdapter(getContext(),this.realmResults);
+        adapter = new ReminderAdapter(getContext(),this.realmResults,service);
+        adapter.setOnItemListener(v -> {
+            service.removeReminder(v);
+            refreshPage();
+        });
         adapter.notifyDataSetChanged();
+    }
+
+    public void refreshPage(){
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 }
