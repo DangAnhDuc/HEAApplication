@@ -88,14 +88,10 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
     TextView tvFfmi;
     @BindView(R.id.tv_dailyCal)
     TextView tvDailyCal;
-    @BindView(R.id.rcview_breakfast)
-    RecyclerView rcviewBreakfast;
-    @BindView(R.id.rcview_launch)
-    RecyclerView rcviewLaunch;
-    @BindView(R.id.rcview_dinner)
-    RecyclerView rcviewDinner;
     @BindView(R.id.rcview_activities)
     RecyclerView rcviewActivities;
+    @BindView(R.id.rcview_food)
+    RecyclerView rcviewFood;
 
     private DashboardPresenterImpl dashboardPresenter;
     private Unbinder unbinder;
@@ -103,7 +99,7 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
             R.drawable.gymastics, R.drawable.walking, R.drawable.walking, R.drawable.walking, R.drawable.running, R.drawable.running,
             R.drawable.running, R.drawable.bicycle, R.drawable.bicycle, R.drawable.bicycle, R.drawable.jumping,
             R.drawable.swimming, R.drawable.yoga};
-    private int activityPosition=0;
+    private int activityPosition = 0;
     private List<Double> METs = new ArrayList<>();
     private long activityBurnedEnergy = 0;
     private Dialog addActivityDialog;
@@ -123,17 +119,9 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
         dashboardPresenter = new DashboardPresenterImpl(getContext(), this, realmService);
         dashboardPresenter.getDailySummary();
         dashboardPresenter.getCurrentUserIndices();
-        rcviewBreakfast.setHasFixedSize(true);
+        rcviewFood.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManagerBf = new LinearLayoutManager(getContext());
-        rcviewBreakfast.setLayoutManager(layoutManagerBf);
-
-        rcviewLaunch.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManagerLn = new LinearLayoutManager(getContext());
-        rcviewLaunch.setLayoutManager(layoutManagerLn);
-
-        rcviewDinner.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManagerDn = new LinearLayoutManager(getContext());
-        rcviewDinner.setLayoutManager(layoutManagerDn);
+        rcviewFood.setLayoutManager(layoutManagerBf);
 
         rcviewActivities.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManagerEx = new LinearLayoutManager(getContext());
@@ -167,13 +155,9 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
         desProtein.setText(String.format("%sg", String.valueOf(dailySummary.getEatenProtein())));
         desFat.setText(String.format("%sg", String.valueOf(dailySummary.getEatenFat())));
         DishesAdapter dishesAdapterBf = new DishesAdapter(getContext(), dailySummary.getBreakfastDishes());
-        DishesAdapter dishesAdapterLn = new DishesAdapter(getContext(), dailySummary.getLaunchDishes());
-        DishesAdapter dishesAdapterDn = new DishesAdapter(getContext(), dailySummary.getDinnerDishes());
         ActivitiesAdapter activitiesAdapter = new ActivitiesAdapter(getContext(), dailySummary.getActivities());
 
-        rcviewBreakfast.setAdapter(dishesAdapterBf);
-        rcviewLaunch.setAdapter(dishesAdapterLn);
-        rcviewDinner.setAdapter(dishesAdapterDn);
+        rcviewFood.setAdapter(dishesAdapterBf);
         rcviewActivities.setAdapter(activitiesAdapter);
     }
 
@@ -227,7 +211,7 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
     }
 
 
-    @OnClick({R.id.btn_75, R.id.btn_150, R.id.btn_250, R.id.btn_330, R.id.btn_custom_water, R.id.layout_breakfast, R.id.layout_launch, R.id.layout_dinner, R.id.layout_exercise})
+    @OnClick({R.id.btn_75, R.id.btn_150, R.id.btn_250, R.id.btn_330, R.id.btn_custom_water, R.id.layout_food, R.id.layout_exercise})
     void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_75:
@@ -255,20 +239,10 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
                 builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
                 builder.show();
                 break;
-            case R.id.layout_breakfast:
+            case R.id.layout_food:
                 Intent intentBreakfast = new Intent(getContext(), FoodAddingActivity.class);
                 intentBreakfast.putExtra("FoodTime", "Breakfast");
                 startActivity(intentBreakfast);
-                break;
-            case R.id.layout_launch:
-                Intent intentLaunch = new Intent(getContext(), FoodAddingActivity.class);
-                intentLaunch.putExtra("FoodTime", "Launch");
-                startActivity(intentLaunch);
-                break;
-            case R.id.layout_dinner:
-                Intent intentDinner = new Intent(getContext(), FoodAddingActivity.class);
-                intentDinner.putExtra("FoodTime", "Dinner");
-                startActivity(intentDinner);
                 break;
             case R.id.layout_exercise:
                 Double[] arrayMET = {0.95, 1.5, 3.8, 8.0, 3.8, 2.0, 3.3, 4.3, 5.0, 10.5, 23.0, 3.5, 8.0, 15.8, 8.8, 9.5, 8.8};
@@ -301,7 +275,7 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
                 });
 
 
-                SpinnerAdapter spinnerAdapter=new SpinnerAdapter(getContext(),icons,getContext().getResources().getStringArray(R.array.activitiesName));
+                SpinnerAdapter spinnerAdapter = new SpinnerAdapter(getContext(), icons, getContext().getResources().getStringArray(R.array.activitiesName));
                 activitySpinner.setAdapter(spinnerAdapter);
                 edtActivityTimeDuration.addTextChangedListener(new TextWatcher() {
                     @Override

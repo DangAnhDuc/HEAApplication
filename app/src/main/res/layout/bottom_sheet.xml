@@ -4,16 +4,31 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:id="@+id/bottom_sheet"
-    android:layout_height="320dp"
-    android:background="@drawable/gradient"
-    app:behavior_peekHeight="?actionBarSize"
+    android:layout_height="380dp"
+    android:background="@color/colorPrimaryDark"
+    android:theme="@style/AlertDialogTheme"
     app:layout_behavior="@string/bottom_sheet_behavior"
+    app:behavior_peekHeight="130dp"
     >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/spinner_background">
+
+        <Spinner
+            android:id="@+id/foodTime_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:spinnerMode="dropdown" />
+    </RelativeLayout>
     <RelativeLayout
         android:id="@+id/panel"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="@drawable/gradient"
+        android:background="@color/colorPrimaryDark"
         android:paddingEnd="6dp"
         android:paddingStart="6dp">
         <ToggleButton
@@ -27,7 +42,6 @@
             android:text=""
             android:textOff=""
             android:textOn="" />
-
         <TextView
             android:layout_centerVertical="true"
             android:id="@+id/tvAddFoodTitle"
@@ -82,8 +96,9 @@
                 android:id="@+id/edt_foodEnergy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textCapWords"
+                android:inputType="number"
                 android:textColor="@color/borderColor"
+                android:maxLength="4"
                 android:textSize="12sp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -101,8 +116,9 @@
                 android:id="@+id/edt_foodCarbs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textCapWords"
+                android:inputType="number"
                 android:textColor="@color/borderColor"
+                android:maxLength="4"
                 android:textSize="12sp"/>
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
@@ -125,9 +141,10 @@
                 android:id="@+id/edt_foodProtein"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textCapWords"
+                android:inputType="number"
                 android:textColor="@color/borderColor"
                 android:textSize="12sp"
+                android:maxLength="4"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -145,8 +162,9 @@
                 android:id="@+id/edt_foodFat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textCapWords"
+                android:inputType="number"
                 android:textColor="@color/borderColor"
+                android:maxLength="4"
                 android:textSize="12sp"/>
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>

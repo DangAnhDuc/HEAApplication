@@ -20,7 +20,7 @@
             android:id="@+id/img_food"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:src="@drawable/dinner" />
+            android:src="@drawable/food" />
 
         <LinearLayout
             android:layout_width="wrap_content"
