@@ -73,7 +73,11 @@ public class FoodAddingPresenterImpl implements FoodAddingPresenter, OnTransacti
     @Override
     public void addDishesCustom(String foodTime, String name, String energy, String carbs, String protein, String fat) {
         this.foodTime = foodTime;
-        updateNutrition(name, Long.valueOf(energy), Long.valueOf(carbs), Long.valueOf(protein), Long.valueOf(fat));
+        try {
+            updateNutrition(name, Long.valueOf(energy), Long.valueOf(carbs), Long.valueOf(protein), Long.valueOf(fat));
+        } catch (Exception e) {
+            foodAddingView.addFoodFailed();
+        }
     }
 
     private void updateNutrition(String name, long energy, long carbs, long protein, long fat) {

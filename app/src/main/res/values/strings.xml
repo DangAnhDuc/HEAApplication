@@ -87,6 +87,12 @@
         <item>Yoga</item>
     </string-array>
 
+    <string-array name="foodTime">
+        <item>Breakfast</item>
+        <item>Launch</item>
+        <item>Dinner</item>
+    </string-array>
+
     <string-array name="lang">
         <item>English</item>
         <item>Vietnamese</item>
@@ -183,4 +189,5 @@
     <string name="msg_permission_denied">Permission Denied</string>
     <string name="not_available">N/A</string>
     <string name="health_report">Health Report</string>
+    <string name="title_food">Food</string>
 </resources>

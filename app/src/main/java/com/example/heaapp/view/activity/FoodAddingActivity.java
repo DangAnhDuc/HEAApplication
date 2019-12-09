@@ -4,8 +4,10 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
@@ -15,10 +17,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
 import com.example.heaapp.Helper.MySwipeHelper;
 import com.example.heaapp.R;
 import com.example.heaapp.adapter.FoodAdapter;
+import com.example.heaapp.adapter.SpinnerAdapter;
 import com.example.heaapp.model.food.Data;
 import com.example.heaapp.presenter.FoodAddingPresenterImpl;
 import com.example.heaapp.service.RealmService;
@@ -54,11 +56,12 @@ public class FoodAddingActivity extends AppCompatActivity implements FoodAddingV
     EditText edtFoodProtein;
     @BindView(R.id.edt_foodFat)
     EditText edtFoodFat;
-
     String foodTime;
     @BindView(R.id.foodAddingToolbar)
     Toolbar foodAddingToolbar;
-
+    @BindView(R.id.foodTime_spinner)
+    Spinner foodTimeSpinner;
+    private int[] icons = {R.drawable.breakfast, R.drawable.launch, R.drawable.dinner};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,9 +79,19 @@ public class FoodAddingActivity extends AppCompatActivity implements FoodAddingV
         foodRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         foodRecyclerView.setLayoutManager(layoutManager);
-        Bundle extras = getIntent().getExtras();
-        assert extras != null;
-        foodTime = extras.getString("FoodTime");
+        foodTimeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                foodTime = getContext().getResources().getStringArray(R.array.foodTime)[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        SpinnerAdapter spinnerAdapter = new SpinnerAdapter(getContext(), icons, getContext().getResources().getStringArray(R.array.foodTime));
+        foodTimeSpinner.setAdapter(spinnerAdapter);
         toggleButton = findViewById(R.id.toggleButton);
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         toggleButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -115,11 +128,6 @@ public class FoodAddingActivity extends AppCompatActivity implements FoodAddingV
     @Override
     protected void onDestroy() {
         super.onDestroy();
-    }
-
-    @Override
-    public void crawlDataFailed(String message) {
-
     }
 
     @Override

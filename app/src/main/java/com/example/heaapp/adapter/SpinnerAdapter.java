@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,13 +13,13 @@ import com.example.heaapp.R;
 public class SpinnerAdapter extends BaseAdapter {
     Context context;
     int icons[];
-    String[] activityNames;
+    String[] names;
     LayoutInflater inflater;
 
     public SpinnerAdapter(Context context, int[] icons, String[] activityNames) {
         this.context = context;
         this.icons = icons;
-        this.activityNames = activityNames;
+        this.names = activityNames;
         inflater=(LayoutInflater.from(context));
     }
 
@@ -42,10 +41,10 @@ public class SpinnerAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = inflater.inflate(R.layout.spinner_item, null);
-        ImageView icon =  convertView.findViewById(R.id.activity_icon);
-        TextView activityName =  convertView.findViewById(R.id.activity_name);
+        ImageView icon = convertView.findViewById(R.id.icon);
+        TextView activityName = convertView.findViewById(R.id.name);
         icon.setImageResource(icons[position]);
-        activityName.setText(activityNames[position]);
+        activityName.setText(names[position]);
         return convertView;
     }
 }
