@@ -137,13 +137,13 @@ public class HealthReportActivity extends AppCompatActivity implements HealthRep
         pieChart.setHoleRadius(50f);
         pieChart.setTransparentCircleAlpha(0);
         pieChart.setCenterText(chartName);
-        pieChart.setCenterTextSize(20);
+        pieChart.setCenterTextSize(15);
         pieChart.setDrawEntryLabels(false);
-        pieChart.setExtraOffsets(25.f, 0.f, 25.f, 0.f);
         pieChart.setEntryLabelColor(Color.WHITE);
         pieChart.setTransparentCircleAlpha(100);
         pieChart.setTransparentCircleColor(Color.WHITE);
         pieChart.getDescription().setEnabled(false);
+
     }
 
     @Override
@@ -156,9 +156,8 @@ public class HealthReportActivity extends AppCompatActivity implements HealthRep
 
         PieDataSet pieDataSet = new PieDataSet(yEntrys, "");
         pieDataSet.setSliceSpace(2);
-        pieDataSet.setValueTextSize(13);
+        pieDataSet.setValueTextSize(10);
         pieDataSet.setValueTextColor(Color.WHITE);
-
 
         ArrayList<Integer> colors = new ArrayList<>();
         colors.add(getResources().getColor(R.color.pie_char_color_1));
