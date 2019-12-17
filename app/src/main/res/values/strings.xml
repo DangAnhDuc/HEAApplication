@@ -137,6 +137,7 @@
     <string name="body_water">Body Water</string>
     <string name="lean_body_mass">Lean Body Mass</string>
     <string name="bmi">BMI</string>
+    <string name="litter">litters</string>
 
     <string name="eaten">Eaten</string>
     <string name="kcal_left">kCal Left</string>
@@ -190,4 +191,7 @@
     <string name="not_available">N/A</string>
     <string name="health_report">Health Report</string>
     <string name="title_food">Food</string>
+    <string name="food_adding">Food adding</string>
+    <string name="today">Today</string>
+    <string name="this_month">This month</string>
 </resources>

@@ -27,6 +27,7 @@ public class HealthReportPresenterImpl implements HealthReportPresenter {
     @Override
     public void getDailySummaryData() {
         RealmResults<DailySummary> realmResults = realmService.getCurrentDate();
+        healthReportView.getDailySummary(realmResults.get(0));
         float[] yEnergyData= {realmResults.get(0).getEatenCalories(),realmResults.get(0).getBurnedCalories()};
         String[] xEnergyData = {"Energy Eaten", "Energy Burned"};
         healthReportView.createPieChart(energyPieChart,yEnergyData,xEnergyData);

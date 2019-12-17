@@ -134,6 +134,7 @@
     <string name="body_water">Lượng nước trong cơ thể</string>
     <string name="lean_body_mass">Lượng thịt</string>
     <string name="bmi">BMI</string>
+    <string name="litter">lít</string>
 
     <string name="eaten">Tiêu thụ</string>
     <string name="kcal_left">kCal còn lại</string>
@@ -191,5 +192,12 @@
     <string name="name">Tên</string>
     <string name="your_detail">Thông tin của bạn</string>
     <string name="msg_permission_denied">Quyền truy cập bị từ chối</string>
+
+    <string name="not_available">N/A</string>
+    <string name="health_report">Báo cáo sức khỏe</string>
+    <string name="title_food">Thức ăn</string>
+    <string name="food_adding">Thêm thức ăn</string>
+    <string name="today">Hôm nay</string>
+    <string name="this_month">Tháng này</string>
 
 </resources>

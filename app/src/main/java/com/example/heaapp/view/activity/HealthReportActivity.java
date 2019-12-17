@@ -6,8 +6,12 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.heaapp.R;
+import com.example.heaapp.adapter.DishesAdapter;
+import com.example.heaapp.model.user_information.DailySummary;
 import com.example.heaapp.presenter.HealthReportPresenterImpl;
 import com.example.heaapp.service.RealmService;
 import com.github.mikephil.charting.charts.LineChart;
@@ -43,6 +47,12 @@ public class HealthReportActivity extends AppCompatActivity implements HealthRep
     LineChart combinedChart;
     @BindView(R.id.healthReportToolbar)
     Toolbar healthReportToolbar;
+    @BindView(R.id.rcview_breakfast)
+    RecyclerView rcviewBreakfast;
+    @BindView(R.id.rcview_launch)
+    RecyclerView rcviewLaunch;
+    @BindView(R.id.rcview_dinner)
+    RecyclerView rcviewDinner;
     private int numberOfDaysInCurrentMonth;
     private ArrayList<Long> eatenEnergyInMonth;
     private ArrayList<Long> burnedEnergyInMonth;
@@ -63,6 +73,18 @@ public class HealthReportActivity extends AppCompatActivity implements HealthRep
 
         RealmService realmService = RealmService.getInstance();
         healthReportPresenter = new HealthReportPresenterImpl(this, energyPieChart, nutritionPieChart, realmService);
+
+        rcviewBreakfast.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManagerBf = new LinearLayoutManager(getContext());
+        rcviewBreakfast.setLayoutManager(layoutManagerBf);
+
+        rcviewLaunch.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManagerLn = new LinearLayoutManager(getContext());
+        rcviewLaunch.setLayoutManager(layoutManagerLn);
+
+        rcviewDinner.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManagerDn = new LinearLayoutManager(getContext());
+        rcviewDinner.setLayoutManager(layoutManagerDn);
 
         setupPieChart(energyPieChart, "Energy");
         setupPieChart(nutritionPieChart, "Nutrition");
@@ -176,6 +198,17 @@ public class HealthReportActivity extends AppCompatActivity implements HealthRep
         pieChart.setData(pieData);
         pieChart.animateXY(1000, 1000);
         pieChart.invalidate();
+    }
+
+    @Override
+    public void getDailySummary(DailySummary dailySummary) {
+        DishesAdapter dishesAdapterBf = new DishesAdapter(getContext(), dailySummary.getBreakfastDishes());
+        DishesAdapter dishesAdapterLn = new DishesAdapter(getContext(), dailySummary.getLaunchDishes());
+        DishesAdapter dishesAdapterDn = new DishesAdapter(getContext(), dailySummary.getDinnerDishes());
+
+        rcviewBreakfast.setAdapter(dishesAdapterBf);
+        rcviewLaunch.setAdapter(dishesAdapterLn);
+        rcviewDinner.setAdapter(dishesAdapterDn);
     }
 
     @Override

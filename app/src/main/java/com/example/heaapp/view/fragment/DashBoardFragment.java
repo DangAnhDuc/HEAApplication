@@ -25,7 +25,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.heaapp.R;
 import com.example.heaapp.adapter.ActivitiesAdapter;
-import com.example.heaapp.adapter.DishesAdapter;
 import com.example.heaapp.adapter.SpinnerAdapter;
 import com.example.heaapp.base.BaseFragment;
 import com.example.heaapp.model.user_information.CurrentUserIndices;
@@ -90,8 +89,7 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
     TextView tvDailyCal;
     @BindView(R.id.rcview_activities)
     RecyclerView rcviewActivities;
-    @BindView(R.id.rcview_food)
-    RecyclerView rcviewFood;
+
 
     private DashboardPresenterImpl dashboardPresenter;
     private Unbinder unbinder;
@@ -119,9 +117,6 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
         dashboardPresenter = new DashboardPresenterImpl(getContext(), this, realmService);
         dashboardPresenter.getDailySummary();
         dashboardPresenter.getCurrentUserIndices();
-        rcviewFood.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManagerBf = new LinearLayoutManager(getContext());
-        rcviewFood.setLayoutManager(layoutManagerBf);
 
         rcviewActivities.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManagerEx = new LinearLayoutManager(getContext());
@@ -154,10 +149,7 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
         desCarbs.setText(String.format("%sg", String.valueOf(dailySummary.getEatenCarbs())));
         desProtein.setText(String.format("%sg", String.valueOf(dailySummary.getEatenProtein())));
         desFat.setText(String.format("%sg", String.valueOf(dailySummary.getEatenFat())));
-        DishesAdapter dishesAdapterBf = new DishesAdapter(getContext(), dailySummary.getBreakfastDishes());
         ActivitiesAdapter activitiesAdapter = new ActivitiesAdapter(getContext(), dailySummary.getActivities());
-
-        rcviewFood.setAdapter(dishesAdapterBf);
         rcviewActivities.setAdapter(activitiesAdapter);
     }
 
@@ -184,9 +176,9 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
         DecimalFormat format = new DecimalFormat("0.00");
         tvBmi.setText(format.format(currentUserIndices.getBMI()));
         tvLeanbodymass.setText(String.format("%s kg", format.format(currentUserIndices.getBodyMass())));
-        tvBodywater.setText(String.format("%s litters", format.format(currentUserIndices.getBodyWater())));
-        tvWaterreq.setText(String.format("%s litters", format.format(currentUserIndices.getWaterRequired())));
-        tvBloodVol.setText(String.format("%s litters", format.format(currentUserIndices.getBloodVolume())));
+        tvBodywater.setText(String.format("%s %s", format.format(currentUserIndices.getBodyWater()), getString(R.string.litter)));
+        tvWaterreq.setText(String.format("%s %s", format.format(currentUserIndices.getWaterRequired()), getString(R.string.litter)));
+        tvBloodVol.setText(String.format("%s %s", format.format(currentUserIndices.getBloodVolume()), getString(R.string.litter)));
         tvBodyfat.setText(String.format("%s %%", format.format(currentUserIndices.getBodyFat())));
         tvFfmi.setText(String.format("%s kg/m²", format.format(currentUserIndices.getFFMI())));
         tvDailyCal.setText(String.format("%s kCal", format.format(currentUserIndices.getDailyCal())));

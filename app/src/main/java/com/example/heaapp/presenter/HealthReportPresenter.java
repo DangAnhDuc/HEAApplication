@@ -11,4 +11,5 @@ public interface HealthReportPresenter extends BasePresenter<HealthReportView> {
     ArrayList<Long> getMonthlyEatenEnergy(int numberOfDaysInCurrentMonth);
 
     ArrayList<Long> getMonthlyBurnedEnergy(int numberOfDaysInCurrentMonth);
+
 }
