@@ -30,8 +30,6 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:textStyle="bold"
                 android:layout_gravity="center"/>
-
-
         </androidx.appcompat.widget.Toolbar>
 
 

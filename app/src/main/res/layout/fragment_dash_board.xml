@@ -398,17 +398,6 @@
                     android:layout_height="1dp"
                     android:background="@android:color/darker_gray" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rcview_food"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:nestedScrollingEnabled="false"/>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@android:color/darker_gray" />
-
                 <RelativeLayout
                     android:id="@+id/layout_food"
                     android:layout_width="match_parent"
