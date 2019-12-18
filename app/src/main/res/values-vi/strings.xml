@@ -68,6 +68,9 @@
         <item>Chủ Nhật</item>
     </string-array>
 
+    <string name="all_week">Mọi Ngày</string>
+    <string name="normal_day">Ngày Thường</string>
+
     <string-array name="activitiesName">
         <item>Ngủ</item>
         <item>Việc văn phòng</item>

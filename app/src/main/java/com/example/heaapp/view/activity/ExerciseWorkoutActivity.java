@@ -20,6 +20,7 @@ import com.example.heaapp.adapter.ListExerciseAdapter;
 import com.example.heaapp.model.workout.ExerciseInfo.ItemExercise;
 import com.example.heaapp.presenter.ExerciseWorkoutPresenter;
 import com.example.heaapp.presenter.ExerciseWorkoutPresenterImpl;
+import com.example.heaapp.ultis.ultis;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -103,6 +104,11 @@ public class ExerciseWorkoutActivity extends AppCompatActivity implements Exerci
 
             startActivity(intent);
         });
+    }
+
+    @Override
+    public void getError(String mes) {
+        ultis.showErrorMessage(getContext(), mes);
     }
 
     @Override

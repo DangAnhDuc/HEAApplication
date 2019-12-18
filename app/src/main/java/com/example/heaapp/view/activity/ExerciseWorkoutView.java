@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ExerciseWorkoutView extends BaseView {
     void getListWorkoutSuccess(List<ItemExercise> list);
+    void getError(String mes);
 }

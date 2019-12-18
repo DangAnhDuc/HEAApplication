@@ -37,7 +37,7 @@ public class ExerciseWorkoutPresenterImpl implements ExerciseWorkoutPresenter {
             disposable = workoutApiService.getExercisePage(i)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
-                    .subscribe(this::handleReponse);
+                    .subscribe(this::handleReponse,this::handleError);
             compositeDisposable.add(disposable);
 
 
@@ -73,7 +73,9 @@ public class ExerciseWorkoutPresenterImpl implements ExerciseWorkoutPresenter {
         } catch (Exception ex) {
             Log.d("bug", String.valueOf(ex));
         }
+    }
 
-
+    private void handleError(Throwable throwable){
+        exerciseView.getError( throwable.getLocalizedMessage());
     }
 }

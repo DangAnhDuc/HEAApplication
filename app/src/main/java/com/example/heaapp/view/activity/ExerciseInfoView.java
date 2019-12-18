@@ -9,4 +9,6 @@ import java.util.List;
 public interface ExerciseInfoView extends BaseView {
     void getMuscleSuccess(List<ListMuscle> nameMuscle);
     void getEquipSuccess(List<Result> nameEquip);
+    void handleErrorListMusscle(String mes);
+    void handleErrorEquip(String mes);
 }

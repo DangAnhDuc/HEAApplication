@@ -16,6 +16,7 @@ import com.example.heaapp.model.workout.Equipment.Result;
 import com.example.heaapp.model.workout.Muscle.ListMuscle;
 import com.example.heaapp.presenter.ExerciseInfoPresenter;
 import com.example.heaapp.presenter.ExerciseInfoPresenterImpl;
+import com.example.heaapp.ultis.ultis;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,6 +96,16 @@ public class ExerciseInfoActivity extends AppCompatActivity implements ExerciseI
             }
             txtExeInfoEquip.setText(equip);
         }
+    }
+
+    @Override
+    public void handleErrorListMusscle(String mes) {
+        ultis.showErrorMessage(getContext(), mes);
+    }
+
+    @Override
+    public void handleErrorEquip(String mes) {
+        ultis.showErrorMessage(getContext(), mes);
     }
 
     @Override
