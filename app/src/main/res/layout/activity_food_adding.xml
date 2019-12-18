@@ -21,6 +21,8 @@
             android:selectAllOnFocus="true"
             android:singleLine="true"
             android:text="@string/food_adding"
+            android:textSize="20sp"
+
             android:textColor="@color/colorPrimaryDark" />
     </androidx.appcompat.widget.Toolbar>
     <androidx.coordinatorlayout.widget.CoordinatorLayout

@@ -56,7 +56,6 @@ public class ReminderActivity extends AppCompatActivity implements ReminderView 
         setSupportActionBar(reminderToolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setTitle("Reminder");
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerViewReminder.setHasFixedSize(true);
