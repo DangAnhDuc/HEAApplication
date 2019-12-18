@@ -99,6 +99,9 @@
         <item>System Default</item>
     </string-array>
 
+    <string name="all_week">Every Day</string>
+    <string name="normal_day">Normal Day</string>
+
     <string name="title_sleeping">Sleeping</string>
     <string name="title_typing_writing_desk_work">Typing, Writing, Desk Work</string>
     <string name="title_walking_very_slow">Walking,very slow, 1.7mph</string>

@@ -20,6 +20,7 @@ import com.example.heaapp.service.RealmService;
 import com.example.heaapp.view.activity.ReminderActivity;
 import com.example.heaapp.view.activity.ReminderView;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,6 +33,9 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
     RealmResults<TimeReminder> realmResults;
     RealmService service;
     ReminderListener listener;
+    String DayFortmatted;
+    private static final int SIZE_LIST_FULL_WEEK = 7;
+    private static final int SIZE_LIST_NORMAL_DAY = 5;
 
     public ReminderAdapter(Context context , RealmResults<TimeReminder> realmResults,RealmService service ) {
         this.context = context;
@@ -52,12 +56,17 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String testListDay = String.valueOf(realmResults.get(position).getDayList());
-        testListDay = testListDay.replace(String.valueOf('['), "");
-        testListDay = testListDay.replace(String.valueOf(']'), "");
-        testListDay = testListDay.replace(("RealmList<java.lang.String>@"), "");
+        RealmList<String> ListDay = realmResults.get(position).getDayList();
+        fortmatDay(String.valueOf(ListDay));
         holder.txtTime.setText(realmResults.get(position).getHour()+":"+realmResults.get(position).getMinute());
-        holder.txtDate.setText(testListDay);
+        if(ListDay.size() == SIZE_LIST_FULL_WEEK){
+            holder.txtDate.setText(R.string.all_week);
+        }else if (ListDay.size() == SIZE_LIST_NORMAL_DAY && !ListDay.contains("Saturday") && !ListDay.contains("Thứ 7")
+                && !ListDay.contains("SunDay") && !ListDay.contains("Chủ Nhật")){
+            holder.txtDate.setText(R.string.normal_day);
+        }else {
+            holder.txtDate.setText(DayFortmatted);
+        }
         holder.imgDelete.setOnClickListener(v -> listener.onClick(position));
     }
 
@@ -76,4 +85,12 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
             imgDelete = itemView.findViewById(R.id.img_delete_reminder);
         }
     }
+
+    private String fortmatDay(String day){
+        DayFortmatted = day.replace(String.valueOf('['), "");
+        DayFortmatted = DayFortmatted.replace(String.valueOf(']'), "");
+        DayFortmatted = DayFortmatted.replace(("RealmList<java.lang.String>@"), "");
+        return DayFortmatted;
+    }
+
 }

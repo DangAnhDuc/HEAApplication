@@ -41,7 +41,7 @@ public class ExerciseInfoPresenterImpl implements ExerciseInfoPresenter {
         disposable = workoutApiService.getMuscle()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(this::handleReponse);
+                .subscribe(this::handleReponse,this::handleErrorListMusscle);
         compositeDisposable.add(disposable);
     }
 
@@ -53,7 +53,7 @@ public class ExerciseInfoPresenterImpl implements ExerciseInfoPresenter {
         disposable = workoutApiService.getEquipment()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(this::handleReponseEquipment);
+                .subscribe(this::handleReponseEquipment,this::handleErrorListEquit);
         compositeDisposableEquip.add(disposable);
     }
 
@@ -98,5 +98,13 @@ public class ExerciseInfoPresenterImpl implements ExerciseInfoPresenter {
     @Override
     public void detachView() {
 
+    }
+
+    private void handleErrorListMusscle(Throwable throwable){
+        view.handleErrorListMusscle(throwable.getLocalizedMessage());
+    }
+
+    private void handleErrorListEquit(Throwable throwable){
+        view.handleErrorEquip(throwable.getLocalizedMessage());
     }
 }
