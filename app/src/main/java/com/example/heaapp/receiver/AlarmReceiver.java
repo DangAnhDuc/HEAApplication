@@ -12,10 +12,13 @@ import android.os.Build;
 
 import com.example.heaapp.R;
 import com.example.heaapp.service.RealmService;
+import com.example.heaapp.ultis.Common;
 import com.example.heaapp.view.activity.SplashScreenActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Calendar;
 
 import static android.app.NotificationManager.IMPORTANCE_DEFAULT;
 
@@ -56,21 +59,37 @@ public class AlarmReceiver extends BroadcastReceiver {
             );
             notificationManager.createNotificationChannel(channel);
         }
-        String timeStamp = String.format("%s%s%s", realmService.getCurrentDate().get(0).getYear(), realmService.getCurrentDate().get(0).getMonth(), realmService.getCurrentDate().get(0).getDate());
         notificationManager.notify(0, notification);
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseAuth.getCurrentUser().getUid()).child("remote").child("dailySummary").child(timeStamp);
-        databaseReference.child("id").setValue(realmService.getCurrentDate().get(0).getId());
-        databaseReference.child("date").setValue(realmService.getCurrentDate().get(0).getDate());
-        databaseReference.child("month").setValue(realmService.getCurrentDate().get(0).getMonth());
-        databaseReference.child("year").setValue(realmService.getCurrentDate().get(0).getYear());
-        databaseReference.child("waterConsume").setValue(realmService.getCurrentDate().get(0).getWaterConsume());
-        databaseReference.child("eatenCalories").setValue(realmService.getCurrentDate().get(0).getEatenCalories());
-        databaseReference.child("burnedCalories").setValue(realmService.getCurrentDate().get(0).getBurnedCalories());
-        databaseReference.child("neededCalories").setValue(realmService.getCurrentDate().get(0).getNeededCalories());
-        databaseReference.child("eatenCarbs").setValue(realmService.getCurrentDate().get(0).getEatenCarbs());
-        databaseReference.child("eatenProtein").setValue(realmService.getCurrentDate().get(0).getEatenProtein());
-        databaseReference.child("eatenFat").setValue(realmService.getCurrentDate().get(0).getEatenFat());
 
+        try {
+            String timeStamp = String.format("%s%s%s", realmService.getCurrentDate().get(0).getYear(), realmService.getCurrentDate().get(0).getMonth(), realmService.getCurrentDate().get(0).getDate());
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseAuth.getCurrentUser().getUid()).child("remote").child("dailySummary").child(timeStamp);
+            databaseReference.child("id").setValue(String.valueOf(realmService.getCurrentDate().get(0).getId()));
+            databaseReference.child("date").setValue(realmService.getCurrentDate().get(0).getDate());
+            databaseReference.child("month").setValue(realmService.getCurrentDate().get(0).getMonth());
+            databaseReference.child("year").setValue(realmService.getCurrentDate().get(0).getYear());
+            databaseReference.child("waterConsume").setValue(String.valueOf(realmService.getCurrentDate().get(0).getWaterConsume()));
+            databaseReference.child("eatenCalories").setValue(String.valueOf(realmService.getCurrentDate().get(0).getEatenCalories()));
+            databaseReference.child("burnedCalories").setValue(String.valueOf(realmService.getCurrentDate().get(0).getBurnedCalories()));
+            databaseReference.child("neededCalories").setValue(String.valueOf(realmService.getCurrentDate().get(0).getNeededCalories()));
+            databaseReference.child("eatenCarbs").setValue(String.valueOf(realmService.getCurrentDate().get(0).getEatenCarbs()));
+            databaseReference.child("eatenProtein").setValue(String.valueOf(realmService.getCurrentDate().get(0).getEatenProtein()));
+            databaseReference.child("eatenFat").setValue(String.valueOf(realmService.getCurrentDate().get(0).getEatenFat()));
+        } catch (Exception e) {
+            String timeStamp = String.format("%s%s%s", Common.currentYear, Common.currentMonth, Common.currentDate);
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseAuth.getCurrentUser().getUid()).child("remote").child("dailySummary").child(timeStamp);
+            databaseReference.child("id").setValue("0");
+            databaseReference.child("date").setValue(String.valueOf(Calendar.getInstance().get(Calendar.DAY_OF_MONTH)));
+            databaseReference.child("month").setValue(String.valueOf(Calendar.getInstance().get(Calendar.MONTH) + 1));
+            databaseReference.child("year").setValue(String.valueOf(Calendar.getInstance().get(Calendar.YEAR)));
+            databaseReference.child("waterConsume").setValue("0");
+            databaseReference.child("eatenCalories").setValue("0");
+            databaseReference.child("burnedCalories").setValue("0");
+            databaseReference.child("neededCalories").setValue("0");
+            databaseReference.child("eatenCarbs").setValue("0");
+            databaseReference.child("eatenProtein").setValue("0");
+            databaseReference.child("eatenFat").setValue("0");
+        }
     }
 }
