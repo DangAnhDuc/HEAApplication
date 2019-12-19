@@ -30,11 +30,14 @@ public class HealthReportPresenterImpl implements HealthReportPresenter {
         healthReportView.getDailySummary(realmResults.get(0));
         float[] yEnergyData= {realmResults.get(0).getEatenCalories(),realmResults.get(0).getBurnedCalories()};
         String[] xEnergyData = {"Energy Eaten", "Energy Burned"};
-        healthReportView.createPieChart(energyPieChart,yEnergyData,xEnergyData);
-
-        float[] yNutritionData= {realmResults.get(0).getEatenCarbs(),realmResults.get(0).getEatenFat(),realmResults.get(0).getEatenProtein()};
-        String[] xNutritionData = {"Carbohydrate", "Fat","Protein"};
-        healthReportView.createPieChart(nutritionPieChart,yNutritionData,xNutritionData);
+        if (yEnergyData[0] == 0 && yEnergyData[1] == 0) {
+            healthReportView.invisiblePiechart();
+        } else {
+            healthReportView.createPieChart(energyPieChart, yEnergyData, xEnergyData);
+            float[] yNutritionData = {realmResults.get(0).getEatenCarbs(), realmResults.get(0).getEatenFat(), realmResults.get(0).getEatenProtein()};
+            String[] xNutritionData = {"Carbohydrate", "Fat", "Protein"};
+            healthReportView.createPieChart(nutritionPieChart, yNutritionData, xNutritionData);
+        }
     }
 
 

@@ -3,6 +3,9 @@ package com.example.heaapp.view.activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -53,6 +56,14 @@ public class HealthReportActivity extends AppCompatActivity implements HealthRep
     RecyclerView rcviewLaunch;
     @BindView(R.id.rcview_dinner)
     RecyclerView rcviewDinner;
+    @BindView(R.id.tv_breakfast)
+    TextView tvBreakfast;
+    @BindView(R.id.tv_launch)
+    TextView tvLaunch;
+    @BindView(R.id.tv_dinner)
+    TextView tvDinner;
+    @BindView(R.id.img_norecord)
+    ImageView imgNorecord;
     private int numberOfDaysInCurrentMonth;
     private ArrayList<Long> eatenEnergyInMonth;
     private ArrayList<Long> burnedEnergyInMonth;
@@ -209,6 +220,16 @@ public class HealthReportActivity extends AppCompatActivity implements HealthRep
         rcviewBreakfast.setAdapter(dishesAdapterBf);
         rcviewLaunch.setAdapter(dishesAdapterLn);
         rcviewDinner.setAdapter(dishesAdapterDn);
+    }
+
+    @Override
+    public void invisiblePiechart() {
+        energyPieChart.setVisibility(View.GONE);
+        nutritionPieChart.setVisibility(View.GONE);
+        tvBreakfast.setVisibility(View.GONE);
+        tvLaunch.setVisibility(View.GONE);
+        tvDinner.setVisibility(View.GONE);
+        imgNorecord.setVisibility(View.VISIBLE);
     }
 
     @Override

@@ -9,4 +9,6 @@ public interface HealthReportView extends BaseView {
     void createPieChart(PieChart pieChart, float[] yData,String[] xData);
 
     void getDailySummary(DailySummary dailySummary);
+
+    void invisiblePiechart();
 }

@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -110,6 +111,11 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
     CardView cardViewBoyIndices;
     @BindView(R.id.scrollView)
     NestedScrollView scrollView;
+    @BindView(R.id.layout_food)
+    RelativeLayout layoutFood;
+    @BindView(R.id.layout_exercise)
+    RelativeLayout layoutExercise;
+
 
     private DashboardPresenterImpl dashboardPresenter;
     private Unbinder unbinder;
@@ -143,7 +149,7 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
         rcviewActivities.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManagerEx = new LinearLayoutManager(getContext());
         rcviewActivities.setLayoutManager(layoutManagerEx);
-
+        setClickable(false);
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -154,6 +160,17 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
             }
         });
         return view;
+    }
+
+    private void setClickable(boolean clickable) {
+        scrollView.setClickable(clickable);
+        btn75.setClickable(clickable);
+        btn150.setClickable(clickable);
+        btn250.setClickable(clickable);
+        btn330.setClickable(clickable);
+        btnCustomWater.setClickable(clickable);
+        layoutFood.setClickable(clickable);
+        layoutExercise.setClickable(clickable);
     }
 
     @Override
@@ -169,9 +186,6 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
         super.onResume();
         if (!getUserVisibleHint()) {
             return;
-        }
-        if (!restoreTourGuidePrefsData()) {
-            loadGuideTour();
         }
         dashboardPresenter.getDailySummary();
     }
@@ -271,6 +285,10 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
             builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
+        } else {
+            if (!restoreTourGuidePrefsData()) {
+                loadGuideTour();
+            }
         }
     }
 
