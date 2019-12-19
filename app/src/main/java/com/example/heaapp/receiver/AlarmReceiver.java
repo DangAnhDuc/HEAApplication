@@ -12,7 +12,6 @@ import android.os.Build;
 
 import com.example.heaapp.R;
 import com.example.heaapp.service.RealmService;
-import com.example.heaapp.ultis.Common;
 import com.example.heaapp.view.activity.SplashScreenActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -24,7 +23,7 @@ import static android.app.NotificationManager.IMPORTANCE_DEFAULT;
 
 public class AlarmReceiver extends BroadcastReceiver {
     private static final String CHANNEL_ID = "DailyNotificationChanelID";
-    private RealmService realmService= RealmService.getInstance();
+    private RealmService realmService = RealmService.getInstance();
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -77,7 +76,7 @@ public class AlarmReceiver extends BroadcastReceiver {
             databaseReference.child("eatenProtein").setValue(String.valueOf(realmService.getCurrentDate().get(0).getEatenProtein()));
             databaseReference.child("eatenFat").setValue(String.valueOf(realmService.getCurrentDate().get(0).getEatenFat()));
         } catch (Exception e) {
-            String timeStamp = String.format("%s%s%s", Common.currentYear, Common.currentMonth, Common.currentDate);
+            String timeStamp = String.format("%s%s%s", String.valueOf(Calendar.getInstance().get(Calendar.YEAR)), String.valueOf(Calendar.getInstance().get(Calendar.MONTH) + 1), String.valueOf(Calendar.getInstance().get(Calendar.DAY_OF_MONTH)));
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseAuth.getCurrentUser().getUid()).child("remote").child("dailySummary").child(timeStamp);
             databaseReference.child("id").setValue("0");
             databaseReference.child("date").setValue(String.valueOf(Calendar.getInstance().get(Calendar.DAY_OF_MONTH)));

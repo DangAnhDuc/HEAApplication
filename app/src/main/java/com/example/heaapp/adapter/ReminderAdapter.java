@@ -1,7 +1,6 @@
 package com.example.heaapp.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,19 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.heaapp.R;
-import com.example.heaapp.callback.ListExerciseListener;
-import com.example.heaapp.callback.OnTransactionCallback;
 import com.example.heaapp.callback.ReminderListener;
 import com.example.heaapp.model.reminder.TimeReminder;
 import com.example.heaapp.service.RealmService;
-import com.example.heaapp.view.activity.ReminderActivity;
-import com.example.heaapp.view.activity.ReminderView;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.List;
-
-import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmResults;
 

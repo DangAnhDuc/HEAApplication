@@ -105,4 +105,10 @@ dependencies {
 
     //Chartview
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.2'
+
+    //Guidetour
+    implementation 'com.github.amlcurran.showcaseview:library:5.4.3'
+
+    implementation 'com.github.mreram:showcaseview:1.1'
+
 }

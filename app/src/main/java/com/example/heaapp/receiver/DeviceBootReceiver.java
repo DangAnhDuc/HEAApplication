@@ -23,7 +23,7 @@ public class DeviceBootReceiver extends BroadcastReceiver {
             calendar.setTimeInMillis(System.currentTimeMillis());
             calendar.set(Calendar.HOUR_OF_DAY, 23);
             calendar.set(Calendar.MINUTE, 59);
-            calendar.set(Calendar.SECOND,30);
+            calendar.set(Calendar.SECOND, 30);
             manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                     AlarmManager.INTERVAL_DAY, pendingIntent);
         }

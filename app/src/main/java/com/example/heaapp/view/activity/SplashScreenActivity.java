@@ -16,7 +16,6 @@ import com.example.heaapp.ultis.ultis;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.realm.Realm;
 
 public class SplashScreenActivity extends AppCompatActivity implements SpashScreenView {
 

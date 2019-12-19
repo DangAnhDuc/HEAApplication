@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:icon="@drawable/ic_user"
         android:id="@+id/side_bar_info_user"
-        android:title="@string/side_bar_info_user">
+        android:title="@string/side_bar_info_user"
+        app:actionViewClass="android.widget.LinearLayout">
 
     </item>
     <item
@@ -15,13 +17,15 @@
     <item
         android:icon="@drawable/ic_reminder"
         android:id="@+id/side_bar_remider"
-        android:title="@string/reminder_workout">
+        android:title="@string/reminder_workout"
+        app:actionViewClass="android.widget.TextView">
 
     </item>
     <item
         android:icon="@drawable/ic_description_black_24dp"
         android:id="@+id/side_bar_health_report"
-        android:title="@string/health_report">
+        android:title="@string/health_report"
+        app:actionViewClass="android.widget.TextView">
 
     </item>
     <item

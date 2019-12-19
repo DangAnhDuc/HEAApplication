@@ -1,14 +1,9 @@
 package com.example.heaapp.presenter;
 
-import android.util.Log;
-
 import com.example.heaapp.callback.OnTransactionCallback;
 import com.example.heaapp.model.reminder.TimeReminder;
 import com.example.heaapp.service.RealmService;
 import com.example.heaapp.view.activity.ReminderView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import io.realm.RealmList;
 import io.realm.RealmResults;

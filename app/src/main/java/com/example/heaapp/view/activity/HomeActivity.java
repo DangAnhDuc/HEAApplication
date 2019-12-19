@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,6 +39,7 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+
 public class HomeActivity extends AppCompatActivity implements HomeView {
 
     @BindView(R.id.activity_main_drawer)
@@ -57,6 +60,9 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     private boolean doubleBackToExitPressedOnce = false;
 
     private int flagLang ;
+    View sidebar_userInfo;
+    View sidebar_reminder;
+    View sidebar_helthReport;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +74,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         Objects.requireNonNull(getSupportActionBar()).setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initView();
+
         RealmService realmService = RealmService.getInstance();
         homePresenter = new HomePresenterImpl(realmService, this);
         homePresenter.attachView(this);
@@ -90,6 +97,10 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_workout_icon);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_doctor_icon);
         tabLayout.getTabAt(2).setIcon(R.drawable.ic_news_icon);
+
+        sidebar_userInfo = findViewById(R.id.side_bar_info_user);
+        sidebar_reminder = findViewById(R.id.side_bar_remider);
+        sidebar_helthReport = findViewById(R.id.side_bar_health_report);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -123,6 +134,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         sideBarLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
 
+
         navView.setNavigationItemSelectedListener(menuItem -> {
             switch (menuItem.getItemId()) {
                 case R.id.side_bar_logout:
@@ -147,11 +159,9 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         });
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
-            item.getItemId();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -245,6 +255,12 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+
+    }
+
     private void showMultipleLanguage() {
         String[] listLang = getResources().getStringArray(R.array.lang);
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(this,R.style.TimePicker);
@@ -296,4 +312,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         int flag = sharedPreferences.getInt("FlagLang", 2);
         return flag;
     }
+
+
 }

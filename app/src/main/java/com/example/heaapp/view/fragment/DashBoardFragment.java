@@ -3,6 +3,7 @@ package com.example.heaapp.view.fragment;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -20,6 +21,8 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -44,6 +47,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import smartdevelop.ir.eram.showcaseviewlib.GuideView;
+import smartdevelop.ir.eram.showcaseviewlib.config.DismissType;
+import smartdevelop.ir.eram.showcaseviewlib.config.Gravity;
+import smartdevelop.ir.eram.showcaseviewlib.listener.GuideListener;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class DashBoardFragment extends BaseFragment implements DashboardView {
@@ -89,7 +98,18 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
     TextView tvDailyCal;
     @BindView(R.id.rcview_activities)
     RecyclerView rcviewActivities;
-
+    @BindView(R.id.cardView_index)
+    CardView cardViewIndex;
+    @BindView(R.id.cardView_water)
+    CardView cardViewWater;
+    @BindView(R.id.cardView_food)
+    CardView cardViewFood;
+    @BindView(R.id.cardView_activity)
+    CardView cardViewActivity;
+    @BindView(R.id.cardView_boyIndices)
+    CardView cardViewBoyIndices;
+    @BindView(R.id.scrollView)
+    NestedScrollView scrollView;
 
     private DashboardPresenterImpl dashboardPresenter;
     private Unbinder unbinder;
@@ -102,6 +122,9 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
     private long activityBurnedEnergy = 0;
     private Dialog addActivityDialog;
 
+    private GuideView guideView;
+    private GuideView.Builder guideViewBuilder;
+
 
     @Override
     public BaseFragment provideYourFragment() {
@@ -110,7 +133,6 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
 
     @Override
     public View provideYourFragmentView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_dash_board, parent, false);
         unbinder = ButterKnife.bind(this, view);
         RealmService realmService = RealmService.getInstance();
@@ -135,9 +157,90 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && isResumed()) {
+            onResume();
+        }
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
+        if (!getUserVisibleHint()) {
+            return;
+        }
+        if (!restoreTourGuidePrefsData()) {
+            loadGuideTour();
+        }
         dashboardPresenter.getDailySummary();
+    }
+
+    private void loadGuideTour() {
+        createGuideView();
+        saveTourGuidePrefsData();
+    }
+
+    private void createGuideView() {
+        guideViewBuilder = new GuideView.Builder(getContext())
+                .setTitle("Guide Title Text")
+                .setContentText("Guide Description Text\n .....Guide Description Text\n .....Guide Description Text .....")
+                .setGravity(Gravity.center)
+                .setDismissType(DismissType.outside)
+                .setTargetView(cardViewIndex)
+                .setGuideListener(new GuideListener() {
+                    @Override
+                    public void onDismiss(View view) {
+                        switch (view.getId()) {
+                            case R.id.cardView_index:
+                                guideViewBuilder.setTitle("acsad");
+                                guideViewBuilder.setContentText("asdaskjaskgjf");
+                                guideViewBuilder.setTargetView(cardViewWater).build();
+                                break;
+                            case R.id.cardView_water:
+                                guideViewBuilder.setTargetView(cardViewFood).build();
+                                break;
+                            case R.id.cardView_food:
+                                scrollView.scrollTo(0, cardViewActivity.getTop());
+                                guideViewBuilder.setTargetView(cardViewActivity).build();
+                                break;
+                            case R.id.cardView_activity:
+                                guideViewBuilder.setTargetView(cardViewBoyIndices).build();
+                                break;
+                            case R.id.cardView_boyIndices:
+                                return;
+                        }
+                        guideView = guideViewBuilder.build();
+                        guideView.show();
+                    }
+                });
+
+        guideView = guideViewBuilder.build();
+        guideView.show();
+        updatingForDynamicLocationViews();
+    }
+
+
+    private void updatingForDynamicLocationViews() {
+        cardViewActivity.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                guideView.updateGuideViewLocation();
+            }
+        });
+    }
+
+    private boolean restoreTourGuidePrefsData() {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("tourGuideRefs", MODE_PRIVATE);
+        return sharedPreferences.getBoolean("isDashboardGuideOpened", false);
+    }
+
+
+    private void saveTourGuidePrefsData() {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("tourGuideRefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("isDashboardGuideOpened", true);
+        editor.apply();
     }
 
     @Override
