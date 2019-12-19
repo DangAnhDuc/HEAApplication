@@ -43,6 +43,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -150,20 +151,18 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
         RecyclerView.LayoutManager layoutManagerEx = new LinearLayoutManager(getContext());
         rcviewActivities.setLayoutManager(layoutManagerEx);
         setClickable(false);
-        view.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    dashboardPresenter.getUserInfoStatus();
-                }
-                return false;
+        view.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                dashboardPresenter.getUserInfoStatus();
             }
+            return false;
         });
         return view;
     }
 
     private void setClickable(boolean clickable) {
         scrollView.setClickable(clickable);
+        scrollView.setSmoothScrollingEnabled(clickable);
         btn75.setClickable(clickable);
         btn150.setClickable(clickable);
         btn250.setClickable(clickable);
@@ -187,6 +186,10 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
         if (!getUserVisibleHint()) {
             return;
         }
+        if (restoreTourGuidePrefsData()) {
+            loadGuideTour();
+        }
+        setClickable(true);
         dashboardPresenter.getDailySummary();
     }
 
@@ -197,8 +200,8 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
 
     private void createGuideView() {
         guideViewBuilder = new GuideView.Builder(getContext())
-                .setTitle("Guide Title Text")
-                .setContentText("Guide Description Text\n .....Guide Description Text\n .....Guide Description Text .....")
+                .setTitle("Dashboard index")
+                .setContentText("This contains all information\n about your nutrition and energy\nin current day.")
                 .setGravity(Gravity.center)
                 .setDismissType(DismissType.outside)
                 .setTargetView(cardViewIndex)
@@ -207,18 +210,24 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
                     public void onDismiss(View view) {
                         switch (view.getId()) {
                             case R.id.cardView_index:
-                                guideViewBuilder.setTitle("acsad");
-                                guideViewBuilder.setContentText("asdaskjaskgjf");
+                                guideViewBuilder.setTitle("Water adding");
+                                guideViewBuilder.setContentText("Observe and add amount of water you have drank");
                                 guideViewBuilder.setTargetView(cardViewWater).build();
                                 break;
                             case R.id.cardView_water:
+                                guideViewBuilder.setTitle("Food adding");
+                                guideViewBuilder.setContentText("All food you eat should be add here");
                                 guideViewBuilder.setTargetView(cardViewFood).build();
                                 break;
                             case R.id.cardView_food:
                                 scrollView.scrollTo(0, cardViewActivity.getTop());
+                                guideViewBuilder.setTitle("Activity adding");
+                                guideViewBuilder.setContentText("Record and calculate energy through your activities");
                                 guideViewBuilder.setTargetView(cardViewActivity).build();
                                 break;
                             case R.id.cardView_activity:
+                                guideViewBuilder.setTitle("Body indices");
+                                guideViewBuilder.setContentText("All information about your body!");
                                 guideViewBuilder.setTargetView(cardViewBoyIndices).build();
                                 break;
                             case R.id.cardView_boyIndices:
@@ -231,29 +240,18 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
 
         guideView = guideViewBuilder.build();
         guideView.show();
-        updatingForDynamicLocationViews();
-    }
-
-
-    private void updatingForDynamicLocationViews() {
-        cardViewActivity.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                guideView.updateGuideViewLocation();
-            }
-        });
     }
 
     private boolean restoreTourGuidePrefsData() {
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("tourGuideRefs", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = Objects.requireNonNull(getContext()).getSharedPreferences("tourGuideRefs", MODE_PRIVATE);
         return sharedPreferences.getBoolean("isDashboardGuideOpened", false);
     }
 
 
     private void saveTourGuidePrefsData() {
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("tourGuideRefs", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = Objects.requireNonNull(getContext()).getSharedPreferences("tourGuideRefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("isDashboardGuideOpened", true);
+        editor.putBoolean("isDashboardGuideOpened", false);
         editor.apply();
     }
 
@@ -285,10 +283,6 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
             builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
-        } else {
-            if (!restoreTourGuidePrefsData()) {
-                loadGuideTour();
-            }
         }
     }
 
