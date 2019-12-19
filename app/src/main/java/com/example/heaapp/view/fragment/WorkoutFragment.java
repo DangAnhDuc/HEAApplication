@@ -17,6 +17,8 @@ import com.example.heaapp.base.BaseFragment;
 import com.example.heaapp.model.workout.Category.Results;
 import com.example.heaapp.presenter.WorkoutPresenter;
 import com.example.heaapp.presenter.WorkoutPresenterImpl;
+import com.example.heaapp.ultis.ultis;
+import com.example.heaapp.view.activity.ExerciseActivity;
 import com.example.heaapp.view.activity.ExerciseWorkoutActivity;
 
 import java.util.List;
@@ -54,10 +56,17 @@ public class WorkoutFragment extends BaseFragment implements WorkoutView {
         categoryWorkoutRecycler.setAdapter(categoryWorkoutAdapter);
 
         categoryWorkoutAdapter.setOnItemListener(results1 -> {
-            Intent intent = new Intent(getContext(), ExerciseWorkoutActivity.class);
+            Intent intent = new Intent(getContext(), ExerciseActivity.class);
             intent.putExtra("CategoryID", results1.getId());
             intent.putExtra("CategoryName", results1.getName());
             startActivity(intent);
+
+//        ultis.setIntent(getActivity(),ExerciseActivity.class);
+//        Bundle bundle = new Bundle();
+//        bundle.putString("CategoryName",results1.getName());
+//        bundle.putInt("CategoryID",results1.getId());
+//        ExerciseWorkoutFragment fragment = new ExerciseWorkoutFragment();
+//        fragment.setArguments(bundle);
         });
     }
 
