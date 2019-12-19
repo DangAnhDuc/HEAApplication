@@ -27,8 +27,6 @@ import java.util.Objects;
 
 import io.realm.RealmResults;
 
-import static android.content.Context.MODE_PRIVATE;
-
 public class CurrentUserDetailPresenterImpl implements CurrentUserDetailPresenter {
 
     private CurrentUserDetailView currentUserDetailView;
@@ -79,10 +77,6 @@ public class CurrentUserDetailPresenterImpl implements CurrentUserDetailPresente
                             saveUserInfoStatusPref();
                             calculateBodyIndices();
                             currentUserDetailView.onSaveInfoSuccess();
-                            SharedPreferences sharedPreferences = context.getSharedPreferences("tourGuideRefs", MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putBoolean("isDashboardGuideOpened", true);
-                            editor.apply();
                         }
 
                         @Override

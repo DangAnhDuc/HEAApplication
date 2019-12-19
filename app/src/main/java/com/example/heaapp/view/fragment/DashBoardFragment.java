@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -151,8 +152,16 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
         RecyclerView.LayoutManager layoutManagerEx = new LinearLayoutManager(getContext());
         rcviewActivities.setLayoutManager(layoutManagerEx);
         setClickable(false);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (!restoreTourGuidePrefsData()) {
+                    loadGuideTour();
+                }
+            }
+        }, 1000);
         view.setOnTouchListener((v, event) -> {
-            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
                 dashboardPresenter.getUserInfoStatus();
             }
             return false;
@@ -186,10 +195,7 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
         if (!getUserVisibleHint()) {
             return;
         }
-        if (restoreTourGuidePrefsData()) {
-            loadGuideTour();
-        }
-        setClickable(true);
+
         dashboardPresenter.getDailySummary();
     }
 
@@ -251,7 +257,7 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
     private void saveTourGuidePrefsData() {
         SharedPreferences sharedPreferences = Objects.requireNonNull(getContext()).getSharedPreferences("tourGuideRefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("isDashboardGuideOpened", false);
+        editor.putBoolean("isDashboardGuideOpened", true);
         editor.apply();
     }
 
@@ -283,6 +289,8 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
             builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
+        } else {
+            setClickable(true);
         }
     }
 
