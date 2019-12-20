@@ -1,7 +1,7 @@
 package com.example.heaapp.view.activity;
 
 import com.example.heaapp.base.BaseView;
-import com.example.heaapp.model.workout.ExerciseInfo.ItemExercise;
+import com.example.heaapp.model.workout.exerciseInfo.ItemExercise;
 
 import java.util.List;
 

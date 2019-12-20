@@ -5,8 +5,8 @@ import android.util.Log;
 
 import com.example.heaapp.api.ApiUtils;
 import com.example.heaapp.api.WorkoutApiService;
-import com.example.heaapp.model.workout.ExerciseInfo.ItemExercise;
-import com.example.heaapp.model.workout.ExerciseInfo.ListExercise;
+import com.example.heaapp.model.workout.exerciseInfo.ItemExercise;
+import com.example.heaapp.model.workout.exerciseInfo.ListExercise;
 import com.example.heaapp.view.activity.ExerciseWorkoutView;
 
 import java.util.ArrayList;

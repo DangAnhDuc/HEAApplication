@@ -1,6 +1,6 @@
 package com.example.heaapp.callback;
 
-import com.example.heaapp.model.workout.Category.Results;
+import com.example.heaapp.model.workout.category.Results;
 
 public interface WorkoutListener {
     void OnItemClick(Results results);

@@ -1,10 +1,9 @@
-package com.example.heaapp.model.workout.ExerciseInfo;
+package com.example.heaapp.model.workout.exerciseInfo;
 
-import java.util.List;
-
-import com.example.heaapp.model.workout.ExerciseInfo.ItemExercise;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class ListExercise {
 

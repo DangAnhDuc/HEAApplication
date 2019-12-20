@@ -3,8 +3,8 @@ package com.example.heaapp.presenter;
 
 import com.example.heaapp.api.ApiUtils;
 import com.example.heaapp.api.WorkoutApiService;
-import com.example.heaapp.model.workout.Category.Exercisecategory;
-import com.example.heaapp.model.workout.Category.Results;
+import com.example.heaapp.model.workout.category.Exercisecategory;
+import com.example.heaapp.model.workout.category.Results;
 import com.example.heaapp.view.fragment.WorkoutView;
 
 import java.util.List;

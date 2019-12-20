@@ -16,11 +16,8 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = provideYourFragmentView(inflater, container, savedInstanceState);
-        return view;
+        return provideYourFragmentView(inflater, container);
     }
 
-    public abstract BaseFragment provideYourFragment();
-
-    public abstract View provideYourFragmentView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState);
+    public abstract View provideYourFragmentView(LayoutInflater inflater, ViewGroup parent);
 }

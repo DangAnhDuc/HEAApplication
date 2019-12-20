@@ -1,4 +1,4 @@
-package com.example.heaapp.Helper;
+package com.example.heaapp.helper;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -54,29 +54,26 @@ public abstract class MySwipeHelper extends ItemTouchHelper.SimpleCallback {
             }
         };
         this.gestureDetector = new GestureDetector(context, gestureListener);
-        View.OnTouchListener onTouchListener = new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (swipePosition < 0)
-                    return false;
-                Point point = new Point((int) event.getRawX(), (int) event.getRawY());
-
-                RecyclerView.ViewHolder swipeViewHolder = recyclerView.findViewHolderForAdapterPosition(swipePosition);
-                View swipeItem = swipeViewHolder.itemView;
-                Rect rect = new Rect();
-                swipeItem.getGlobalVisibleRect(rect);
-
-                if (event.getAction() == MotionEvent.ACTION_DOWN || event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_MOVE) {
-                    if (rect.top < point.y && rect.bottom > point.y)
-                        gestureDetector.onTouchEvent(event);
-                    else {
-                        removeQueue.add(swipePosition);
-                        swipePosition = -1;
-                        recoverSwipedItem();
-                    }
-                }
+        View.OnTouchListener onTouchListener = (v, event) -> {
+            if (swipePosition < 0)
                 return false;
+            Point point = new Point((int) event.getRawX(), (int) event.getRawY());
+
+            RecyclerView.ViewHolder swipeViewHolder = recyclerView.findViewHolderForAdapterPosition(swipePosition);
+            View swipeItem = swipeViewHolder.itemView;
+            Rect rect = new Rect();
+            swipeItem.getGlobalVisibleRect(rect);
+
+            if (event.getAction() == MotionEvent.ACTION_DOWN || event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_MOVE) {
+                if (rect.top < point.y && rect.bottom > point.y)
+                    gestureDetector.onTouchEvent(event);
+                else {
+                    removeQueue.add(swipePosition);
+                    swipePosition = -1;
+                    recoverSwipedItem();
+                }
             }
+            return false;
         };
         this.recyclerView.setOnTouchListener(onTouchListener);
         this.buttonBuffer = new HashMap<>();
@@ -167,7 +164,7 @@ public abstract class MySwipeHelper extends ItemTouchHelper.SimpleCallback {
             if (dX < 0) {
                 List<MyButton> buffer = new ArrayList<>();
                 if (!buttonBuffer.containsKey(pos)) {
-                    instantiateMyButton(viewHolder, buffer);
+                    instantiateMyButton(buffer);
                     buttonBuffer.put(pos, buffer);
                 } else {
                     buffer = buttonBuffer.get(pos);
@@ -189,7 +186,7 @@ public abstract class MySwipeHelper extends ItemTouchHelper.SimpleCallback {
         }
     }
 
-    protected abstract void instantiateMyButton(RecyclerView.ViewHolder viewHolder, List<MyButton> buffer);
+    protected abstract void instantiateMyButton(List<MyButton> buffer);
 
     public class MyButton {
         private String text;
@@ -197,7 +194,6 @@ public abstract class MySwipeHelper extends ItemTouchHelper.SimpleCallback {
         private RectF clickRegion;
         private MyButtonClickListener listener;
         private Context context;
-        private Resources resources;
 
         public MyButton(Context context, String text, int textSize, int imageResId, int color, MyButtonClickListener listener) {
             this.text = text;
@@ -206,7 +202,7 @@ public abstract class MySwipeHelper extends ItemTouchHelper.SimpleCallback {
             this.color = color;
             this.listener = listener;
             this.context = context;
-            resources = context.getResources();
+            Resources resources = context.getResources();
         }
 
         boolean onClick(float x, float y) {

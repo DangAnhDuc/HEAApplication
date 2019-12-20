@@ -1,7 +1,5 @@
 package com.example.heaapp.presenter;
 
-import android.content.Context;
-
 import androidx.annotation.NonNull;
 
 import com.example.heaapp.callback.OnTransactionCallback;
@@ -23,10 +21,9 @@ public class HomePresenterImpl implements HomePresenter {
     private HomeView homeView;
     private FirebaseAuth.AuthStateListener authListener;
     private DatabaseReference userInforDatabaseReference;
-    private DatabaseReference userDatabaseReference;
     private RealmService realmService;
 
-    public HomePresenterImpl(RealmService realmService, final Context context) {
+    public HomePresenterImpl(RealmService realmService) {
         this.realmService = realmService;
         //check user signout
         authListener = firebaseAuth -> {
@@ -40,7 +37,7 @@ public class HomePresenterImpl implements HomePresenter {
     @Override
     public void getCurrentUser() {
         if (firebaseAuth.getCurrentUser() != null) {
-            homeView.setUser(firebaseAuth.getCurrentUser());
+            homeView.setUser();
 
             userInforDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseAuth.getCurrentUser().getUid()).child("remote").child("userBodyInfo");
             userInforDatabaseReference.addValueEventListener(new ValueEventListener() {
@@ -74,7 +71,7 @@ public class HomePresenterImpl implements HomePresenter {
                 }
             });
 
-            userDatabaseReference= FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseAuth.getCurrentUser().getUid());
+            DatabaseReference userDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseAuth.getCurrentUser().getUid());
             userDatabaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

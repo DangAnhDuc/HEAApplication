@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.heaapp.R;
 import com.example.heaapp.adapter.ListExerciseAdapter;
-import com.example.heaapp.model.workout.ExerciseInfo.ItemExercise;
+import com.example.heaapp.model.workout.exerciseInfo.ItemExercise;
 import com.example.heaapp.presenter.ExerciseWorkoutPresenter;
 import com.example.heaapp.presenter.ExerciseWorkoutPresenterImpl;
 import com.example.heaapp.ultis.ultis;
@@ -81,11 +81,6 @@ public class ExerciseWorkoutActivity extends AppCompatActivity implements Exerci
         linearLayoutExercise.post(() -> exerciseWorkoutPresenter.getListExercise());
         dragAndDrop();
 
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 
     @Override

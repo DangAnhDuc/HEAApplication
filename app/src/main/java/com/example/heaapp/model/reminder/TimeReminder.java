@@ -1,11 +1,7 @@
 package com.example.heaapp.model.reminder;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
 import io.realm.RealmList;
-import io.realm.RealmModel;
 import io.realm.RealmObject;
 
 public class TimeReminder extends RealmObject {

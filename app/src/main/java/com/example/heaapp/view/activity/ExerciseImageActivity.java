@@ -10,7 +10,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.example.heaapp.R;
-import com.example.heaapp.model.workout.ExerciseImage.Result;
+import com.example.heaapp.model.workout.exerciseImage.Result;
 import com.example.heaapp.presenter.ExerciseImagePresenter;
 import com.example.heaapp.presenter.ExerciseImagePresenterImpl;
 
@@ -47,7 +47,7 @@ public class ExerciseImageActivity extends AppCompatActivity implements Exercise
         assert bundle != null;
         exerID = bundle.getInt("exerID");
 
-        ExerciseImagePresenter exePresneter = new ExerciseImagePresenterImpl(this, exerID);
+        ExerciseImagePresenter exePresneter = new ExerciseImagePresenterImpl(this);
         exePresneter.getListImage();
     }
 

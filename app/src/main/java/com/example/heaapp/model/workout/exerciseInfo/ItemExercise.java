@@ -1,4 +1,4 @@
-package com.example.heaapp.model.workout.ExerciseInfo;
+package com.example.heaapp.model.workout.exerciseInfo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

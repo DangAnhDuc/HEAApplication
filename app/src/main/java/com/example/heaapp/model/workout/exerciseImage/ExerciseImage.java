@@ -1,17 +1,18 @@
-package com.example.heaapp.model.workout.Equipment;
+package com.example.heaapp.model.workout.exerciseImage;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Equipment {
+import java.util.List;
+
+public class ExerciseImage {
 
     @SerializedName("count")
     @Expose
     private Integer count;
     @SerializedName("next")
     @Expose
-    private Object next;
+    private String next;
     @SerializedName("previous")
     @Expose
     private Object previous;
@@ -27,11 +28,11 @@ public class Equipment {
         this.count = count;
     }
 
-    public Object getNext() {
+    public String getNext() {
         return next;
     }
 
-    public void setNext(Object next) {
+    public void setNext(String next) {
         this.next = next;
     }
 

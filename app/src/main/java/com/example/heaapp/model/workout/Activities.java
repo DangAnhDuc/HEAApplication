@@ -3,9 +3,9 @@ package com.example.heaapp.model.workout;
 import io.realm.RealmObject;
 
 public class Activities extends RealmObject {
-    String name;
-    String time;
-    long energy;
+    private String name;
+    private String time;
+    private long energy;
 
     public Activities() {
     }

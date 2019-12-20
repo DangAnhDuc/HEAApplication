@@ -23,7 +23,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
     RealmResults<TimeReminder> realmResults;
     RealmService service;
     ReminderListener listener;
-    String DayFortmatted;
+    String DayFormatted;
     private static final int SIZE_LIST_FULL_WEEK = 7;
     private static final int SIZE_LIST_NORMAL_DAY = 5;
 
@@ -47,7 +47,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         RealmList<String> ListDay = realmResults.get(position).getDayList();
-        fortmatDay(String.valueOf(ListDay));
+        formatDay(String.valueOf(ListDay));
         holder.txtTime.setText(realmResults.get(position).getHour()+":"+realmResults.get(position).getMinute());
         if(ListDay.size() == SIZE_LIST_FULL_WEEK){
             holder.txtDate.setText(R.string.all_week);
@@ -55,7 +55,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
                 && !ListDay.contains("SunDay") && !ListDay.contains("Chủ Nhật")){
             holder.txtDate.setText(R.string.normal_day);
         }else {
-            holder.txtDate.setText(DayFortmatted);
+            holder.txtDate.setText(DayFormatted);
         }
         holder.imgDelete.setOnClickListener(v -> listener.onClick(position));
     }
@@ -76,11 +76,11 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
         }
     }
 
-    private String fortmatDay(String day){
-        DayFortmatted = day.replace(String.valueOf('['), "");
-        DayFortmatted = DayFortmatted.replace(String.valueOf(']'), "");
-        DayFortmatted = DayFortmatted.replace(("RealmList<java.lang.String>@"), "");
-        return DayFortmatted;
+    private String formatDay(String day) {
+        DayFormatted = day.replace(String.valueOf('['), "");
+        DayFormatted = DayFormatted.replace(String.valueOf(']'), "");
+        DayFormatted = DayFormatted.replace(("RealmList<java.lang.String>@"), "");
+        return DayFormatted;
     }
 
 }

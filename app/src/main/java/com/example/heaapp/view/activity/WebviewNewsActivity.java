@@ -32,8 +32,9 @@ public class WebviewNewsActivity extends AppCompatActivity implements WebviewNew
     @BindView(R.id.geckoview)
     GeckoView geckoview;
 
-    WebviewNewsPresenterImpl webviewNewsPresenter;
-    String newUrl, newDomain;
+    private WebviewNewsPresenterImpl webviewNewsPresenter;
+    private String newUrl;
+    private String newDomain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

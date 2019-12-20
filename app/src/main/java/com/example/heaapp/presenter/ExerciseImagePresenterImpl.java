@@ -2,8 +2,8 @@ package com.example.heaapp.presenter;
 
 import com.example.heaapp.api.ApiUtils;
 import com.example.heaapp.api.WorkoutApiService;
-import com.example.heaapp.model.workout.ExerciseImage.ExerciseImage;
-import com.example.heaapp.model.workout.ExerciseImage.Result;
+import com.example.heaapp.model.workout.exerciseImage.ExerciseImage;
+import com.example.heaapp.model.workout.exerciseImage.Result;
 import com.example.heaapp.view.activity.ExerciseImageView;
 
 import java.util.ArrayList;
@@ -18,11 +18,9 @@ public class ExerciseImagePresenterImpl implements ExerciseImagePresenter {
     private List<Result> resultsAfterCompare = new ArrayList<>();
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private ExerciseImageView imageView;
-    private int exeID;
 
-    public ExerciseImagePresenterImpl(ExerciseImageView exerciseImageView, int exeID) {
+    public ExerciseImagePresenterImpl(ExerciseImageView exerciseImageView) {
         this.imageView = exerciseImageView;
-        this.exeID = exeID;
     }
 
     @Override

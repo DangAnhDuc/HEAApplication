@@ -15,8 +15,8 @@ import com.example.heaapp.model.workout.Activities;
 import java.util.List;
 
 public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.ViewHolder> {
-    private Context context;
-    private List<Activities> activitiesList;
+    private final Context context;
+    private final List<Activities> activitiesList;
 
     public ActivitiesAdapter(Context context, List<Activities> activitiesList) {
         this.context = context;
@@ -43,7 +43,9 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.Vi
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tv_name, tv_time, tv_burnedEnergy;
+        final TextView tv_name;
+        final TextView tv_time;
+        final TextView tv_burnedEnergy;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);

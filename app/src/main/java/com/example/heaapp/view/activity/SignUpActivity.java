@@ -120,8 +120,4 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
         return this;
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
 }

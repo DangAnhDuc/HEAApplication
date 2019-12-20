@@ -1,7 +1,5 @@
 package com.example.heaapp.presenter;
 
-import android.content.Context;
-
 import com.example.heaapp.callback.OnTransactionCallback;
 import com.example.heaapp.model.food.Data;
 import com.example.heaapp.service.RealmService;
@@ -16,7 +14,7 @@ public class FoodAddingPresenterImpl implements FoodAddingPresenter, OnTransacti
     private RealmService realmService;
     private String foodTime;
 
-    public FoodAddingPresenterImpl(FoodAddingView foodAddingView, Context context, RealmService realmService) {
+    public FoodAddingPresenterImpl(FoodAddingView foodAddingView, RealmService realmService) {
         this.foodAddingView = foodAddingView;
         this.realmService = realmService;
     }

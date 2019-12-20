@@ -5,7 +5,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,14 +60,9 @@ public class HealthInfoFragment extends BaseFragment implements HealthInforView,
     private HealthInfoPresenterImpl healthInfoPresenter;
     private Unbinder unbinder;
 
-    @Override
-    public BaseFragment provideYourFragment() {
-        return new HealthInfoFragment();
-    }
-
     @SuppressLint("ResourceAsColor")
     @Override
-    public View provideYourFragmentView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
+    public View provideYourFragmentView(LayoutInflater inflater, ViewGroup parent) {
         View view = inflater.inflate(R.layout.fragment_health_infor, parent, false);
 
         unbinder = ButterKnife.bind(this, view);
@@ -90,11 +84,6 @@ public class HealthInfoFragment extends BaseFragment implements HealthInforView,
         if (isVisibleToUser && isResumed()) {
             onResume();
         }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
     }
 
     @Override

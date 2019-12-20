@@ -30,7 +30,6 @@ import com.example.heaapp.view.fragment.HealthInfoFragment;
 import com.example.heaapp.view.fragment.WorkoutFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -76,7 +75,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         initView();
 
         RealmService realmService = RealmService.getInstance();
-        homePresenter = new HomePresenterImpl(realmService, this);
+        homePresenter = new HomePresenterImpl(realmService);
         homePresenter.attachView(this);
         homePresenter.getCurrentUser();
     }
@@ -197,7 +196,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     }
 
     @Override
-    public void setUser(FirebaseUser user) {
+    public void setUser() {
 
     }
 
@@ -309,8 +308,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
 
     private int getShareFrefFlagLang(){
         SharedPreferences sharedPreferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
-        int flag = sharedPreferences.getInt("FlagLang", 2);
-        return flag;
+        return sharedPreferences.getInt("FlagLang", 2);
     }
 
 

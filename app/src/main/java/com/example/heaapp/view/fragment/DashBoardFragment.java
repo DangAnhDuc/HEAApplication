@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.InputType;
@@ -53,7 +52,6 @@ import butterknife.Unbinder;
 import smartdevelop.ir.eram.showcaseviewlib.GuideView;
 import smartdevelop.ir.eram.showcaseviewlib.config.DismissType;
 import smartdevelop.ir.eram.showcaseviewlib.config.Gravity;
-import smartdevelop.ir.eram.showcaseviewlib.listener.GuideListener;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -135,12 +133,7 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
 
 
     @Override
-    public BaseFragment provideYourFragment() {
-        return new DashBoardFragment();
-    }
-
-    @Override
-    public View provideYourFragmentView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
+    public View provideYourFragmentView(LayoutInflater inflater, ViewGroup parent) {
         View view = inflater.inflate(R.layout.fragment_dash_board, parent, false);
         unbinder = ButterKnife.bind(this, view);
         RealmService realmService = RealmService.getInstance();
@@ -152,12 +145,9 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
         RecyclerView.LayoutManager layoutManagerEx = new LinearLayoutManager(getContext());
         rcviewActivities.setLayoutManager(layoutManagerEx);
         setClickable(false);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (!restoreTourGuidePrefsData()) {
-                    loadGuideTour();
-                }
+        new Handler().postDelayed(() -> {
+            if (!restoreTourGuidePrefsData()) {
+                loadGuideTour();
             }
         }, 1000);
         view.setOnTouchListener((v, event) -> {
@@ -211,37 +201,34 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
                 .setGravity(Gravity.center)
                 .setDismissType(DismissType.outside)
                 .setTargetView(cardViewIndex)
-                .setGuideListener(new GuideListener() {
-                    @Override
-                    public void onDismiss(View view) {
-                        switch (view.getId()) {
-                            case R.id.cardView_index:
-                                guideViewBuilder.setTitle("Water adding");
-                                guideViewBuilder.setContentText("Observe and add amount of water you have drank");
-                                guideViewBuilder.setTargetView(cardViewWater).build();
-                                break;
-                            case R.id.cardView_water:
-                                guideViewBuilder.setTitle("Food adding");
-                                guideViewBuilder.setContentText("All food you eat should be add here");
-                                guideViewBuilder.setTargetView(cardViewFood).build();
-                                break;
-                            case R.id.cardView_food:
-                                scrollView.scrollTo(0, cardViewActivity.getTop());
-                                guideViewBuilder.setTitle("Activity adding");
-                                guideViewBuilder.setContentText("Record and calculate energy through your activities");
-                                guideViewBuilder.setTargetView(cardViewActivity).build();
-                                break;
-                            case R.id.cardView_activity:
-                                guideViewBuilder.setTitle("Body indices");
-                                guideViewBuilder.setContentText("All information about your body!");
-                                guideViewBuilder.setTargetView(cardViewBoyIndices).build();
-                                break;
-                            case R.id.cardView_boyIndices:
-                                return;
-                        }
-                        guideView = guideViewBuilder.build();
-                        guideView.show();
+                .setGuideListener(view -> {
+                    switch (view.getId()) {
+                        case R.id.cardView_index:
+                            guideViewBuilder.setTitle("Water adding");
+                            guideViewBuilder.setContentText("Observe and add amount of water you have drank");
+                            guideViewBuilder.setTargetView(cardViewWater).build();
+                            break;
+                        case R.id.cardView_water:
+                            guideViewBuilder.setTitle("Food adding");
+                            guideViewBuilder.setContentText("All food you eat should be add here");
+                            guideViewBuilder.setTargetView(cardViewFood).build();
+                            break;
+                        case R.id.cardView_food:
+                            scrollView.scrollTo(0, cardViewActivity.getTop());
+                            guideViewBuilder.setTitle("Activity adding");
+                            guideViewBuilder.setContentText("Record and calculate energy through your activities");
+                            guideViewBuilder.setTargetView(cardViewActivity).build();
+                            break;
+                        case R.id.cardView_activity:
+                            guideViewBuilder.setTitle("Body indices");
+                            guideViewBuilder.setContentText("All information about your body!");
+                            guideViewBuilder.setTargetView(cardViewBoyIndices).build();
+                            break;
+                        case R.id.cardView_boyIndices:
+                            return;
                     }
+                    guideView = guideViewBuilder.build();
+                    guideView.show();
                 });
 
         guideView = guideViewBuilder.build();

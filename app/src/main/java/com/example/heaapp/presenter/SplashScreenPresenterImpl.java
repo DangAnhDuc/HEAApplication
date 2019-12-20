@@ -86,7 +86,7 @@ public class SplashScreenPresenterImpl implements SplashScreenPresenter, OnTrans
             disposableFood = foodApiServices.getFoods(idFood)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
-                    .subscribe(this::handleResponse, this::handleError, this::handleSuccess);
+                    .subscribe(this::handleResponse, throwable -> handleError(), this::handleSuccess);
             compositeDisposable.add(disposableFood);
         }
     }
@@ -103,15 +103,14 @@ public class SplashScreenPresenterImpl implements SplashScreenPresenter, OnTrans
     private String getShareFrefLang(){
         SharedPreferences sharedPreferences = context.getSharedPreferences("Settings", Activity.MODE_PRIVATE);
         String sysLang = Locale.getDefault().getLanguage();
-        String lang = sharedPreferences.getString("Lang", sysLang);
-        return lang;
+        return sharedPreferences.getString("Lang", sysLang);
     }
 
     private void handleSuccess() {
 
     }
 
-    private void handleError(Throwable throwable) {
+    private void handleError() {
 
     }
 

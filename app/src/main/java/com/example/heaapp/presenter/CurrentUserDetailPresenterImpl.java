@@ -204,9 +204,7 @@ public class CurrentUserDetailPresenterImpl implements CurrentUserDetailPresente
                 } else {
                     currentUserDetailView.displayUploadFailed();
                 }
-            }).addOnFailureListener(e -> {
-                currentUserDetailView.displayUploadError(e.getMessage());
-            });
+            }).addOnFailureListener(e -> currentUserDetailView.displayUploadError(e.getMessage()));
         } else {
             currentUserDetailView.displayNoImageSelected();
         }

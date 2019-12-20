@@ -42,7 +42,6 @@ public class HealthInfoPresenterImpl implements HealthInfoPresenter {
     private HealthInforView healthInforView;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private Context context;
-    private FusedLocationProviderClient fusedLocationProviderClient;
     private LocationCallback locationCallback;
     private LocationRequest locationRequest;
 
@@ -106,7 +105,7 @@ public class HealthInfoPresenterImpl implements HealthInfoPresenter {
             healthInforView.locationDisable();
         }
 
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context);
+        FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context);
         fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
     }
 

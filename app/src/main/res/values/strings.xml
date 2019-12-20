@@ -111,7 +111,7 @@
     <string name="title_running_normal">Running slow, 6.7 mph</string>
     <string name="title_running_fast">Running fast,14 mph</string>
     <string name="title_cycling_slow">Cycling slow, 5.5 mph</string>
-    <string name="title_cycling_normal">Cycling normal, 12-13.9 mph</string>
+    <string name="title_cycling_normal">Cycling normal, 12–13.9 mph</string>
     <string name="title_cycling_fast">Cycling fast, 20 mph</string>
     <string name="title_rope_jumping">Rope jumping</string>
     <string name="title_breakfast">Breakfast</string>

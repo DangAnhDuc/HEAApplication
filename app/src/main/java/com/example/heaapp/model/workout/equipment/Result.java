@@ -1,10 +1,10 @@
-package com.example.heaapp.model.workout.Category;
+package com.example.heaapp.model.workout.equipment;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+public class Result {
 
-public class Results {
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -27,4 +27,5 @@ public class Results {
     public void setName(String name) {
         this.name = name;
     }
+
 }

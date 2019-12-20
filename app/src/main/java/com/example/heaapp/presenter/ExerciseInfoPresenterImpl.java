@@ -4,10 +4,10 @@ import android.util.Log;
 
 import com.example.heaapp.api.ApiUtils;
 import com.example.heaapp.api.WorkoutApiService;
-import com.example.heaapp.model.workout.Equipment.Equipment;
-import com.example.heaapp.model.workout.Equipment.Result;
-import com.example.heaapp.model.workout.Muscle.ListMuscle;
-import com.example.heaapp.model.workout.Muscle.Muscle;
+import com.example.heaapp.model.workout.equipment.Equipment;
+import com.example.heaapp.model.workout.equipment.Result;
+import com.example.heaapp.model.workout.muscle.ListMuscle;
+import com.example.heaapp.model.workout.muscle.Muscle;
 import com.example.heaapp.view.activity.ExerciseInfoView;
 
 import java.util.ArrayList;

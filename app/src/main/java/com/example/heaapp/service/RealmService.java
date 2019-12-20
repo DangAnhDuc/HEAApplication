@@ -1,9 +1,5 @@
 package com.example.heaapp.service;
 
-import android.util.Log;
-
-import androidx.annotation.NonNull;
-
 import com.example.heaapp.callback.OnTransactionCallback;
 import com.example.heaapp.model.food.Dishes;
 import com.example.heaapp.model.reminder.TimeReminder;
@@ -13,8 +9,8 @@ import com.example.heaapp.model.user_information.DailySummary;
 import com.example.heaapp.model.user_information.User;
 import com.example.heaapp.model.workout.Activities;
 import com.example.heaapp.ultis.Common;
+
 import io.realm.Realm;
-import io.realm.Realm.Transaction;
 import io.realm.RealmList;
 import io.realm.RealmResults;
 

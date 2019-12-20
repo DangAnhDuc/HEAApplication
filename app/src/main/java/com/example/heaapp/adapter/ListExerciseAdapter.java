@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView.Adapter;
 
 import com.example.heaapp.R;
 import com.example.heaapp.callback.ListExerciseListener;
-import com.example.heaapp.model.workout.ExerciseInfo.ItemExercise;
+import com.example.heaapp.model.workout.exerciseInfo.ItemExercise;
 
 import java.util.List;
 

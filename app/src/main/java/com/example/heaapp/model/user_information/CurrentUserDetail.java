@@ -1,7 +1,6 @@
 package com.example.heaapp.model.user_information;
 
 import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
 
 public class CurrentUserDetail extends RealmObject {
     private long id;

@@ -12,7 +12,7 @@ import com.example.heaapp.R;
 
 public class SpinnerAdapter extends BaseAdapter {
     Context context;
-    int icons[];
+    private int[] icons;
     String[] names;
     LayoutInflater inflater;
 

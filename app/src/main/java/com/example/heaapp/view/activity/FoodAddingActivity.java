@@ -17,10 +17,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.heaapp.Helper.MySwipeHelper;
 import com.example.heaapp.R;
 import com.example.heaapp.adapter.FoodAdapter;
 import com.example.heaapp.adapter.SpinnerAdapter;
+import com.example.heaapp.helper.MySwipeHelper;
 import com.example.heaapp.model.food.Data;
 import com.example.heaapp.presenter.FoodAddingPresenterImpl;
 import com.example.heaapp.service.RealmService;
@@ -75,7 +75,7 @@ public class FoodAddingActivity extends AppCompatActivity implements FoodAddingV
         foodAddingToolbar.setNavigationOnClickListener(v -> finish());
 
         RealmService realmService = RealmService.getInstance();
-        foodAddingPresenter = new FoodAddingPresenterImpl(this, getContext(), realmService);
+        foodAddingPresenter = new FoodAddingPresenterImpl(this, realmService);
         foodRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         foodRecyclerView.setLayoutManager(layoutManager);
@@ -126,17 +126,12 @@ public class FoodAddingActivity extends AppCompatActivity implements FoodAddingV
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
     public void crawlDataSuccess(List<Data> foodList) {
         FoodAdapter foodAdapter = new FoodAdapter(getContext(), foodList);
         foodRecyclerView.setAdapter(foodAdapter);
         MySwipeHelper swipeHelper = new MySwipeHelper(this, foodRecyclerView, 200) {
             @Override
-            protected void instantiateMyButton(RecyclerView.ViewHolder viewHolder, List<MyButton> buffer) {
+            protected void instantiateMyButton(List<MyButton> buffer) {
                 buffer.add(new MyButton(FoodAddingActivity.this,
                         "ADD", 30, 0, Color.parseColor("#0E9577"),
                         pos -> foodAddingPresenter.addDishes(foodList.get(pos), foodTime)));

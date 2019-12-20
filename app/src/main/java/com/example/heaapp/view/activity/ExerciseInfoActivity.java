@@ -11,8 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.heaapp.R;
-import com.example.heaapp.model.workout.Equipment.Result;
-import com.example.heaapp.model.workout.Muscle.ListMuscle;
+import com.example.heaapp.model.workout.equipment.Result;
+import com.example.heaapp.model.workout.muscle.ListMuscle;
 import com.example.heaapp.presenter.ExerciseInfoPresenter;
 import com.example.heaapp.presenter.ExerciseInfoPresenterImpl;
 import com.example.heaapp.ultis.ultis;
