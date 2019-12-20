@@ -181,6 +181,7 @@ public class HealthReportActivity extends AppCompatActivity implements HealthRep
 
     @Override
     public void createPieChart(PieChart pieChart, float[] yData, String[] xData) {
+        imgNorecord.setVisibility(View.GONE);
         ArrayList<PieEntry> yEntrys = new ArrayList<>();
 
         for (int i = 0; i < yData.length; i++) {

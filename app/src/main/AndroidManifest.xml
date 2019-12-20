@@ -39,7 +39,9 @@
         <activity android:name=".view.activity.LoginActivity" />
         <activity android:name=".view.activity.OnboardingActivity" />
         <activity android:name=".view.activity.ExerciseWorkoutActivity" />
-        <activity android:name=".view.activity.SplashScreenActivity">
+        <activity
+            android:name=".view.activity.SplashScreenActivity"
+            android:theme="@style/SplashscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

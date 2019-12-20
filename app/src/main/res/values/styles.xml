@@ -10,7 +10,9 @@
         <item name="android:editTextColor">@android:color/black</item>
     </style>
 
-
+    <style name="SplashscreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/bg_splashcreen</item>
+    </style>
     <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:paddingBottom">8dp</item>
     </style>
@@ -56,13 +58,10 @@
         </item>
     </style>
 
-
-
     <style name="HintTextStyle" parent="TextAppearance.Design.Hint">
         <item name="android:textSize">15sp</item>
         <item name="android:colorAccent">@color/colorPrimaryDark</item>
     </style>
-
 
     <style name="SpotsDialog" parent="android:Theme.DeviceDefault.Dialog">
         <item name="DialogTitleAppearance">@android:style/TextAppearance.Medium</item>
