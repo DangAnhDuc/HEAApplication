@@ -1,4 +1,4 @@
-package com.example.heaapp.view.activity;
+package com.example.heaapp.view.fragment;
 
 import com.example.heaapp.base.BaseView;
 import com.example.heaapp.model.workout.ExerciseInfo.ItemExercise;

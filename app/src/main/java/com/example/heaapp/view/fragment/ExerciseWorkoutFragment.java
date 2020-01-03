@@ -2,12 +2,9 @@ package com.example.heaapp.view.fragment;
 
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.example.heaapp.R;
 import com.example.heaapp.adapter.ListExerciseAdapter;
@@ -26,24 +22,21 @@ import com.example.heaapp.presenter.ExerciseWorkoutPresenter;
 import com.example.heaapp.presenter.ExerciseWorkoutPresenterImpl;
 import com.example.heaapp.ultis.ultis;
 import com.example.heaapp.view.activity.ExerciseInfoActivity;
-import com.example.heaapp.view.activity.ExerciseWorkoutView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import dmax.dialog.SpotsDialog;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ExerciseWorkoutFragment extends BaseFragment implements ExerciseWorkoutView {
-    @BindView(R.id.exerciseToolbar)
-    Toolbar exerciseToolBar;
-    @BindView(R.id.exeText)
-    TextView exeText;
+//    @BindView(R.id.exeText)
+//    TextView exeText;
     @BindView(R.id.list_exercise_fragment)
     RecyclerView recyclerViewList;
     @BindView(R.id.linearListExercise)
@@ -62,12 +55,16 @@ public class ExerciseWorkoutFragment extends BaseFragment implements ExerciseWor
     @Override
     public View provideYourFragmentView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_exercise_workout, parent, false);
-        unbinder = ButterKnife.bind(getContext(), view);
+        unbinder = ButterKnife.bind(this, view);
 
-//        String a = this.getArguments().getString("CategoryName");
-        int categoryID ;
-        Bundle bundle = getArguments();
-        categoryID = bundle.getInt("CategoryID");
+        dialog = new SpotsDialog.Builder()
+                .setContext(getContext())
+                .setMessage(getString(R.string.msg_loading))
+                .setTheme(R.style.SpotsDialog)
+                .setCancelable(false).build();
+        dialog.show();
+
+        int categoryID = this.getArguments().getInt("CategoryID");
 
         recyclerViewList.setHasFixedSize(true);
         exerciseWorkoutPresenter = new ExerciseWorkoutPresenterImpl(categoryID, this);
@@ -90,14 +87,18 @@ public class ExerciseWorkoutFragment extends BaseFragment implements ExerciseWor
         listExerciseAdapter = new ListExerciseAdapter(getContext(), list);
         recyclerViewList.setAdapter(listExerciseAdapter);
         listExerciseAdapter.notifyDataSetChanged();
+
+        ExerciseInfoFragment exerciseInfoFragment = new ExerciseInfoFragment();
+        Bundle bundl = new Bundle();
+
         listExerciseAdapter.setOnItemListener(listExercise -> {
-            Intent intent = new Intent(getContext(), ExerciseInfoActivity.class);
-            intent.putExtra("name",listExercise.getName());
-            intent.putExtra("description",listExercise.getDescription());
-            intent.putExtra("id",listExercise.getId());
-            intent.putIntegerArrayListExtra("muscles", (ArrayList<Integer>) listExercise.getMuscles());
-            intent.putIntegerArrayListExtra("equipment", (ArrayList<Integer>) listExercise.getEquipment());
-            startActivity(intent);
+            bundl.putInt("id",listExercise.getId());
+            bundl.putString("name",listExercise.getName());
+            bundl.putString("description",listExercise.getDescription());
+            bundl.putIntegerArrayList("muscles",(ArrayList<Integer>) listExercise.getMuscles());
+            bundl.putIntegerArrayList("equipment",(ArrayList<Integer>) listExercise.getEquipment());
+            exerciseInfoFragment.setArguments(bundl);
+            getFragmentManager().beginTransaction().replace(R.id.ExerciseFragment,exerciseInfoFragment).commit();
         });
     }
 

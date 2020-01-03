@@ -1,14 +1,10 @@
 package com.example.heaapp.view.fragment;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
 import com.example.heaapp.R;
@@ -17,16 +13,13 @@ import com.example.heaapp.base.BaseFragment;
 import com.example.heaapp.model.workout.Category.Results;
 import com.example.heaapp.presenter.WorkoutPresenter;
 import com.example.heaapp.presenter.WorkoutPresenterImpl;
-import com.example.heaapp.ultis.ultis;
 import com.example.heaapp.view.activity.ExerciseActivity;
-import com.example.heaapp.view.activity.ExerciseWorkoutActivity;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import dmax.dialog.SpotsDialog;
 
 
 public class WorkoutFragment extends BaseFragment implements WorkoutView {
@@ -60,13 +53,6 @@ public class WorkoutFragment extends BaseFragment implements WorkoutView {
             intent.putExtra("CategoryID", results1.getId());
             intent.putExtra("CategoryName", results1.getName());
             startActivity(intent);
-
-//        ultis.setIntent(getActivity(),ExerciseActivity.class);
-//        Bundle bundle = new Bundle();
-//        bundle.putString("CategoryName",results1.getName());
-//        bundle.putInt("CategoryID",results1.getId());
-//        ExerciseWorkoutFragment fragment = new ExerciseWorkoutFragment();
-//        fragment.setArguments(bundle);
         });
     }
 
