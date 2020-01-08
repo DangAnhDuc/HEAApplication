@@ -4,7 +4,7 @@ import com.example.heaapp.api.ApiUtils;
 import com.example.heaapp.api.WorkoutApiService;
 import com.example.heaapp.model.workout.ExerciseImage.ExerciseImage;
 import com.example.heaapp.model.workout.ExerciseImage.Result;
-import com.example.heaapp.view.activity.ExerciseImageView;
+import com.example.heaapp.view.fragment.ExerciseImageView;
 
 import java.util.ArrayList;
 import java.util.List;

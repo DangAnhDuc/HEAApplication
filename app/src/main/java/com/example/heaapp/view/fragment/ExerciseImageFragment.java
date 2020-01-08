@@ -7,15 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import androidx.appcompat.widget.Toolbar;
-
 import com.bumptech.glide.Glide;
 import com.example.heaapp.R;
 import com.example.heaapp.base.BaseFragment;
 import com.example.heaapp.model.workout.ExerciseImage.Result;
 import com.example.heaapp.presenter.ExerciseImagePresenter;
 import com.example.heaapp.presenter.ExerciseImagePresenterImpl;
-import com.example.heaapp.view.activity.ExerciseImageView;
 
 import java.util.List;
 
