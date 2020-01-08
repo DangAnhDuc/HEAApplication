@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -17,6 +16,7 @@ import com.example.heaapp.model.workout.Muscle.ListMuscle;
 import com.example.heaapp.presenter.ExerciseInfoPresenter;
 import com.example.heaapp.presenter.ExerciseInfoPresenterImpl;
 import com.example.heaapp.ultis.ultis;
+import com.example.heaapp.view.fragment.ExerciseInfoView;
 
 import java.util.ArrayList;
 import java.util.List;

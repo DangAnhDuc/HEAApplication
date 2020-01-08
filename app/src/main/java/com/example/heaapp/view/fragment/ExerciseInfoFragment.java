@@ -1,6 +1,5 @@
 package com.example.heaapp.view.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -9,8 +8,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.appcompat.widget.Toolbar;
-
 import com.example.heaapp.R;
 import com.example.heaapp.base.BaseFragment;
 import com.example.heaapp.model.workout.Equipment.Result;
@@ -18,8 +15,6 @@ import com.example.heaapp.model.workout.Muscle.ListMuscle;
 import com.example.heaapp.presenter.ExerciseInfoPresenter;
 import com.example.heaapp.presenter.ExerciseInfoPresenterImpl;
 import com.example.heaapp.ultis.ultis;
-import com.example.heaapp.view.activity.ExerciseImageActivity;
-import com.example.heaapp.view.activity.ExerciseInfoView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,11 +58,16 @@ public class ExerciseInfoFragment extends BaseFragment implements ExerciseInfoVi
 
 //        txtNameToolBar.setText(Html.fromHtml("<p>" + bundle.getString("name") + "</p>"));
         txtExeInfoDes.setText(Html.fromHtml(bundle.getString("description")));
-
+        ExerciseImageFragment exerciseImageFragment = new ExerciseImageFragment();
         btnExe.setOnClickListener(v -> {
 //            Intent intent = new Intent(this, ExerciseImageActivity.class);
 //            intent.putExtra("exerID", exeId);
 //            startActivity(intent);
+
+            Bundle bundle1 = new Bundle();
+            bundle1.putInt("exerID",exeId);
+            exerciseImageFragment.setArguments(bundle1);
+            getFragmentManager().beginTransaction().replace(R.id.ExerciseFragment,exerciseImageFragment).commit();
         });
         return view;
     }
