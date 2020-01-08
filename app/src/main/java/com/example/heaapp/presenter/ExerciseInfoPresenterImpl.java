@@ -8,7 +8,7 @@ import com.example.heaapp.model.workout.Equipment.Equipment;
 import com.example.heaapp.model.workout.Equipment.Result;
 import com.example.heaapp.model.workout.Muscle.ListMuscle;
 import com.example.heaapp.model.workout.Muscle.Muscle;
-import com.example.heaapp.view.activity.ExerciseInfoView;
+import com.example.heaapp.view.fragment.ExerciseInfoView;
 
 import java.util.ArrayList;
 import java.util.List;

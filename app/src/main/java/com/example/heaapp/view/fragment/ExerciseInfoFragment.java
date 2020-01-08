@@ -1,60 +1,52 @@
-package com.example.heaapp.view.activity;
+package com.example.heaapp.view.fragment;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import com.example.heaapp.R;
+import com.example.heaapp.base.BaseFragment;
 import com.example.heaapp.model.workout.Equipment.Result;
 import com.example.heaapp.model.workout.Muscle.ListMuscle;
 import com.example.heaapp.presenter.ExerciseInfoPresenter;
 import com.example.heaapp.presenter.ExerciseInfoPresenterImpl;
 import com.example.heaapp.ultis.ultis;
-import com.example.heaapp.view.fragment.ExerciseInfoView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
-public class ExerciseInfoActivity extends AppCompatActivity implements ExerciseInfoView {
+public class ExerciseInfoFragment extends BaseFragment implements ExerciseInfoView {
 
-    @BindView(R.id.exerciseInfoToolbar)
-    Toolbar exerInfoToolBar;
-    @BindView(R.id.exercise_info_name)
-    TextView txtExeInfoName;
-    @BindView(R.id.exercise_info_description)
+
+    @BindView(R.id.exercise_info_description_fragment)
     TextView txtExeInfoDes;
-    @BindView(R.id.exercise_info_muscle)
+    @BindView(R.id.exercise_info_muscle_fragment)
     TextView txtExeInfoMus;
-    @BindView(R.id.exercise_info_equipment)
+    @BindView(R.id.exercise_info_equipment_fragment)
     TextView txtExeInfoEquip;
-    @BindView(R.id.btnExerInfo)
+    @BindView(R.id.btnExer_Info_fragment)
     Button btnExe;
-
+//    @BindView(R.id.workout_name)
+//    TextView txtNameToolBar;
+    private Unbinder unbinder;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_exercise_info);
-        ButterKnife.bind(this);
-        initView();
+    public BaseFragment provideYourFragment() {
+        return new ExerciseInfoFragment();
     }
 
-    private void initView() {
-        setSupportActionBar(exerInfoToolBar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        exerInfoToolBar.setNavigationOnClickListener(v -> finish());
-
-        Bundle bundle = getIntent().getExtras();
+    @Override
+    public View provideYourFragmentView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_exercise_info, parent, false);
+        unbinder = ButterKnife.bind(this, view);
+        Bundle bundle = getArguments();
         int exeId;
         assert bundle != null;
         ArrayList<Integer> CateID = bundle.getIntegerArrayList("muscles");
@@ -64,14 +56,20 @@ public class ExerciseInfoActivity extends AppCompatActivity implements ExerciseI
         exerciseInfoPresenter.getListMuscle();
         exerciseInfoPresenter.getListEquipment();
 
-        txtExeInfoName.setText(Html.fromHtml("<p>" + bundle.getString("name") + "</p>"));
+//        txtNameToolBar.setText(Html.fromHtml("<p>" + bundle.getString("name") + "</p>"));
         txtExeInfoDes.setText(Html.fromHtml(bundle.getString("description")));
-
+        ExerciseImageFragment exerciseImageFragment = new ExerciseImageFragment();
         btnExe.setOnClickListener(v -> {
-            Intent intent = new Intent(this, ExerciseImageActivity.class);
-            intent.putExtra("exerID", exeId);
-            startActivity(intent);
+//            Intent intent = new Intent(this, ExerciseImageActivity.class);
+//            intent.putExtra("exerID", exeId);
+//            startActivity(intent);
+
+            Bundle bundle1 = new Bundle();
+            bundle1.putInt("exerID",exeId);
+            exerciseImageFragment.setArguments(bundle1);
+            getFragmentManager().beginTransaction().replace(R.id.ExerciseFragment,exerciseImageFragment).commit();
         });
+        return view;
     }
 
     @Override
@@ -109,8 +107,8 @@ public class ExerciseInfoActivity extends AppCompatActivity implements ExerciseI
     }
 
     @Override
-    public Context getContext() {
-        return this;
-
+    public void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
     }
 }
