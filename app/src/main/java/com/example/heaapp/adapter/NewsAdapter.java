@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -38,7 +39,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.bind(articles.get(position), listener);
-        //holder.container.setAnimation(AnimationUtils.loadAnimation(context, R.anim.news_animation));
+        holder.container.setAnimation(AnimationUtils.loadAnimation(context, R.anim.news_animation));
         holder.tv_title.setText(articles.get(position).getTitle());
         holder.tv_description.setText(articles.get(position).getDescription());
         Glide.with(context).load(articles.get(position).getUrlToImage()).into(holder.img_news);

@@ -12,4 +12,6 @@ public interface HealthInforView extends BaseView {
     void getCityInfoSuccess(CityInfor cityInfor);
     void permissionDenied();
     void locationDisable();
+
+    void displayWeatherField(Boolean isEnable);
 }

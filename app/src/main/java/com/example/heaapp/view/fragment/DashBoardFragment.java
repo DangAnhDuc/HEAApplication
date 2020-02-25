@@ -3,6 +3,7 @@ package com.example.heaapp.view.fragment;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -89,6 +91,8 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
     TextView tvDailyCal;
     @BindView(R.id.rcview_activities)
     RecyclerView rcviewActivities;
+    @BindView(R.id.nested_scrollview_dashboard)
+    NestedScrollView nestedScrollviewDashboard;
 
 
     private DashboardPresenterImpl dashboardPresenter;
@@ -108,6 +112,23 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
         return new DashBoardFragment();
     }
 
+    public static void enableDisableViewGroup(ViewGroup viewGroup, boolean enabled) {
+        int childCount = viewGroup.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            View view = viewGroup.getChildAt(i);
+            view.setEnabled(enabled);
+            if (view instanceof ViewGroup) {
+                enableDisableViewGroup((ViewGroup) view, enabled);
+            }
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        dashboardPresenter.getDailySummary();
+    }
+
     @Override
     public View provideYourFragmentView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
 
@@ -117,11 +138,11 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
         dashboardPresenter = new DashboardPresenterImpl(getContext(), this, realmService);
         dashboardPresenter.getDailySummary();
         dashboardPresenter.getCurrentUserIndices();
-
         rcviewActivities.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManagerEx = new LinearLayoutManager(getContext());
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
+        enableDisableViewGroup(nestedScrollviewDashboard, sharedPreferences.getBoolean("isEntered", false));
         rcviewActivities.setLayoutManager(layoutManagerEx);
-
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -132,12 +153,6 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
             }
         });
         return view;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        dashboardPresenter.getDailySummary();
     }
 
     @Override
@@ -168,6 +183,9 @@ public class DashBoardFragment extends BaseFragment implements DashboardView {
             builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
+        } else {
+            enableDisableViewGroup(nestedScrollviewDashboard, isEntered);
+
         }
     }
 

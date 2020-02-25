@@ -54,22 +54,25 @@ public class HealthInfoPresenterImpl implements HealthInfoPresenter {
     //get latest news and weather data
     @Override
     public void getLatestData() {
-        NewsApiServices newsApiServices = ApiUtils.getNewsApiService();
-        Disposable disposableNews = newsApiServices.getNews()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(this::handleResponse, this::handleError, this::handleSuccess);
-
         WeatherApiServices weatherApiServices = ApiUtils.getWeatherApiService();
         Disposable disposableWeather = weatherApiServices.getNearestCity(String.valueOf(Common.current_location.getLatitude()),
                 String.valueOf(Common.current_location.getLongitude()), Common.APIKEY)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::handleResponse, this::handleError, this::handleSuccess);
-        compositeDisposable.add(disposableNews);
         compositeDisposable.add(disposableWeather);
     }
 
+    @Override
+    public void getNewsData() {
+        NewsApiServices newsApiServices = ApiUtils.getNewsApiService();
+        Disposable disposableNews = newsApiServices.getNews()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(this::handleResponse, this::handleError, this::handleSuccess);
+        compositeDisposable.add(disposableNews);
+
+    }
     @Override
     public void disposeApi() {
         compositeDisposable.dispose();
@@ -104,8 +107,10 @@ public class HealthInfoPresenterImpl implements HealthInfoPresenter {
         }
         if(!isLocationEnabled(context)){
             healthInforView.locationDisable();
+            healthInforView.displayWeatherField(false);
+        } else {
+            healthInforView.displayWeatherField(true);
         }
-
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context);
         fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
     }
@@ -143,6 +148,7 @@ public class HealthInfoPresenterImpl implements HealthInfoPresenter {
 
     private void handleResponse(CityInfor cityInfor) {
         healthInforView.getCityInfoSuccess(cityInfor);
+        healthInforView.displayWeatherField(true);
     }
 
     private void handleSuccess() {
@@ -150,6 +156,7 @@ public class HealthInfoPresenterImpl implements HealthInfoPresenter {
 
     private void handleError(Throwable throwable) {
         healthInforView.getLatestDataFailed("Error" + throwable.getLocalizedMessage());
+        healthInforView.displayWeatherField(false);
     }
 
     private void handleResponse(News news) {
