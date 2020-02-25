@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.core.app.ActivityCompat;
@@ -58,6 +59,12 @@ public class HealthInfoFragment extends BaseFragment implements HealthInforView,
     TextView tvLocation;
     @BindView(R.id.tv_timestamp)
     TextView tvTimestamp;
+    @BindView(R.id.title_windspeed)
+    TextView titleWindspeed;
+    @BindView(R.id.layout_weather)
+    LinearLayout layoutWeather;
+    @BindView(R.id.layout_animation_view)
+    LinearLayout layoutAnimationView;
     private HealthInfoPresenterImpl healthInfoPresenter;
     private Unbinder unbinder;
 
@@ -104,6 +111,7 @@ public class HealthInfoFragment extends BaseFragment implements HealthInforView,
             return;
         }
         swipeRefreshLayout.setRefreshing(true);
+        healthInfoPresenter.getNewsData();
         healthInfoPresenter.permissionRequest();
     }
 
@@ -131,6 +139,7 @@ public class HealthInfoFragment extends BaseFragment implements HealthInforView,
     @SuppressLint("DefaultLocale")
     @Override
     public void getCityInfoSuccess(CityInfor cityInfor) {
+        swipeRefreshLayout.setRefreshing(false);
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("weatherPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("temperature", cityInfor.getData().getCurrent().getWeather().getTp().toString());
@@ -164,15 +173,27 @@ public class HealthInfoFragment extends BaseFragment implements HealthInforView,
     @Override
     public void permissionDenied() {
         swipeRefreshLayout.setRefreshing(false);
+        displayWeatherField(false);
         ultis.showWarningMessage(getContext(), "Please allow location permission!");
     }
 
     @Override
     public void locationDisable() {
+        displayWeatherField(false);
         swipeRefreshLayout.setRefreshing(false);
-        ultis.showWarningMessage(getContext(),"Please enable GPS!");
     }
 
+    @Override
+    public void displayWeatherField(Boolean isEnable) {
+        if (!isEnable) {
+            layoutWeather.setVisibility(View.GONE);
+            layoutAnimationView.setVisibility(View.VISIBLE);
+        } else {
+            layoutWeather.setVisibility(View.VISIBLE);
+            layoutAnimationView.setVisibility(View.GONE);
+        }
+
+    }
 
     @Override
     public void getLatestDataFailed(String message) {
@@ -187,6 +208,8 @@ public class HealthInfoFragment extends BaseFragment implements HealthInforView,
             permissionDenied();
         } else {
             healthInfoPresenter.setLocation();
+            healthInfoPresenter.getNewsData();
+
         }
     }
 }

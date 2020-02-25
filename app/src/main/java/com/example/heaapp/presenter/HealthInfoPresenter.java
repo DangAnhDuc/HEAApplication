@@ -5,6 +5,9 @@ import com.example.heaapp.view.fragment.HealthInforView;
 
 public interface HealthInfoPresenter extends BasePresenter<HealthInforView> {
     void getLatestData();
+
+    void getNewsData();
+
     void disposeApi();
 
     void permissionRequest();
