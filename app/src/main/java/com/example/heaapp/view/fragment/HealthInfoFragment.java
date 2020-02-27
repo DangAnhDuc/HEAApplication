@@ -140,6 +140,7 @@ public class HealthInfoFragment extends BaseFragment implements HealthInforView,
     @Override
     public void getCityInfoSuccess(CityInfor cityInfor) {
         swipeRefreshLayout.setRefreshing(false);
+        displayWeatherField(true);
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("weatherPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("temperature", cityInfor.getData().getCurrent().getWeather().getTp().toString());

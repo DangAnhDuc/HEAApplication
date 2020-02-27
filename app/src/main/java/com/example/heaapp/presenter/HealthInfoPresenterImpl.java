@@ -80,6 +80,7 @@ public class HealthInfoPresenterImpl implements HealthInfoPresenter {
 
     @Override
     public void permissionRequest() {
+        healthInforView.displayWeatherField(false);
         Dexter.withActivity((Activity) context)
                 .withPermissions(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
                 .withListener(new MultiplePermissionsListener() {
@@ -110,6 +111,7 @@ public class HealthInfoPresenterImpl implements HealthInfoPresenter {
             healthInforView.displayWeatherField(false);
         } else {
             healthInforView.displayWeatherField(true);
+
         }
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context);
         fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
@@ -148,7 +150,6 @@ public class HealthInfoPresenterImpl implements HealthInfoPresenter {
 
     private void handleResponse(CityInfor cityInfor) {
         healthInforView.getCityInfoSuccess(cityInfor);
-        healthInforView.displayWeatherField(true);
     }
 
     private void handleSuccess() {

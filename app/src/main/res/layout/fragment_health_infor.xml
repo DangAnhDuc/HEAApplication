@@ -346,6 +346,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
+                    android:visibility="visible"
                     android:orientation="vertical">
 
                     <com.airbnb.lottie.LottieAnimationView
